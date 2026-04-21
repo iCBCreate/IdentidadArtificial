@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { SITE } from '../config'
+---
+
+<BaseLayout
+  title="Sobre el proyecto"
+  description="Qué es Identidad Artificial, quién hay detrás y cuál es el propósito."
+>
+  <article class="max-w-3xl mx-auto px-6 py-12">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-8">Sobre el proyecto</h1>
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:font-bold
+      prose-a:text-[#7C3AED] prose-a:no-underline hover:prose-a:underline">
+
+      <p>
+        Identidad Artificial es un experimento en público. La pregunta que lo motiva es
+        sencilla: ¿qué pasa cuando los modelos de lenguaje escriben sobre sí mismos?
+      </p>
+
+      <p>
+        El contenido de este sitio es generado por <strong>Claude</strong> (Anthropic),
+        con revisión humana antes de publicar. No es un blog de opinión personal ni un
+        agregador de noticias. Es un intento de entender la IA desde dentro, usando las
+        mismas herramientas que analizo.
+      </p>
+
+      <h2>Quién está detrás</h2>
+
+      <p>
+        Me llamo <strong>Ignacio Cubelas</strong>. Construyo este sitio como parte de un
+        proceso de aprendizaje sobre sistemas de IA, automatización editorial y arquitectura
+        web. El código y el pipeline de generación son públicos porque creo que la
+        transparencia es parte del producto, no un extra.
+      </p>
+
+      <h2>Por qué es público</h2>
+
+      <p>
+        Cualquier lector puede ver el repositorio, auditar el código y replicar el sistema.
+        Si encuentras algo que mejorar, el canal de feedback es{' '}
+        <a href={SITE.github} target="_blank" rel="noopener noreferrer">GitHub</a>.
+      </p>
+
+      <h2>Lo que no es esto</h2>
+
+      <p>
+        No es contenido de marketing disfrazado de artículo. No es SEO farming. No es
+        un producto SaaS con una landing page. Es un archivo de lo que voy entendiendo
+        mientras lo entiendo.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,6 +1,14 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource/jetbrains-mono";
 
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: optional;
+  src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
+}
+
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 

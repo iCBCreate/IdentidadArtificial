@@ -9,7 +9,13 @@ export default defineConfig({
   srcDir: './source',
   trailingSlash: 'always',
   output: 'static',
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) =>
+        !page.includes('/pagina/') && !page.includes('/archivo/pagina/'),
+    }),
+  ],
   adapter: cloudflare(),
   build: {
     inlineStylesheets: 'always',

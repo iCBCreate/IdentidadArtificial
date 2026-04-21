@@ -18,7 +18,7 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
 })
 ---
 
-<article class="group border border-[#E5E5E5] dark:border-[#222222] rounded-lg overflow-hidden hover:border-[#7C3AED] transition-colors">
+<article class="group bg-[#24243A] border border-[#2E2E48] rounded-lg overflow-hidden hover:border-[#6D28D9] hover:shadow-[0_0_16px_rgba(109,40,217,0.10)] transition-all">
   {heroImage && (
     <a href={`/${slug}/`}>
       <img
@@ -33,21 +33,27 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
   )}
   <div class="p-5">
     <div class="flex items-center gap-2 mb-3 flex-wrap">
-      <span class="text-xs font-medium text-[#7C3AED] uppercase tracking-wide">
+      <span class="inline-block bg-[#6D28D9] text-white text-[9px] font-bold tracking-[1.5px] uppercase px-2 py-0.5 rounded-[3px]">
         {category}
       </span>
-      <span class="text-[#E5E5E5] dark:text-[#333333]">·</span>
-      <time class="text-xs text-[#666666] dark:text-[#999999]" datetime={pubDate.toISOString()}>
+      <span class="text-[#3A3A54]">·</span>
+      <time class="text-xs text-[#A0A0C0]" datetime={pubDate.toISOString()}>
         {formattedDate}
       </time>
-      <span class="text-[#E5E5E5] dark:text-[#333333]">·</span>
-      <span class="text-xs text-[#666666] dark:text-[#999999]">{readingTime}</span>
+      <span class="text-[#3A3A54]">·</span>
+      <span class="text-xs text-[#A0A0C0]">{readingTime}</span>
     </div>
-    <h2 class="font-bold text-lg mb-2 group-hover:text-[#7C3AED] transition-colors">
+    <h2 class="font-bold text-base mb-2 text-[#E8E8F0] group-hover:text-white transition-colors leading-snug">
       <a href={`/${slug}/`}>{title}</a>
     </h2>
-    <p class="text-sm text-[#666666] dark:text-[#999999] line-clamp-2">
+    <p class="text-sm text-[#A0A0C0] line-clamp-2 mb-4">
       {description}
     </p>
+    <a
+      href={`/${slug}/`}
+      class="inline-block border border-[#6D28D9] text-[#A78BFA] text-xs px-3 py-1.5 rounded hover:bg-[#6D28D9]/10 transition-colors"
+    >
+      Leer artículo →
+    </a>
   </div>
 </article>

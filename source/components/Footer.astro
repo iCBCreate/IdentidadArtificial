@@ -1,0 +1,27 @@
+---
+import { SITE } from '../config'
+---
+
+<footer class="border-t border-[#E5E5E5] dark:border-[#222222] mt-16">
+  <div class="max-w-3xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="text-sm text-[#666666] dark:text-[#999999]">
+      © {new Date().getFullYear()} {SITE.author}
+    </p>
+    <div class="flex items-center gap-6">
+      <a
+        href="/rss.xml"
+        class="text-sm text-[#666666] dark:text-[#999999] hover:text-[#7C3AED] transition-colors"
+      >
+        RSS
+      </a>
+      <a
+        href={SITE.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm text-[#666666] dark:text-[#999999] hover:text-[#7C3AED] transition-colors"
+      >
+        GitHub
+      </a>
+    </div>
+  </div>
+</footer>

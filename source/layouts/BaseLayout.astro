@@ -3,6 +3,7 @@ import { SITE } from '../config'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import '../styles/global.css'
+import interFontUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url'
 
 interface Props {
   title: string
@@ -48,6 +49,7 @@ const ogImage = new URL(image, SITE.url).href
     <meta name="twitter:image" content={ogImage} />
 
     <meta name="generator" content={Astro.generator} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={interFontUrl} />
   </head>
   <body>
     <Header />

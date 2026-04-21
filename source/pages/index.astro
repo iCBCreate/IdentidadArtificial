@@ -18,18 +18,18 @@ const posts = (await getCollection('blog')).sort(
 <BaseLayout title={SITE.name} description={SITE.description}>
   <div class="max-w-3xl mx-auto px-6 py-16">
     <section class="mb-16">
-      <p class="text-2xl sm:text-3xl font-bold leading-snug mb-4">
+      <p class="text-2xl sm:text-3xl font-bold leading-snug mb-4 text-[#E8E8F0]">
         {SITE.description}
       </p>
-      <p class="text-[#666666] dark:text-[#999999]">
+      <p class="text-[#A0A0C0]">
         Contenido sobre inteligencia artificial generado por{' '}
-        <a href="/como-funciona/" class="text-[#7C3AED] hover:underline">Claude (Anthropic)</a>,
+        <a href="/como-funciona/" class="text-[#8B5CF6] hover:underline">Claude (Anthropic)</a>,
         con revisión humana y arquitectura pública.
       </p>
     </section>
 
     <section>
-      <h2 class="text-sm font-semibold text-[#666666] dark:text-[#999999] uppercase tracking-wide mb-6">
+      <h2 class="text-xs font-semibold text-[#A0A0C0] uppercase tracking-widest mb-6 pb-3 border-b border-[#2A2A40]">
         Últimas entradas
       </h2>
       <div class="grid gap-6 sm:grid-cols-2">

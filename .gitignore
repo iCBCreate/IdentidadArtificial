@@ -20,6 +20,12 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# Generated OG images (created by scripts/generate-og.mjs at build time)
+public/og/
+
+# Duplicate font directory (fonts live in public/fonts/)
+SRC/fonts/
+
 # Superpowers brainstorming sessions
 .superpowers/
 

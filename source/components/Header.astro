@@ -11,19 +11,21 @@ const navLinks = [
 const currentPath = Astro.url.pathname
 ---
 
-<header class="border-b border-[#2A2A40] bg-[#1C1C2C]">
-  <nav class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="/" class="font-bold text-lg text-[#E8E8F0] hover:text-[#A78BFA] transition-colors">
-      {SITE.name}
+<header class="border-b border-[#2A2A40] bg-[#13131F]/90 backdrop-blur-sm sticky top-0 z-50">
+  <nav class="max-w-5xl mx-auto px-6 py-0 flex items-center justify-between h-14">
+    <a href="/" class="font-extrabold text-base text-[#E8E8F0] hover:text-[#A78BFA] transition-colors tracking-tight">
+      Identidad <span class="text-[#A78BFA]">Artificial</span>
     </a>
-    <ul class="flex items-center gap-6">
+
+    <!-- Desktop nav -->
+    <ul class="hidden sm:flex items-center gap-6">
       {navLinks.map(link => (
         <li>
           <a
             href={link.href}
             class={`text-sm transition-colors ${
               currentPath === link.href
-                ? 'text-[#A78BFA] font-medium'
+                ? 'text-[#E8E8F0] font-semibold'
                 : 'text-[#A0A0C0] hover:text-[#E8E8F0]'
             }`}
           >
@@ -32,5 +34,62 @@ const currentPath = Astro.url.pathname
         </li>
       ))}
     </ul>
+
+    <!-- Hamburger button (mobile) -->
+    <button
+      id="menu-btn"
+      class="sm:hidden flex flex-col gap-[5px] p-2 -mr-2"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+    >
+      <span class="menu-line block w-5 h-[2px] bg-[#A0A0C0] rounded transition-all duration-250"></span>
+      <span class="menu-line block w-5 h-[2px] bg-[#A0A0C0] rounded transition-all duration-250"></span>
+      <span class="menu-line block w-5 h-[2px] bg-[#A0A0C0] rounded transition-all duration-250"></span>
+    </button>
   </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="sm:hidden hidden border-t border-[#2A2A40] bg-[#1C1C2E]"
+  >
+    <ul class="max-w-5xl mx-auto px-6 py-2">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class={`block py-3 text-sm border-b border-[#2A2A40] last:border-0 transition-colors ${
+              currentPath === link.href
+                ? 'text-[#A78BFA] font-semibold'
+                : 'text-[#A0A0C0] hover:text-[#E8E8F0]'
+            }`}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
 </header>
+
+<script>
+  const btn = document.getElementById('menu-btn')
+  const menu = document.getElementById('mobile-menu')
+  const lines = btn?.querySelectorAll('.menu-line')
+
+  btn?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false
+    btn.setAttribute('aria-expanded', String(open))
+    if (lines) {
+      if (open) {
+        (lines[0] as HTMLElement).style.transform = 'rotate(45deg) translate(5px, 5px)'
+        ;(lines[1] as HTMLElement).style.opacity = '0'
+        ;(lines[2] as HTMLElement).style.transform = 'rotate(-45deg) translate(5px, -5px)'
+      } else {
+        ;(lines[0] as HTMLElement).style.transform = ''
+        ;(lines[1] as HTMLElement).style.opacity = ''
+        ;(lines[2] as HTMLElement).style.transform = ''
+      }
+    }
+  })
+</script>

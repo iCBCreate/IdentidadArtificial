@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
+import HeroSection from '../../components/HeroSection.astro'
 import PostCard from '../../components/PostCard.astro'
 import Pagination from '../../components/Pagination.astro'
 import { SITE } from '../../config'
@@ -30,44 +31,53 @@ const posts = allPosts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 ---
 
 <BaseLayout title={`${SITE.name} — Página ${page}`} description={SITE.description}>
-  <div class="max-w-3xl mx-auto px-6 py-16">
-    <section class="mb-16">
-      <p class="text-2xl sm:text-3xl font-bold leading-snug mb-4 text-[#E8E8F0]">
-        {SITE.description}
-      </p>
-      <p class="text-[#A0A0C0]">
-        Contenido sobre inteligencia artificial generado por{' '}
-        <a href="/como-funciona/" class="text-[#E8E8F0] underline underline-offset-2 hover:text-[#A78BFA] transition-colors">Claude (Anthropic)</a>,
-        con revisión humana y arquitectura pública.
-      </p>
-    </section>
+  <HeroSection />
 
-    <section>
-      <h2 class="text-xs font-semibold text-[#A0A0C0] uppercase tracking-widest mb-6 pb-3 border-b border-[#2A2A40]">
-        Últimas entradas
-      </h2>
-      <div class="grid gap-6 sm:grid-cols-3">
-        {posts.map((post, i) => (
-          <PostCard
-            title={post.data.title}
-            description={post.data.description}
-            pubDate={post.data.pubDate}
-            category={post.data.category}
-            slug={post.id}
-            heroImage={post.data.heroImage}
-            readingTime={calcReadingTime(post.body ?? '')}
-            featured={i === 0}
-          />
-        ))}
-      </div>
+  <div class="max-w-5xl mx-auto px-6 py-10">
+    <h2 class="text-xs font-semibold text-[#A0A0C0] uppercase tracking-widest mb-6 pb-3 border-b border-[#2A2A40]">
+      Últimas entradas
+    </h2>
 
-      <Pagination
-        currentPage={page}
-        totalPages={totalPages}
-        totalPosts={allPosts.length}
-        baseUrl="/"
-        paginaUrl="/pagina/"
-      />
-    </section>
+    <div class="cards-grid">
+      {posts.map((post, i) => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          category={post.data.category}
+          slug={post.id}
+          heroImage={post.data.heroImage}
+          readingTime={calcReadingTime(post.body ?? '')}
+          featured={i === 0}
+        />
+      ))}
+    </div>
+
+    <Pagination
+      currentPage={page}
+      totalPages={totalPages}
+      totalPosts={allPosts.length}
+      baseUrl="/"
+      paginaUrl="/pagina/"
+    />
   </div>
 </BaseLayout>
+
+<style>
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: #2A2A40;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.cards-grid > :first-child { grid-column: span 2; }
+
+@media (max-width: 640px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .cards-grid > :first-child { grid-column: span 1; }
+}
+</style>

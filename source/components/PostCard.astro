@@ -1,4 +1,6 @@
 ---
+import { SITE } from '../config'
+
 interface Props {
   title: string
   description: string
@@ -13,54 +15,160 @@ interface Props {
 const { title, description, pubDate, category, slug, heroImage, readingTime, featured = false } = Astro.props
 
 const formattedDate = pubDate.toLocaleDateString('es-ES', {
-  year: 'numeric',
-  month: 'long',
   day: 'numeric',
+  month: 'short',
+  year: 'numeric',
 })
+
+const postUrl = `${SITE.url}/${slug}/`
+const shareX = `https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(title)}`
+const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`
 ---
 
-<article class={`group bg-[#1C1C2E] border border-[#2E2E48] rounded-lg overflow-hidden hover:border-[#6D28D9] hover:shadow-[0_0_20px_rgba(109,40,217,0.12)] transition-all${featured ? ' sm:col-span-2' : ''}`}>
-  {heroImage && (
-    <a href={`/${slug}/`}>
-      <img
-        src={heroImage}
-        alt={title}
-        class="w-full h-48 object-cover"
-        loading="lazy"
-        width="800"
-        height="400"
-      />
-    </a>
-  )}
-  <div class="p-5">
-    <div class="flex items-center gap-2 mb-3 flex-wrap">
-      {featured ? (
-        <span class="inline-block bg-[#6D28D9] text-white text-[9px] font-bold tracking-[1.5px] uppercase px-2 py-0.5 rounded-[3px]">
-          {category}
-        </span>
-      ) : (
-        <span class="inline-block border border-[#6D28D9] text-[#A78BFA] text-[9px] font-bold tracking-[1.5px] uppercase px-2 py-0.5 rounded-[3px]">
-          {category}
-        </span>
-      )}
-      <span class="text-[#3A3A54]">·</span>
-      <time class="text-xs text-[#A0A0C0]" datetime={pubDate.toISOString()}>
-        {formattedDate}
-      </time>
-      <span class="text-[#3A3A54]">·</span>
-      <span class="text-xs text-[#A0A0C0]">{readingTime}</span>
+<article class={`mona-card${featured ? ' mona-card--featured' : ''}`}>
+  <a href={`/${slug}/`} class="mona-card-img-link" tabindex="-1" aria-hidden="true">
+    <div class="mona-card-img">
+      {heroImage
+        ? <img src={heroImage} alt={title} loading="lazy" width="800" height="400" />
+        : <span class="img-placeholder">⬡</span>
+      }
     </div>
-    <h2 class={`font-bold mb-2 text-[#E8E8F0] group-hover:text-white transition-colors leading-snug${featured ? ' text-lg' : ' text-base'}`}>
+  </a>
+  <div class="mona-card-body">
+    <span class="mona-badge">{category}</span>
+    <h2 class="mona-title">
       <a href={`/${slug}/`}>{title}</a>
     </h2>
-    <p class="text-sm text-[#A0A0C0] line-clamp-2 mb-4">
-      {description}
-    </p>
-    <a
-      href={`/${slug}/`}
-      class="inline-block border border-[#6D28D9] text-[#A78BFA] text-xs px-3 py-1.5 rounded hover:bg-[#6D28D9]/10 transition-colors"
-    >
-      Leer artículo →
-    </a>
+    <p class="mona-desc">{description}</p>
+    <div class="mona-footer">
+      <span class="mona-meta">{formattedDate} · {readingTime}</span>
+      <div class="mona-actions">
+        <div class="mona-share">
+          <a href={shareX} target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Compartir en X">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href={shareLinkedIn} target="_blank" rel="noopener noreferrer" class="share-icon" aria-label="Compartir en LinkedIn">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+        <a href={`/${slug}/`} class="mona-read">
+          Leer
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
   </div>
 </article>
+
+<style>
+.mona-card {
+  background: #13131F;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.15s;
+}
+.mona-card:hover { background: #1A1A2E; }
+
+.mona-card--featured .mona-card-img { height: 200px; }
+.mona-card--featured .mona-title a { font-size: 18px; }
+
+.mona-card-img-link { display: block; }
+.mona-card-img {
+  width: 100%;
+  height: 140px;
+  background: linear-gradient(135deg, #1C1C2E 0%, #201840 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.mona-card-img img { width: 100%; height: 100%; object-fit: cover; }
+.img-placeholder { font-size: 32px; opacity: 0.18; }
+
+.mona-card-body {
+  padding: 16px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mona-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #A78BFA;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.mona-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #E8E8F0;
+  margin-bottom: 8px;
+  flex: 1;
+}
+.mona-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.mona-title a:hover { color: #A78BFA; }
+
+.mona-desc {
+  font-size: 12px;
+  color: #A0A0C0;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+
+.mona-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid #2A2A40;
+  gap: 8px;
+}
+
+.mona-meta {
+  font-size: 11px;
+  color: #505070;
+  white-space: nowrap;
+}
+
+.mona-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.mona-share { display: flex; gap: 6px; }
+.share-icon {
+  width: 24px; height: 24px;
+  border-radius: 4px;
+  border: 1px solid #2A2A40;
+  display: flex; align-items: center; justify-content: center;
+  color: #505070;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.share-icon:hover { border-color: #6D28D9; color: #A78BFA; }
+
+.mona-read {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #A78BFA;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.mona-read:hover { color: #E8E8F0; }
+</style>

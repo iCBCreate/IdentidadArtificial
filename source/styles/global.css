@@ -1,0 +1,40 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource/jetbrains-mono";
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-accent: #7C3AED;
+}
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  @apply bg-white text-[#111111] dark:bg-[#0F0F0F] dark:text-[#F0F0F0];
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+code {
+  @apply bg-[#F4F4F4] dark:bg-[#1A1A1A] font-mono;
+  font-size: 0.875em;
+  padding: 0.125em 0.25em;
+  border-radius: 3px;
+}
+
+pre {
+  @apply bg-[#F4F4F4] dark:bg-[#1A1A1A];
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}

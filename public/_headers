@@ -1,0 +1,23 @@
+/*
+  # Evita que la página se cargue dentro de iframes (clickjacking)
+  X-Frame-Options: DENY
+
+  # Evita que el navegador adivine el tipo de fichero (MIME sniffing)
+  X-Content-Type-Options: nosniff
+
+  # Controla cuánta información de referencia se envía al navegar
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Fuerza HTTPS durante 1 año
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Deshabilita acceso a cámara, micrófono y geolocalización
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+  # Content Security Policy
+  # - default-src 'self': solo recursos del propio dominio
+  # - script-src 'unsafe-inline': necesario para scripts inline de Astro
+  # - style-src 'unsafe-inline': necesario porque Astro inlinea todo el CSS
+  # - img-src data:: permite imágenes base64 si las hubiera
+  # - frame-ancestors 'none': refuerza X-Frame-Options
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'

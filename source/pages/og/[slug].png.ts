@@ -5,8 +5,8 @@ import { Resvg } from '@resvg/resvg-js'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
-const fontRegular = readFileSync(resolve(process.cwd(), 'source/fonts/Inter-Regular.ttf'))
-const fontBold = readFileSync(resolve(process.cwd(), 'source/fonts/Inter-Bold.ttf'))
+const fontRegular = readFileSync(resolve(process.cwd(), 'public/fonts/Inter-Regular.ttf'))
+const fontBold = readFileSync(resolve(process.cwd(), 'public/fonts/Inter-Bold.ttf'))
 
 const categoryColors: Record<string, string> = {
   'modelos':                '#7C3AED',

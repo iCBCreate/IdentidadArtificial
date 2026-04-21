@@ -4,8 +4,8 @@ import { Resvg } from '@resvg/resvg-js'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
-const fontRegular = readFileSync(resolve(process.cwd(), 'source/fonts/Inter-Regular.ttf'))
-const fontBold = readFileSync(resolve(process.cwd(), 'source/fonts/Inter-Bold.ttf'))
+const fontRegular = readFileSync(resolve(process.cwd(), 'public/fonts/Inter-Regular.ttf'))
+const fontBold = readFileSync(resolve(process.cwd(), 'public/fonts/Inter-Bold.ttf'))
 
 export const GET: APIRoute = async () => {
   const svg = await satori(

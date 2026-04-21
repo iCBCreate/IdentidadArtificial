@@ -12,11 +12,11 @@ export async function getStaticPaths() {
   const posts = await getCollection('blog')
   return posts.map(post => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, allPosts: posts },
   }))
 }
 
-const { post } = Astro.props
+const { post, allPosts } = Astro.props
 const { Content } = await render(post)
 ---
 
@@ -31,6 +31,9 @@ const { Content } = await render(post)
   promptBase={post.data.promptBase}
   humanReviewed={post.data.humanReviewed}
   readingTime={calcReadingTime(post.body ?? '')}
+  slug={post.id}
+  allPosts={allPosts}
+  calcReadingTime={calcReadingTime}
 >
   <Content />
 </PostLayout>

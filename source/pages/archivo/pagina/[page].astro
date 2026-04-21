@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
-import BaseLayout from '../layouts/BaseLayout.astro'
-import Pagination from '../components/Pagination.astro'
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import Pagination from '../../../components/Pagination.astro'
 
 const PAGE_SIZE = 3
 
@@ -11,16 +11,25 @@ function calcReadingTime(text: string): string {
   return `${minutes} min`
 }
 
-const allPosts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-)
-const totalPages = Math.ceil(allPosts.length / PAGE_SIZE)
-const posts = allPosts.slice(0, PAGE_SIZE)
-const categories = [...new Set(allPosts.map(p => p.data.category))]
+export async function getStaticPaths() {
+  const PAGE_SIZE = 3
+  const allPosts = (await getCollection('blog')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  )
+  const totalPages = Math.ceil(allPosts.length / PAGE_SIZE)
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => ({
+    params: { page: String(i + 2) },
+    props: { page: i + 2, totalPages, allPosts },
+  }))
+}
+
+const { page, totalPages, allPosts } = Astro.props
+const posts = allPosts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+const categories = [...new Set(allPosts.map((p: any) => p.data.category as string))]
 ---
 
 <BaseLayout
-  title="Archivo"
+  title={`Archivo — Página ${page}`}
   description="Todos los artículos publicados en Identidad Artificial."
 >
   <div class="max-w-3xl mx-auto px-6 py-12">
@@ -39,7 +48,7 @@ const categories = [...new Set(allPosts.map(p => p.data.category))]
     </div>
 
     <ul class="divide-y divide-[#2A2A40]">
-      {posts.map(post => {
+      {posts.map((post: any) => {
         const formattedDate = post.data.pubDate.toLocaleDateString('es-ES', {
           year: 'numeric',
           month: 'long',
@@ -77,14 +86,12 @@ const categories = [...new Set(allPosts.map(p => p.data.category))]
       })}
     </ul>
 
-    {totalPages > 1 && (
-      <Pagination
-        currentPage={1}
-        totalPages={totalPages}
-        totalPosts={allPosts.length}
-        baseUrl="/archivo/"
-        paginaUrl="/archivo/pagina/"
-      />
-    )}
+    <Pagination
+      currentPage={page}
+      totalPages={totalPages}
+      totalPosts={allPosts.length}
+      baseUrl="/archivo/"
+      paginaUrl="/archivo/pagina/"
+    />
   </div>
 </BaseLayout>

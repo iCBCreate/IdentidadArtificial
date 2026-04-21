@@ -1,6 +1,9 @@
 ---
 import BaseLayout from './BaseLayout.astro'
 import TransparencyBlock from '../components/TransparencyBlock.astro'
+import Breadcrumbs from '../components/Breadcrumbs.astro'
+import RelatedPosts from '../components/RelatedPosts.astro'
+import type { CollectionEntry } from 'astro:content'
 
 interface Props {
   title: string
@@ -13,6 +16,9 @@ interface Props {
   promptBase: string
   humanReviewed: boolean
   readingTime: string
+  slug: string
+  allPosts: CollectionEntry<'blog'>[]
+  calcReadingTime: (text: string) => string
 }
 
 const {
@@ -26,6 +32,9 @@ const {
   promptBase,
   humanReviewed,
   readingTime,
+  slug,
+  allPosts,
+  calcReadingTime,
 } = Astro.props
 
 const formattedDate = pubDate.toLocaleDateString('es-ES', {
@@ -38,6 +47,7 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
 <BaseLayout title={title} description={description} image={heroImage}>
   <article class="max-w-3xl mx-auto px-6 py-12">
     <header class="mb-10">
+      <Breadcrumbs category={category} title={title} />
       <div class="flex items-center gap-2 mb-4 flex-wrap">
         <span class="inline-block bg-[#6D28D9] text-white text-[9px] font-bold tracking-[1.5px] uppercase px-2 py-0.5 rounded-[3px]">
           {category}
@@ -77,6 +87,13 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
       prose-strong:text-[#E8E8F0]">
       <slot />
     </div>
+
+    <RelatedPosts
+      currentSlug={slug}
+      category={category}
+      allPosts={allPosts}
+      calcReadingTime={calcReadingTime}
+    />
 
     <TransparencyBlock
       generatedBy={generatedBy}

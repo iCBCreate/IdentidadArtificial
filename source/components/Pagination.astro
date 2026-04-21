@@ -1,0 +1,51 @@
+---
+interface Props {
+  currentPage: number
+  totalPages: number
+  totalPosts: number
+  baseUrl: string
+  paginaUrl: string
+}
+
+const { currentPage, totalPages, totalPosts, baseUrl, paginaUrl } = Astro.props
+
+function pageUrl(n: number): string {
+  return n === 1 ? baseUrl : `${paginaUrl}${n}/`
+}
+
+const pages: (number | 'ellipsis')[] = []
+for (let i = 1; i <= totalPages; i++) {
+  if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+    pages.push(i)
+  } else if (pages[pages.length - 1] !== 'ellipsis') {
+    pages.push('ellipsis')
+  }
+}
+---
+
+<div class="mt-12">
+  <div class="flex items-center justify-center gap-1.5">
+    {currentPage === 1 ? (
+      <span class="w-9 h-9 flex items-center justify-center rounded-md border border-[#2A2A40] text-[#A0A0C0] opacity-30 text-base cursor-default select-none">‹</span>
+    ) : (
+      <a href={pageUrl(currentPage - 1)} class="w-9 h-9 flex items-center justify-center rounded-md border border-[#2A2A40] text-[#A0A0C0] hover:border-[#6D28D9] hover:text-[#E8E8F0] transition-all text-base">‹</a>
+    )}
+
+    {pages.map(p =>
+      p === 'ellipsis' ? (
+        <span class="text-[#A0A0C0] text-sm px-1">…</span>
+      ) : p === currentPage ? (
+        <span class="w-9 h-9 flex items-center justify-center rounded-md bg-[#6D28D9] border border-[#6D28D9] text-white font-bold text-sm">{p}</span>
+      ) : (
+        <a href={pageUrl(p)} class="w-9 h-9 flex items-center justify-center rounded-md border border-[#2A2A40] text-[#A0A0C0] hover:border-[#6D28D9] hover:text-[#E8E8F0] transition-all text-sm">{p}</a>
+      )
+    )}
+
+    {currentPage === totalPages ? (
+      <span class="w-9 h-9 flex items-center justify-center rounded-md border border-[#2A2A40] text-[#A0A0C0] opacity-30 text-base cursor-default select-none">›</span>
+    ) : (
+      <a href={pageUrl(currentPage + 1)} class="w-9 h-9 flex items-center justify-center rounded-md border border-[#2A2A40] text-[#A0A0C0] hover:border-[#6D28D9] hover:text-[#E8E8F0] transition-all text-base">›</a>
+    )}
+  </div>
+  <p class="text-center text-xs text-[#A0A0C0] mt-3">Página {currentPage} de {totalPages} · {totalPosts} artículos</p>
+</div>

@@ -7,9 +7,10 @@ interface Props {
   slug: string
   heroImage?: string
   readingTime: string
+  featured?: boolean
 }
 
-const { title, description, pubDate, category, slug, heroImage, readingTime } = Astro.props
+const { title, description, pubDate, category, slug, heroImage, readingTime, featured = false } = Astro.props
 
 const formattedDate = pubDate.toLocaleDateString('es-ES', {
   year: 'numeric',
@@ -18,7 +19,7 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
 })
 ---
 
-<article class="group bg-[#24243A] border border-[#2E2E48] rounded-lg overflow-hidden hover:border-[#6D28D9] hover:shadow-[0_0_16px_rgba(109,40,217,0.10)] transition-all">
+<article class={`group bg-[#1C1C2E] border border-[#2E2E48] rounded-lg overflow-hidden hover:border-[#6D28D9] hover:shadow-[0_0_20px_rgba(109,40,217,0.12)] transition-all${featured ? ' sm:col-span-2' : ''}`}>
   {heroImage && (
     <a href={`/${slug}/`}>
       <img
@@ -33,9 +34,15 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
   )}
   <div class="p-5">
     <div class="flex items-center gap-2 mb-3 flex-wrap">
-      <span class="inline-block bg-[#6D28D9] text-white text-[9px] font-bold tracking-[1.5px] uppercase px-2 py-0.5 rounded-[3px]">
-        {category}
-      </span>
+      {featured ? (
+        <span class="inline-block bg-[#6D28D9] text-white text-[9px] font-bold tracking-[1.5px] uppercase px-2 py-0.5 rounded-[3px]">
+          {category}
+        </span>
+      ) : (
+        <span class="inline-block border border-[#6D28D9] text-[#A78BFA] text-[9px] font-bold tracking-[1.5px] uppercase px-2 py-0.5 rounded-[3px]">
+          {category}
+        </span>
+      )}
       <span class="text-[#3A3A54]">·</span>
       <time class="text-xs text-[#A0A0C0]" datetime={pubDate.toISOString()}>
         {formattedDate}
@@ -43,7 +50,7 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
       <span class="text-[#3A3A54]">·</span>
       <span class="text-xs text-[#A0A0C0]">{readingTime}</span>
     </div>
-    <h2 class="font-bold text-base mb-2 text-[#E8E8F0] group-hover:text-white transition-colors leading-snug">
+    <h2 class={`font-bold mb-2 text-[#E8E8F0] group-hover:text-white transition-colors leading-snug${featured ? ' text-lg' : ' text-base'}`}>
       <a href={`/${slug}/`}>{title}</a>
     </h2>
     <p class="text-sm text-[#A0A0C0] line-clamp-2 mb-4">

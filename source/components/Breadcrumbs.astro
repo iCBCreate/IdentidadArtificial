@@ -1,0 +1,17 @@
+---
+interface Props {
+  category: string
+  title: string
+}
+
+const { category, title } = Astro.props
+const truncated = title.length > 42 ? title.slice(0, 42) + '…' : title
+---
+
+<nav class="flex items-center gap-2 text-xs text-[#A0A0C0] mb-4" aria-label="Breadcrumb">
+  <a href="/" class="hover:text-[#A78BFA] transition-colors" aria-label="Inicio">⌂</a>
+  <span class="text-[#3A3A54]">›</span>
+  <a href="/archivo/" class="hover:text-[#A78BFA] transition-colors">{category}</a>
+  <span class="text-[#3A3A54]">›</span>
+  <span class="text-[#E8E8F0]">{truncated}</span>
+</nav>

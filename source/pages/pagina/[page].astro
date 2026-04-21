@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content'
-import BaseLayout from '../layouts/BaseLayout.astro'
-import PostCard from '../components/PostCard.astro'
-import Pagination from '../components/Pagination.astro'
-import { SITE } from '../config'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import PostCard from '../../components/PostCard.astro'
+import Pagination from '../../components/Pagination.astro'
+import { SITE } from '../../config'
 
 const PAGE_SIZE = 3
 
@@ -13,14 +13,23 @@ function calcReadingTime(text: string): string {
   return `${minutes} min`
 }
 
-const allPosts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-)
-const posts = allPosts.slice(0, PAGE_SIZE)
-const totalPages = Math.ceil(allPosts.length / PAGE_SIZE)
+export async function getStaticPaths() {
+  const PAGE_SIZE = 3
+  const allPosts = (await getCollection('blog')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  )
+  const totalPages = Math.ceil(allPosts.length / PAGE_SIZE)
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => ({
+    params: { page: String(i + 2) },
+    props: { page: i + 2, totalPages, allPosts },
+  }))
+}
+
+const { page, totalPages, allPosts } = Astro.props
+const posts = allPosts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 ---
 
-<BaseLayout title={SITE.name} description={SITE.description}>
+<BaseLayout title={`${SITE.name} — Página ${page}`} description={SITE.description}>
   <div class="max-w-3xl mx-auto px-6 py-16">
     <section class="mb-16">
       <p class="text-2xl sm:text-3xl font-bold leading-snug mb-4 text-[#E8E8F0]">
@@ -52,15 +61,13 @@ const totalPages = Math.ceil(allPosts.length / PAGE_SIZE)
         ))}
       </div>
 
-      {totalPages > 1 && (
-        <Pagination
-          currentPage={1}
-          totalPages={totalPages}
-          totalPosts={allPosts.length}
-          baseUrl="/"
-          paginaUrl="/pagina/"
-        />
-      )}
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        totalPosts={allPosts.length}
+        baseUrl="/"
+        paginaUrl="/pagina/"
+      />
     </section>
   </div>
 </BaseLayout>

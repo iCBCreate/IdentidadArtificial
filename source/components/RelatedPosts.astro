@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  currentSlug: string
+  category: string
+  allPosts: CollectionEntry<'blog'>[]
+  calcReadingTime: (text: string) => string
+}
+
+const { currentSlug, category, allPosts, calcReadingTime } = Astro.props
+
+const related = allPosts
+  .filter(p => p.data.category === category && p.id !== currentSlug)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3)
+---
+
+{related.length > 0 && (
+  <section class="mt-16 mb-10">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-sm font-bold text-[#E8E8F0] uppercase tracking-widest">Más sobre {category}</h3>
+      <a href="/archivo/" class="text-xs text-[#A78BFA] underline hover:text-[#E8E8F0] transition-colors">Ver archivo →</a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      {related.map(post => (
+        <a
+          href={`/${post.id}/`}
+          class="block bg-[#1C1C2E] border border-[#2A2A40] rounded-lg p-4 hover:border-[#6D28D9] transition-all"
+        >
+          <span class="inline-block bg-[#6D28D9] text-white text-[8px] font-bold tracking-[1px] uppercase px-2 py-0.5 rounded-[2px] mb-2">
+            {post.data.category}
+          </span>
+          <p class="text-xs font-semibold text-[#E8E8F0] leading-snug mb-1 line-clamp-3">{post.data.title}</p>
+          <p class="text-[10px] text-[#A0A0C0]">
+            {post.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}
+            · {calcReadingTime(post.body ?? '')}
+          </p>
+        </a>
+      ))}
+    </div>
+  </section>
+)}

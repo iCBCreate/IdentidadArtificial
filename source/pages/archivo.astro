@@ -20,21 +20,21 @@ const categories = [...new Set(posts.map(p => p.data.category))]
   description="Todos los artículos publicados en Identidad Artificial."
 >
   <div class="max-w-3xl mx-auto px-6 py-12">
-    <h1 class="text-3xl sm:text-4xl font-bold mb-4">Archivo</h1>
-    <p class="text-[#666666] dark:text-[#999999] mb-8">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-4 text-[#E8E8F0]">Archivo</h1>
+    <p class="text-[#A0A0C0] mb-8">
       {posts.length} {posts.length === 1 ? 'artículo' : 'artículos'} publicados
     </p>
 
     <div class="flex flex-wrap gap-2 mb-10">
-      <span class="text-sm text-[#666666] dark:text-[#999999] self-center">Categorías:</span>
+      <span class="text-sm text-[#A0A0C0] self-center">Categorías:</span>
       {categories.map(cat => (
-        <span class="text-xs font-medium px-3 py-1 rounded-full border border-[#7C3AED]/30 text-[#7C3AED]">
+        <span class="text-xs font-medium px-3 py-1 rounded-full border border-[#6D28D9]/50 text-[#A78BFA]">
           {cat}
         </span>
       ))}
     </div>
 
-    <ul class="divide-y divide-[#E5E5E5] dark:divide-[#222222]">
+    <ul class="divide-y divide-[#2A2A40]">
       {posts.map(post => {
         const formattedDate = post.data.pubDate.toLocaleDateString('es-ES', {
           year: 'numeric',
@@ -46,21 +46,23 @@ const categories = [...new Set(posts.map(p => p.data.category))]
             <div class="flex items-start justify-between gap-4">
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2 mb-1">
-                  <span class="text-xs font-medium text-[#7C3AED]">{post.data.category}</span>
-                  <span class="text-xs text-[#666666] dark:text-[#999999]">· {calcReadingTime(post.body ?? '')}</span>
+                  <span class="inline-block bg-[#6D28D9] text-white text-[9px] font-bold tracking-[1.5px] uppercase px-2 py-0.5 rounded-[3px]">
+                    {post.data.category}
+                  </span>
+                  <span class="text-xs text-[#A0A0C0]">· {calcReadingTime(post.body ?? '')}</span>
                 </div>
                 <a
                   href={`/${post.id}/`}
-                  class="font-medium hover:text-[#7C3AED] transition-colors"
+                  class="font-medium text-[#E8E8F0] hover:text-[#8B5CF6] transition-colors"
                 >
                   {post.data.title}
                 </a>
-                <p class="text-sm text-[#666666] dark:text-[#999999] mt-1 line-clamp-1">
+                <p class="text-sm text-[#A0A0C0] mt-1 line-clamp-1">
                   {post.data.description}
                 </p>
               </div>
               <time
-                class="text-sm text-[#666666] dark:text-[#999999] shrink-0"
+                class="text-sm text-[#A0A0C0] shrink-0"
                 datetime={post.data.pubDate.toISOString()}
               >
                 {formattedDate}

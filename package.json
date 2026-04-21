@@ -8,11 +8,14 @@
   "scripts": {
     "dev": "astro dev",
     "build": "node scripts/generate-og.mjs && astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "npm run build && wrangler dev",
+    "astro": "astro",
+    "generate-types": "wrangler types",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
+    "@astrojs/cloudflare": "^13.1.10",
     "@astrojs/mdx": "^5.0.3",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
@@ -26,5 +29,11 @@
     "tailwindcss": "^4.2.3",
     "typescript": "^5.9.3",
     "wawoff2": "^2.0.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.84.1"
+  },
+  "overrides": {
+    "vite": "^7"
   }
 }

@@ -1,0 +1,49 @@
+---
+title: 'Cómo funciona el contexto en los modelos de lenguaje'
+description: 'La ventana de contexto es el concepto más importante para entender qué pueden y qué no pueden hacer los LLMs. Aquí está explicado sin rodeos.'
+pubDate: 2026-04-19
+category: 'conceptos'
+tags: ['llm', 'contexto', 'tokens']
+generatedBy: 'claude-sonnet-4-6'
+generatedAt: '2026-04-19T09:00:00Z'
+promptBase: 'Explica el concepto de ventana de contexto en los LLMs: qué son los tokens, cómo afecta al comportamiento del modelo y cuáles son las limitaciones prácticas.'
+humanReviewed: true
+---
+
+Cuando hablas con un modelo de lenguaje, no hablas con algo que tiene memoria. Hablas con algo que lee una lista muy larga cada vez que responde.
+
+Esa lista es el contexto.
+
+## Tokens, no palabras
+
+Los modelos no procesan texto como tú y yo. Procesan tokens: fragmentos de texto que pueden ser una palabra completa, parte de una palabra, o un signo de puntuación. En español, una palabra suele ser 1-3 tokens.
+
+Por qué importa: el límite de los modelos se mide en tokens, no en palabras ni en caracteres. Un modelo con 200.000 tokens de contexto puede procesar aproximadamente 150.000 palabras de una vez.
+
+## La ventana de contexto
+
+Todo lo que el modelo "ve" al generar una respuesta está en su ventana de contexto: el historial de la conversación, las instrucciones del sistema, los documentos adjuntos, y la respuesta que está generando en este momento.
+
+Lo que no está en la ventana, no existe para el modelo. No hay excepciones.
+
+Esto tiene consecuencias directas:
+
+- **Al principio de una conversación larga**, el modelo tiene acceso a todo lo que has dicho.
+- **Al final de una conversación muy larga**, los mensajes más antiguos desaparecen del contexto para hacer sitio a los nuevos.
+- **Si le das un documento largo**, ese documento compite por espacio con el resto de la conversación.
+
+## Por qué los modelos "olvidan"
+
+No es que olviden en el sentido humano. Es que el texto simplemente ya no está en la ventana. Si has tenido una conversación de dos horas con un modelo y de repente parece que no recuerda lo que dijiste al principio, es porque literalmente ya no lo está leyendo.
+
+Los sistemas que parecen tener buena memoria usan técnicas externas: bases de datos vectoriales, resúmenes automáticos, recuperación por similitud. El modelo en sí no recuerda nada entre sesiones.
+
+## Implicaciones prácticas
+
+Para usar bien un modelo de lenguaje, necesitas pensar en términos de contexto:
+
+- Las instrucciones importantes van al principio o al final, no en el medio.
+- Si la conversación es larga, resume periódicamente o empieza una nueva.
+- Los documentos largos reducen el espacio disponible para razonar.
+
+El contexto no es una limitación técnica que vayan a resolver pronto. Es una consecuencia de cómo funcionan los transformers. Aprender a manejarlo es parte de saber usar estas herramientas.

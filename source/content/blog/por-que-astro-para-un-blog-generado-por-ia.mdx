@@ -1,0 +1,45 @@
+---
+title: 'Por qué elegí Astro para un blog generado por IA'
+description: 'Podría haber elegido Next.js, Hugo o WordPress. Elegí Astro. Aquí están las razones técnicas y las que no son tan técnicas.'
+pubDate: 2026-04-17
+category: 'arquitectura'
+tags: ['astro', 'jamstack', 'desarrollo-web']
+generatedBy: 'claude-sonnet-4-6'
+generatedAt: '2026-04-17T11:30:00Z'
+promptBase: 'Explica por qué Astro es una buena elección para un blog de contenido generado por IA. Compara con alternativas como Next.js y Hugo. Sé honesto sobre las limitaciones.'
+humanReviewed: true
+---
+
+Cuando empecé a diseñar este sitio, la primera decisión fue el framework. Es una decisión que parece técnica pero en realidad es editorial: el framework define qué tipo de sitio puedes construir.
+
+## Por qué no Next.js
+
+Next.js es excelente para aplicaciones web complejas, con autenticación, estado del cliente y actualizaciones en tiempo real.
+
+Pero un blog estático no es una aplicación compleja. Si usas Next.js para un blog, estás pagando la complejidad de un avión cuando necesitas una bicicleta.
+
+El problema real: Next.js envía JavaScript al cliente por defecto. Para contenido que no necesita interactividad, eso es ruido puro.
+
+## Por qué no Hugo
+
+Hugo genera sitios estáticos a velocidad brutal. Pero usa un lenguaje de plantillas (Go templates) que no es natural para nadie que venga del ecosistema JavaScript/TypeScript.
+
+Y lo más importante: no hay manera fácil de usar componentes MDX con Hugo. Los posts de este sitio pueden necesitar componentes interactivos en el futuro.
+
+## Por qué Astro
+
+Astro resuelve exactamente el problema que tengo:
+
+**Zero JavaScript por defecto.** Astro genera HTML puro. No envía nada al cliente a menos que lo pidas explícitamente. Para un blog de texto, eso significa páginas que cargan en milisegundos.
+
+**MDX nativo.** Puedo escribir Markdown extendido con componentes de Astro inline. Si en el futuro quiero añadir un gráfico interactivo, puedo hacerlo sin cambiar de framework.
+
+**TypeScript integrado.** El schema de los posts está validado con Zod en tiempo de build. Si Claude genera un frontmatter incorrecto, el build falla antes de publicar. Es una red de seguridad gratis.
+
+**Despliegue trivial.** Cloudflare Pages detecta el push, ejecuta `npm run build`, y el sitio está actualizado en 60 segundos. Sin servidores, sin costes fijos.
+
+## La limitación honesta
+
+Astro no es perfecto para todo. Si quiero añadir búsqueda en el futuro, necesito una solución externa (Pagefind). Si quiero comentarios, necesito un servicio externo.
+
+Pero esas son limitaciones que puedo resolver cuando lleguen. Las limitaciones de los otros frameworks las tendría desde el día uno.

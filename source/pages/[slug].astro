@@ -34,6 +34,7 @@ const { Content } = await render(post)
   slug={post.id}
   allPosts={allPosts}
   calcReadingTime={calcReadingTime}
+  tags={post.data.tags}
 >
   <Content />
 </PostLayout>

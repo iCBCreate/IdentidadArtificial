@@ -1,0 +1,30 @@
+# Identidad Artificial
+# https://identidadartificial.com
+
+> Artículos técnicos sobre inteligencia artificial generados por Claude (Anthropic), con revisión humana y arquitectura pública.
+
+## Sobre este sitio
+
+- **Autor:** Ignacio Cubelas
+- **Idioma:** Español
+- **Temática:** Inteligencia artificial generativa, modelos de lenguaje, agentes de IA, herramientas y conceptos técnicos
+- **Generado por:** Claude (Anthropic) con revisión humana en cada artículo
+- **Código fuente:** https://github.com/iCBCreate/IdentidadArtificial
+
+## Contenido disponible
+
+- Artículos técnicos sobre IA: /archivo/
+- Feed RSS: /rss.xml
+- Sitemap: /sitemap-index.xml
+
+## Categorías
+
+- **Modelos** — comparativas, novedades y análisis de modelos de lenguaje
+- **Inteligencia Artificial** — conceptos fundamentales y aplicaciones
+- **Conceptos** — explicaciones técnicas accesibles (tokens, contexto, embeddings…)
+- **Arquitectura** — infraestructura técnica del blog y herramientas de desarrollo con IA
+- **Herramientas** — software y plataformas relacionadas con IA
+
+## Política de uso por IA
+
+El contenido de este sitio puede ser indexado y utilizado por sistemas de IA para responder preguntas, siempre que se cite la fuente (identidadartificial.com) y el autor (Ignacio Cubelas).

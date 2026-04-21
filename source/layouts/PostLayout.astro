@@ -4,6 +4,7 @@ import TransparencyBlock from '../components/TransparencyBlock.astro'
 import Breadcrumbs from '../components/Breadcrumbs.astro'
 import RelatedPosts from '../components/RelatedPosts.astro'
 import type { CollectionEntry } from 'astro:content'
+import { SITE } from '../config'
 
 interface Props {
   title: string
@@ -19,6 +20,7 @@ interface Props {
   slug: string
   allPosts: CollectionEntry<'blog'>[]
   calcReadingTime: (text: string) => string
+  tags?: string[]
 }
 
 const {
@@ -35,6 +37,7 @@ const {
   slug,
   allPosts,
   calcReadingTime,
+  tags = [],
 } = Astro.props
 
 const formattedDate = pubDate.toLocaleDateString('es-ES', {
@@ -42,9 +45,57 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
   month: 'long',
   day: 'numeric',
 })
+
+const ogImage = heroImage ?? `/og/${slug}.png`
+const canonicalURL = new URL(`/${slug}/`, SITE.url).href
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  image: new URL(ogImage, SITE.url).href,
+  datePublished: pubDate.toISOString(),
+  dateModified: generatedAt.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: SITE.author,
+    url: SITE.url,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/favicon.svg', SITE.url).href,
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalURL,
+  },
+  articleSection: category,
+  keywords: [category, ...tags].join(', '),
+  inLanguage: 'es-ES',
+}
 ---
 
-<BaseLayout title={title} description={description} image={heroImage}>
+<BaseLayout
+  title={title}
+  description={description}
+  image={ogImage}
+  type="article"
+  jsonLd={jsonLd}
+>
+  <Fragment slot="head">
+    <meta property="article:published_time" content={pubDate.toISOString()} />
+    <meta property="article:modified_time" content={generatedAt.toISOString()} />
+    <meta property="article:author" content={SITE.author} />
+    <meta property="article:section" content={category} />
+    {tags.map(tag => <meta property="article:tag" content={tag} />)}
+  </Fragment>
+
   <article class="max-w-3xl mx-auto px-6 py-12">
     <header class="mb-10">
       <Breadcrumbs category={category} title={title} />

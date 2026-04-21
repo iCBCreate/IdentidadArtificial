@@ -9,12 +9,16 @@ interface Props {
   title: string
   description?: string
   image?: string
+  type?: 'website' | 'article'
+  jsonLd?: object
 }
 
 const {
   title,
   description = SITE.description,
-  image = '/og-default.jpg',
+  image = '/og/default.png',
+  type = 'website',
+  jsonLd,
 } = Astro.props
 
 const canonicalURL = new URL(Astro.url.pathname, SITE.url).href
@@ -35,10 +39,14 @@ const ogImage = new URL(image, SITE.url).href
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={fullTitle} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content="es_ES" />
 
@@ -47,6 +55,15 @@ const ogImage = new URL(image, SITE.url).href
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={fullTitle} />
+
+    <!-- JSON-LD -->
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+
+    <!-- Extra head tags (e.g. article:* meta from PostLayout) -->
+    <slot name="head" />
 
     <meta name="generator" content={Astro.generator} />
     <link rel="preload" as="font" type="font/woff2" crossorigin href={interFontUrl} />

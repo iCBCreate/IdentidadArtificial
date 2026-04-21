@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string
+  description: string
+  pubDate: Date
+  category: string
+  slug: string
+  heroImage?: string
+  readingTime: string
+}
+
+const { title, description, pubDate, category, slug, heroImage, readingTime } = Astro.props
+
+const formattedDate = pubDate.toLocaleDateString('es-ES', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
+---
+
+<article class="group border border-[#E5E5E5] dark:border-[#222222] rounded-lg overflow-hidden hover:border-[#7C3AED] transition-colors">
+  {heroImage && (
+    <a href={`/${slug}/`}>
+      <img
+        src={heroImage}
+        alt={title}
+        class="w-full h-48 object-cover"
+        loading="lazy"
+        width="800"
+        height="400"
+      />
+    </a>
+  )}
+  <div class="p-5">
+    <div class="flex items-center gap-2 mb-3 flex-wrap">
+      <span class="text-xs font-medium text-[#7C3AED] uppercase tracking-wide">
+        {category}
+      </span>
+      <span class="text-[#E5E5E5] dark:text-[#333333]">·</span>
+      <time class="text-xs text-[#666666] dark:text-[#999999]" datetime={pubDate.toISOString()}>
+        {formattedDate}
+      </time>
+      <span class="text-[#E5E5E5] dark:text-[#333333]">·</span>
+      <span class="text-xs text-[#666666] dark:text-[#999999]">{readingTime}</span>
+    </div>
+    <h2 class="font-bold text-lg mb-2 group-hover:text-[#7C3AED] transition-colors">
+      <a href={`/${slug}/`}>{title}</a>
+    </h2>
+    <p class="text-sm text-[#666666] dark:text-[#999999] line-clamp-2">
+      {description}
+    </p>
+  </div>
+</article>

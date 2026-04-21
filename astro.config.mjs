@@ -8,6 +8,9 @@ export default defineConfig({
   srcDir: './source',
   trailingSlash: 'always',
   integrations: [mdx(), sitemap()],
+  build: {
+    inlineStylesheets: 'always',
+  },
   vite: {
     plugins: [tailwindcss()]
   }

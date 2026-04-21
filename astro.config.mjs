@@ -12,6 +12,9 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    ssr: {
+      external: ['@resvg/resvg-js', 'satori']
+    }
   }
 })

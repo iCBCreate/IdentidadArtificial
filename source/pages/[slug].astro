@@ -30,6 +30,7 @@ const { Content } = await render(post)
   generatedAt={post.data.generatedAt}
   promptBase={post.data.promptBase}
   humanReviewed={post.data.humanReviewed}
+  correctionNote={post.data.correctionNote}
   readingTime={calcReadingTime(post.body ?? '')}
   slug={post.id}
   allPosts={allPosts}

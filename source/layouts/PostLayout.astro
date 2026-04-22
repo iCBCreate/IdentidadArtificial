@@ -16,6 +16,7 @@ interface Props {
   generatedAt: Date
   promptBase: string
   humanReviewed: boolean
+  correctionNote?: string
   readingTime: string
   slug: string
   allPosts: CollectionEntry<'blog'>[]
@@ -33,6 +34,7 @@ const {
   generatedAt,
   promptBase,
   humanReviewed,
+  correctionNote,
   readingTime,
   slug,
   allPosts,
@@ -151,6 +153,7 @@ const jsonLd = {
       generatedAt={generatedAt}
       promptBase={promptBase}
       humanReviewed={humanReviewed}
+      correctionNote={correctionNote}
     />
   </article>
 </BaseLayout>

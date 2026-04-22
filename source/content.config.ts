@@ -15,6 +15,7 @@ const blog = defineCollection({
     generatedAt: z.coerce.date(),
     promptBase: z.string(),
     humanReviewed: z.boolean(),
+    correctionNote: z.string().optional(),
   })
 })
 

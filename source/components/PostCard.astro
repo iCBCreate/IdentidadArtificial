@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
 import { SITE } from '../config'
 
 interface Props {
@@ -7,7 +9,7 @@ interface Props {
   pubDate: Date
   category: string
   slug: string
-  heroImage?: string
+  heroImage?: ImageMetadata
   readingTime: string
   featured?: boolean
 }
@@ -119,7 +121,7 @@ const catConfig: CategoryConfig = categoryMap[categoryKey] ?? defaultCategory
   <a href={`/${slug}/`} class="mona-card-img-link" tabindex="-1" aria-hidden="true">
     <div class="mona-card-img" style={!heroImage ? `background: ${catConfig.gradient}` : ''}>
       {heroImage
-        ? <img src={heroImage} alt={title} loading="lazy" width="800" height="400" />
+        ? <Image src={heroImage} alt={title} loading="lazy" width={800} height={400} class="w-full h-full object-cover" />
         : <div class="cat-icon" set:html={catConfig.icon} />
       }
     </div>

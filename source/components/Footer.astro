@@ -7,27 +7,20 @@ import { SITE } from '../config'
     <p class="text-sm text-[#A0A0C0]">
       © {new Date().getFullYear()} {SITE.author}
     </p>
-    <div class="flex items-center gap-6">
-      <a
-        href="/rss.xml"
-        class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors"
-      >
+    <div class="flex items-center gap-6 flex-wrap justify-center sm:justify-end">
+      <a href="/aviso-legal/" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
+        Aviso legal
+      </a>
+      <a href="/politica-de-privacidad/" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
+        Privacidad
+      </a>
+      <a href="/rss.xml" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
         RSS
       </a>
-      <a
-        href={SITE.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors"
-      >
+      <a href={SITE.github} target="_blank" rel="noopener noreferrer" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
         GitHub
       </a>
-      <a
-        href={SITE.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors"
-      >
+      <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
         LinkedIn
       </a>
     </div>

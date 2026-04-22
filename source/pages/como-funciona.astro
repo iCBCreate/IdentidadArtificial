@@ -5,18 +5,19 @@ import { SITE } from '../config'
 
 <BaseLayout
   title="Cómo funciona"
-  description="El pipeline completo: stack, flujo de generación, rol de Claude Code y decisiones de diseño."
+  description="El pipeline completo: stack, flujo de generación, SEO/GEO, infraestructura de despliegue y decisiones de diseño de Identidad Artificial."
 >
   <article class="max-w-3xl mx-auto px-6 py-12">
     <h1 class="text-3xl sm:text-4xl font-bold mb-8 text-[#E8E8F0]">Cómo funciona</h1>
 
     <div class="prose prose-lg max-w-none
       prose-headings:font-bold prose-headings:text-[#E8E8F0]
+      prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4
       prose-p:text-[#C8C8E0]
       prose-li:text-[#C8C8E0]
       prose-strong:text-[#E8E8F0]
       prose-a:text-[#A78BFA] prose-a:no-underline hover:prose-a:underline
-      prose-code:font-mono prose-code:text-sm prose-code:text-[#E8E8F0]
+      prose-code:font-mono prose-code:text-sm prose-code:text-[#E8E8F0] prose-code:bg-[#24243A] prose-code:px-1 prose-code:rounded
       prose-pre:bg-[#24243A]">
 
       <p>
@@ -27,12 +28,13 @@ import { SITE } from '../config'
       <h2>El stack</h2>
 
       <ul>
-        <li><strong>Astro</strong> — framework estático, cero JavaScript al cliente por defecto</li>
-        <li><strong>Tailwind CSS v4</strong> — estilos utilitarios</li>
+        <li><strong>Astro 6</strong> — framework con output estático, cero JavaScript al cliente por defecto</li>
+        <li><strong>Tailwind CSS v4</strong> — estilos utilitarios, CSS inlinado en build</li>
         <li><strong>MDX</strong> — posts en Markdown con soporte de componentes</li>
-        <li><strong>Cloudflare Pages</strong> — despliegue automático en cada push</li>
-        <li><strong>GitHub</strong> — repositorio público</li>
-        <li><strong>Claude (Anthropic)</strong> — generación de contenido vía Claude Code</li>
+        <li><strong>Cloudflare Workers + Assets</strong> — despliegue automático en cada push a <code>main</code></li>
+        <li><strong>GitHub</strong> — repositorio público y fuente de verdad</li>
+        <li><strong>Claude (Anthropic)</strong> — generación de contenido vía Claude Code CLI</li>
+        <li><strong>Satori + @resvg/resvg-js</strong> — generación de imágenes Open Graph en tiempo de build</li>
       </ul>
 
       <h2>El pipeline de publicación</h2>
@@ -43,7 +45,10 @@ import { SITE } from '../config'
         <li>Claude genera el archivo <code>.mdx</code> completo con frontmatter y cuerpo</li>
         <li>Revisión humana obligatoria antes de publicar</li>
         <li>Commit y push al repositorio de GitHub</li>
-        <li>Cloudflare Pages detecta el push, ejecuta <code>npm run build</code> y despliega en ~60 segundos</li>
+        <li>Cloudflare detecta el push y ejecuta <code>npm run build</code></li>
+        <li><code>scripts/generate-og.mjs</code> genera una imagen PNG 1200×630px por post</li>
+        <li>Astro compila el sitio estático con todos los assets</li>
+        <li>Wrangler despliega el resultado a la red de Cloudflare en ~90 segundos</li>
       </ol>
 
       <h2>Estructura del repositorio</h2>
@@ -51,11 +56,17 @@ import { SITE } from '../config'
       <pre><code>identidad-artificial/
 ├── source/
 │   ├── content/blog/     ← Posts en .mdx
-│   ├── components/       ← Header, Footer, PostCard, TransparencyBlock
+│   ├── components/       ← Header, Footer, PostCard, TransparencyBlock…
 │   ├── layouts/          ← BaseLayout, PostLayout
 │   ├── pages/            ← Rutas del sitio
 │   └── styles/           ← CSS global
-├── public/               ← Assets estáticos
+├── scripts/
+│   └── generate-og.mjs   ← Generador de imágenes OG (prebuild)
+├── public/
+│   ├── fonts/            ← Inter TTF para satori
+│   ├── og/               ← Imágenes OG generadas (no en git)
+│   └── _headers          ← Cabeceras de seguridad para Cloudflare
+├── wrangler.toml         ← Configuración del despliegue en Workers
 └── astro.config.mjs</code></pre>
 
       <h2>El frontmatter de cada post</h2>
@@ -77,11 +88,61 @@ promptBase: 'El prompt que se usó para generar este post'
 humanReviewed: true
 ---</code></pre>
 
+      <h2>Infraestructura SEO y GEO</h2>
+
+      <p>
+        GEO (Generative Engine Optimization) es el equivalente del SEO para motores de respuesta
+        como ChatGPT, Perplexity o Claude. El sitio está preparado para ambos:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Open Graph y Twitter Card</strong> — cada post tiene su propia imagen OG
+          generada en build-time, con título, categoría y fecha. Se muestra al compartir en
+          redes sociales.
+        </li>
+        <li>
+          <strong>JSON-LD (schema.org)</strong> — cada artículo incluye metadatos estructurados
+          de tipo <code>Article</code> para que Google y otros motores entiendan el contenido.
+        </li>
+        <li>
+          <strong>Sitemap XML</strong> — generado automáticamente por <code>@astrojs/sitemap</code>,
+          disponible en <a href="/sitemap-index.xml">/sitemap-index.xml</a>.
+        </li>
+        <li>
+          <strong>robots.txt</strong> — permite la indexación total por buscadores y bots de IA,
+          disponible en <a href="/robots.txt">/robots.txt</a>.
+        </li>
+        <li>
+          <strong>llms.txt</strong> — estándar emergente para indicar a sistemas de IA cómo
+          indexar y citar el contenido del sitio, disponible en <a href="/llms.txt">/llms.txt</a>.
+        </li>
+        <li>
+          <strong>RSS</strong> — feed estándar para lectores y agregadores, en <a href="/rss.xml">/rss.xml</a>.
+        </li>
+      </ul>
+
+      <h2>Seguridad</h2>
+
+      <p>
+        Las cabeceras HTTP de seguridad se aplican a nivel de Cloudflare mediante el archivo
+        <code>public/_headers</code>:
+      </p>
+
+      <ul>
+        <li><strong>HSTS</strong> — fuerza HTTPS durante 1 año con preload</li>
+        <li><strong>X-Frame-Options: DENY</strong> — previene clickjacking</li>
+        <li><strong>Content-Security-Policy</strong> — restringe el origen de scripts, estilos y fuentes</li>
+        <li><strong>X-Content-Type-Options: nosniff</strong> — evita MIME sniffing</li>
+        <li><strong>Referrer-Policy</strong> — limita la información de referencia enviada</li>
+        <li><strong>Permissions-Policy</strong> — deshabilita acceso a cámara, micrófono y geolocalización</li>
+      </ul>
+
       <h2>Variables de entorno</h2>
 
       <p>
         Ninguna credencial está en el repositorio. Las variables de entorno se gestionan
-        exclusivamente en el panel de Cloudflare Pages.
+        exclusivamente en el panel de Cloudflare.
       </p>
 
       <p>

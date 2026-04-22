@@ -33,20 +33,22 @@ import { SITE } from '../config'
         <li><strong>MDX</strong> — posts en Markdown con soporte de componentes</li>
         <li><strong>Cloudflare Workers + Assets</strong> — despliegue automático en cada push a <code>main</code></li>
         <li><strong>GitHub</strong> — repositorio público y fuente de verdad</li>
-        <li><strong>Claude (Anthropic)</strong> — generación de contenido vía Claude Code CLI</li>
+        <li><strong>Modelos de IA</strong> — los posts pueden generarse con cualquier modelo (Claude, GPT-4o, Gemini…). El modelo usado queda registrado en los metadatos de cada post.</li>
         <li><strong>Satori + @resvg/resvg-js</strong> — generación de imágenes Open Graph en tiempo de build</li>
+        <li><strong>Sharp</strong> — optimización de imágenes hero en build time (<code>imageService: 'compile'</code>), convertidas a WebP con srcset automático</li>
       </ul>
 
       <h2>El pipeline de publicación</h2>
 
       <ol>
         <li>Se define el tema del artículo</li>
-        <li>Claude recibe el prompt con el tema y las instrucciones de estilo</li>
-        <li>Claude genera el archivo <code>.mdx</code> completo con frontmatter y cuerpo</li>
+        <li>El modelo de IA recibe el prompt junto con la guía de estilo del repositorio (<code>docs/guia-crear-post.md</code>)</li>
+        <li>El modelo genera el archivo <code>.mdx</code> completo con frontmatter y cuerpo, e identifica qué imagen hero usar</li>
         <li>Revisión humana obligatoria antes de publicar</li>
         <li>Commit y push al repositorio de GitHub</li>
         <li>Cloudflare detecta el push y ejecuta <code>npm run build</code></li>
         <li><code>scripts/generate-og.mjs</code> genera una imagen PNG 1200×630px por post</li>
+        <li>Sharp procesa las imágenes hero: las convierte a WebP y genera srcset estático</li>
         <li>Astro compila el sitio estático con todos los assets</li>
         <li>Wrangler despliega el resultado a la red de Cloudflare en ~90 segundos</li>
       </ol>
@@ -55,6 +57,7 @@ import { SITE } from '../config'
 
       <pre><code>identidad-artificial/
 ├── source/
+│   ├── assets/post/      ← Imágenes hero de los posts
 │   ├── content/blog/     ← Posts en .mdx
 │   ├── components/       ← Header, Footer, PostCard, TransparencyBlock…
 │   ├── layouts/          ← BaseLayout, PostLayout
@@ -62,6 +65,8 @@ import { SITE } from '../config'
 │   └── styles/           ← CSS global
 ├── scripts/
 │   └── generate-og.mjs   ← Generador de imágenes OG (prebuild)
+├── docs/
+│   └── guia-crear-post.md ← Instrucciones para generar posts con cualquier modelo
 ├── public/
 │   ├── fonts/            ← Inter TTF para satori
 │   ├── og/               ← Imágenes OG generadas (no en git)
@@ -80,13 +85,21 @@ import { SITE } from '../config'
 title: 'Título del post'
 description: 'Descripción para SEO'
 pubDate: 2026-04-21
-category: 'inteligencia-artificial'
+category: 'Modelos'
 tags: ['llm', 'agentes']
 generatedBy: 'claude-sonnet-4-6'
 generatedAt: '2026-04-21T10:00:00Z'
 promptBase: 'El prompt que se usó para generar este post'
 humanReviewed: true
+heroImage: '../../assets/post/imagen-del-post.jpg'  # opcional
+correctionNote: 'Texto si el post corrige errores de una versión anterior.'  # opcional
 ---</code></pre>
+
+      <p>
+        El campo <code>correctionNote</code> aparece como bloque de aviso visible en el post
+        cuando se publica una corrección. El campo <code>heroImage</code> referencia una imagen
+        local que Astro optimiza y convierte a WebP en build time.
+      </p>
 
       <h2>Infraestructura SEO y GEO</h2>
 

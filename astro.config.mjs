@@ -16,7 +16,7 @@ export default defineConfig({
         !page.includes('/pagina/') && !page.includes('/archivo/pagina/'),
     }),
   ],
-  adapter: cloudflare(),
+  adapter: cloudflare({ imageService: 'compile' }),
   build: {
     inlineStylesheets: 'always',
   },

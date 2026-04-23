@@ -49,7 +49,7 @@ generatedBy: 'nombre-del-modelo-usado'
 generatedAt: '2026-05-01T10:00:00Z'
 promptBase: 'El prompt exacto o descripción del encargo que originó este post.'
 humanReviewed: true
-heroImage: '../../assets/post/nombre-imagen.jpg'   # opcional
+heroImage: '../../assets/post/nombre-imagen.png'   # opcional
 correctionNote: 'Texto si el post corrige una versión anterior errónea.'  # opcional
 ---
 ```
@@ -60,14 +60,14 @@ correctionNote: 'Texto si el post corrige una versión anterior errónea.'  # op
 |---|---|---|
 | `title` | string | Título H1 del post. Claro, con keyword principal, sin clickbait. |
 | `description` | string | Meta description para SEO. 150-160 caracteres. |
-| `pubDate` | fecha | Fecha de publicación en formato `YYYY-MM-DD`. |
+| `pubDate` | fecha | Fecha de publicación en formato `YYYY-MM-DD`. Sin comillas. |
 | `category` | string | Categoría principal. Ver lista abajo. |
 | `tags` | array | 3-5 tags en kebab-case. Sin mayúsculas. |
 | `generatedBy` | string | Identificador del modelo que generó el post. Ej: `gemini-2.5-pro`, `gpt-4o`, `claude-sonnet-4-6`. |
-| `generatedAt` | ISO 8601 | Fecha y hora de generación. Ej: `2026-05-01T10:00:00Z`. |
+| `generatedAt` | ISO 8601 | Fecha y hora de generación. Ej: `2026-05-01T10:00:00Z`. Entre comillas simples. |
 | `promptBase` | string | Resumen del prompt o encargo original. Transparencia sobre el origen. |
-| `humanReviewed` | boolean | `true` si un humano revisó y aprobó el post antes de publicar. |
-| `heroImage` | ruta relativa | Opcional. Ruta relativa desde el MDX hasta la imagen en `source/assets/post/`. |
+| `humanReviewed` | boolean | `true` si un humano revisó y aprobó el post antes de publicar. Siempre en minúsculas: `true` o `false`. |
+| `heroImage` | ruta relativa | Opcional. Ruta relativa desde el MDX hasta la imagen en `source/assets/post/`. Ver sección imagen. |
 | `correctionNote` | string | Opcional. Solo si el post corrige errores de una versión anterior. Visible en el bloque de transparencia. |
 
 ### Categorías válidas
@@ -88,13 +88,13 @@ Usa exactamente uno de estos valores (respetando mayúsculas/minúsculas):
 
 Si el post tiene imagen principal:
 
-1. **Guarda la imagen** en `source/assets/post/nombre-descriptivo.jpg` (o `.png`)
-2. **Nombra el archivo** en inglés, descriptivo, sin espacios: `ai-reasoning-model-screen.jpg`
+1. **Guarda la imagen** en `source/assets/post/nombre-descriptivo.png` (acepta `.png` o `.jpg`)
+2. **Nombra el archivo** en inglés, descriptivo, sin espacios: `ai-reasoning-model-screen.png`
 3. **Referencia en frontmatter** con ruta relativa desde el MDX:
    ```yaml
-   heroImage: '../../assets/post/ai-reasoning-model-screen.jpg'
+   heroImage: '../../assets/post/ai-reasoning-model-screen.png'
    ```
-4. **No pongas `<Image />` en el cuerpo del MDX** — el layout ya renderiza la heroImage automáticamente en el header
+4. **No pongas `<Image />` ni `<img>` en el cuerpo del MDX** — el layout ya renderiza la heroImage automáticamente en el header. Astro convierte la imagen a `.webp` optimizado durante el build.
 
 El alt text de la imagen se genera automáticamente a partir del `title`.
 
@@ -152,10 +152,10 @@ Sources:
 
 ### Lo que NO hacer
 
-- No uses `<img>` HTML directo — usa frontmatter `heroImage`
+- No uses `<Image />` ni `<img>` HTML en el cuerpo — usa frontmatter `heroImage`
 - No importes componentes en el MDX a menos que sea estrictamente necesario
 - No añadas estilos inline
-- No repitas el título como primer heading
+- No repitas el título como primer heading `#`
 
 ---
 
@@ -173,19 +173,39 @@ Sources:
 
 ---
 
+## Errores frecuentes que rompen el build
+
+Estos son los errores más comunes que cometen los modelos de IA al generar posts:
+
+| Error | Incorrecto | Correcto |
+|---|---|---|
+| `pubDate` con comillas | `pubDate: '2026-05-01'` | `pubDate: 2026-05-01` |
+| `humanReviewed` en mayúsculas | `humanReviewed: True` | `humanReviewed: true` |
+| Categoría con error tipográfico | `category: 'modelos'` | `category: 'Modelos'` |
+| `generatedAt` sin comillas | `generatedAt: 2026-05-01T10:00:00Z` | `generatedAt: '2026-05-01T10:00:00Z'` |
+| `tags` en mayúsculas | `tags: ['LLM', 'OpenAI']` | `tags: ['llm', 'openai']` |
+| `heroImage` con ruta incorrecta | `heroImage: 'assets/post/img.png'` | `heroImage: '../../assets/post/img.png'` |
+| Imagen referenciada pero no guardada | el archivo `.mdx` menciona una imagen que no existe en `source/assets/post/` | guarda primero el archivo de imagen, luego referéncialo |
+| `<Image />` o `<img>` en el cuerpo | usar etiquetas de imagen dentro del contenido MDX | usa solo `heroImage` en frontmatter |
+| Título repetido como `#` heading | primer heading del body es el título | empieza directamente con el párrafo de apertura |
+| URLs inventadas en Sources | poner URLs plausibles pero no verificadas | solo URLs reales que hayas consultado |
+
+---
+
 ## Verificación antes de guardar
 
 Antes de guardar el archivo, comprueba:
 
 - [ ] Frontmatter completo y sin errores de sintaxis YAML
 - [ ] `pubDate` en formato `YYYY-MM-DD` (sin comillas)
-- [ ] `generatedAt` en formato ISO 8601 con `Z` al final
+- [ ] `generatedAt` en formato ISO 8601 con `Z` al final (entre comillas simples)
+- [ ] `humanReviewed` es `true` o `false` en minúsculas
 - [ ] `tags` en kebab-case y minúsculas
 - [ ] `category` exactamente como aparece en la lista de categorías válidas
-- [ ] `humanReviewed: true` solo si fue revisado por un humano
 - [ ] Fuentes reales al final del post
-- [ ] Sin `<Image />` en el cuerpo si `heroImage` está en frontmatter
-- [ ] Imagen guardada en `source/assets/post/` si se referencia
+- [ ] Sin `<Image />` ni `<img>` en el cuerpo si `heroImage` está en frontmatter
+- [ ] Imagen guardada en `source/assets/post/` si se referencia en frontmatter
+- [ ] Ruta de `heroImage` empieza por `../../assets/post/`
 
 ---
 
@@ -202,7 +222,7 @@ generatedBy: 'gemini-2.5-pro'
 generatedAt: '2026-05-10T11:00:00Z'
 promptBase: 'Analiza las capacidades de Gemini 2.5 Pro: contexto de 2M tokens, razonamiento sobre vídeo, benchmarks comparados con GPT-4o y Claude 3.7. Tono técnico, ejemplos concretos.'
 humanReviewed: true
-heroImage: '../../assets/post/gemini-2-5-pro-interface.jpg'
+heroImage: '../../assets/post/gemini-2-5-pro-interface.png'
 ---
 
 Google presentó **Gemini 2.5 Pro** el 10 de mayo de 2026 con una capacidad que ningún modelo de producción había alcanzado hasta ahora: procesar y razonar sobre **2 millones de tokens** en una sola llamada.
@@ -220,6 +240,9 @@ Sources:
 ## Tras crear el archivo
 
 1. Guarda el `.mdx` en `source/content/blog/`
-2. Si hay imagen, guárdala en `source/assets/post/`
-3. Ejecuta `npm run build` para verificar que no hay errores
-4. Haz commit y push — Cloudflare despliega automáticamente
+2. Si hay imagen, guárdala en `source/assets/post/` (`.png` o `.jpg`)
+3. Ejecuta `npm run build` para verificar que no hay errores de validación
+4. Haz commit y push a GitHub
+5. **Ejecuta `npm run deploy` desde la terminal** para publicar en Cloudflare — el deploy no es automático, hay que lanzarlo manualmente
+
+**El orden importa:** primero build, luego commit+push, luego deploy. Si `npm run build` falla, corrige antes de continuar.

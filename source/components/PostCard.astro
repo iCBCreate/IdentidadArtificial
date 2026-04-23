@@ -12,9 +12,10 @@ interface Props {
   heroImage?: ImageMetadata
   readingTime: string
   featured?: boolean
+  priority?: boolean
 }
 
-const { title, description, pubDate, category, slug, heroImage, readingTime, featured = false } = Astro.props
+const { title, description, pubDate, category, slug, heroImage, readingTime, featured = false, priority = false } = Astro.props
 
 const formattedDate = pubDate.toLocaleDateString('es-ES', {
   day: 'numeric',
@@ -121,7 +122,20 @@ const catConfig: CategoryConfig = categoryMap[categoryKey] ?? defaultCategory
   <a href={`/${slug}/`} class="mona-card-img-link" tabindex="-1" aria-hidden="true">
     <div class="mona-card-img" style={!heroImage ? `background: ${catConfig.gradient}` : ''}>
       {heroImage
-        ? <Image src={heroImage} alt={title} loading="lazy" width={800} height={400} class="w-full h-full object-cover" />
+        ? <Image
+            src={heroImage}
+            alt={title}
+            loading={priority ? "eager" : "lazy"}
+            fetchpriority={priority ? "high" : "auto"}
+            widths={[320, 480, 650, 800]}
+            sizes={featured
+              ? "(max-width: 640px) calc(100vw - 48px), 650px"
+              : "(max-width: 640px) calc(100vw - 48px), 325px"
+            }
+            width={800}
+            height={400}
+            class="w-full h-full object-cover"
+          />
         : <div class="cat-icon" set:html={catConfig.icon} />
       }
     </div>

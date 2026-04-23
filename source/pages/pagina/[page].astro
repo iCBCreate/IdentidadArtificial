@@ -49,6 +49,7 @@ const posts = allPosts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
           heroImage={post.data.heroImage}
           readingTime={calcReadingTime(post.body ?? '')}
           featured={i === 0}
+          priority={i === 0}
         />
       ))}
     </div>

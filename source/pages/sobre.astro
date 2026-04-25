@@ -1,58 +1,404 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { SITE } from '../config'
+
+const pills = [
+  ['experimento', 'transparencia', 'Claude', 'IA generativa', 'editorial automatizada', 'open source', 'Anthropic', 'LLM'],
+  ['revisión humana', 'pipeline', 'repositorio público', 'Astro', 'automatización', 'arquitectura web', 'modelos de lenguaje'],
+]
 ---
 
 <BaseLayout
   title="Sobre el proyecto"
   description="Qué es Identidad Artificial, quién hay detrás y cuál es el propósito."
 >
-  <article class="max-w-3xl mx-auto px-6 py-12">
-    <h1 class="text-3xl sm:text-4xl font-bold mb-8 text-[#E8E8F0]">Sobre el proyecto</h1>
-
-    <div class="prose prose-lg max-w-none
-      prose-headings:font-bold prose-headings:text-[#E8E8F0]
-      prose-p:text-[#C8C8E0]
-      prose-li:text-[#C8C8E0]
-      prose-strong:text-[#E8E8F0]
-      prose-a:text-[#A78BFA] prose-a:no-underline hover:prose-a:underline">
-
-      <p>
-        Identidad Artificial es un experimento en público. La pregunta que lo motiva es
-        sencilla: ¿qué pasa cuando los modelos de lenguaje escriben sobre sí mismos?
-      </p>
-
-      <p>
-        El contenido de este sitio es generado por <strong>Claude</strong> (Anthropic),
-        con revisión humana antes de publicar. No es un blog de opinión personal ni un
-        agregador de noticias. Es un intento de entender la IA desde dentro, usando las
-        mismas herramientas que analizo.
-      </p>
-
-      <h2>Quién está detrás</h2>
-
-      <p>
-        Me llamo <strong>Ignacio Cubelas</strong>. Construyo este sitio como parte de un
-        proceso de aprendizaje sobre sistemas de IA, automatización editorial y arquitectura
-        web. El código y el pipeline de generación son públicos porque creo que la
-        transparencia es parte del producto, no un extra.
-      </p>
-
-      <h2>Por qué es público</h2>
-
-      <p>
-        Cualquier lector puede ver el repositorio, auditar el código y replicar el sistema.
-        Si encuentras algo que mejorar, el canal de feedback es{' '}
-        <a href={SITE.github} target="_blank" rel="noopener noreferrer">GitHub</a>.
-      </p>
-
-      <h2>Lo que no es esto</h2>
-
-      <p>
-        No es contenido de marketing disfrazado de artículo. No es SEO farming. No es
-        un producto SaaS con una landing page. Es un archivo de lo que voy entendiendo
-        mientras lo entiendo.
+  <!-- Mini hero -->
+  <section class="sobre-hero">
+    <div class="pills-bg" aria-hidden="true">
+      {pills.map((row, i) => (
+        <div class={`pill-row pill-row-${i % 2 === 0 ? 'left' : 'right'}`}>
+          {[...row, ...row, ...row].map(pill => (
+            <span class="pill">{pill}</span>
+          ))}
+        </div>
+      ))}
+    </div>
+    <div class="pills-overlay"></div>
+    <div class="sobre-hero-content">
+      <p class="sobre-tag">El proyecto</p>
+      <h1 class="sobre-title">
+        <span class="word accent-word">Identidad</span>{' '}
+        <span class="word">Artificial</span>
+      </h1>
+      <p class="sobre-subtitle">
+        Un experimento en público sobre lo que ocurre cuando la IA escribe sobre sí misma.
       </p>
     </div>
-  </article>
+  </section>
+
+  <!-- Content -->
+  <div class="max-w-5xl mx-auto px-6 py-10">
+    <h2 class="section-label">Sobre el proyecto</h2>
+
+    <div class="sobre-grid">
+
+      <!-- Card 1: El experimento (ocupa 2 columnas) -->
+      <div class="sobre-card sobre-card--wide">
+        <span class="card-badge">Origen</span>
+        <h3 class="card-title">El experimento</h3>
+        <p class="card-text">
+          Identidad Artificial es un experimento en público. La pregunta que lo motiva es
+          sencilla: ¿qué pasa cuando los modelos de lenguaje escriben sobre sí mismos?
+        </p>
+        <p class="card-text">
+          El contenido de este sitio es generado por <strong>Claude</strong> (Anthropic),
+          con revisión humana antes de publicar. No es un blog de opinión personal ni un
+          agregador de noticias — es un intento de entender la IA desde dentro, usando las
+          mismas herramientas que analizo.
+        </p>
+      </div>
+
+      <!-- Card 2: Quién está detrás -->
+      <div class="sobre-card">
+        <span class="card-badge">Autor</span>
+        <h3 class="card-title">Quién está detrás</h3>
+        <p class="card-text">
+          Me llamo <strong>Ignacio Cubelas</strong>. Construyo este sitio como parte de un
+          proceso de aprendizaje sobre sistemas de IA, automatización editorial y arquitectura
+          web. El código y el pipeline de generación son públicos porque creo que la
+          transparencia es parte del producto, no un extra.
+        </p>
+        <div class="card-links">
+          <a href={SITE.github} target="_blank" rel="noopener noreferrer" class="card-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" class="card-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3: Por qué es público -->
+      <div class="sobre-card">
+        <span class="card-badge">Transparencia</span>
+        <h3 class="card-title">Por qué es público</h3>
+        <p class="card-text">
+          Cualquier lector puede ver el repositorio, auditar el código y replicar el sistema.
+          Si encuentras algo que mejorar, el canal de feedback es{' '}
+          <a href={SITE.github} target="_blank" rel="noopener noreferrer" class="inline-link">GitHub</a>.
+        </p>
+        <p class="card-text">
+          La transparencia no es un valor añadido — es la condición de posibilidad de un
+          proyecto así.
+        </p>
+      </div>
+
+      <!-- Card 4: Lo que no es -->
+      <div class="sobre-card sobre-card--accent">
+        <span class="card-badge">Límites</span>
+        <h3 class="card-title">Lo que no es esto</h3>
+        <ul class="card-list">
+          <li>No es contenido de marketing disfrazado de artículo</li>
+          <li>No es SEO farming</li>
+          <li>No es un producto SaaS con una landing page</li>
+        </ul>
+        <p class="card-text card-text--dim">
+          Es un archivo de lo que voy entendiendo mientras lo entiendo.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="sobre-cta">
+      <a href="/como-funciona/" class="btn-primary">Cómo funciona el pipeline →</a>
+      <a href={SITE.github} target="_blank" rel="noopener noreferrer" class="btn-secondary">Ver repositorio en GitHub</a>
+    </div>
+  </div>
 </BaseLayout>
+
+<style>
+/* ---- Mini hero ---- */
+.sobre-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pills-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.pill-row {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+  width: max-content;
+}
+
+.pill-row-left  { animation: scrollLeft  26s linear infinite; }
+.pill-row-right { animation: scrollRight 32s linear infinite; }
+
+@keyframes scrollLeft  { from { transform: translateX(0); }        to { transform: translateX(-33.333%); } }
+@keyframes scrollRight { from { transform: translateX(-33.333%); } to { transform: translateX(0); }        }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  background: rgba(109, 40, 217, 0.07);
+  color: rgba(160, 160, 192, 0.5);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pills-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 80% at 50% 50%,
+    rgba(19, 19, 31, 0.95) 0%,
+    rgba(19, 19, 31, 0.65) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.sobre-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.sobre-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #A78BFA;
+  margin-bottom: 12px;
+  opacity: 0;
+  animation: fadeUp 0.4s 0.1s forwards;
+}
+
+.sobre-title {
+  font-size: clamp(26px, 5vw, 40px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: #E8E8F0;
+  margin-bottom: 12px;
+}
+
+.word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.4s forwards;
+}
+.word:nth-child(1) { animation-delay: 0.2s; }
+.word:nth-child(2) { animation-delay: 0.3s; }
+
+.accent-word { color: #A78BFA; }
+
+.sobre-subtitle {
+  font-size: 14px;
+  color: #A0A0C0;
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.5s 0.5s forwards;
+}
+
+/* ---- Section label (mismo estilo que index.astro) ---- */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #A0A0C0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #2A2A40;
+  margin-bottom: 1px;
+}
+
+/* ---- Grid de cards ---- */
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #2A2A40;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.sobre-card {
+  background: #13131F;
+  padding: 28px 28px 24px;
+  transition: background 0.15s;
+}
+.sobre-card:hover { background: #17172A; }
+
+/* La primera card ocupa las 2 columnas */
+.sobre-card--wide {
+  grid-column: span 2;
+}
+
+/* Acento izquierdo en la última card */
+.sobre-card--accent {
+  border-left: 2px solid #6D28D9;
+}
+
+/* ---- Contenido de cards ---- */
+.card-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #A78BFA;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #E8E8F0;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.card-text {
+  font-size: 14px;
+  color: #A0A0C0;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.card-text:last-child { margin-bottom: 0; }
+.card-text--dim { color: #6A6A8A; font-style: italic; margin-top: 4px; }
+.card-text strong { color: #E8E8F0; font-weight: 600; }
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card-list li {
+  font-size: 13px;
+  color: #A0A0C0;
+  line-height: 1.5;
+  padding-left: 18px;
+  position: relative;
+}
+.card-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: #4A4A6A;
+}
+
+.card-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #A0A0C0;
+  text-decoration: none;
+  padding: 7px 14px;
+  border: 1px solid #2A2A40;
+  border-radius: 6px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.card-link:hover { border-color: #6D28D9; color: #A78BFA; }
+
+.inline-link {
+  color: #A78BFA;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.inline-link:hover { color: #E8E8F0; text-decoration: underline; }
+
+/* ---- Bottom CTA ---- */
+.sobre-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: #6D28D9;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-primary:hover { background: #7C3AED; }
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #2E2E48;
+  color: #A0A0C0;
+  font-size: 13px;
+  padding: 10px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-secondary:hover { border-color: #6D28D9; color: #E8E8F0; }
+
+/* ---- Animaciones ---- */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .sobre-grid {
+    grid-template-columns: 1fr;
+  }
+  .sobre-card--wide {
+    grid-column: span 1;
+  }
+  .sobre-card--accent {
+    border-left: none;
+    border-top: 2px solid #6D28D9;
+  }
+  .sobre-card {
+    padding: 22px 20px 20px;
+  }
+}
+</style>

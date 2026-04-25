@@ -1,61 +1,114 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { SITE } from '../config'
+
+const pills = [
+  ['Astro 6', 'static output', 'Cloudflare Workers', 'MDX', 'Tailwind v4', 'Sharp', 'WebP srcset'],
+  ['JSON-LD', 'sitemap XML', 'Open Graph', 'robots.txt', 'llms.txt', 'RSS feed', 'GEO'],
+  ['Satori', 'OG images', 'wrangler deploy', 'build pipeline', 'frontmatter Zod', 'TypeScript strict'],
+]
+
+const stack = [
+  { name: 'Astro 6', desc: 'Output estático, cero JS al cliente por defecto', icon: '🚀' },
+  { name: 'Tailwind CSS v4', desc: 'Estilos utilitarios, CSS inlinado en build', icon: '🎨' },
+  { name: 'MDX', desc: 'Posts en Markdown con soporte de componentes', icon: '📝' },
+  { name: 'Cloudflare', desc: 'Workers + Assets, despliegue en cada push a main', icon: '☁️' },
+  { name: 'Modelos de IA', desc: 'Claude, GPT-4o, Gemini… registrado en metadatos', icon: '🤖' },
+  { name: 'Satori + resvg', desc: 'Imágenes Open Graph generadas en build time', icon: '🖼️' },
+  { name: 'Sharp', desc: 'Optimización hero: WebP + srcset automático', icon: '⚡' },
+  { name: 'GitHub', desc: 'Repositorio público, fuente de verdad', icon: '🔗' },
+]
+
+const pipeline = [
+  { n: '1', label: 'Definir tema del artículo' },
+  { n: '2', label: 'El modelo recibe prompt + guía de estilo del repo' },
+  { n: '3', label: 'El modelo genera el .mdx completo con frontmatter' },
+  { n: '4', label: 'Revisión humana obligatoria antes de publicar' },
+  { n: '5', label: 'Commit y push al repositorio GitHub' },
+  { n: '6', label: 'Cloudflare detecta el push y ejecuta npm run build' },
+  { n: '7', label: 'generate-og.mjs genera PNG 1200×630 por post' },
+  { n: '8', label: 'Sharp convierte imágenes hero a WebP + srcset' },
+  { n: '9', label: 'Astro compila el sitio estático con todos los assets' },
+  { n: '10', label: 'Wrangler despliega a la red de Cloudflare en ~90s' },
+]
+
+const geo = [
+  { label: 'Open Graph + Twitter Card', desc: 'Imagen OG por post generada en build-time con título, categoría y fecha' },
+  { label: 'JSON-LD (schema.org)', desc: 'Metadatos estructurados tipo Article para Google y otros motores' },
+  { label: 'Sitemap XML', desc: 'Generado automáticamente por @astrojs/sitemap' },
+  { label: 'robots.txt', desc: 'Indexación total por buscadores y bots de IA' },
+  { label: 'llms.txt', desc: 'Estándar emergente para indicar a sistemas de IA cómo indexar el contenido' },
+  { label: 'RSS', desc: 'Feed estándar para lectores y agregadores' },
+]
+
+const security = [
+  { label: 'HSTS', desc: 'Fuerza HTTPS durante 1 año con preload' },
+  { label: 'X-Frame-Options: DENY', desc: 'Previene clickjacking' },
+  { label: 'Content-Security-Policy', desc: 'Restringe el origen de scripts, estilos y fuentes' },
+  { label: 'X-Content-Type-Options', desc: 'Evita MIME sniffing' },
+  { label: 'Referrer-Policy', desc: 'Limita la información de referencia enviada' },
+  { label: 'Permissions-Policy', desc: 'Deshabilita acceso a cámara, micrófono y geolocalización' },
+]
 ---
 
 <BaseLayout
   title="Cómo funciona"
   description="El pipeline completo: stack, flujo de generación, SEO/GEO, infraestructura de despliegue y decisiones de diseño de Identidad Artificial."
 >
-  <article class="max-w-3xl mx-auto px-6 py-12">
-    <h1 class="text-3xl sm:text-4xl font-bold mb-8 text-[#E8E8F0]">Cómo funciona</h1>
-
-    <div class="prose prose-lg max-w-none
-      prose-headings:font-bold prose-headings:text-[#E8E8F0]
-      prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4
-      prose-p:text-[#C8C8E0]
-      prose-li:text-[#C8C8E0]
-      prose-strong:text-[#E8E8F0]
-      prose-a:text-[#A78BFA] prose-a:no-underline hover:prose-a:underline
-      prose-code:font-mono prose-code:text-sm prose-code:text-[#E8E8F0] prose-code:bg-[#24243A] prose-code:px-1 prose-code:rounded
-      prose-pre:bg-[#24243A]">
-
-      <p>
-        Este sitio es un experimento en transparencia radical. No solo publico el contenido:
-        publico cómo se genera, qué herramientas uso y qué decisiones tomé al construirlo.
+  <!-- Mini hero -->
+  <section class="cf-hero">
+    <div class="pills-bg" aria-hidden="true">
+      {pills.map((row, i) => (
+        <div class={`pill-row pill-row-${i % 2 === 0 ? 'left' : 'right'}`}>
+          {[...row, ...row, ...row].map(pill => (
+            <span class="pill">{pill}</span>
+          ))}
+        </div>
+      ))}
+    </div>
+    <div class="pills-overlay"></div>
+    <div class="cf-hero-content">
+      <span class="cf-eyebrow">Transparencia radical</span>
+      <h1 class="cf-title">
+        Cómo <span class="accent">funciona</span>
+      </h1>
+      <p class="cf-subtitle">
+        Stack, pipeline de publicación, SEO/GEO<br />e infraestructura de despliegue.
       </p>
+    </div>
+  </section>
 
-      <h2>El stack</h2>
+  <div class="cf-body">
 
-      <ul>
-        <li><strong>Astro 6</strong> — framework con output estático, cero JavaScript al cliente por defecto</li>
-        <li><strong>Tailwind CSS v4</strong> — estilos utilitarios, CSS inlinado en build</li>
-        <li><strong>MDX</strong> — posts en Markdown con soporte de componentes</li>
-        <li><strong>Cloudflare Workers + Assets</strong> — despliegue automático en cada push a <code>main</code></li>
-        <li><strong>GitHub</strong> — repositorio público y fuente de verdad</li>
-        <li><strong>Modelos de IA</strong> — los posts pueden generarse con cualquier modelo (Claude, GPT-4o, Gemini…). El modelo usado queda registrado en los metadatos de cada post.</li>
-        <li><strong>Satori + @resvg/resvg-js</strong> — generación de imágenes Open Graph en tiempo de build</li>
-        <li><strong>Sharp</strong> — optimización de imágenes hero en build time (<code>imageService: 'compile'</code>), convertidas a WebP con srcset automático</li>
-      </ul>
+    <!-- Stack -->
+    <div class="section-label">El stack</div>
+    <div class="stack-grid">
+      {stack.map((item, i) => (
+        <div class="stack-card fade-up" style={`animation-delay: ${i * 0.04}s`}>
+          <span class="stack-icon" aria-hidden="true">{item.icon}</span>
+          <div>
+            <div class="stack-name">{item.name}</div>
+            <div class="stack-desc">{item.desc}</div>
+          </div>
+        </div>
+      ))}
+    </div>
 
-      <h2>El pipeline de publicación</h2>
+    <!-- Pipeline -->
+    <div class="section-label">El pipeline de publicación</div>
+    <div class="pipeline fade-up" style="animation-delay: 0.05s">
+      {pipeline.map((step) => (
+        <div class="pipeline-step">
+          <div class="step-num">{step.n}</div>
+          <div class="step-label">{step.label}</div>
+        </div>
+      ))}
+    </div>
 
-      <ol>
-        <li>Se define el tema del artículo</li>
-        <li>El modelo de IA recibe el prompt junto con la guía de estilo del repositorio (<code>docs/guia-crear-post.md</code>)</li>
-        <li>El modelo genera el archivo <code>.mdx</code> completo con frontmatter y cuerpo, e identifica qué imagen hero usar</li>
-        <li>Revisión humana obligatoria antes de publicar</li>
-        <li>Commit y push al repositorio de GitHub</li>
-        <li>Cloudflare detecta el push y ejecuta <code>npm run build</code></li>
-        <li><code>scripts/generate-og.mjs</code> genera una imagen PNG 1200×630px por post</li>
-        <li>Sharp procesa las imágenes hero: las convierte a WebP y genera srcset estático</li>
-        <li>Astro compila el sitio estático con todos los assets</li>
-        <li>Wrangler despliega el resultado a la red de Cloudflare en ~90 segundos</li>
-      </ol>
-
-      <h2>Estructura del repositorio</h2>
-
-      <pre><code>identidad-artificial/
+    <!-- Repo structure -->
+    <div class="section-label">Estructura del repositorio</div>
+    <div class="code-block fade-up" style="animation-delay: 0.05s">
+      <pre><code>{`identidad-artificial/
 ├── source/
 │   ├── assets/post/      ← Imágenes hero de los posts
 │   ├── content/blog/     ← Posts en .mdx
@@ -71,17 +124,17 @@ import { SITE } from '../config'
 │   ├── fonts/            ← Inter TTF para satori
 │   ├── og/               ← Imágenes OG generadas (no en git)
 │   └── _headers          ← Cabeceras de seguridad para Cloudflare
-├── wrangler.toml         ← Configuración del despliegue en Workers
-└── astro.config.mjs</code></pre>
+├── wrangler.toml         ← Configuración del despliegue
+└── astro.config.mjs`}</code></pre>
+    </div>
 
-      <h2>El frontmatter de cada post</h2>
-
-      <p>
-        Cada post incluye metadatos de transparencia validados con Zod en tiempo de build
-        y mostrados al pie de cada artículo:
-      </p>
-
-      <pre><code>---
+    <!-- Frontmatter -->
+    <div class="section-label">Frontmatter de cada post</div>
+    <p class="cf-note fade-up" style="animation-delay: 0.03s">
+      Metadatos de transparencia validados con Zod en build time y mostrados al pie de cada artículo:
+    </p>
+    <div class="code-block fade-up" style="animation-delay: 0.08s">
+      <pre><code>{`---
 title: 'Título del post'
 description: 'Descripción para SEO'
 pubDate: 2026-04-21
@@ -93,76 +146,413 @@ promptBase: 'El prompt que se usó para generar este post'
 humanReviewed: true
 heroImage: '../../assets/post/imagen-del-post.jpg'  # opcional
 correctionNote: 'Texto si el post corrige errores de una versión anterior.'  # opcional
----</code></pre>
-
-      <p>
-        El campo <code>correctionNote</code> aparece como bloque de aviso visible en el post
-        cuando se publica una corrección. El campo <code>heroImage</code> referencia una imagen
-        local que Astro optimiza y convierte a WebP en build time.
-      </p>
-
-      <h2>Infraestructura SEO y GEO</h2>
-
-      <p>
-        GEO (Generative Engine Optimization) es el equivalente del SEO para motores de respuesta
-        como ChatGPT, Perplexity o Claude. El sitio está preparado para ambos:
-      </p>
-
-      <ul>
-        <li>
-          <strong>Open Graph y Twitter Card</strong> — cada post tiene su propia imagen OG
-          generada en build-time, con título, categoría y fecha. Se muestra al compartir en
-          redes sociales.
-        </li>
-        <li>
-          <strong>JSON-LD (schema.org)</strong> — cada artículo incluye metadatos estructurados
-          de tipo <code>Article</code> para que Google y otros motores entiendan el contenido.
-        </li>
-        <li>
-          <strong>Sitemap XML</strong> — generado automáticamente por <code>@astrojs/sitemap</code>,
-          disponible en <a href="/sitemap-index.xml">/sitemap-index.xml</a>.
-        </li>
-        <li>
-          <strong>robots.txt</strong> — permite la indexación total por buscadores y bots de IA,
-          disponible en <a href="/robots.txt">/robots.txt</a>.
-        </li>
-        <li>
-          <strong>llms.txt</strong> — estándar emergente para indicar a sistemas de IA cómo
-          indexar y citar el contenido del sitio, disponible en <a href="/llms.txt">/llms.txt</a>.
-        </li>
-        <li>
-          <strong>RSS</strong> — feed estándar para lectores y agregadores, en <a href="/rss.xml">/rss.xml</a>.
-        </li>
-      </ul>
-
-      <h2>Seguridad</h2>
-
-      <p>
-        Las cabeceras HTTP de seguridad se aplican a nivel de Cloudflare mediante el archivo
-        <code>public/_headers</code>:
-      </p>
-
-      <ul>
-        <li><strong>HSTS</strong> — fuerza HTTPS durante 1 año con preload</li>
-        <li><strong>X-Frame-Options: DENY</strong> — previene clickjacking</li>
-        <li><strong>Content-Security-Policy</strong> — restringe el origen de scripts, estilos y fuentes</li>
-        <li><strong>X-Content-Type-Options: nosniff</strong> — evita MIME sniffing</li>
-        <li><strong>Referrer-Policy</strong> — limita la información de referencia enviada</li>
-        <li><strong>Permissions-Policy</strong> — deshabilita acceso a cámara, micrófono y geolocalización</li>
-      </ul>
-
-      <h2>Variables de entorno</h2>
-
-      <p>
-        Ninguna credencial está en el repositorio. Las variables de entorno se gestionan
-        exclusivamente en el panel de Cloudflare.
-      </p>
-
-      <p>
-        El repositorio completo está en{' '}
-        <a href={SITE.github} target="_blank" rel="noopener noreferrer">GitHub</a>.
-        Puedes verlo, auditarlo y replicarlo.
-      </p>
+---`}</code></pre>
     </div>
-  </article>
+    <p class="cf-note fade-up" style="animation-delay: 0.05s">
+      <code>correctionNote</code> aparece como bloque de aviso visible en el post cuando se publica una corrección.
+      <code>heroImage</code> referencia una imagen local que Astro optimiza y convierte a WebP en build time.
+    </p>
+
+    <!-- SEO/GEO -->
+    <div class="section-label">Infraestructura SEO y GEO</div>
+    <p class="cf-note fade-up" style="animation-delay: 0.03s">
+      GEO (Generative Engine Optimization) es el equivalente del SEO para motores de respuesta como ChatGPT, Perplexity o Claude. El sitio está preparado para ambos:
+    </p>
+    <div class="geo-grid">
+      {geo.map((item, i) => (
+        <div class="geo-card fade-up" style={`animation-delay: ${i * 0.04}s`}>
+          <div class="geo-label">{item.label}</div>
+          <div class="geo-desc">{item.desc}</div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Seguridad -->
+    <div class="section-label">Seguridad</div>
+    <p class="cf-note fade-up" style="animation-delay: 0.03s">
+      Cabeceras HTTP aplicadas a nivel de Cloudflare via <code>public/_headers</code>:
+    </p>
+    <div class="security-list fade-up" style="animation-delay: 0.08s">
+      {security.map((item) => (
+        <div class="security-item">
+          <code class="security-label">{item.label}</code>
+          <span class="security-desc">{item.desc}</span>
+        </div>
+      ))}
+    </div>
+
+    <!-- Variables de entorno -->
+    <div class="section-label">Variables de entorno</div>
+    <div class="env-card fade-up" style="animation-delay: 0.05s">
+      <span class="env-icon" aria-hidden="true">🔒</span>
+      <p>Ninguna credencial está en el repositorio. Las variables de entorno se gestionan exclusivamente en el panel de Cloudflare.</p>
+    </div>
+
+    <!-- CTAs -->
+    <div class="cf-cta fade-up" style="animation-delay: 0.1s">
+      <a href={SITE.github} target="_blank" rel="noopener noreferrer" class="btn-primary">Ver repositorio</a>
+      <a href="/" class="btn-secondary">Últimas entradas →</a>
+    </div>
+
+  </div>
 </BaseLayout>
+
+<style>
+/* ── Hero ── */
+.cf-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pills-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.pill-row {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+  width: max-content;
+}
+.pill-row-left  { animation: scrollLeft  22s linear infinite; }
+.pill-row-right { animation: scrollRight 28s linear infinite; }
+.pill-row:nth-child(3) { animation-duration: 18s; }
+
+@keyframes scrollLeft  { from { transform: translateX(0); }          to { transform: translateX(-33.333%); } }
+@keyframes scrollRight { from { transform: translateX(-33.333%); }   to { transform: translateX(0); } }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  background: rgba(109, 40, 217, 0.07);
+  color: rgba(160, 160, 192, 0.5);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pills-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 80% at 50% 50%,
+    rgba(28, 28, 44, 0.95) 0%,
+    rgba(28, 28, 44, 0.65) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.cf-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 44px 24px;
+}
+
+.cf-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A78BFA;
+  margin-bottom: 14px;
+}
+
+.cf-title {
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+  color: #E8E8F0;
+  margin-bottom: 12px;
+}
+.accent { color: #A78BFA; }
+
+.cf-subtitle {
+  font-size: 15px;
+  color: #A0A0C0;
+  line-height: 1.65;
+}
+
+/* ── Body ── */
+.cf-body {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A0A0C0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #2A2A40;
+  margin-bottom: 20px;
+  margin-top: 48px;
+}
+.section-label:first-child { margin-top: 0; }
+
+.cf-note {
+  font-size: 14px;
+  color: #C8C8E0;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.cf-note code {
+  font-family: monospace;
+  font-size: 12px;
+  color: #E8E8F0;
+  background: #24243A;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* ── Stack ── */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: #2A2A40;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.stack-card {
+  background: #1C1C2C;
+  padding: 18px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.stack-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  filter: grayscale(0.2);
+}
+
+.stack-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #E8E8F0;
+  margin-bottom: 4px;
+}
+
+.stack-desc {
+  font-size: 12px;
+  color: #8080A0;
+  line-height: 1.5;
+}
+
+/* ── Pipeline ── */
+.pipeline {
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pipeline-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 20px;
+  border-bottom: 1px solid #2A2A40;
+  background: #1C1C2C;
+}
+.pipeline-step:last-child { border-bottom: none; }
+
+.step-num {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(109, 40, 217, 0.2);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  color: #A78BFA;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-label {
+  font-size: 13px;
+  color: #C8C8E0;
+}
+
+/* ── Code block ── */
+.code-block {
+  background: #14142A;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: auto;
+  margin-bottom: 8px;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 20px 24px;
+}
+
+.code-block code {
+  font-family: 'ui-monospace', 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #C8C8E0;
+  white-space: pre;
+}
+
+/* ── GEO ── */
+.geo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #2A2A40;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.geo-card {
+  background: #1C1C2C;
+  padding: 16px 20px;
+}
+
+.geo-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #E8E8F0;
+  margin-bottom: 4px;
+}
+
+.geo-desc {
+  font-size: 12px;
+  color: #8080A0;
+  line-height: 1.5;
+}
+
+/* ── Security ── */
+.security-list {
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.security-item {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #2A2A40;
+  background: #1C1C2C;
+}
+.security-item:last-child { border-bottom: none; }
+
+.security-label {
+  flex-shrink: 0;
+  font-family: monospace;
+  font-size: 11px;
+  color: #A78BFA;
+  background: rgba(109, 40, 217, 0.12);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(167, 139, 250, 0.15);
+}
+
+.security-desc {
+  font-size: 13px;
+  color: #A0A0C0;
+}
+
+/* ── Env card ── */
+.env-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: #1C1C2C;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  padding: 20px 24px;
+}
+
+.env-icon { font-size: 20px; flex-shrink: 0; }
+
+.env-card p {
+  font-size: 14px;
+  color: #C8C8E0;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── CTAs ── */
+.cf-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 48px;
+}
+
+.btn-primary {
+  background: #6D28D9;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-primary:hover { background: #7C3AED; }
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #2E2E48;
+  color: #A0A0C0;
+  font-size: 13px;
+  padding: 10px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-secondary:hover { border-color: #6D28D9; color: #E8E8F0; }
+
+/* ── Animation ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeUp 0.4s forwards;
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .stack-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .stack-grid { grid-template-columns: 1fr; }
+  .geo-grid   { grid-template-columns: 1fr; }
+  .security-item { flex-direction: column; gap: 6px; }
+}
+</style>

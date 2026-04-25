@@ -1,58 +1,401 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { SITE } from '../config'
+
+const pills = [
+  ['experimento público', 'transparencia', 'Claude', 'Anthropic', 'pipeline editorial', 'trazabilidad'],
+  ['arquitectura web', 'generative AI', 'revisión humana', 'automatización', 'Astro', 'open source'],
+  ['modelos de lenguaje', 'prompt base', 'IA desde dentro', 'contenido generado', 'markdown', 'MDX'],
+]
 ---
 
 <BaseLayout
   title="Sobre el proyecto"
   description="Qué es Identidad Artificial, quién hay detrás y cuál es el propósito."
 >
-  <article class="max-w-3xl mx-auto px-6 py-12">
-    <h1 class="text-3xl sm:text-4xl font-bold mb-8 text-[#E8E8F0]">Sobre el proyecto</h1>
-
-    <div class="prose prose-lg max-w-none
-      prose-headings:font-bold prose-headings:text-[#E8E8F0]
-      prose-p:text-[#C8C8E0]
-      prose-li:text-[#C8C8E0]
-      prose-strong:text-[#E8E8F0]
-      prose-a:text-[#A78BFA] prose-a:no-underline hover:prose-a:underline">
-
-      <p>
-        Identidad Artificial es un experimento en público. La pregunta que lo motiva es
-        sencilla: ¿qué pasa cuando los modelos de lenguaje escriben sobre sí mismos?
-      </p>
-
-      <p>
-        El contenido de este sitio es generado por <strong>Claude</strong> (Anthropic),
-        con revisión humana antes de publicar. No es un blog de opinión personal ni un
-        agregador de noticias. Es un intento de entender la IA desde dentro, usando las
-        mismas herramientas que analizo.
-      </p>
-
-      <h2>Quién está detrás</h2>
-
-      <p>
-        Me llamo <strong>Ignacio Cubelas</strong>. Construyo este sitio como parte de un
-        proceso de aprendizaje sobre sistemas de IA, automatización editorial y arquitectura
-        web. El código y el pipeline de generación son públicos porque creo que la
-        transparencia es parte del producto, no un extra.
-      </p>
-
-      <h2>Por qué es público</h2>
-
-      <p>
-        Cualquier lector puede ver el repositorio, auditar el código y replicar el sistema.
-        Si encuentras algo que mejorar, el canal de feedback es{' '}
-        <a href={SITE.github} target="_blank" rel="noopener noreferrer">GitHub</a>.
-      </p>
-
-      <h2>Lo que no es esto</h2>
-
-      <p>
-        No es contenido de marketing disfrazado de artículo. No es SEO farming. No es
-        un producto SaaS con una landing page. Es un archivo de lo que voy entendiendo
-        mientras lo entiendo.
+  <!-- Mini hero -->
+  <section class="sobre-hero">
+    <div class="pills-bg" aria-hidden="true">
+      {pills.map((row, i) => (
+        <div class={`pill-row pill-row-${i % 2 === 0 ? 'left' : 'right'}`}>
+          {[...row, ...row, ...row].map(pill => (
+            <span class="pill">{pill}</span>
+          ))}
+        </div>
+      ))}
+    </div>
+    <div class="pills-overlay"></div>
+    <div class="sobre-hero-content">
+      <span class="sobre-eyebrow">Sobre el proyecto</span>
+      <h1 class="sobre-title">
+        Un experimento<br /><span class="accent">en público</span>
+      </h1>
+      <p class="sobre-subtitle">
+        ¿Qué pasa cuando los modelos de lenguaje<br />escriben sobre sí mismos?
       </p>
     </div>
-  </article>
+  </section>
+
+  <div class="sobre-body">
+
+    <!-- El experimento -->
+    <div class="section-label">El experimento</div>
+    <div class="sobre-grid">
+      <div class="sobre-card fade-up" style="animation-delay: 0.05s">
+        <div class="card-icon">⚗</div>
+        <p>El contenido de este sitio es generado por <strong>Claude</strong> (Anthropic), con revisión humana antes de publicar. No es un blog de opinión personal ni un agregador de noticias.</p>
+      </div>
+      <div class="sobre-card fade-up" style="animation-delay: 0.15s">
+        <div class="card-icon">🔍</div>
+        <p>Es un intento de entender la IA desde dentro, usando las mismas herramientas que analizo. Cada artículo es trazable: modelo, fecha, prompt base y estado de revisión.</p>
+      </div>
+    </div>
+
+    <!-- Quién está detrás -->
+    <div class="section-label">Quién está detrás</div>
+    <div class="autor-card fade-up" style="animation-delay: 0.1s">
+      <div class="autor-avatar" aria-hidden="true">IC</div>
+      <div class="autor-info">
+        <div class="autor-name">Ignacio Cubelas</div>
+        <p class="autor-bio">
+          Construyo este sitio como parte de un proceso de aprendizaje sobre sistemas de IA,
+          automatización editorial y arquitectura web. El código y el pipeline de generación
+          son públicos porque creo que la <strong>transparencia es parte del producto</strong>, no un extra.
+        </p>
+        <div class="autor-links">
+          <a href={SITE.github} target="_blank" rel="noopener noreferrer" class="autor-link">GitHub →</a>
+          <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" class="autor-link">LinkedIn →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Es / No es -->
+    <div class="section-label">Lo que es y lo que no es</div>
+    <div class="principles-grid fade-up" style="animation-delay: 0.1s">
+      <div class="principle is">
+        <span class="ptag ptag-is">Es</span>
+        <span>Un archivo vivo de lo que voy entendiendo mientras lo entiendo</span>
+      </div>
+      <div class="principle not">
+        <span class="ptag ptag-not">No es</span>
+        <span>Marketing disfrazado de artículo</span>
+      </div>
+      <div class="principle is">
+        <span class="ptag ptag-is">Es</span>
+        <span>Código y pipeline 100% auditables en GitHub</span>
+      </div>
+      <div class="principle not">
+        <span class="ptag ptag-not">No es</span>
+        <span>SEO farming ni contenido de relleno</span>
+      </div>
+      <div class="principle is">
+        <span class="ptag ptag-is">Es</span>
+        <span>Contenido con trazabilidad total: modelo, prompt, revisión humana</span>
+      </div>
+      <div class="principle not">
+        <span class="ptag ptag-not">No es</span>
+        <span>Un producto SaaS con landing page</span>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="sobre-cta fade-up" style="animation-delay: 0.15s">
+      <a href="/" class="btn-primary">Ver últimas entradas</a>
+      <a href={SITE.github} target="_blank" rel="noopener noreferrer" class="btn-secondary">Repositorio →</a>
+    </div>
+
+  </div>
 </BaseLayout>
+
+<style>
+/* ── Hero ── */
+.sobre-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pills-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.pill-row {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+  width: max-content;
+}
+.pill-row-left  { animation: scrollLeft  22s linear infinite; }
+.pill-row-right { animation: scrollRight 28s linear infinite; }
+.pill-row:nth-child(3) { animation-duration: 18s; }
+
+@keyframes scrollLeft  { from { transform: translateX(0); }          to { transform: translateX(-33.333%); } }
+@keyframes scrollRight { from { transform: translateX(-33.333%); }   to { transform: translateX(0); } }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  background: rgba(109, 40, 217, 0.07);
+  color: rgba(160, 160, 192, 0.5);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pills-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 80% at 50% 50%,
+    rgba(28, 28, 44, 0.95) 0%,
+    rgba(28, 28, 44, 0.65) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.sobre-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.sobre-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A78BFA;
+  margin-bottom: 14px;
+}
+
+.sobre-title {
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+  color: #E8E8F0;
+  margin-bottom: 14px;
+}
+.accent { color: #A78BFA; }
+
+.sobre-subtitle {
+  font-size: 15px;
+  color: #A0A0C0;
+  line-height: 1.65;
+}
+
+/* ── Body ── */
+.sobre-body {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A0A0C0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #2A2A40;
+  margin-bottom: 24px;
+  margin-top: 48px;
+}
+.section-label:first-child { margin-top: 0; }
+
+/* ── Cards ── */
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #2A2A40;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.sobre-card {
+  background: #1C1C2C;
+  padding: 24px;
+}
+.sobre-card p {
+  color: #C8C8E0;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+.sobre-card strong { color: #E8E8F0; }
+
+.card-icon {
+  font-size: 20px;
+  margin-bottom: 12px;
+  filter: grayscale(0.3);
+}
+
+/* ── Autor ── */
+.autor-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: #1C1C2C;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.autor-avatar {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6D28D9, #4C1D95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #E8E8F0;
+  letter-spacing: 0.05em;
+}
+
+.autor-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #E8E8F0;
+  margin-bottom: 8px;
+}
+
+.autor-bio {
+  font-size: 14px;
+  color: #C8C8E0;
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+.autor-bio strong { color: #E8E8F0; }
+
+.autor-links {
+  display: flex;
+  gap: 16px;
+}
+.autor-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: #A78BFA;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.autor-link:hover { color: #C4B5FD; }
+
+/* ── Principles ── */
+.principles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #2A2A40;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.principle {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 20px;
+  background: #1C1C2C;
+  font-size: 13px;
+  color: #C8C8E0;
+  line-height: 1.5;
+}
+
+.ptag {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-top: 1px;
+}
+.ptag-is {
+  background: rgba(109, 40, 217, 0.2);
+  color: #A78BFA;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+}
+.ptag-not {
+  background: rgba(60, 60, 80, 0.4);
+  color: #6A6A8A;
+  border: 1px solid rgba(100, 100, 130, 0.2);
+}
+
+/* ── CTAs ── */
+.sobre-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 48px;
+}
+
+.btn-primary {
+  background: #6D28D9;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.btn-primary:hover { background: #7C3AED; }
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #2E2E48;
+  color: #A0A0C0;
+  font-size: 13px;
+  padding: 10px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-secondary:hover { border-color: #6D28D9; color: #E8E8F0; }
+
+/* ── Animation ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeUp 0.4s forwards;
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .sobre-grid,
+  .principles-grid {
+    grid-template-columns: 1fr;
+  }
+  .autor-card {
+    flex-direction: column;
+  }
+}
+</style>

@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import HeroSection from '../components/HeroSection.astro'
+import AITimeline from '../components/AITimeline.astro'
 import PostCard from '../components/PostCard.astro'
 import Pagination from '../components/Pagination.astro'
 import { SITE } from '../config'
@@ -23,6 +24,8 @@ const totalPages = Math.ceil(allPosts.length / PAGE_SIZE)
 
 <BaseLayout title={SITE.name} description={SITE.description}>
   <HeroSection />
+
+  <AITimeline />
 
   <div class="max-w-5xl mx-auto px-6 py-10">
     <h2 id="entradas" class="text-xs font-semibold text-[#A0A0C0] uppercase tracking-widest mb-6 pb-3 border-b border-[#2A2A40]">

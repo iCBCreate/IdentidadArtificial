@@ -269,12 +269,12 @@ const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
     ttArrow.style.transform = 'translateX(-50%)'
   }
 
-  document.querySelectorAll<HTMLElement>('.dot').forEach(dot => {
+  document.querySelectorAll<HTMLElement>('.tl-section .dot').forEach(dot => {
     dot.addEventListener('mouseenter', e => show(dot, (e as MouseEvent).clientX, (e as MouseEvent).clientY))
     dot.addEventListener('mouseleave', hide)
     dot.addEventListener('focus',      () => {
       const r = dot.getBoundingClientRect()
-      show(dot, r.left + r.width / 2, r.top)
+      show(dot, r.left + r.width / 2, r.top + r.height / 2)
     })
     dot.addEventListener('blur', hide)
 

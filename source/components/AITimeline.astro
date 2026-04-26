@@ -1,0 +1,295 @@
+---
+import { AI_MODELS, COMPANIES, AXIS_START, AXIS_END, toPct } from '../data/ai-models'
+
+const modelsByCompany = Object.fromEntries(
+  COMPANIES.map(co => [co, AI_MODELS.filter(m => m.company === co)])
+)
+
+const yearCount = AXIS_END - AXIS_START
+const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
+---
+
+<section class="tl-section">
+  <h2 class="tl-heading">Evolución de modelos de IA</h2>
+
+  <div class="tl-wrap">
+    <div class="tl-scroll">
+      <div class="tl-inner">
+
+        <!-- Year axis -->
+        <div class="year-axis">
+          <div class="axis-spacer"></div>
+          <div class="axis-ticks">
+            {years.map(y => <span class="year-tick">{y}</span>)}
+          </div>
+        </div>
+
+        <!-- Lanes -->
+        {COMPANIES.map(company => {
+          const models = modelsByCompany[company]
+          if (!models.length) return null
+          const color = models[0].color
+          return (
+            <div class="lane">
+              <div class="lane-name" style={`color: ${color}`}>{company}</div>
+              <div class="lane-track">
+                {models.map(model => (
+                  <button
+                    class="dot"
+                    style={`left: ${toPct(model.dateValue)}%; background: ${color}`}
+                    data-name={model.name}
+                    data-date={model.date}
+                    data-desc={model.description}
+                    aria-label={`${model.name} — ${model.date}`}
+                  />
+                ))}
+              </div>
+            </div>
+          )
+        })}
+
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      {COMPANIES.map(co => {
+        const color = AI_MODELS.find(m => m.company === co)!.color
+        return (
+          <div class="legend-item">
+            <span class="legend-dot" style={`background: ${color}`}></span>
+            <span>{co}</span>
+          </div>
+        )
+      })}
+    </div>
+
+    <p class="mobile-hint">← desliza →</p>
+  </div>
+</section>
+
+<!-- Tooltip — position: fixed, outside scroll context, single instance per page -->
+<div id="tt" role="tooltip" aria-hidden="true">
+  <div id="tt-arrow"></div>
+  <p id="tt-name"></p>
+  <p id="tt-date"></p>
+  <p id="tt-desc"></p>
+</div>
+
+<style>
+.tl-section {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem 2.5rem;
+}
+
+.tl-heading {
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #A0A0C0;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-bottom: 1px solid #2A2A40;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.tl-wrap {
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  background: #13131F;
+  padding: 20px 0 14px;
+  position: relative;
+}
+
+/* Right-edge fade — must be on tl-wrap (non-scrolling) */
+.tl-wrap::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0; width: 56px;
+  background: linear-gradient(to right, transparent, #13131F);
+  border-radius: 0 8px 8px 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.tl-scroll {
+  overflow-x: auto;
+  padding: 0 20px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #2A2A40 transparent;
+}
+.tl-scroll::-webkit-scrollbar { height: 4px; }
+.tl-scroll::-webkit-scrollbar-thumb { background: #2A2A40; border-radius: 2px; }
+
+.tl-inner { min-width: 720px; }
+
+/* Year axis */
+.year-axis {
+  display: flex;
+  margin-bottom: 10px;
+}
+.axis-spacer { width: 76px; flex-shrink: 0; }
+.axis-ticks  { flex: 1; display: flex; }
+.year-tick {
+  flex: 1; font-size: 9px; color: #3A3A5A;
+  position: relative;
+}
+.year-tick::before {
+  content: ''; position: absolute;
+  left: 0; top: 100%; width: 1px; height: 6px; background: #2A2A40;
+}
+
+/* Lanes */
+.lane { display: flex; align-items: center; margin-bottom: 8px; }
+.lane-name {
+  width: 72px; font-size: 10px; font-weight: 600;
+  text-align: right; padding-right: 12px; flex-shrink: 0;
+}
+.lane-track {
+  flex: 1; height: 30px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid #2A2A40;
+  border-radius: 4px;
+  position: relative;
+  overflow: visible;
+}
+
+/* Dots */
+.dot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.dot:hover,
+.dot:focus-visible {
+  transform: translate(-50%, -50%) scale(1.5);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+  outline: none;
+  z-index: 5;
+}
+
+@media (max-width: 640px) {
+  .dot { width: 16px; height: 16px; }
+}
+
+/* Legend */
+.legend {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  padding: 10px 20px 0;
+}
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #A0A0C0; }
+.legend-dot  { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+.mobile-hint { text-align: center; font-size: 10px; color: #3A3A5A; padding-top: 6px; letter-spacing: 1px; }
+
+/* Tooltip */
+#tt {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  background: #1E1E3A;
+  border: 1px solid #3A3A5A;
+  border-radius: 8px;
+  padding: 10px 12px;
+  width: 190px;
+  pointer-events: none;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+}
+#tt.tt-visible { display: block; }
+#tt-arrow {
+  position: absolute;
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+}
+#tt-arrow.tt-up   { border-bottom: 6px solid #3A3A5A; bottom: 100%; }
+#tt-arrow.tt-down { border-top:    6px solid #3A3A5A; top: 100%;    }
+#tt-name { font-size: 12px; font-weight: 700; color: #E8E8F0; margin: 0 0 2px; }
+#tt-date { font-size: 10px; color: #6A6A8A; margin: 0 0 6px; }
+#tt-desc { font-size: 11px; color: #A0A0C0; line-height: 1.5; margin: 0; }
+</style>
+
+<script>
+(function () {
+  const tt      = document.getElementById('tt')!
+  const ttArrow = document.getElementById('tt-arrow')!
+  const ttName  = document.getElementById('tt-name')!
+  const ttDate  = document.getElementById('tt-date')!
+  const ttDesc  = document.getElementById('tt-desc')!
+  const TT_W = 190
+  const TT_H = 120
+  const GAP  = 12
+  let touchTimer: ReturnType<typeof setTimeout> | null = null
+
+  function show(dot: HTMLElement, clientX: number, clientY: number) {
+    ttName.textContent = dot.dataset.name ?? ''
+    ttDate.textContent = dot.dataset.date ?? ''
+    ttDesc.textContent = dot.dataset.desc ?? ''
+    position(clientX, clientY)
+    tt.classList.add('tt-visible')
+    tt.setAttribute('aria-hidden', 'false')
+  }
+
+  function hide() {
+    tt.classList.remove('tt-visible')
+    tt.setAttribute('aria-hidden', 'true')
+    if (touchTimer) { clearTimeout(touchTimer); touchTimer = null }
+  }
+
+  function position(clientX: number, clientY: number) {
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+
+    const x = Math.max(8, Math.min(clientX - TT_W / 2, vw - TT_W - 8))
+
+    let y: number
+    let arrowDir: 'tt-up' | 'tt-down'
+    if (clientY - TT_H - GAP > 0) {
+      y = clientY - TT_H - GAP
+      arrowDir = 'tt-down'
+    } else {
+      y = clientY + GAP
+      arrowDir = 'tt-up'
+    }
+    y = Math.max(8, Math.min(y, vh - TT_H - 8))
+
+    tt.style.left = `${x}px`
+    tt.style.top  = `${y}px`
+
+    const arrowX = Math.max(10, Math.min(clientX - x, TT_W - 10))
+    ttArrow.className = arrowDir
+    ttArrow.style.left = `${arrowX}px`
+    ttArrow.style.transform = 'translateX(-50%)'
+  }
+
+  document.querySelectorAll<HTMLElement>('.dot').forEach(dot => {
+    dot.addEventListener('mouseenter', e => show(dot, (e as MouseEvent).clientX, (e as MouseEvent).clientY))
+    dot.addEventListener('mousemove',  e => position((e as MouseEvent).clientX, (e as MouseEvent).clientY))
+    dot.addEventListener('mouseleave', hide)
+    dot.addEventListener('focus',      () => {
+      const r = dot.getBoundingClientRect()
+      show(dot, r.left + r.width / 2, r.top)
+    })
+    dot.addEventListener('blur', hide)
+
+    dot.addEventListener('touchend', e => {
+      e.preventDefault()
+      const t = (e as TouchEvent).changedTouches[0]
+      show(dot, t.clientX, t.clientY)
+      if (touchTimer) clearTimeout(touchTimer)
+      touchTimer = setTimeout(hide, 3000)
+    })
+  })
+
+  document.addEventListener('touchend', e => {
+    if (!(e.target as HTMLElement).classList.contains('dot')) hide()
+  })
+})()
+</script>

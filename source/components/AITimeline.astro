@@ -54,7 +54,7 @@ const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
     <!-- Legend -->
     <div class="legend">
       {COMPANIES.map(co => {
-        const color = AI_MODELS.find(m => m.company === co)!.color
+        const color = AI_MODELS.find(m => m.company === co)?.color ?? '#888888'
         return (
           <div class="legend-item">
             <span class="legend-dot" style={`background: ${color}`}></span>
@@ -224,7 +224,7 @@ const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
   const ttDate  = document.getElementById('tt-date')!
   const ttDesc  = document.getElementById('tt-desc')!
   const TT_W = 190
-  const TT_H = 120
+  const TT_H = 160
   const GAP  = 12
   let touchTimer: ReturnType<typeof setTimeout> | null = null
 
@@ -271,7 +271,6 @@ const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
 
   document.querySelectorAll<HTMLElement>('.dot').forEach(dot => {
     dot.addEventListener('mouseenter', e => show(dot, (e as MouseEvent).clientX, (e as MouseEvent).clientY))
-    dot.addEventListener('mousemove',  e => position((e as MouseEvent).clientX, (e as MouseEvent).clientY))
     dot.addEventListener('mouseleave', hide)
     dot.addEventListener('focus',      () => {
       const r = dot.getBoundingClientRect()

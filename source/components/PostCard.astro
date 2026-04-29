@@ -40,14 +40,14 @@ const catConfig = CATEGORY_CONFIG[category]
             alt={title}
             loading={priority ? "eager" : "lazy"}
             fetchpriority={priority ? "high" : "auto"}
-            widths={[320, 400, 500, 650, 800]}
+            widths={[320, 400, 500, 600, 720, 800]}
             sizes={featured
               ? "(max-width: 640px) calc(100vw - 48px), 650px"
               : "(max-width: 640px) calc(100vw - 48px), 325px"
             }
             width={800}
             height={400}
-            quality={60}
+            quality={50}
             format="avif"
             class="w-full h-full object-cover"
           />

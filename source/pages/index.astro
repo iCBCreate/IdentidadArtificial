@@ -1,25 +1,21 @@
 ---
-import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import HeroSection from '../components/HeroSection.astro'
 import AITimeline from '../components/AITimeline.astro'
 import PostCard from '../components/PostCard.astro'
 import Pagination from '../components/Pagination.astro'
 import { SITE } from '../config'
+import {
+  HOME_PAGE_SIZE,
+  calcReadingTime,
+  getPageItems,
+  getSortedPosts,
+  getTotalPages,
+} from '../lib/posts'
 
-const PAGE_SIZE = 3
-
-function calcReadingTime(text: string): string {
-  const words = text.trim().split(/\s+/).length
-  const minutes = Math.ceil(words / 200)
-  return `${minutes} min`
-}
-
-const allPosts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-)
-const posts = allPosts.slice(0, PAGE_SIZE)
-const totalPages = Math.ceil(allPosts.length / PAGE_SIZE)
+const allPosts = await getSortedPosts()
+const posts = getPageItems(allPosts, 1, HOME_PAGE_SIZE)
+const totalPages = getTotalPages(allPosts.length, HOME_PAGE_SIZE)
 ---
 
 <BaseLayout title={SITE.name} description={SITE.description}>

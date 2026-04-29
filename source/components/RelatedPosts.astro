@@ -1,9 +1,10 @@
 ---
 import type { CollectionEntry } from 'astro:content'
+import type { BlogCategory } from '../lib/categories'
 
 interface Props {
   currentSlug: string
-  category: string
+  category: BlogCategory
   allPosts: CollectionEntry<'blog'>[]
   calcReadingTime: (text: string) => string
 }

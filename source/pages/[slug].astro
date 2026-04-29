@@ -1,12 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content'
 import PostLayout from '../layouts/PostLayout.astro'
-
-function calcReadingTime(text: string): string {
-  const words = text.trim().split(/\s+/).length
-  const minutes = Math.ceil(words / 200)
-  return `${minutes} min`
-}
+import { calcReadingTime } from '../lib/posts'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')

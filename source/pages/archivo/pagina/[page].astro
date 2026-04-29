@@ -1,23 +1,26 @@
 ---
-import { getCollection } from 'astro:content'
 import BaseLayout from '../../../layouts/BaseLayout.astro'
 import PostCard from '../../../components/PostCard.astro'
 import Pagination from '../../../components/Pagination.astro'
+import {
+  ARCHIVE_PAGE_SIZE,
+  calcReadingTime,
+  getPageItems,
+  getPostCategories,
+  getSortedPosts,
+  getTotalPages,
+  type BlogPost,
+} from '../../../lib/posts'
 
-const PAGE_SIZE = 6
-
-function calcReadingTime(text: string): string {
-  const words = text.trim().split(/\s+/).length
-  const minutes = Math.ceil(words / 200)
-  return `${minutes} min`
+interface Props {
+  page: number
+  totalPages: number
+  allPosts: BlogPost[]
 }
 
 export async function getStaticPaths() {
-  const PAGE_SIZE = 6
-  const allPosts = (await getCollection('blog')).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-  )
-  const totalPages = Math.ceil(allPosts.length / PAGE_SIZE)
+  const allPosts = await getSortedPosts()
+  const totalPages = getTotalPages(allPosts.length, ARCHIVE_PAGE_SIZE)
   return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => ({
     params: { page: String(i + 2) },
     props: { page: i + 2, totalPages, allPosts },
@@ -25,8 +28,8 @@ export async function getStaticPaths() {
 }
 
 const { page, totalPages, allPosts } = Astro.props
-const posts = allPosts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
-const categories = [...new Set(allPosts.map((p: any) => p.data.category as string))]
+const posts = getPageItems(allPosts, page, ARCHIVE_PAGE_SIZE)
+const categories = getPostCategories(allPosts)
 ---
 
 <BaseLayout
@@ -52,7 +55,7 @@ const categories = [...new Set(allPosts.map((p: any) => p.data.category as strin
     <h2 class="section-label">Artículos · página {page}</h2>
 
     <div class="cards-grid">
-      {posts.map((post: any) => (
+      {posts.map(post => (
         <PostCard
           title={post.data.title}
           description={post.data.description}

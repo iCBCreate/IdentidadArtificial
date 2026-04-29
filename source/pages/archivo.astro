@@ -1,23 +1,20 @@
 ---
-import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import PostCard from '../components/PostCard.astro'
 import Pagination from '../components/Pagination.astro'
+import {
+  ARCHIVE_PAGE_SIZE,
+  calcReadingTime,
+  getPageItems,
+  getPostCategories,
+  getSortedPosts,
+  getTotalPages,
+} from '../lib/posts'
 
-const PAGE_SIZE = 6
-
-function calcReadingTime(text: string): string {
-  const words = text.trim().split(/\s+/).length
-  const minutes = Math.ceil(words / 200)
-  return `${minutes} min`
-}
-
-const allPosts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-)
-const totalPages = Math.ceil(allPosts.length / PAGE_SIZE)
-const posts = allPosts.slice(0, PAGE_SIZE)
-const categories = [...new Set(allPosts.map(p => p.data.category))]
+const allPosts = await getSortedPosts()
+const totalPages = getTotalPages(allPosts.length, ARCHIVE_PAGE_SIZE)
+const posts = getPageItems(allPosts, 1, ARCHIVE_PAGE_SIZE)
+const categories = getPostCategories(allPosts)
 
 const pills = [
   ['modelos', 'conceptos', 'arquitectura', 'herramientas', 'inteligencia artificial', 'tendencias', 'ética'],

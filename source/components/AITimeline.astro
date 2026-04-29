@@ -1,12 +1,35 @@
 ---
 import { AI_MODELS, COMPANIES, AXIS_START, AXIS_END, toPct } from '../data/ai-models'
 
-const modelsByCompany = Object.fromEntries(
-  COMPANIES.map(co => [co, AI_MODELS.filter(m => m.company === co)])
-)
-
 const yearCount = AXIS_END - AXIS_START
 const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
+
+// 24px on a 720px-wide timeline = 3.33% — used as the proximity threshold
+const STAGGER_THRESHOLD_PCT = 3.5
+const STAGGER_OFFSET_PX = 7
+
+const modelsByCompany = Object.fromEntries(
+  COMPANIES.map(co => {
+    const models = AI_MODELS.filter(m => m.company === co)
+      .sort((a, b) => a.dateValue - b.dateValue)
+
+    // Assign vertical offsets to dots that would be too close to their left neighbor
+    const withOffsets = models.map((model, i) => {
+      let topOffset = 0
+      if (i > 0) {
+        const prevPct = toPct(models[i - 1].dateValue)
+        const thisPct = toPct(model.dateValue)
+        if (thisPct - prevPct < STAGGER_THRESHOLD_PCT) {
+          // Alternate stagger direction based on previous offset
+          const prevOffset = (withOffsets[i - 1] as any).topOffset ?? 0
+          topOffset = prevOffset >= 0 ? -STAGGER_OFFSET_PX : STAGGER_OFFSET_PX
+        }
+      }
+      return { ...model, topOffset }
+    })
+    return [co, withOffsets]
+  })
+)
 ---
 
 <section class="tl-section">
@@ -36,7 +59,7 @@ const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
                 {models.map(model => (
                   <button
                     class="dot"
-                    style={`left: ${toPct(model.dateValue)}%; background: ${color}`}
+                    style={`left: ${toPct(model.dateValue)}%; background: ${color}; top: calc(50% + ${model.topOffset}px)`}
                     data-name={model.name}
                     data-date={model.date}
                     data-desc={model.description}
@@ -160,21 +183,12 @@ const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 20px; height: 20px;
+  width: 24px; height: 24px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
   padding: 0;
   transition: transform 0.12s, box-shadow 0.12s;
-}
-.dot::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 44px;
-  height: 44px;
-  transform: translate(-50%, -50%);
 }
 .dot:hover,
 .dot:focus-visible {
@@ -182,10 +196,6 @@ const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
   outline: none;
   z-index: 5;
-}
-
-@media (max-width: 640px) {
-  .dot { width: 24px; height: 24px; }
 }
 
 /* Legend */

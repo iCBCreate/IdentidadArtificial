@@ -1,0 +1,536 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout
+  title="Métricas"
+  description="Panel privado de métricas de Search Console para Identidad Artificial."
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex,nofollow" />
+  </Fragment>
+
+  <section class="metrics-shell">
+    <header class="metrics-header">
+      <div>
+        <p class="eyebrow">Search Console</p>
+        <h1>Métricas orgánicas</h1>
+      </div>
+      <div class="status-pill" id="status">Sin datos</div>
+    </header>
+
+    <form class="controls" id="metrics-form">
+      <label>
+        Token
+        <input id="access-token" name="token" type="password" autocomplete="current-password" />
+      </label>
+      <label>
+        Desde
+        <input id="start-date" name="startDate" type="date" />
+      </label>
+      <label>
+        Hasta
+        <input id="end-date" name="endDate" type="date" />
+      </label>
+      <label>
+        Filas
+        <select id="row-limit" name="rowLimit">
+          <option value="1000">1.000</option>
+          <option value="2500" selected>2.500</option>
+          <option value="5000">5.000</option>
+          <option value="10000">10.000</option>
+          <option value="25000">25.000</option>
+        </select>
+      </label>
+      <button type="submit">Actualizar</button>
+    </form>
+
+    <div class="summary-grid">
+      <article>
+        <span>Clics</span>
+        <strong id="sum-clicks">-</strong>
+      </article>
+      <article>
+        <span>Impresiones</span>
+        <strong id="sum-impressions">-</strong>
+      </article>
+      <article>
+        <span>CTR</span>
+        <strong id="sum-ctr">-</strong>
+      </article>
+      <article>
+        <span>Posición media</span>
+        <strong id="sum-position">-</strong>
+      </article>
+    </div>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Qué mejorar</h2>
+        <div class="actions">
+          <button type="button" id="download-json">JSON</button>
+          <button type="button" id="download-csv">CSV</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Prioridad</th>
+              <th>Tipo</th>
+              <th>Query</th>
+              <th>CTR</th>
+              <th>Pos.</th>
+              <th>Imp.</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="recommendations">
+            <tr><td colspan="7" class="empty">Carga datos para ver oportunidades.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="grid-panels">
+      <article class="panel">
+        <h2>Páginas</h2>
+        <ol id="top-pages"></ol>
+      </article>
+      <article class="panel">
+        <h2>Queries</h2>
+        <ol id="top-queries"></ol>
+      </article>
+      <article class="panel">
+        <h2>Dispositivos</h2>
+        <ol id="devices"></ol>
+      </article>
+    </section>
+  </section>
+</BaseLayout>
+
+<style>
+.metrics-shell {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.metrics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+  color: #A78BFA;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.25rem;
+}
+
+h1 {
+  color: #E8E8F0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1;
+  font-weight: 800;
+  margin: 0;
+}
+
+.status-pill {
+  border: 1px solid #2A2A40;
+  border-radius: 999px;
+  color: #A0A0C0;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  white-space: nowrap;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.8fr) repeat(3, minmax(130px, 1fr)) auto;
+  gap: 0.75rem;
+  align-items: end;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  background: #13131F;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  color: #A0A0C0;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 2.5rem;
+  border: 1px solid #2A2A40;
+  border-radius: 6px;
+  background: #1C1C2E;
+  color: #E8E8F0;
+  padding: 0.5rem 0.65rem;
+  font: inherit;
+}
+
+button {
+  min-height: 2.5rem;
+  border: 1px solid #6D28D9;
+  border-radius: 6px;
+  background: #6D28D9;
+  color: white;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+
+button.secondary,
+.actions button {
+  background: transparent;
+  color: #A78BFA;
+}
+
+.summary-grid,
+.grid-panels {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  background: #2A2A40;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.summary-grid article,
+.panel {
+  background: #13131F;
+}
+
+.summary-grid article {
+  padding: 1rem;
+}
+
+.summary-grid span {
+  display: block;
+  color: #A0A0C0;
+  font-size: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.summary-grid strong {
+  color: #E8E8F0;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.panel {
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.panel h2 {
+  color: #E8E8F0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.75rem;
+}
+
+.panel-head h2 {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+th,
+td {
+  border-bottom: 1px solid #2A2A40;
+  padding: 0.65rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: #A0A0C0;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+td {
+  color: #C8C8E0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.empty {
+  color: #6A6A8A;
+  text-align: center;
+}
+
+.grid-panels {
+  grid-template-columns: 1fr 1fr 1fr;
+  border: none;
+  background: transparent;
+  gap: 1rem;
+}
+
+ol {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+li {
+  color: #C8C8E0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+li span {
+  display: block;
+  color: #6A6A8A;
+  font-size: 0.72rem;
+}
+
+@media (max-width: 860px) {
+  .metrics-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .controls,
+  .summary-grid,
+  .grid-panels {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<script>
+type Report = {
+  siteUrl: string
+  range: { startDate: string; endDate: string }
+  summary: { clicks: number; impressions: number; ctr: number; position: number }
+  pages: MetricRow[]
+  queries: MetricRow[]
+  devices: MetricRow[]
+  recommendations: Recommendation[]
+}
+
+type MetricRow = {
+  page?: string
+  query?: string
+  device?: string
+  clicks: number
+  impressions: number
+  ctr: number
+  position: number
+}
+
+type Recommendation = MetricRow & {
+  priority: string
+  type: string
+  action: string
+}
+
+const form = document.getElementById('metrics-form') as HTMLFormElement
+const tokenInput = document.getElementById('access-token') as HTMLInputElement
+const startDateInput = document.getElementById('start-date') as HTMLInputElement
+const endDateInput = document.getElementById('end-date') as HTMLInputElement
+const rowLimitInput = document.getElementById('row-limit') as HTMLSelectElement
+const statusEl = document.getElementById('status')!
+let currentReport: Report | null = null
+
+setDefaultDates()
+tokenInput.value = sessionStorage.getItem('metricsAccessToken') ?? ''
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault()
+  await loadReport()
+})
+
+document.getElementById('download-json')?.addEventListener('click', () => {
+  if (currentReport) download('search-console-report.json', JSON.stringify(currentReport, null, 2), 'application/json')
+})
+
+document.getElementById('download-csv')?.addEventListener('click', () => {
+  if (currentReport) download('search-console-recommendations.csv', toCsv(currentReport.recommendations), 'text/csv')
+})
+
+async function loadReport() {
+  const token = tokenInput.value.trim()
+  if (!token) {
+    setStatus('Falta token')
+    return
+  }
+
+  sessionStorage.setItem('metricsAccessToken', token)
+  setStatus('Cargando...')
+
+  const params = new URLSearchParams({
+    startDate: startDateInput.value,
+    endDate: endDateInput.value,
+    rowLimit: rowLimitInput.value,
+  })
+
+  const response = await fetch(`/api/search-console/report.json?${params}`, {
+    headers: { authorization: `Bearer ${token}` },
+  })
+  const data = await response.json()
+
+  if (!response.ok) {
+    setStatus(data.detail ?? data.error ?? 'Error')
+    return
+  }
+
+  currentReport = data
+  renderReport(data)
+  setStatus(`${data.range.startDate} a ${data.range.endDate}`)
+}
+
+function renderReport(report: Report) {
+  text('sum-clicks', formatNumber(report.summary.clicks))
+  text('sum-impressions', formatNumber(report.summary.impressions))
+  text('sum-ctr', formatPercent(report.summary.ctr))
+  text('sum-position', report.summary.position.toFixed(1))
+
+  renderRecommendations(report.recommendations)
+  renderList('top-pages', report.pages.slice(0, 10), row => row.page ?? '', row => meta(row))
+  renderList('top-queries', report.queries.slice(0, 10), row => row.query ?? '', row => meta(row))
+  renderList('devices', report.devices, row => row.device ?? '', row => meta(row))
+}
+
+function renderRecommendations(rows: Recommendation[]) {
+  const tbody = document.getElementById('recommendations')!
+  if (rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty">No hay oportunidades claras con este rango.</td></tr>'
+    return
+  }
+
+  tbody.innerHTML = rows.map(row => `
+    <tr>
+      <td>${escapeHtml(row.priority)}</td>
+      <td>${escapeHtml(row.type)}</td>
+      <td>${escapeHtml(row.query ?? '')}<br><small>${escapeHtml(row.page ?? '')}</small></td>
+      <td>${formatPercent(row.ctr)}</td>
+      <td>${row.position.toFixed(1)}</td>
+      <td>${formatNumber(row.impressions)}</td>
+      <td>${escapeHtml(row.action)}</td>
+    </tr>
+  `).join('')
+}
+
+function renderList(
+  id: string,
+  rows: MetricRow[],
+  title: (row: MetricRow) => string,
+  detail: (row: MetricRow) => string
+) {
+  const list = document.getElementById(id)!
+  list.innerHTML = rows.map(row => `<li>${escapeHtml(title(row))}<span>${escapeHtml(detail(row))}</span></li>`).join('')
+}
+
+function meta(row: MetricRow): string {
+  return `${formatNumber(row.clicks)} clics · ${formatNumber(row.impressions)} imp. · ${formatPercent(row.ctr)} · pos. ${row.position.toFixed(1)}`
+}
+
+function setDefaultDates() {
+  const end = addDays(new Date(), -3)
+  const start = addDays(end, -27)
+  startDateInput.value = toDateInput(start)
+  endDateInput.value = toDateInput(end)
+}
+
+function addDays(date: Date, days: number): Date {
+  const next = new Date(date)
+  next.setDate(next.getDate() + days)
+  return next
+}
+
+function toDateInput(date: Date): string {
+  return date.toISOString().slice(0, 10)
+}
+
+function text(id: string, value: string) {
+  document.getElementById(id)!.textContent = value
+}
+
+function setStatus(value: string) {
+  statusEl.textContent = value
+}
+
+function formatNumber(value: number): string {
+  return new Intl.NumberFormat('es-ES').format(Math.round(value))
+}
+
+function formatPercent(value: number): string {
+  return new Intl.NumberFormat('es-ES', { style: 'percent', maximumFractionDigits: 2 }).format(value)
+}
+
+function toCsv(rows: Recommendation[]): string {
+  const headers = ['priority', 'type', 'query', 'page', 'clicks', 'impressions', 'ctr', 'position', 'action']
+  const lines = rows.map(row => headers.map(header => csvCell(String(row[header as keyof Recommendation] ?? ''))).join(','))
+  return [headers.join(','), ...lines].join('\n')
+}
+
+function csvCell(value: string): string {
+  return `"${value.replaceAll('"', '""')}"`
+}
+
+function download(filename: string, content: string, type: string) {
+  const blob = new Blob([content], { type })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = filename
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;',
+  })[char] ?? char)
+}
+</script>

@@ -1,0 +1,40 @@
+---
+import { SITE } from '../config'
+import '../styles/global.css'
+
+Astro.response.status = 410
+
+interface Props {
+  title?: string
+}
+
+const { title = 'Página retirada' } = Astro.props
+const fullTitle = `${title} — ${SITE.name}`
+---
+
+<!doctype html>
+<html lang="es" class="bg-[#1C1C2C]">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="description" content="Esta página ya no existe en Identidad Artificial." />
+  </head>
+  <body>
+    <main class="min-h-screen flex items-center justify-center px-6 py-16">
+      <section class="max-w-xl">
+        <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#A78BFA] mb-3">410 Gone</p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight text-[#E8E8F0] mb-4">
+          Esta página ya no existe
+        </h1>
+        <p class="text-[#A0A0C0] mb-6">
+          Formaba parte de una versión anterior del sitio y no tiene equivalente directo en la web actual.
+        </p>
+        <a href="/" class="inline-flex items-center rounded-md bg-[#6D28D9] px-4 py-2 text-sm font-bold text-white no-underline">
+          Ir al inicio
+        </a>
+      </section>
+    </main>
+  </body>
+</html>

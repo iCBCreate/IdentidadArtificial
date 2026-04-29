@@ -4,30 +4,29 @@ import { AI_MODELS, COMPANIES, AXIS_START, AXIS_END, toPct } from '../data/ai-mo
 const yearCount = AXIS_END - AXIS_START
 const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
 
-// 24px on a 720px-wide timeline = 3.33% — used as the proximity threshold
+// WCAG 2.5.8: two 24px dots 12px apart horizontally need ≥21px vertical separation
+// so their 24px safe-area circles don't intersect: sqrt(12²+21²) ≈ 24.2px.
+// We split the offset symmetrically (±11px each) and need lane height ≥ 50px.
 const STAGGER_THRESHOLD_PCT = 3.5
-const STAGGER_OFFSET_PX = 7
+const STAGGER_OFFSET_PX = 12
 
 const modelsByCompany = Object.fromEntries(
   COMPANIES.map(co => {
     const models = AI_MODELS.filter(m => m.company === co)
       .sort((a, b) => a.dateValue - b.dateValue)
 
-    // Assign vertical offsets to dots that would be too close to their left neighbor
-    const withOffsets = models.map((model, i) => {
-      let topOffset = 0
-      if (i > 0) {
-        const prevPct = toPct(models[i - 1].dateValue)
-        const thisPct = toPct(model.dateValue)
-        if (thisPct - prevPct < STAGGER_THRESHOLD_PCT) {
-          // Alternate stagger direction based on previous offset
-          const prevOffset = (withOffsets[i - 1] as any).topOffset ?? 0
-          topOffset = prevOffset >= 0 ? -STAGGER_OFFSET_PX : STAGGER_OFFSET_PX
-        }
+    // Bidirectional stagger: when two adjacent dots are too close, push the
+    // earlier one DOWN (+offset) and the later one UP (-offset), so both move
+    // away from the centre and together satisfy the 24px safe-area requirement.
+    const offsets = new Array<number>(models.length).fill(0)
+    for (let i = 0; i < models.length - 1; i++) {
+      const gap = toPct(models[i + 1].dateValue) - toPct(models[i].dateValue)
+      if (gap < STAGGER_THRESHOLD_PCT) {
+        offsets[i]     = offsets[i] !== 0 ? offsets[i] : +STAGGER_OFFSET_PX
+        offsets[i + 1] = -STAGGER_OFFSET_PX
       }
-      return { ...model, topOffset }
-    })
-    return [co, withOffsets]
+    }
+    return [co, models.map((m, i) => ({ ...m, topOffset: offsets[i] }))]
   })
 )
 ---
@@ -170,7 +169,7 @@ const modelsByCompany = Object.fromEntries(
   text-align: right; padding-right: 12px; flex-shrink: 0;
 }
 .lane-track {
-  flex: 1; height: 30px;
+  flex: 1; height: 50px;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid #2A2A40;
   border-radius: 4px;

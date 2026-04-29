@@ -14,6 +14,7 @@
 ## Contenido disponible
 
 - Artículos técnicos sobre IA: /archivo/
+- Contenido completo para LLMs: /llms-full.txt
 - Feed RSS: /rss.xml
 - Sitemap: /sitemap-index.xml
 

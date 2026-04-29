@@ -51,7 +51,7 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
   day: 'numeric',
 })
 
-const ogImage = heroImage?.src ?? `/og/${slug}.png`
+const ogImage = `/og/${slug}.png`
 const canonicalURL = new URL(`/${slug}/`, SITE.url).href
 
 const jsonLd = {

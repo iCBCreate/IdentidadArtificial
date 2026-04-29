@@ -1,3 +1,6 @@
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+
 /*
   # Evita que la página se cargue dentro de iframes (clickjacking)
   X-Frame-Options: DENY

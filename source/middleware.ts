@@ -21,7 +21,7 @@ const GONE_HTML = `<!doctype html>
   <body>
     <main>
       <h1>410 Gone</h1>
-      <p>Esta pagina ya no existe en Identidad Artificial.</p>
+      <p>Esta página ya no existe en Identidad Artificial.</p>
       <p><a href="/">Ir al inicio</a></p>
     </main>
   </body>

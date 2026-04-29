@@ -410,10 +410,17 @@ async function loadReport() {
     rowLimit: rowLimitInput.value,
   })
 
-  const response = await fetch(`/api/search-console/report.json?${params}`, {
-    headers: { authorization: `Bearer ${token}` },
-  })
-  const data = await response.json()
+  let response: Response
+  let data: any
+  try {
+    response = await fetch(`/api/search-console/report.json?${params}`, {
+      headers: { authorization: `Bearer ${token}` },
+    })
+    data = await response.json()
+  } catch (err) {
+    setStatus('Error de red')
+    return
+  }
 
   if (!response.ok) {
     setStatus(data.detail ?? data.error ?? 'Error')

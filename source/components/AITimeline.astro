@@ -160,7 +160,7 @@ const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 12px; height: 12px;
+  width: 20px; height: 20px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -169,14 +169,14 @@ const years = Array.from({ length: yearCount + 1 }, (_, i) => AXIS_START + i)
 }
 .dot:hover,
 .dot:focus-visible {
-  transform: translate(-50%, -50%) scale(1.5);
+  transform: translate(-50%, -50%) scale(1.35);
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
   outline: none;
   z-index: 5;
 }
 
 @media (max-width: 640px) {
-  .dot { width: 16px; height: 16px; }
+  .dot { width: 24px; height: 24px; }
 }
 
 /* Legend */

@@ -37,3 +37,9 @@ SRC/fonts/
 .dev.vars*
 !.dev.vars.example
 !.env.example
+
+# Generated Search Console reports
+reports/
+
+# Claude-mem internal context
+AGENTS.md

@@ -30,6 +30,15 @@ export default defineConfig({
     }),
   ],
   adapter: cloudflare({ imageService: 'compile' }),
+  image: {
+    format: ['avif', 'webp'],
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+      config: {
+        quality: 60,
+      }
+    }
+  },
   build: {
     inlineStylesheets: 'always',
   },

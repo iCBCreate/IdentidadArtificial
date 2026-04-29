@@ -15,7 +15,7 @@ const stack = [
   { name: 'Cloudflare', desc: 'Workers + Assets, despliegue en cada push a main', icon: '☁️' },
   { name: 'Modelos de IA', desc: 'Claude, GPT-4o, Gemini… registrado en metadatos', icon: '🤖' },
   { name: 'Satori + resvg', desc: 'Imágenes Open Graph generadas en build time', icon: '🖼️' },
-  { name: 'Sharp', desc: 'Optimización hero: WebP + srcset automático', icon: '⚡' },
+  { name: 'Sharp', desc: 'Optimización hero: AVIF + srcset automático', icon: '⚡' },
   { name: 'GitHub', desc: 'Repositorio público, fuente de verdad', icon: '🔗' },
 ]
 
@@ -27,7 +27,7 @@ const pipeline = [
   { n: '5', label: 'Commit y push al repositorio GitHub' },
   { n: '6', label: 'Cloudflare detecta el push y ejecuta npm run build' },
   { n: '7', label: 'generate-og.mjs genera PNG 1200×630 por post' },
-  { n: '8', label: 'Sharp convierte imágenes hero a WebP + srcset' },
+  { n: '8', label: 'Sharp convierte imágenes hero a AVIF + srcset' },
   { n: '9', label: 'Astro compila el sitio estático con todos los assets' },
   { n: '10', label: 'Wrangler despliega a la red de Cloudflare en ~90s' },
 ]
@@ -150,7 +150,7 @@ correctionNote: 'Texto si el post corrige errores de una versión anterior.'  # 
     </div>
     <p class="cf-note fade-up" style="animation-delay: 0.05s">
       <code>correctionNote</code> aparece como bloque de aviso visible en el post cuando se publica una corrección.
-      <code>heroImage</code> referencia una imagen local que Astro optimiza y convierte a WebP en build time.
+      <code>heroImage</code> referencia una imagen local que Astro optimiza y convierte a AVIF en build time.
     </p>
 
     <!-- SEO/GEO -->

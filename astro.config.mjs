@@ -4,6 +4,19 @@ import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import cloudflare from '@astrojs/cloudflare'
 
+const EXCLUDED_SITEMAP_PATHS = [
+  '/pagina/',
+  '/archivo/pagina/',
+  '/metricas/',
+  '/chatgpt-agent-revolucion-openai/',
+  '/chatgpt-image-generation-gpt-image-1/',
+  '/ia-entrenamiento-pokemon/',
+  '/openai-lanza-gpt-oss-novedades-2025/',
+  '/tag/comet/',
+  '/tag/hugging-face/',
+  '/ultimas-novedades-claude-mythos-anthropic/',
+]
+
 export default defineConfig({
   site: 'https://identidadartificial.com',
   srcDir: './source',
@@ -13,7 +26,7 @@ export default defineConfig({
     mdx(),
     sitemap({
       filter: (page) =>
-        !page.includes('/pagina/') && !page.includes('/archivo/pagina/'),
+        !EXCLUDED_SITEMAP_PATHS.some(path => page.includes(path)),
     }),
   ],
   adapter: cloudflare({ imageService: 'compile' }),

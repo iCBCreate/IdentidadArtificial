@@ -1,6 +1,4 @@
 ---
-import { SITE } from '../config'
-
 const navLinks = [
   { href: '/', label: 'Inicio' },
   { href: '/sobre/', label: 'Sobre' },
@@ -9,6 +7,10 @@ const navLinks = [
 ]
 
 const currentPath = Astro.url.pathname
+
+function isActivePath(href: string): boolean {
+  return href === '/' ? currentPath === href : currentPath.startsWith(href)
+}
 ---
 
 <header class="border-b border-[#2A2A40] bg-[#13131F]/90 backdrop-blur-sm sticky top-0 z-50">
@@ -24,7 +26,7 @@ const currentPath = Astro.url.pathname
           <a
             href={link.href}
             class={`text-sm transition-colors ${
-              currentPath === link.href
+              isActivePath(link.href)
                 ? 'text-[#E8E8F0] font-semibold'
                 : 'text-[#A0A0C0] hover:text-[#E8E8F0]'
             }`}
@@ -41,6 +43,7 @@ const currentPath = Astro.url.pathname
       class="sm:hidden flex flex-col gap-[5px] p-2 -mr-2"
       aria-label="Abrir menú"
       aria-expanded="false"
+      aria-controls="mobile-menu"
     >
       <span class="menu-line block w-5 h-[2px] bg-[#A0A0C0] rounded transition-all duration-250"></span>
       <span class="menu-line block w-5 h-[2px] bg-[#A0A0C0] rounded transition-all duration-250"></span>
@@ -59,7 +62,7 @@ const currentPath = Astro.url.pathname
           <a
             href={link.href}
             class={`block py-3 text-sm border-b border-[#2A2A40] last:border-0 transition-colors ${
-              currentPath === link.href
+              isActivePath(link.href)
                 ? 'text-[#A78BFA] font-semibold'
                 : 'text-[#A0A0C0] hover:text-[#E8E8F0]'
             }`}
@@ -77,8 +80,9 @@ const currentPath = Astro.url.pathname
   const menu = document.getElementById('mobile-menu')
   const lines = btn?.querySelectorAll('.menu-line')
 
-  btn?.addEventListener('click', () => {
-    const open = menu?.classList.toggle('hidden') === false
+  function setMenuOpen(open: boolean) {
+    if (!btn || !menu) return
+    menu?.classList.toggle('hidden', !open)
     btn.setAttribute('aria-expanded', String(open))
     if (lines) {
       if (open) {
@@ -90,6 +94,16 @@ const currentPath = Astro.url.pathname
         ;(lines[1] as HTMLElement).style.opacity = ''
         ;(lines[2] as HTMLElement).style.transform = ''
       }
+    }
+  }
+
+  btn?.addEventListener('click', () => {
+    setMenuOpen(menu?.classList.contains('hidden') ?? true)
+  })
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setMenuOpen(false)
     }
   })
 </script>

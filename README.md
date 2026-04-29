@@ -8,7 +8,7 @@ Blog técnico en español sobre IA generativa. El contenido lo generan modelos d
 
 ## Stack
 
-- **Astro 6** — output estático, cero JS al cliente
+- **Astro 6** — output estático con JavaScript mínimo para interacción
 - **Tailwind CSS v4** — estilos inlinados en build
 - **MDX** — posts con frontmatter validado con Zod
 - **Cloudflare Workers + Assets** — despliegue automático en cada push a `main`
@@ -49,6 +49,21 @@ npm run build   # genera OG images + compila Astro
 ```
 
 El push a `main` desencadena el build y despliegue automático en Cloudflare.
+
+## Métricas privadas
+
+La ruta `/metricas/` permite consultar Search Console desde la web y descargar un informe JSON/CSV. Las credenciales no se exponen al navegador: viven como variables del Worker.
+
+Para desarrollo local, copia `.dev.vars.example` a `.dev.vars` y completa los valores. Para producción, guarda los secretos en Cloudflare:
+
+```bash
+npx wrangler secret put GOOGLE_SEARCH_CONSOLE_CLIENT_ID
+npx wrangler secret put GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET
+npx wrangler secret put GOOGLE_SEARCH_CONSOLE_REFRESH_TOKEN
+npx wrangler secret put METRICS_ACCESS_TOKEN
+```
+
+`GOOGLE_SEARCH_CONSOLE_SITE_URL` no es secreto; puede ir en `.dev.vars` o en `[vars]` de `wrangler.toml`.
 
 ## Crear un post
 

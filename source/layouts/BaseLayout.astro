@@ -59,7 +59,7 @@ const ogImage = new URL(image, SITE.url).href
 
     <!-- JSON-LD -->
     {jsonLd && (
-      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
 
     <!-- Extra head tags (e.g. article:* meta from PostLayout) -->

@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, readdirSync, mkdirSync } from 'fs'
+import { readFileSync, writeFileSync, readdirSync, mkdirSync, unlinkSync } from 'fs'
 import { resolve, join, basename } from 'path'
 import satori from 'satori'
 import { Resvg } from '@resvg/resvg-js'
@@ -110,6 +110,17 @@ async function renderOG({ title, category, date, accent }) {
 
 // Generate per-post OG images
 const files = readdirSync(POSTS_DIR).filter(f => f.endsWith('.mdx') || f.endsWith('.md'))
+const expectedImages = new Set([
+  ...files.map(file => `${basename(file, file.endsWith('.mdx') ? '.mdx' : '.md')}.png`),
+  'default.png',
+])
+
+for (const image of readdirSync(OUT_DIR).filter(f => f.endsWith('.png'))) {
+  if (!expectedImages.has(image)) {
+    unlinkSync(join(OUT_DIR, image))
+    console.log(`  - removed stale /og/${image}`)
+  }
+}
 
 for (const file of files) {
   const slug = basename(file, file.endsWith('.mdx') ? '.mdx' : '.md')

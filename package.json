@@ -14,8 +14,7 @@
     "deploy": "npm run build && wrangler deploy",
     "gsc:oauth": "node scripts/google-search-console-oauth.mjs",
     "gsc:report": "node scripts/download-search-console-report.mjs",
-    "gsc:inspect": "node scripts/inspect-search-console-urls.mjs",
-    "gsc:submit-sitemap": "node scripts/submit-search-console-sitemap.mjs"
+    "gsc:inspect": "node scripts/inspect-search-console-urls.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
@@ -38,7 +37,6 @@
     "wrangler": "^4.84.1"
   },
   "overrides": {
-    "vite": "^7",
-    "yaml": "^2.8.3"
+    "vite": "^7"
   }
 }

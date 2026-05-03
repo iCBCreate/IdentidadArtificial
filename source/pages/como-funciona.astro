@@ -3,9 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import { SITE } from '../config'
 
 const pills = [
-  ['Astro 6', 'static output', 'Cloudflare Workers', 'MDX', 'Tailwind v4', 'Sharp', 'WebP srcset'],
-  ['JSON-LD', 'sitemap XML', 'Open Graph', 'robots.txt', 'llms.txt', 'RSS feed', 'GEO'],
-  ['Satori', 'OG images', 'wrangler deploy', 'build pipeline', 'frontmatter Zod', 'TypeScript strict'],
+  ['Astro 6', 'static output', 'Cloudflare Workers', 'MDX', 'Tailwind v4', 'Sharp', 'AVIF srcset'],
+  ['JSON-LD', 'sitemap XML', 'Open Graph', 'robots.txt', 'llms.txt', 'llms-full.txt', 'RSS feed', 'GEO'],
+  ['Satori', 'OG images', 'knowledge map', 'post insights', 'editorial radar', 'frontmatter Zod'],
 ]
 
 const stack = [
@@ -16,7 +16,7 @@ const stack = [
   { name: 'Modelos de IA', desc: 'Claude, GPT-4o, Gemini… registrado en metadatos', icon: '🤖' },
   { name: 'Satori + resvg', desc: 'Imágenes Open Graph generadas en build time', icon: '🖼️' },
   { name: 'Sharp', desc: 'Optimización hero: AVIF + srcset automático', icon: '⚡' },
-  { name: 'GitHub', desc: 'Repositorio público, fuente de verdad', icon: '🔗' },
+  { name: 'Datos derivados', desc: 'Mapa semántico, lecturas IA y radar editorial en build-time', icon: '🧠' },
 ]
 
 const pipeline = [
@@ -26,10 +26,18 @@ const pipeline = [
   { n: '4', label: 'Revisión humana obligatoria antes de publicar' },
   { n: '5', label: 'Commit y push al repositorio GitHub' },
   { n: '6', label: 'Cloudflare detecta el push y ejecuta npm run build' },
-  { n: '7', label: 'generate-og.mjs genera PNG 1200×630 por post' },
-  { n: '8', label: 'Sharp convierte imágenes hero a AVIF + srcset' },
-  { n: '9', label: 'Astro compila el sitio estático con todos los assets' },
-  { n: '10', label: 'Wrangler despliega a la red de Cloudflare en ~90s' },
+  { n: '7', label: 'build:data genera mapa semántico, lecturas IA y radar editorial' },
+  { n: '8', label: 'generate-og.mjs genera PNG 1200×630 por post' },
+  { n: '9', label: 'Sharp convierte imágenes hero a AVIF + srcset' },
+  { n: '10', label: 'Astro compila HTML estático, llms-full.txt, RSS y sitemap' },
+  { n: '11', label: 'Wrangler despliega a la red de Cloudflare en ~90s' },
+]
+
+const aiSystem = [
+  { label: 'Mapa semántico', desc: 'generate-knowledge-map.mjs extrae categorías, tags, empresas y conceptos para alimentar /mapa-ia/ y el bloque “Conecta con” de cada post.' },
+  { label: 'Lecturas generadas', desc: 'generate-post-insights.mjs crea resumen ejecutivo, lectura técnica, puntos clave, glosario y FAQ por artículo sin llamar a una API en runtime.' },
+  { label: 'Radar editorial', desc: 'generate-editorial-radar.mjs compara el corpus con temas técnicos pendientes y publica señales filtradas en /radar/.' },
+  { label: 'Expediente IA', desc: 'Cada post muestra modelo, prompt base, revisión humana, confianza, calidad de fuentes, claims revisados y correcciones cuando existen.' },
 ]
 
 const geo = [
@@ -73,7 +81,7 @@ const security = [
         Cómo <span class="accent">funciona</span>
       </h1>
       <p class="cf-subtitle">
-        Stack, pipeline de publicación, SEO/GEO<br />e infraestructura de despliegue.
+        Stack, pipeline de publicación, IA build-time,<br />SEO/GEO e infraestructura de despliegue.
       </p>
     </div>
   </section>
@@ -112,12 +120,16 @@ const security = [
 ├── source/
 │   ├── assets/post/      ← Imágenes hero de los posts
 │   ├── content/blog/     ← Posts en .mdx
-│   ├── components/       ← Header, Footer, PostCard, TransparencyBlock…
+│   ├── components/       ← UI, expediente IA, lecturas y grafo
+│   ├── data/generated/   ← Artefactos IA generados en build-time
 │   ├── layouts/          ← BaseLayout, PostLayout
 │   ├── pages/            ← Rutas del sitio
 │   └── styles/           ← CSS global
 ├── scripts/
-│   └── generate-og.mjs   ← Generador de imágenes OG (prebuild)
+│   ├── generate-og.mjs              ← Imágenes OG
+│   ├── generate-knowledge-map.mjs   ← Grafo semántico
+│   ├── generate-post-insights.mjs   ← Lecturas por artículo
+│   └── generate-editorial-radar.mjs ← Radar editorial
 ├── docs/
 │   └── guia-crear-post.md ← Instrucciones para generar posts con cualquier modelo
 ├── public/
@@ -146,12 +158,41 @@ promptBase: 'El prompt que se usó para generar este post'
 humanReviewed: true
 heroImage: '../../assets/post/imagen-del-post.jpg'  # opcional
 correctionNote: 'Texto si el post corrige errores de una versión anterior.'  # opcional
+sourceQuality: 'Media'        # opcional
+confidenceLevel: 'Media'      # opcional
+reviewNotes: 'Notas visibles de revisión.'  # opcional
+claimsReviewed:
+  - 'Afirmación técnica verificada manualmente.'  # opcional
 ---`}</code></pre>
     </div>
     <p class="cf-note fade-up" style="animation-delay: 0.05s">
       <code>correctionNote</code> aparece como bloque de aviso visible en el post cuando se publica una corrección.
       <code>heroImage</code> referencia una imagen local que Astro optimiza y convierte a AVIF en build time.
+      Los campos <code>sourceQuality</code>, <code>confidenceLevel</code>, <code>reviewNotes</code> y
+      <code>claimsReviewed</code> alimentan el nuevo expediente IA.
     </p>
+
+    <!-- IA build-time -->
+    <div class="section-label">IA aplicada al sitio</div>
+    <p class="cf-note fade-up" style="animation-delay: 0.03s">
+      La IA no aparece como un chatbot en vivo. El enfoque es más barato, auditable y estable:
+      el build transforma el corpus en datos derivados que luego se renderizan como páginas estáticas.
+    </p>
+    <div class="ai-grid">
+      {aiSystem.map((item, i) => (
+        <div class="ai-card fade-up" style={`animation-delay: ${i * 0.04}s`}>
+          <div class="ai-label">{item.label}</div>
+          <div class="ai-desc">{item.desc}</div>
+        </div>
+      ))}
+    </div>
+    <div class="code-block fade-up" style="animation-delay: 0.08s">
+      <pre><code>{`npm run build
+└── npm run build:data
+    ├── source/data/generated/knowledge-map.ts
+    ├── source/data/generated/post-insights.ts
+    └── source/data/generated/editorial-radar.ts`}</code></pre>
+    </div>
 
     <!-- SEO/GEO -->
     <div class="section-label">Infraestructura SEO y GEO</div>
@@ -435,6 +476,36 @@ correctionNote: 'Texto si el post corrige errores de una versión anterior.'  # 
   overflow: hidden;
 }
 
+/* ── AI system ── */
+.ai-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #2A2A40;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.ai-card {
+  background: linear-gradient(180deg, rgba(109, 40, 217, 0.08), transparent 60%), #1C1C2C;
+  padding: 18px 20px;
+}
+
+.ai-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #E8E8F0;
+  margin-bottom: 6px;
+}
+
+.ai-desc {
+  font-size: 12px;
+  color: #A0A0C0;
+  line-height: 1.6;
+}
+
 .geo-card {
   background: #1C1C2C;
   padding: 16px 20px;
@@ -553,6 +624,7 @@ correctionNote: 'Texto si el post corrige errores de una versión anterior.'  # 
 @media (max-width: 640px) {
   .stack-grid { grid-template-columns: 1fr; }
   .geo-grid   { grid-template-columns: 1fr; }
+  .ai-grid    { grid-template-columns: 1fr; }
   .security-item { flex-direction: column; gap: 6px; }
 }
 </style>

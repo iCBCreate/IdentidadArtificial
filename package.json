@@ -7,7 +7,9 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/generate-og.mjs && astro build",
+    "build:data": "node scripts/generate-knowledge-map.mjs && node scripts/generate-post-insights.mjs && node scripts/generate-editorial-radar.mjs",
+    "build": "npm run build:data && node scripts/generate-og.mjs && astro build",
+    "test": "node --test tests/*.test.mjs",
     "preview": "npm run build && wrangler dev",
     "astro": "astro",
     "generate-types": "wrangler types",

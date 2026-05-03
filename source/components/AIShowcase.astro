@@ -1,0 +1,139 @@
+---
+import { KNOWLEDGE_MAP } from '../data/generated/knowledge-map'
+import { EDITORIAL_RADAR } from '../data/generated/editorial-radar'
+import { POST_INSIGHTS } from '../data/generated/post-insights'
+
+const postCount = KNOWLEDGE_MAP.nodes.filter(node => node.type === 'post').length
+const conceptCount = KNOWLEDGE_MAP.nodes.filter(node => node.type === 'concept' || node.type === 'company').length
+const insightCount = Object.keys(POST_INSIGHTS).length
+const radarCount = EDITORIAL_RADAR.topics.length
+
+const features = [
+  {
+    href: '/mapa-ia/',
+    title: 'Mapa semántico',
+    text: `${postCount} artículos conectados con ${conceptCount} conceptos, empresas y señales técnicas.`,
+    metric: 'Grafo',
+  },
+  {
+    href: '/radar/',
+    title: 'Radar editorial',
+    text: `${radarCount} temas detectados a partir del corpus para decidir próximas piezas.`,
+    metric: 'Señales',
+  },
+  {
+    href: '/como-funciona/',
+    title: 'Pipeline visible',
+    text: `${insightCount} expedientes con lecturas generadas, revisión declarada y metadatos públicos.`,
+    metric: 'Build-time',
+  },
+]
+---
+
+<section class="ai-showcase" aria-labelledby="sistema-ia">
+  <div class="showcase-intro">
+    <h2 id="sistema-ia">El sitio también usa IA para explicarse</h2>
+    <p>
+      Cada build convierte los artículos en relaciones, capas de lectura y señales editoriales.
+      No hay chatbot oculto: el sistema deja sus piezas visibles.
+    </p>
+  </div>
+
+  <div class="showcase-grid">
+    {features.map(feature => (
+      <a href={feature.href}>
+        <span>{feature.metric}</span>
+        <strong>{feature.title}</strong>
+        <p>{feature.text}</p>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+.ai-showcase {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 28px 24px 4px;
+}
+.showcase-intro {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: 28px;
+  align-items: end;
+  border-top: 1px solid #2A2A40;
+  padding-top: 28px;
+  margin-bottom: 16px;
+}
+h2 {
+  color: #E8E8F0;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 900;
+  line-height: 1.05;
+  max-width: 460px;
+}
+.showcase-intro p {
+  color: #A0A0C0;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+}
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #2A2A40;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+}
+a {
+  display: block;
+  min-height: 176px;
+  background:
+    linear-gradient(180deg, rgba(109, 40, 217, .08), transparent 56%),
+    #171726;
+  padding: 20px;
+  text-decoration: none;
+  transition: background .15s, transform .15s;
+}
+a:hover {
+  background:
+    linear-gradient(180deg, rgba(96, 165, 250, .12), transparent 60%),
+    #1C1C2E;
+}
+a span {
+  display: inline-block;
+  color: #34D399;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+a strong {
+  display: block;
+  color: #E8E8F0;
+  font-size: 20px;
+  font-weight: 850;
+  line-height: 1.2;
+}
+a p {
+  color: #A0A0C0;
+  font-size: 13px;
+  line-height: 1.65;
+  margin-top: 10px;
+}
+@media (max-width: 760px) {
+  .showcase-intro,
+  .showcase-grid {
+    grid-template-columns: 1fr;
+  }
+  a {
+    min-height: 0;
+  }
+  a span {
+    margin-bottom: 18px;
+  }
+}
+</style>

@@ -1,0 +1,159 @@
+---
+interface Insight {
+  executiveSummary: string
+  technicalReading: string
+  keyPoints: readonly string[]
+  glossary: readonly { term: string; definition: string }[]
+  faqs: readonly { question: string; answer: string }[]
+  readingProfile: { minutes: number; density: string; bestFor: string }
+}
+
+interface Props {
+  insight?: Insight
+}
+
+const { insight } = Astro.props
+---
+
+{insight && (
+  <section class="insights" aria-labelledby="lecturas-ia">
+    <div class="insights-head">
+      <div>
+        <p class="eyebrow">Lecturas generadas</p>
+        <h2 id="lecturas-ia">Capas de lectura IA</h2>
+      </div>
+      <span>{insight.readingProfile.minutes} min · densidad {insight.readingProfile.density}</span>
+    </div>
+
+    <div class="insight-main">
+      <article>
+        <h3>Resumen ejecutivo</h3>
+        <p>{insight.executiveSummary}</p>
+      </article>
+      <article>
+        <h3>Lectura técnica</h3>
+        <p>{insight.technicalReading}</p>
+      </article>
+    </div>
+
+    <div class="insight-columns">
+      <div>
+        <h3>Puntos clave</h3>
+        <ul>
+          {insight.keyPoints.map(point => <li>{point}</li>)}
+        </ul>
+      </div>
+      {insight.glossary.length > 0 && (
+        <div>
+          <h3>Glosario</h3>
+          <dl>
+            {insight.glossary.map(item => (
+              <>
+                <dt>{item.term}</dt>
+                <dd>{item.definition}</dd>
+              </>
+            ))}
+          </dl>
+        </div>
+      )}
+    </div>
+
+    <div class="faq-row">
+      {insight.faqs.map(item => (
+        <details>
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+.insights {
+  margin-top: 48px;
+  border-top: 1px solid #2A2A40;
+  border-bottom: 1px solid #2A2A40;
+  padding: 28px 0;
+}
+.insights-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: 18px;
+}
+.eyebrow {
+  color: #34D399;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+h2 {
+  color: #E8E8F0;
+  font-size: 24px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+.insights-head span {
+  color: #A0A0C0;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.insight-main, .insight-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #2A2A40;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+article, .insight-columns > div {
+  background: #171726;
+  padding: 18px;
+}
+h3 {
+  color: #E8E8F0;
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+p, li, dd {
+  color: #C8C8E0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+ul { padding-left: 18px; }
+dt {
+  color: #E8E8F0;
+  font-size: 13px;
+  font-weight: 800;
+  margin-top: 10px;
+}
+dt:first-child { margin-top: 0; }
+.faq-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+details {
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  padding: 14px;
+  background: #171726;
+}
+summary {
+  cursor: pointer;
+  color: #E8E8F0;
+  font-size: 13px;
+  font-weight: 700;
+}
+details p { margin-top: 10px; }
+@media (max-width: 760px) {
+  .insight-main, .insight-columns, .faq-row { grid-template-columns: 1fr; }
+  .insights-head { flex-direction: column; align-items: flex-start; }
+}
+</style>

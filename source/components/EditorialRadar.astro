@@ -1,0 +1,158 @@
+---
+interface Props {
+  radar: {
+    generatedAt: string
+    signals: readonly { label: string; value: string }[]
+    topics: readonly {
+      topic: string
+      intent: string
+      tags: readonly string[]
+      priority: 'Alta' | 'Media' | 'Baja'
+      reason: string
+      relatedPosts: readonly { slug: string; title: string }[]
+    }[]
+  }
+}
+
+const { radar } = Astro.props
+---
+
+<section class="radar">
+  <div class="signals">
+    {radar.signals.map(signal => (
+      <div>
+        <span>{signal.label}</span>
+        <strong>{signal.value}</strong>
+      </div>
+    ))}
+  </div>
+
+  <div class="topics">
+    {radar.topics.map(topic => (
+      <article>
+        <div class="topic-head">
+          <span class={`priority priority-${topic.priority.toLowerCase()}`}>{topic.priority}</span>
+          <h2>{topic.topic}</h2>
+        </div>
+        <p>{topic.intent}</p>
+        <p class="reason">{topic.reason}</p>
+        <div class="tags">
+          {topic.tags.map(tag => <span>{tag}</span>)}
+        </div>
+        {topic.relatedPosts.length > 0 && (
+          <div class="related">
+            <strong>Señales relacionadas</strong>
+            {topic.relatedPosts.map(post => <a href={`/${post.slug}/`}>{post.title}</a>)}
+          </div>
+        )}
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+.signals {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: #2A2A40;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.signals div, article {
+  background: #171726;
+}
+.signals div {
+  padding: 18px;
+}
+.signals span {
+  display: block;
+  color: #A0A0C0;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+.signals strong {
+  display: block;
+  color: #E8E8F0;
+  font-size: 18px;
+  margin-top: 8px;
+}
+.topics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+article {
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  padding: 20px;
+}
+.topic-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+h2 {
+  color: #E8E8F0;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+p {
+  color: #C8C8E0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.reason { color: #A0A0C0; margin-top: 8px; }
+.priority {
+  border-radius: 999px;
+  border: 1px solid #2A2A40;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 800;
+}
+.priority-alta { color: #FCA5A5; border-color: rgba(248, 113, 113, .45); }
+.priority-media { color: #FDE68A; border-color: rgba(251, 191, 36, .45); }
+.priority-baja { color: #BBF7D0; border-color: rgba(52, 211, 153, .45); }
+.tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.tags span {
+  background: rgba(109, 40, 217, .12);
+  border: 1px solid rgba(167, 139, 250, .18);
+  border-radius: 999px;
+  color: #C4B5FD;
+  font-size: 11px;
+  padding: 4px 8px;
+}
+.related {
+  border-top: 1px solid #2A2A40;
+  margin-top: 16px;
+  padding-top: 14px;
+}
+.related strong, .related a {
+  display: block;
+  font-size: 12px;
+}
+.related strong {
+  color: #A0A0C0;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 8px;
+}
+.related a {
+  color: #A78BFA;
+  line-height: 1.5;
+  margin-top: 6px;
+}
+@media (max-width: 760px) {
+  .signals, .topics { grid-template-columns: 1fr; }
+}
+</style>

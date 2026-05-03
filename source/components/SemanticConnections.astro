@@ -1,0 +1,73 @@
+---
+interface Props {
+  items?: readonly { slug: string; title: string; reason: string; score: number }[]
+}
+
+const { items = [] } = Astro.props
+---
+
+{items.length > 0 && (
+  <section class="connections" aria-labelledby="conecta-con">
+    <div class="connections-head">
+      <p class="eyebrow">Mapa semántico</p>
+      <h2 id="conecta-con">Conecta con</h2>
+    </div>
+    <div class="connection-grid">
+      {items.map(item => (
+        <a href={`/${item.slug}/`}>
+          <strong>{item.title}</strong>
+          <span>{item.reason}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+.connections {
+  margin-top: 44px;
+}
+.eyebrow {
+  color: #60A5FA;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+h2 {
+  color: #E8E8F0;
+  font-size: 22px;
+  font-weight: 800;
+  margin: 4px 0 16px;
+}
+.connection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+a {
+  display: block;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  background: #171726;
+  padding: 16px;
+  text-decoration: none;
+}
+a:hover { border-color: #60A5FA; }
+strong {
+  display: block;
+  color: #E8E8F0;
+  font-size: 13px;
+  line-height: 1.35;
+}
+span {
+  display: block;
+  color: #A0A0C0;
+  font-size: 12px;
+  line-height: 1.55;
+  margin-top: 8px;
+}
+@media (max-width: 700px) {
+  .connection-grid { grid-template-columns: 1fr; }
+}
+</style>

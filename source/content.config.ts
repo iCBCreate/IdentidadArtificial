@@ -17,6 +17,10 @@ const blog = defineCollection({
     promptBase: z.string(),
     humanReviewed: z.boolean(),
     correctionNote: z.string().optional(),
+    reviewNotes: z.string().optional(),
+    sourceQuality: z.enum(['Alta', 'Media', 'Baja']).optional(),
+    confidenceLevel: z.enum(['Alta', 'Media', 'Baja']).optional(),
+    claimsReviewed: z.array(z.string()).optional(),
   })
 })
 

@@ -1,0 +1,177 @@
+---
+interface Node {
+  id: string
+  type: string
+  label: string
+  slug?: string
+  category?: string
+}
+
+interface Link {
+  source: string
+  target: string
+  weight: number
+  relation: string
+}
+
+interface Props {
+  nodes: readonly Node[]
+  links: readonly Link[]
+}
+
+const { nodes, links } = Astro.props
+const displayNodes = nodes.filter(node => node.type !== 'tag')
+const postNodes = displayNodes.filter(node => node.type === 'post')
+const conceptNodes = displayNodes.filter(node => node.type !== 'post')
+const placed = new Map<string, { x: number; y: number }>()
+
+postNodes.forEach((node, index) => {
+  const angle = (Math.PI * 2 * index) / Math.max(1, postNodes.length)
+  placed.set(node.id, { x: 50 + Math.cos(angle) * 34, y: 50 + Math.sin(angle) * 32 })
+})
+
+conceptNodes.forEach((node, index) => {
+  const angle = (Math.PI * 2 * index) / Math.max(1, conceptNodes.length)
+  placed.set(node.id, { x: 50 + Math.cos(angle) * 18, y: 50 + Math.sin(angle) * 16 })
+})
+
+const visibleLinks = links
+  .map(link => ({ ...link, from: placed.get(link.source), to: placed.get(link.target) }))
+  .filter(link => link.from && link.to)
+---
+
+<section class="graph-shell">
+  <div class="graph-canvas" aria-label="Grafo semántico de artículos y conceptos">
+    <svg viewBox="0 0 100 100" role="img">
+      {visibleLinks.map(link => (
+        <line
+          x1={link.from?.x}
+          y1={link.from?.y}
+          x2={link.to?.x}
+          y2={link.to?.y}
+          class={`edge edge-${link.relation}`}
+          stroke-width={Math.min(1.8, 0.35 + link.weight * 0.18)}
+        />
+      ))}
+    </svg>
+
+    {displayNodes.map(node => {
+      const pos = placed.get(node.id)
+      return pos && (
+        <a
+          href={node.slug ? `/${node.slug}/` : undefined}
+          class={`node node-${node.type}`}
+          style={`left:${pos.x}%;top:${pos.y}%`}
+          data-type={node.type}
+          title={node.label}
+        >
+          <span>{node.label}</span>
+        </a>
+      )
+    })}
+  </div>
+
+  <div class="legend">
+    <span><i class="post"></i>Artículos</span>
+    <span><i class="concept"></i>Conceptos</span>
+    <span><i class="company"></i>Empresas</span>
+    <span><i class="category"></i>Categorías</span>
+  </div>
+</section>
+
+<style>
+.graph-shell {
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  background: #13131F;
+  overflow: hidden;
+}
+.graph-canvas {
+  position: relative;
+  min-height: 620px;
+  background:
+    linear-gradient(rgba(42,42,64,.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42,42,64,.55) 1px, transparent 1px),
+    radial-gradient(circle at center, rgba(109,40,217,.18), transparent 55%);
+  background-size: 32px 32px, 32px 32px, auto;
+}
+svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.edge {
+  stroke: rgba(160, 160, 192, .22);
+}
+.edge-semantic { stroke: rgba(96, 165, 250, .42); }
+.edge-category { stroke: rgba(167, 139, 250, .32); }
+.node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #2A2A40;
+  border-radius: 999px;
+  background: #1C1C2E;
+  color: #E8E8F0;
+  text-decoration: none;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .22);
+}
+.node span {
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.node-post {
+  width: 118px;
+  min-height: 38px;
+  padding: 8px 12px;
+  border-color: rgba(167, 139, 250, .55);
+  font-size: 11px;
+  font-weight: 700;
+}
+.node-concept, .node-company, .node-category {
+  min-width: 86px;
+  height: 30px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+.node-concept { border-color: rgba(52, 211, 153, .45); color: #BBF7D0; }
+.node-company { border-color: rgba(96, 165, 250, .48); color: #BFDBFE; }
+.node-category { border-color: rgba(251, 191, 36, .45); color: #FDE68A; }
+.node[href]:hover {
+  border-color: #E8E8F0;
+  z-index: 3;
+}
+.legend {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  border-top: 1px solid #2A2A40;
+  padding: 14px 18px;
+  color: #A0A0C0;
+  font-size: 12px;
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+.legend .post { background: #A78BFA; }
+.legend .concept { background: #34D399; }
+.legend .company { background: #60A5FA; }
+.legend .category { background: #FBBF24; }
+@media (max-width: 720px) {
+  .graph-canvas { min-height: 540px; }
+  .node-post { width: 92px; font-size: 10px; }
+  .node span { max-width: 92px; }
+}
+</style>

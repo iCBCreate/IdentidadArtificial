@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync, readdirSync, mkdirSync, unlinkSync } from 
 import { resolve, join, basename } from 'path'
 import satori from 'satori'
 import { Resvg } from '@resvg/resvg-js'
+import { parse as parseYaml } from 'yaml'
 
 const ROOT = process.cwd()
 const POSTS_DIR = resolve(ROOT, 'source/content/blog')
@@ -32,15 +33,9 @@ function truncate(str, max) {
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/)
   if (!match) return {}
-  const fm = {}
-  for (const line of match[1].split('\n')) {
-    const colon = line.indexOf(':')
-    if (colon === -1) continue
-    const key = line.slice(0, colon).trim()
-    const value = line.slice(colon + 1).trim().replace(/^['"]|['"]$/g, '')
-    fm[key] = value
-  }
-  return fm
+
+  const parsed = parseYaml(match[1])
+  return parsed && typeof parsed === 'object' ? parsed : {}
 }
 
 async function renderOG({ title, category, date, accent }) {

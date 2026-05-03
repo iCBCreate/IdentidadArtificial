@@ -4,7 +4,7 @@ import { randomBytes } from 'node:crypto'
 
 const ENV_PATH = '.dev.vars'
 const REDIRECT_URI = 'http://127.0.0.1:8787/oauth2callback'
-const SCOPE = 'https://www.googleapis.com/auth/webmasters.readonly'
+const SCOPE = 'https://www.googleapis.com/auth/webmasters'
 
 const env = readEnv(ENV_PATH)
 const clientId = env.GOOGLE_SEARCH_CONSOLE_CLIENT_ID

@@ -14,13 +14,15 @@
   # Fuerza HTTPS durante 1 año
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
-  # Deshabilita acceso a cámara, micrófono y geolocalización
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  # Deshabilita acceso a cámara, micrófono, geolocalización y sensores
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=()
 
   # Content Security Policy
-  # - default-src 'self': solo recursos del propio dominio
-  # - script-src 'unsafe-inline': necesario para scripts inline de Astro
-  # - style-src 'unsafe-inline': necesario porque Astro inlinea todo el CSS
-  # - img-src data:: permite imágenes base64 si las hubiera
-  # - frame-ancestors 'none': refuerza X-Frame-Options
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  # - script-src 'unsafe-inline': Astro inlinea los scripts de componentes como
+  #   <script type="module">...</script>. Para eliminar unsafe-inline habría que
+  #   cambiar a SSR con nonces por petición — mejora pendiente.
+  # - style-src 'unsafe-inline': Astro inlinea todo el CSS de componentes.
+  # - worker-src 'none': el sitio no registra Service Workers.
+  # - object-src 'none': bloquea plugins (Flash, Java, etc.).
+  # - upgrade-insecure-requests: fuerza HTTP → HTTPS en subrecursos.
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; worker-src 'none'; upgrade-insecure-requests

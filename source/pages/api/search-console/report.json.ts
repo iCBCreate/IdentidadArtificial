@@ -3,6 +3,31 @@ import { env } from 'cloudflare:workers'
 
 export const prerender = false
 
+// ---------------------------------------------------------------------------
+// In-process rate limiting (per Worker isolate).
+// Cloudflare may run multiple isolates, so this is a per-instance best-effort
+// defence. For cross-instance rate limiting configure a Cloudflare Rate
+// Limiting rule in the dashboard targeting /api/search-console/*.
+// ---------------------------------------------------------------------------
+const _rlLog = new Map<string, number[]>()
+const RL_MAX    = 15        // max requests per window per IP
+const RL_WINDOW = 60_000    // 1 minute
+
+function isRateLimited(ip: string): boolean {
+  const now    = Date.now()
+  const cutoff = now - RL_WINDOW
+  const hits   = (_rlLog.get(ip) ?? []).filter(t => t > cutoff)
+  hits.push(now)
+  _rlLog.set(ip, hits)
+  // Prune map to prevent unbounded growth across long-lived isolates
+  if (_rlLog.size > 500) {
+    for (const [key, times] of _rlLog) {
+      if (Math.max(...times) < cutoff) _rlLog.delete(key)
+    }
+  }
+  return hits.length > RL_MAX
+}
+
 type SearchConsoleRow = {
   keys?: string[]
   clicks: number
@@ -39,6 +64,14 @@ const JSON_HEADERS = {
 }
 
 export const GET: APIRoute = async ({ request }) => {
+  const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown'
+  if (isRateLimited(ip)) {
+    return new Response(JSON.stringify({ error: 'Too many requests' }), {
+      status: 429,
+      headers: { ...JSON_HEADERS, 'retry-after': '60' },
+    })
+  }
+
   const auth = request.headers.get('authorization') ?? ''
   const expectedToken = env.METRICS_ACCESS_TOKEN
 

@@ -3,6 +3,13 @@ import { env } from 'cloudflare:workers'
 
 export const prerender = false
 
+type RateLimitEntry = {
+  count: number
+  resetAt: number
+}
+
+const rateLimitMap = new Map<string, RateLimitEntry>()
+
 type SearchConsoleRow = {
   keys?: string[]
   clicks: number
@@ -39,6 +46,30 @@ const JSON_HEADERS = {
 }
 
 export const GET: APIRoute = async ({ request }) => {
+  const ip = request.headers.get('cf-connecting-ip') ?? 'unknown'
+  const now = Date.now()
+
+  let entry = rateLimitMap.get(ip)
+  if (!entry || now >= entry.resetAt) {
+    entry = { count: 0, resetAt: now + 60000 }
+    rateLimitMap.set(ip, entry)
+  }
+
+  if (entry.count >= 15) {
+    const retryAfter = Math.ceil((entry.resetAt - now) / 1000)
+    return new Response(JSON.stringify({ error: 'Too Many Requests' }), {
+      status: 429,
+      headers: { ...JSON_HEADERS, 'Retry-After': String(retryAfter) },
+    })
+  }
+
+  entry.count++
+
+  if (rateLimitMap.size > 10000) {
+    const expired = Array.from(rateLimitMap.entries()).filter(([_, e]) => now >= e.resetAt)
+    expired.forEach(([key]) => rateLimitMap.delete(key))
+  }
+
   const auth = request.headers.get('authorization') ?? ''
   const expectedToken = env.METRICS_ACCESS_TOKEN
 

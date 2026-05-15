@@ -379,7 +379,6 @@ const statusEl = document.getElementById('status')!
 let currentReport: Report | null = null
 
 setDefaultDates()
-tokenInput.value = sessionStorage.getItem('metricsAccessToken') ?? ''
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault()
@@ -401,7 +400,6 @@ async function loadReport() {
     return
   }
 
-  sessionStorage.setItem('metricsAccessToken', token)
   setStatus('Cargando...')
 
   const params = new URLSearchParams({

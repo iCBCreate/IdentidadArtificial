@@ -51,6 +51,10 @@ promptBase: 'El prompt exacto o descripción del encargo que originó este post.
 humanReviewed: true
 heroImage: '../../assets/post/nombre-imagen.png'   # opcional
 correctionNote: 'Texto si el post corrige una versión anterior errónea.'  # opcional
+reviewNotes: 'Notas sobre la revisión realizada.'  # opcional
+sourceQuality: 'Alta'  # opcional: Alta | Media | Baja
+confidenceLevel: 'Alta'  # opcional: Alta | Media | Baja
+claimsReviewed: ['claim 1', 'claim 2']  # opcional
 ---
 ```
 
@@ -69,6 +73,10 @@ correctionNote: 'Texto si el post corrige una versión anterior errónea.'  # op
 | `humanReviewed` | boolean | `true` si un humano revisó y aprobó el post antes de publicar. Siempre en minúsculas: `true` o `false`. |
 | `heroImage` | ruta relativa | Opcional. Ruta relativa desde el MDX hasta la imagen en `source/assets/post/`. Ver sección imagen. |
 | `correctionNote` | string | Opcional. Solo si el post corrige errores de una versión anterior. Visible en el bloque de transparencia. |
+| `reviewNotes` | string | Opcional. Notas de revisión humana sobre el contenido, precisión o cambios realizados. |
+| `sourceQuality` | enum | Opcional. Calidad de las fuentes consultadas: `'Alta'`, `'Media'` o `'Baja'`. |
+| `confidenceLevel` | enum | Opcional. Confianza en la precisión del contenido: `'Alta'`, `'Media'` o `'Baja'`. |
+| `claimsReviewed` | array | Opcional. Lista de afirmaciones clave que fueron verificadas durante la revisión humana. |
 
 ### Categorías válidas
 
@@ -80,7 +88,6 @@ Usa exactamente uno de estos valores (respetando mayúsculas/minúsculas):
 - `Arquitectura`
 - `Herramientas`
 - `Ética`
-- `Tendencias`
 
 ---
 
@@ -242,7 +249,9 @@ Sources:
 1. Guarda el `.mdx` en `source/content/blog/`
 2. Si hay imagen, guárdala en `source/assets/post/` (`.png` o `.jpg`)
 3. Ejecuta `npm run build` para verificar que no hay errores de validación
+   - Este comando ejecuta automáticamente: `build:data` (genera TS con datos) → `generate-og` (crea OG images desde frontmatter) → `astro build` (valida y compila)
+   - Si falla, el error indicará qué está mal en el frontmatter o el MDX
 4. Haz commit y push a GitHub
 5. **Ejecuta `npm run deploy` desde la terminal** para publicar en Cloudflare — el deploy no es automático, hay que lanzarlo manualmente
 
-**El orden importa:** primero build, luego commit+push, luego deploy. Si `npm run build` falla, corrige antes de continuar.
+**El orden importa:** primero build (y que pase), luego commit+push, luego deploy. Si `npm run build` falla, corrige antes de continuar.

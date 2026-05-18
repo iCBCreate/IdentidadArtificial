@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import { SITE } from '../config'
 
 const pills = [
-  ['Astro 6', 'static output', 'Cloudflare Workers', 'MDX', 'Tailwind v4', 'Sharp', 'AVIF srcset'],
+  ['Astro 6', 'static output', 'Cloudflare Workers', 'MDX', 'tutoriales', 'Tailwind v4', 'Sharp', 'AVIF srcset'],
   ['JSON-LD', 'sitemap XML', 'Open Graph', 'robots.txt', 'llms.txt', 'llms-full.txt', 'RSS feed', 'GEO'],
   ['Satori', 'OG images', 'knowledge map', 'post insights', 'editorial radar', 'frontmatter Zod'],
 ]
@@ -11,7 +11,7 @@ const pills = [
 const stack = [
   { name: 'Astro 6', desc: 'Output estático con JavaScript mínimo para interacción', icon: '🚀' },
   { name: 'Tailwind CSS v4', desc: 'Estilos utilitarios, CSS inlinado en build', icon: '🎨' },
-  { name: 'MDX', desc: 'Posts en Markdown con soporte de componentes', icon: '📝' },
+  { name: 'MDX', desc: 'Posts y tutoriales en Markdown con soporte de componentes', icon: '📝' },
   { name: 'Cloudflare', desc: 'Workers + Assets, despliegue en cada push a main', icon: '☁️' },
   { name: 'Modelos de IA', desc: 'Claude, GPT-4o, Gemini… registrado en metadatos', icon: '🤖' },
   { name: 'Satori + resvg', desc: 'Imágenes Open Graph generadas en build time', icon: '🖼️' },
@@ -20,15 +20,15 @@ const stack = [
 ]
 
 const pipeline = [
-  { n: '1', label: 'Definir tema del artículo' },
+  { n: '1', label: 'Definir tema del artículo o tutorial' },
   { n: '2', label: 'El modelo recibe prompt + guía de estilo del repo' },
   { n: '3', label: 'El modelo genera el .mdx completo con frontmatter' },
   { n: '4', label: 'Revisión humana obligatoria antes de publicar' },
   { n: '5', label: 'Commit y push al repositorio GitHub' },
   { n: '6', label: 'Cloudflare detecta el push y ejecuta npm run build' },
   { n: '7', label: 'build:data genera mapa semántico, lecturas IA y radar editorial' },
-  { n: '8', label: 'generate-og.mjs genera PNG 1200×630 por post' },
-  { n: '9', label: 'Sharp convierte imágenes hero a AVIF + srcset' },
+  { n: '8', label: 'generate-og.mjs genera PNG 1200×630 para el contenido publicado' },
+  { n: '9', label: 'Sharp convierte imágenes hero locales a AVIF + srcset cuando existen' },
   { n: '10', label: 'Astro compila HTML estático, llms-full.txt, RSS y sitemap' },
   { n: '11', label: 'Wrangler despliega a la red de Cloudflare en ~90s' },
 ]
@@ -120,21 +120,26 @@ const security = [
 ├── source/
 │   ├── assets/post/      ← Imágenes hero de los posts
 │   ├── content/blog/     ← Posts en .mdx
+│   ├── content/tutoriales/ ← Tutoriales IA paso a paso en .mdx
 │   ├── components/       ← UI, expediente IA, lecturas y grafo
 │   ├── data/generated/   ← Artefactos IA generados en build-time
 │   ├── layouts/          ← BaseLayout, PostLayout
-│   ├── pages/            ← Rutas del sitio
+│   ├── pages/            ← Rutas del sitio, blog, tutoriales, métricas y legales
 │   └── styles/           ← CSS global
 ├── scripts/
+│   ├── content-utils.mjs             ← Lectura segura del corpus MDX
 │   ├── generate-og.mjs              ← Imágenes OG
 │   ├── generate-knowledge-map.mjs   ← Grafo semántico
 │   ├── generate-post-insights.mjs   ← Lecturas por artículo
-│   └── generate-editorial-radar.mjs ← Radar editorial
+│   ├── generate-editorial-radar.mjs ← Radar editorial
+│   └── google-search-console-*.mjs  ← Informes e inspección GSC
 ├── docs/
-│   └── guia-crear-post.md ← Instrucciones para generar posts con cualquier modelo
+│   ├── guia-crear-post.md     ← Instrucciones para generar posts
+│   └── guia-crear-tutorial.md ← Instrucciones para generar tutoriales
 ├── public/
 │   ├── fonts/            ← Inter TTF para satori
 │   ├── og/               ← Imágenes OG generadas (no en git)
+│   ├── llms.txt          ← Índice breve para motores de IA
 │   └── _headers          ← Cabeceras de seguridad para Cloudflare
 ├── wrangler.toml         ← Configuración del despliegue
 └── astro.config.mjs`}</code></pre>
@@ -171,6 +176,27 @@ claimsReviewed:
       Los campos <code>sourceQuality</code>, <code>confidenceLevel</code>, <code>reviewNotes</code> y
       <code>claimsReviewed</code> alimentan el nuevo expediente IA.
     </p>
+
+    <div class="section-label">Frontmatter de cada tutorial</div>
+    <p class="cf-note fade-up" style="animation-delay: 0.03s">
+      Los tutoriales viven en una colección separada para tener campos propios: herramienta, dificultad y tiempo estimado.
+    </p>
+    <div class="code-block fade-up" style="animation-delay: 0.08s">
+      <pre><code>{`---
+title: 'Título del tutorial'
+description: 'Qué aprenderá el lector'
+pubDate: 2026-05-18
+herramienta: 'ChatGPT'
+dificultad: 'Principiante'
+tiempoEstimado: '20 minutos'
+generatedBy: 'gpt-5'
+generatedAt: '2026-05-18T18:00:00Z'
+promptBase: 'Resumen del encargo usado para generar el tutorial'
+humanReviewed: true
+heroImage: '../../assets/post/imagen.jpg'  # opcional
+correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opcional
+---`}</code></pre>
+    </div>
 
     <!-- IA build-time -->
     <div class="section-label">IA aplicada al sitio</div>

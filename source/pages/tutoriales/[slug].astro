@@ -1,0 +1,259 @@
+---
+import { getCollection, render } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export async function getStaticPaths() {
+  const tutoriales = await getCollection('tutoriales')
+  return tutoriales.map(tutorial => ({
+    params: { slug: tutorial.id },
+    props: { tutorial },
+  }))
+}
+
+const { tutorial } = Astro.props
+const { Content } = await render(tutorial)
+
+const formattedDate = new Date(tutorial.data.pubDate).toLocaleDateString('es-ES', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
+---
+
+<BaseLayout
+  title={tutorial.data.title}
+  description={tutorial.data.description}
+>
+  <article class="tutorial-detail">
+    <header class="tutorial-header">
+      <div class="tutorial-meta">
+        <span class="meta-badge">{tutorial.data.herramienta}</span>
+        <span class="meta-separator">·</span>
+        <span class={`meta-badge difficulty-${tutorial.data.dificultad.toLowerCase()}`}>
+          {tutorial.data.dificultad}
+        </span>
+        <span class="meta-separator">·</span>
+        <span class="meta-time">⏱ {tutorial.data.tiempoEstimado}</span>
+      </div>
+      <h1 class="tutorial-title">{tutorial.data.title}</h1>
+      <p class="tutorial-description">{tutorial.data.description}</p>
+      <div class="tutorial-byline">
+        Por {tutorial.data.generatedBy} · Actualizado {formattedDate}
+      </div>
+    </header>
+
+    <div class="tutorial-content">
+      <Content />
+    </div>
+
+    <footer class="tutorial-footer">
+      <div class="provenance">
+        <h3>Sobre este tutorial</h3>
+        <p>
+          <strong>Generado por:</strong> {tutorial.data.generatedBy}<br>
+          <strong>Revisión humana:</strong> {tutorial.data.humanReviewed ? 'Sí' : 'No'}<br>
+          <strong>Base del prompt:</strong> {tutorial.data.promptBase}
+        </p>
+        {tutorial.data.correctionNote && (
+          <p><strong>Notas de corrección:</strong> {tutorial.data.correctionNote}</p>
+        )}
+      </div>
+    </footer>
+
+    <nav class="nav-back">
+      <a href="/tutoriales/">← Volver a Tutoriales</a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+.tutorial-detail {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.tutorial-header {
+  padding: 40px 0 32px;
+  border-bottom: 1px solid #2A2A40;
+  margin-bottom: 32px;
+}
+
+.tutorial-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.meta-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(96, 165, 250, 0.1);
+  color: #60A5FA;
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  font-weight: 600;
+}
+
+.meta-badge.difficulty-principiante {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22C55E;
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+.meta-badge.difficulty-intermedio {
+  background: rgba(251, 146, 60, 0.1);
+  color: #FB923C;
+  border-color: rgba(251, 146, 60, 0.2);
+}
+
+.meta-separator {
+  color: #6A6A8A;
+}
+
+.meta-time {
+  color: #A0A0C0;
+}
+
+.tutorial-title {
+  color: #E8E8F0;
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 16px 0;
+}
+
+.tutorial-description {
+  color: #A0A0C0;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+  max-width: 580px;
+}
+
+.tutorial-byline {
+  color: #6A6A8A;
+  font-size: 13px;
+}
+
+.tutorial-content {
+  padding: 32px 0;
+  color: #E8E8F0;
+  line-height: 1.7;
+}
+
+.tutorial-content :global(h2) {
+  color: #E8E8F0;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 32px 0 16px 0;
+  margin-top: 2em;
+}
+
+.tutorial-content :global(h3) {
+  color: #D4D4E0;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 24px 0 12px 0;
+}
+
+.tutorial-content :global(p) {
+  color: #C4C4D4;
+  margin: 16px 0;
+  word-break: break-word;
+}
+
+.tutorial-content :global(a) {
+  color: #60A5FA;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.tutorial-content :global(a:hover) {
+  border-bottom-color: #60A5FA;
+}
+
+.tutorial-content :global(code) {
+  background: rgba(109, 40, 217, 0.15);
+  color: #A78BFA;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.tutorial-content :global(pre) {
+  background: #1C1C2E;
+  border: 1px solid #2A2A40;
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+.tutorial-content :global(pre code) {
+  background: none;
+  color: #A0A0C0;
+  padding: 0;
+  font-size: 13px;
+}
+
+.tutorial-content :global(ol),
+.tutorial-content :global(ul) {
+  margin: 16px 0 16px 24px;
+}
+
+.tutorial-content :global(li) {
+  margin: 8px 0;
+  color: #C4C4D4;
+}
+
+.tutorial-content :global(blockquote) {
+  border-left: 3px solid #A78BFA;
+  padding-left: 16px;
+  margin: 16px 0;
+  color: #A0A0C0;
+  font-style: italic;
+}
+
+.tutorial-footer {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid #2A2A40;
+  color: #A0A0C0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.tutorial-footer h3 {
+  color: #E8E8F0;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.tutorial-footer p {
+  margin: 8px 0;
+}
+
+.nav-back {
+  margin-top: 48px;
+  padding: 24px 0;
+}
+
+.nav-back a {
+  color: #60A5FA;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.nav-back a:hover {
+  transform: translateX(-4px);
+}
+</style>

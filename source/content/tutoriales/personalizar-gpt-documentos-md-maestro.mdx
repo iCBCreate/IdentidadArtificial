@@ -1,0 +1,216 @@
+---
+title: 'Cómo personalizar un GPT con un MD maestro y documentos'
+description: 'Aprende a crear un GPT personalizado, escribir un MD maestro claro y subir documentos de conocimiento sin mezclar instrucciones ni fuentes.'
+pubDate: 2026-05-18
+herramienta: 'ChatGPT'
+dificultad: 'Principiante'
+tiempoEstimado: '20 minutos'
+generatedBy: 'gpt-5-codex'
+generatedAt: '2026-05-18T18:10:00Z'
+promptBase: 'Crear un tutorial claro siguiendo guia-crear-tutorial sobre cómo personalizar un GPT, preparar un MD maestro, estructurarlo y subir documentos de conocimiento.'
+humanReviewed: true
+---
+
+Personalizar un GPT consiste en darle un trabajo claro, unas reglas de comportamiento y documentos de referencia para que responda de forma consistente. En este tutorial vas a crear una base ordenada: primero el MD maestro, después los documentos de apoyo y por último la prueba del GPT.
+
+## Qué necesitas
+
+- Una cuenta de ChatGPT con acceso a creación de GPTs.
+- Un objetivo concreto para tu GPT: atención al cliente, asistente interno, tutor, redactor, analista o guía de procesos.
+- Documentos propios que puedas subir: manuales, políticas, preguntas frecuentes, procesos, catálogos o ejemplos.
+- Un editor de texto simple para preparar archivos `.md`, como Visual Studio Code, Notepad, TextEdit o cualquier editor Markdown.
+
+> Consejo: no empieces subiendo documentos sin orden. Primero define cómo debe trabajar el GPT. Después dale fuentes.
+
+## Paso 1: Define el propósito del GPT
+
+Antes de abrir el creador, escribe una frase que explique para qué existe el GPT.
+
+Ejemplo:
+
+```text
+Este GPT ayuda al equipo comercial a responder preguntas sobre nuestros servicios, precios, condiciones y procesos internos usando solo la documentación aprobada.
+```
+
+Esta frase evita que el GPT sea demasiado general. Si el objetivo es amplio, las respuestas serán irregulares. Si el objetivo es concreto, será más fácil probar si funciona.
+
+## Paso 2: Crea el MD maestro
+
+El MD maestro es el documento principal de instrucciones. No es una carpeta de conocimiento ni una colección de archivos: es la guía que explica al GPT cómo debe comportarse, qué prioridad tienen las fuentes y qué hacer cuando no sabe algo.
+
+Crea un archivo llamado:
+
+```text
+gpt-maestro.md
+```
+
+Usa esta estructura:
+
+```md
+# Nombre del GPT
+
+## Propósito
+Explica en una frase qué problema resuelve el GPT y para quién.
+
+## Rol
+Define cómo debe actuar: asesor, tutor, asistente operativo, editor, analista, etc.
+
+## Audiencia
+Describe a la persona que usará el GPT y su nivel de conocimiento.
+
+## Fuentes de verdad
+Indica qué documentos debe priorizar y qué debe hacer si hay contradicciones.
+
+## Forma de responder
+Define tono, idioma, nivel de detalle, formato y longitud.
+
+## Flujo de trabajo
+Explica los pasos que debe seguir antes de responder.
+
+## Límites
+Aclara qué no debe inventar, qué debe preguntar y cuándo debe decir que no tiene información suficiente.
+
+## Ejemplos
+Incluye 2 o 3 ejemplos de buenas respuestas.
+```
+
+Esta estructura funciona porque separa comportamiento, fuentes y formato. Las instrucciones quedan limpias y los documentos de conocimiento no se mezclan con reglas de estilo.
+
+## Paso 3: Escribe instrucciones concretas
+
+Dentro del MD maestro, evita frases vagas como "sé útil" o "responde bien". Usa instrucciones observables.
+
+Ejemplo útil:
+
+```md
+## Forma de responder
+- Responde siempre en español.
+- Empieza con una respuesta directa de 2 o 3 frases.
+- Si la pregunta requiere pasos, usa una lista numerada.
+- Si falta información, haz una sola pregunta de aclaración antes de responder.
+- No inventes precios, fechas, condiciones ni nombres de productos.
+```
+
+Ejemplo para fuentes:
+
+```md
+## Fuentes de verdad
+- Usa primero los documentos subidos como Knowledge.
+- Si dos documentos se contradicen, prioriza el documento con fecha más reciente.
+- Si la respuesta no aparece en los documentos, dilo claramente.
+- No uses información externa para completar políticas internas, precios o condiciones.
+```
+
+La clave es que el GPT pueda aplicar las reglas sin interpretar demasiado. Cuanto más concreto seas, más consistente será.
+
+## Paso 4: Prepara los documentos que vas a subir
+
+Los documentos de conocimiento deben contener información fuente, no instrucciones repetidas. Si cada archivo incluye reglas distintas, el GPT puede mezclar prioridades.
+
+Organiza los archivos por tema:
+
+```text
+01-servicios.md
+02-precios-y-condiciones.md
+03-proceso-de-trabajo.md
+04-preguntas-frecuentes.md
+05-ejemplos-de-respuestas.md
+```
+
+Cada documento debe tener:
+
+- Título claro.
+- Fecha de actualización.
+- Una sola temática principal.
+- Encabezados simples.
+- Contenido limpio, sin versiones duplicadas.
+- Tablas solo cuando aporten claridad.
+
+Ejemplo:
+
+```md
+# Preguntas frecuentes
+
+Actualizado: 2026-05-18
+
+## ¿Qué incluye el servicio básico?
+
+El servicio básico incluye...
+
+## ¿Cuánto tarda la entrega?
+
+El plazo habitual es...
+```
+
+Si tienes un PDF largo, conviértelo primero a Markdown o divídelo en varios documentos más pequeños. El objetivo no es subir todo lo que existe, sino subir lo que el GPT debe consultar.
+
+## Paso 5: Sube primero el MD maestro y después los documentos
+
+En ChatGPT, abre el editor de GPTs desde la zona de GPTs o desde el creador. En la pestaña de configuración, completa nombre, descripción e instrucciones.
+
+Usa este orden:
+
+1. Pega el contenido del MD maestro en el campo de instrucciones del GPT.
+2. Sube los documentos de referencia en la sección **Knowledge**.
+3. Activa solo las capacidades que necesites, como búsqueda web, creación de imágenes, Canvas o análisis de datos.
+4. Guarda una primera versión privada.
+
+OpenAI describe los GPTs como versiones personalizadas de ChatGPT que combinan instrucciones, conocimiento y capacidades. También indica que la creación o edición requiere una suscripción de pago y que los archivos de Knowledge sirven para aportar contexto de referencia al GPT.
+
+## Paso 6: Respeta los límites de archivos
+
+Según la documentación de OpenAI sobre cargas de archivos, un GPT puede tener hasta 10 archivos de Knowledge durante la vida de ese GPT. Además, los archivos subidos tienen límite de tamaño: 512 MB por archivo, 2 millones de tokens para documentos de texto y aproximadamente 50 MB para CSV u hojas de cálculo.
+
+Por eso conviene subir pocos documentos, bien preparados y con nombres claros. Un GPT con 5 archivos limpios suele funcionar mejor que uno con 10 archivos largos, repetidos y desordenados.
+
+Mejor práctica:
+
+- Un MD maestro como instrucciones, no como Knowledge.
+- Un archivo por tema.
+- Nombres numerados para marcar prioridad.
+- Documentos cortos y actualizados.
+- Sin documentos duplicados con versiones antiguas.
+
+## Paso 7: Prueba el GPT con preguntas reales
+
+Antes de compartirlo, usa la vista de prueba del editor. No hagas solo preguntas fáciles. Prueba también casos donde el GPT debería negarse, pedir aclaración o reconocer que no tiene datos.
+
+Preguntas de prueba:
+
+```text
+Resume qué hace este servicio en 5 líneas.
+```
+
+```text
+¿Cuánto cuesta el plan avanzado?
+```
+
+```text
+¿Qué pasa si un cliente pide algo que no aparece en los documentos?
+```
+
+```text
+Escribe una respuesta para un cliente que pregunta por los plazos.
+```
+
+Después revisa tres cosas:
+
+- Si usa el tono correcto.
+- Si cita o refleja bien los documentos.
+- Si inventa información cuando los documentos no tienen respuesta.
+
+Si falla, no subas más documentos de inmediato. Primero ajusta el MD maestro. Muchas veces el problema no es falta de información, sino falta de prioridad.
+
+## Resultado
+
+Al terminar tendrás un GPT privado con instrucciones claras, documentos ordenados y un método básico de prueba. La estructura recomendada es sencilla: el MD maestro define cómo trabaja el GPT, los documentos de Knowledge aportan la información y las pruebas confirman si responde como esperas.
+
+## Próximos pasos
+
+Cuando el GPT funcione bien en privado, crea una versión nueva y compártela solo con las personas que deben usarla. Si el GPT usa acciones externas o APIs, revisa la configuración de Actions y la política de privacidad antes de publicarlo.
+
+Fuentes consultadas:
+
+- [Creating and editing GPTs - OpenAI Help Center](https://help.openai.com/en/articles/8554397-creating-a-gpt)
+- [GPTs in ChatGPT - OpenAI Help Center](https://help.openai.com/en/articles/8554407-getting-started-with-the-gpt-builder)
+- [File Uploads FAQ - OpenAI Help Center](https://help.openai.com/en/articles/8555545-file-uploads-faq)

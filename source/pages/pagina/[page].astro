@@ -32,7 +32,7 @@ const { page, totalPages, allPosts } = Astro.props
 const posts = getPageItems(allPosts, page, HOME_PAGE_SIZE)
 ---
 
-<BaseLayout title={`${SITE.name} — Página ${page}`} description={SITE.description}>
+<BaseLayout title={`${SITE.name} — Página ${page}`} description={SITE.description} robots="noindex, follow">
   <HeroSection />
 
   <div class="max-w-5xl mx-auto px-6 py-10">

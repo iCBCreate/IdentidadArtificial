@@ -7,11 +7,21 @@ const pills = [
   ['arquitectura web', 'generative AI', 'revisión humana', 'automatización', 'Astro', 'open source'],
   ['modelos de lenguaje', 'prompt base', 'IA desde dentro', 'contenido generado', 'markdown', 'MDX'],
 ]
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.author,
+  url: `${SITE.url}/sobre/`,
+  sameAs: [SITE.linkedin, SITE.github],
+  knowsAbout: ['Inteligencia Artificial', 'LLMs', 'Astro', 'Claude'],
+}
 ---
 
 <BaseLayout
   title="Sobre el proyecto"
   description="Qué es Identidad Artificial, quién hay detrás y cuál es el propósito."
+  jsonLd={personSchema}
 >
   <!-- Mini hero -->
   <section class="sobre-hero">

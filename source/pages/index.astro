@@ -17,9 +17,32 @@ import {
 const allPosts = await getSortedPosts()
 const posts = getPageItems(allPosts, 1, HOME_PAGE_SIZE)
 const totalPages = getTotalPages(allPosts.length, HOME_PAGE_SIZE)
+
+const homepageJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: SITE.url,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${SITE.url}/archivo/?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    logo: `${SITE.url}/og/default.png`,
+    founder: { '@type': 'Person', name: SITE.author },
+    sameAs: [SITE.github, SITE.linkedin],
+  },
+]
 ---
 
-<BaseLayout title={SITE.name} description={SITE.description}>
+<BaseLayout title={SITE.name} description={SITE.description} jsonLd={homepageJsonLd}>
   <HeroSection />
 
   <AITimeline />

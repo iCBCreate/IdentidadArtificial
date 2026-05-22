@@ -87,7 +87,9 @@ const jsonLd = {
     url: SITE.url,
     logo: {
       '@type': 'ImageObject',
-      url: new URL('/favicon.svg', SITE.url).href,
+      url: new URL('/og/default.png', SITE.url).href,
+      width: 1200,
+      height: 630,
     },
   },
   mainEntityOfPage: {
@@ -98,6 +100,20 @@ const jsonLd = {
   keywords: [category, ...tags].join(', '),
   inLanguage: 'es-ES',
 }
+
+const faqSchema = insight?.faqs?.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: insight.faqs.map((faq: { question: string; answer: string }) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    }
+  : null
+
+const postJsonLd = [jsonLd, faqSchema].filter(Boolean)
 ---
 
 <BaseLayout
@@ -105,7 +121,7 @@ const jsonLd = {
   description={description}
   image={ogImage}
   type="article"
-  jsonLd={jsonLd}
+  jsonLd={postJsonLd}
 >
   <Fragment slot="head">
     <meta property="article:published_time" content={pubDate.toISOString()} />

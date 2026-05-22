@@ -3,7 +3,7 @@ import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import cloudflare from '@astrojs/cloudflare'
-import { readdirSync, statSync } from 'node:fs'
+import { existsSync, readdirSync, statSync } from 'node:fs'
 import { basename, join } from 'node:path'
 
 const EXCLUDED_SITEMAP_PATHS = [
@@ -20,6 +20,7 @@ const EXCLUDED_SITEMAP_PATHS = [
 ]
 
 const BLOG_DIR = 'source/content/blog'
+const TUTORIALES_DIR = 'source/content/tutoriales'
 const PAGE_DIR = 'source/pages'
 
 const sitemapLastmodByPath = buildSitemapLastmodByPath()
@@ -74,10 +75,14 @@ function buildSitemapLastmodByPath() {
 
   addDirectoryFiles(lastmodByPath, BLOG_DIR, '.mdx', filename => `/${filename}/`)
 
+  addDirectoryFiles(lastmodByPath, TUTORIALES_DIR, '.mdx', filename => `/tutoriales/${filename}/`)
+
   return lastmodByPath
 }
 
 function addDirectoryFiles(lastmodByPath, directory, extension, toPathname) {
+  if (!existsSync(directory)) return
+
   for (const file of readdirSync(directory)) {
     if (!file.endsWith(extension)) continue
 

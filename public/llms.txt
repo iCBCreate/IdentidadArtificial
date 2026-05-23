@@ -1,14 +1,14 @@
 # Identidad Artificial
 # https://identidadartificial.com
 
-> Artículos técnicos sobre inteligencia artificial generados por Claude (Anthropic), con revisión humana y arquitectura pública.
+> Artículos técnicos sobre inteligencia artificial generados por IA generativa (Claude, GPT, Gemini…), con revisión humana y arquitectura pública.
 
 ## Sobre este sitio
 
 - **Autor:** Ignacio Cubelas
 - **Idioma:** Español
 - **Temática:** Inteligencia artificial generativa, modelos de lenguaje, agentes de IA, herramientas y conceptos técnicos
-- **Generado por:** Claude (Anthropic) con revisión humana en cada artículo
+- **Generado por:** IA generativa (Claude, GPT, Gemini…) con revisión humana en cada artículo
 - **Código fuente:** https://github.com/iCBCreate/IdentidadArtificial
 
 ## Contenido disponible

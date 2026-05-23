@@ -12,22 +12,33 @@ Blog técnico en español sobre IA generativa. El contenido lo generan modelos d
 - **Tailwind CSS v4** — estilos inlinados en build
 - **MDX** — posts con frontmatter validado con Zod
 - **Cloudflare Workers + Assets** — despliegue automático en cada push a `main`
-- **Sharp** — optimización de imágenes hero en build time (WebP + srcset)
+- **Sharp** — optimización de imágenes hero en build time (AVIF + srcset)
 - **Satori + @resvg/resvg-js** — imágenes Open Graph generadas en prebuild
 
 ## Estructura
 
 ```
 source/
-  assets/post/       ← imágenes hero de los posts
-  content/blog/      ← posts .mdx
-  components/        ← Header, Footer, PostCard, TransparencyBlock…
-  layouts/           ← BaseLayout, PostLayout
-  pages/             ← rutas del sitio
+  assets/post/         ← imágenes hero de los posts
+  content/blog/        ← posts .mdx
+  content/tutoriales/  ← tutoriales paso a paso .mdx
+  components/          ← Header, Footer, PostCard, TransparencyBlock…
+  data/generated/      ← artefactos IA generados en build-time
+  layouts/             ← BaseLayout, PostLayout, GoneLayout
+  middleware.ts        ← 410 Gone para URLs retiradas y era WordPress
+  pages/               ← rutas del sitio
 scripts/
-  generate-og.mjs    ← generador de OG images (prebuild)
+  generate-og.mjs                      ← generador de OG images (prebuild)
+  generate-knowledge-map.mjs           ← grafo semántico
+  generate-post-insights.mjs           ← lecturas por artículo
+  generate-editorial-radar.mjs         ← radar editorial
+  google-search-console-oauth.mjs      ← autenticación GSC
+  download-search-console-report.mjs   ← informe de tráfico GSC
+  inspect-search-console-urls.mjs      ← inspección de indexación GSC
+  submit-search-console-sitemap.mjs    ← envío de sitemap a GSC
 docs/
-  guia-crear-post.md ← instrucciones para generar posts con cualquier modelo
+  guia-crear-post.md     ← instrucciones para generar posts
+  guia-crear-tutorial.md ← instrucciones para generar tutoriales
 public/
   fonts/             ← Inter TTF para satori
   _headers           ← cabeceras de seguridad para Cloudflare
@@ -45,10 +56,11 @@ npm run dev
 ## Build y despliegue
 
 ```bash
-npm run build   # genera OG images + compila Astro
+npm run build    # build:data → OG images → astro build
+npm run deploy   # build completo + wrangler deploy (manual)
 ```
 
-El push a `main` desencadena el build y despliegue automático en Cloudflare.
+El despliegue es **manual**: hay que ejecutar `npm run deploy` desde la CLI. El push a `main` no despliega automáticamente.
 
 ## Métricas privadas
 

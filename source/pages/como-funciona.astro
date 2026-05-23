@@ -6,6 +6,7 @@ const pills = [
   ['Astro 6', 'static output', 'Cloudflare Workers', 'MDX', 'tutoriales', 'Tailwind v4', 'Sharp', 'AVIF srcset'],
   ['JSON-LD', 'sitemap XML', 'Open Graph', 'robots.txt', 'llms.txt', 'llms-full.txt', 'RSS feed', 'GEO'],
   ['Satori', 'OG images', 'knowledge map', 'post insights', 'editorial radar', 'frontmatter Zod'],
+  ['View Transitions', 'Speculation Rules', 'fetchpriority', 'font-size-adjust', 'text-wrap: balance', 'CLS 0'],
 ]
 
 const stack = [
@@ -38,6 +39,14 @@ const aiSystem = [
   { label: 'Lecturas generadas', desc: 'generate-post-insights.mjs crea resumen ejecutivo, lectura técnica, puntos clave, glosario y FAQ por artículo sin llamar a una API en runtime.' },
   { label: 'Radar editorial', desc: 'generate-editorial-radar.mjs compara el corpus con temas técnicos pendientes y publica señales filtradas en /radar/.' },
   { label: 'Expediente IA', desc: 'Cada post muestra modelo, prompt base, revisión humana, confianza, calidad de fuentes, claims revisados y correcciones cuando existen.' },
+]
+
+const perf = [
+  { label: 'View Transitions API', desc: 'Crossfade suave entre páginas del sitio. Se activa con @view-transition en CSS, respeta prefers-reduced-motion y degrada graciosamente en navegadores sin soporte.' },
+  { label: 'Speculation Rules API', desc: 'Prefetch eager + prerender moderate de todos los enlaces internos. El navegador anticipa la siguiente página antes de que el usuario haga clic, consiguiendo navegación casi instantánea.' },
+  { label: 'fetchpriority="high"', desc: 'La imagen hero del post destacado en portada lleva fetchpriority="high" para que el navegador la cargue antes que otras imágenes y mejore el LCP.' },
+  { label: 'font-size-adjust: from-font', desc: 'Sincroniza el x-height de la fuente de respaldo con Inter antes de que la webfont cargue, eliminando el CLS (Cumulative Layout Shift) visual durante el font swap.' },
+  { label: 'text-wrap: balance / pretty', desc: 'Los títulos usan text-wrap: balance para distribuir líneas simétricamente. Los párrafos usan text-wrap: pretty para evitar huérfanos al final de párrafo.' },
 ]
 
 const geo = [
@@ -218,6 +227,20 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
     ├── source/data/generated/knowledge-map.ts
     ├── source/data/generated/post-insights.ts
     └── source/data/generated/editorial-radar.ts`}</code></pre>
+    </div>
+
+    <!-- Rendimiento web -->
+    <div class="section-label">Rendimiento web</div>
+    <p class="cf-note fade-up" style="animation-delay: 0.03s">
+      El sitio aplica las APIs modernas del navegador para mejorar Core Web Vitals y la experiencia de navegación sin dependencias extra:
+    </p>
+    <div class="perf-grid">
+      {perf.map((item, i) => (
+        <div class="perf-card fade-up" style={`animation-delay: ${i * 0.04}s`}>
+          <div class="perf-label">{item.label}</div>
+          <div class="perf-desc">{item.desc}</div>
+        </div>
+      ))}
     </div>
 
     <!-- SEO/GEO -->
@@ -550,6 +573,37 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
   line-height: 1.5;
 }
 
+/* ── Performance ── */
+.perf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #2A2A40;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.perf-card {
+  background: linear-gradient(180deg, rgba(40, 100, 217, 0.07), transparent 60%), #1C1C2C;
+  padding: 18px 20px;
+}
+
+.perf-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #E8E8F0;
+  margin-bottom: 6px;
+  font-family: ui-monospace, monospace;
+}
+
+.perf-desc {
+  font-size: 12px;
+  color: #A0A0C0;
+  line-height: 1.6;
+}
+
 /* ── Security ── */
 .security-list {
   border: 1px solid #2A2A40;
@@ -651,6 +705,7 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
   .stack-grid { grid-template-columns: 1fr; }
   .geo-grid   { grid-template-columns: 1fr; }
   .ai-grid    { grid-template-columns: 1fr; }
+  .perf-grid  { grid-template-columns: 1fr; }
   .security-item { flex-direction: column; gap: 6px; }
 }
 </style>

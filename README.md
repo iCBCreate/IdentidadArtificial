@@ -11,9 +11,17 @@ Blog técnico en español sobre IA generativa. El contenido lo generan modelos d
 - **Astro 6** — output estático con JavaScript mínimo para interacción
 - **Tailwind CSS v4** — estilos inlinados en build
 - **MDX** — posts con frontmatter validado con Zod
-- **Cloudflare Workers + Assets** — despliegue automático en cada push a `main`
+- **Cloudflare Workers + Assets** — despliegue manual con wrangler
 - **Sharp** — optimización de imágenes hero en build time (AVIF + srcset)
 - **Satori + @resvg/resvg-js** — imágenes Open Graph generadas en prebuild
+
+## Rendimiento web
+
+- **View Transitions API** — crossfade suave entre páginas (cross-document, respeta `prefers-reduced-motion`)
+- **Speculation Rules API** — prefetch `eager` + prerender `moderate` de enlaces internos para navegación casi instantánea
+- **`fetchpriority="high"`** — priorización explícita de la imagen LCP en las cards destacadas
+- **`font-size-adjust: from-font`** — elimina CLS al cargar Inter sincronizando el x-height con la fuente de respaldo
+- **`text-wrap: balance/pretty`** — equilibrado de títulos y eliminación de huérfanos en párrafos
 
 ## Estructura
 

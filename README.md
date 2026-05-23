@@ -22,6 +22,8 @@ Blog técnico en español sobre IA generativa. El contenido lo generan modelos d
 - **`fetchpriority="high"`** — priorización explícita de la imagen LCP en las cards destacadas
 - **`font-size-adjust: from-font`** — elimina CLS al cargar Inter sincronizando el x-height con la fuente de respaldo
 - **`text-wrap: balance/pretty`** — equilibrado de títulos y eliminación de huérfanos en párrafos
+- **Sin forced reflow** — viewport dimensions cacheadas en closure en `AITimeline.astro`; `resize` listener `passive` como única fuente de actualización
+- **AVIF quality 30** — ~30% menos peso que quality 50 en todas las imágenes hero (PostCard + PostLayout + global Sharp)
 
 ## Estructura
 

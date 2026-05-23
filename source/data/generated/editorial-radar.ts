@@ -33,7 +33,7 @@ export const EDITORIAL_RADAR = {
       "relatedPosts": [
         {
           "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
-          "title": "GPT-5.5: La llegada de la inteligencia agéntica y el fin del prompting complejo"
+          "title": "GPT-5.5: inteligencia agéntica y el fin del prompting"
         }
       ]
     },
@@ -50,7 +50,7 @@ export const EDITORIAL_RADAR = {
       "relatedPosts": [
         {
           "slug": "claude-managed-agents",
-          "title": "Claude Managed Agents: qué son y cómo aceleran el trabajo real"
+          "title": "Claude Managed Agents: automatización real con IA"
         },
         {
           "slug": "como-funciona-el-contexto-en-los-llm",
@@ -71,7 +71,7 @@ export const EDITORIAL_RADAR = {
       "relatedPosts": [
         {
           "slug": "anthropic-mythos-ciberseguridad-sandbox",
-          "title": "Anthropic Mythos: Capacidades de Ciberseguridad y el Incidente del Sandbox"
+          "title": "Anthropic Mythos: IA, ciberseguridad y el incidente del sandbox"
         },
         {
           "slug": "como-funciona-el-contexto-en-los-llm",
@@ -109,11 +109,11 @@ export const EDITORIAL_RADAR = {
       "relatedPosts": [
         {
           "slug": "claude-managed-agents",
-          "title": "Claude Managed Agents: qué son y cómo aceleran el trabajo real"
+          "title": "Claude Managed Agents: automatización real con IA"
         },
         {
           "slug": "openai-workspace-agents-chatgpt-autonomia",
-          "title": "OpenAI lanza Workspace Agents: La evolución de ChatGPT hacia la autonomía corporativa"
+          "title": "OpenAI Workspace Agents: ChatGPT autónomo"
         }
       ]
     }

@@ -5,7 +5,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:anthropic-mythos-ciberseguridad-sandbox",
       "type": "post",
-      "label": "Anthropic Mythos: Capacidades de Ciberseguridad y el Incidente del Sandbox",
+      "label": "Anthropic Mythos: IA, ciberseguridad y el incidente del sandbox",
       "slug": "anthropic-mythos-ciberseguridad-sandbox",
       "category": "Modelos"
     },
@@ -62,7 +62,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:chatgpt-images-2-gpt-image-2",
       "type": "post",
-      "label": "ChatGPT Images 2.0 y GPT Image 2: el modelo que razona antes de dibujar",
+      "label": "GPT Image 2: el modelo de imágenes que razona antes de dibujar",
       "slug": "chatgpt-images-2-gpt-image-2",
       "category": "Modelos"
     },
@@ -141,7 +141,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:claude-managed-agents",
       "type": "post",
-      "label": "Claude Managed Agents: qué son y cómo aceleran el trabajo real",
+      "label": "Claude Managed Agents: automatización real con IA",
       "slug": "claude-managed-agents",
       "category": "Modelos"
     },
@@ -168,7 +168,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:codex-chatgpt-movil-trabajo-remoto",
       "type": "post",
-      "label": "Codex en ChatGPT móvil: trabajar con agentes desde cualquier lugar",
+      "label": "Codex en ChatGPT móvil: trabajar con agentes de IA",
       "slug": "codex-chatgpt-movil-trabajo-remoto",
       "category": "Herramientas"
     },
@@ -232,7 +232,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:compresion-inteligente-avif-astro-rendimiento",
       "type": "post",
-      "label": "Compresión Inteligente y Formatos de Vanguardia: Optimizando imágenes con AVIF y Astro",
+      "label": "Imágenes AVIF en Astro: compresión inteligente y rendimiento",
       "slug": "compresion-inteligente-avif-astro-rendimiento",
       "category": "Arquitectura"
     },
@@ -289,7 +289,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:gpt-5-5-novedades-benchmarks-inteligencia-agentica",
       "type": "post",
-      "label": "GPT-5.5: La llegada de la inteligencia agéntica y el fin del prompting complejo",
+      "label": "GPT-5.5: inteligencia agéntica y el fin del prompting",
       "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
       "category": "Modelos"
     },
@@ -311,7 +311,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:openai-workspace-agents-chatgpt-autonomia",
       "type": "post",
-      "label": "OpenAI lanza Workspace Agents: La evolución de ChatGPT hacia la autonomía corporativa",
+      "label": "OpenAI Workspace Agents: ChatGPT autónomo",
       "slug": "openai-workspace-agents-chatgpt-autonomia",
       "category": "Herramientas"
     },
@@ -340,7 +340,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:que-es-rag-generacion-aumentada-por-recuperacion",
       "type": "post",
-      "label": "RAG: Qué es la Generación Aumentada por Recuperación y por qué es vital para los LLM",
+      "label": "RAG: Generación Aumentada por Recuperación — qué es",
       "slug": "que-es-rag-generacion-aumentada-por-recuperacion",
       "category": "Arquitectura"
     },
@@ -1179,13 +1179,13 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
-        "title": "GPT-5.5: La llegada de la inteligencia agéntica y el fin del prompting complejo",
+        "title": "GPT-5.5: inteligencia agéntica y el fin del prompting",
         "reason": "Conectan por conceptos: Anthropic, Seguridad IA.",
         "score": 9
       },
       {
         "slug": "claude-managed-agents",
-        "title": "Claude Managed Agents: qué son y cómo aceleran el trabajo real",
+        "title": "Claude Managed Agents: automatización real con IA",
         "reason": "Conectan por conceptos: Anthropic, Seguridad IA.",
         "score": 7
       }
@@ -1193,19 +1193,19 @@ export const KNOWLEDGE_MAP = {
     "chatgpt-images-2-gpt-image-2": [
       {
         "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
-        "title": "GPT-5.5: La llegada de la inteligencia agéntica y el fin del prompting complejo",
+        "title": "GPT-5.5: inteligencia agéntica y el fin del prompting",
         "reason": "Comparten etiquetas: openai.",
         "score": 12
       },
       {
         "slug": "codex-chatgpt-movil-trabajo-remoto",
-        "title": "Codex en ChatGPT móvil: trabajar con agentes desde cualquier lugar",
+        "title": "Codex en ChatGPT móvil: trabajar con agentes de IA",
         "reason": "Comparten etiquetas: openai.",
         "score": 9
       },
       {
         "slug": "openai-workspace-agents-chatgpt-autonomia",
-        "title": "OpenAI lanza Workspace Agents: La evolución de ChatGPT hacia la autonomía corporativa",
+        "title": "OpenAI Workspace Agents: ChatGPT autónomo",
         "reason": "Comparten etiquetas: openai.",
         "score": 7
       }
@@ -1213,19 +1213,19 @@ export const KNOWLEDGE_MAP = {
     "claude-code-security-anthropic": [
       {
         "slug": "anthropic-mythos-ciberseguridad-sandbox",
-        "title": "Anthropic Mythos: Capacidades de Ciberseguridad y el Incidente del Sandbox",
+        "title": "Anthropic Mythos: IA, ciberseguridad y el incidente del sandbox",
         "reason": "Comparten etiquetas: anthropic, ciberseguridad.",
         "score": 12
       },
       {
         "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
-        "title": "GPT-5.5: La llegada de la inteligencia agéntica y el fin del prompting complejo",
+        "title": "GPT-5.5: inteligencia agéntica y el fin del prompting",
         "reason": "Conectan por conceptos: Anthropic, Agentes.",
         "score": 10
       },
       {
         "slug": "codex-chatgpt-movil-trabajo-remoto",
-        "title": "Codex en ChatGPT móvil: trabajar con agentes desde cualquier lugar",
+        "title": "Codex en ChatGPT móvil: trabajar con agentes de IA",
         "reason": "Conectan por conceptos: Agentes, Contexto.",
         "score": 9
       }
@@ -1233,7 +1233,7 @@ export const KNOWLEDGE_MAP = {
     "claude-managed-agents": [
       {
         "slug": "openai-workspace-agents-chatgpt-autonomia",
-        "title": "OpenAI lanza Workspace Agents: La evolución de ChatGPT hacia la autonomía corporativa",
+        "title": "OpenAI Workspace Agents: ChatGPT autónomo",
         "reason": "Comparten etiquetas: agentes, productividad.",
         "score": 14
       },
@@ -1245,7 +1245,7 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
-        "title": "GPT-5.5: La llegada de la inteligencia agéntica y el fin del prompting complejo",
+        "title": "GPT-5.5: inteligencia agéntica y el fin del prompting",
         "reason": "Conectan por conceptos: Agentes, Automatización.",
         "score": 11
       }
@@ -1253,19 +1253,19 @@ export const KNOWLEDGE_MAP = {
     "codex-chatgpt-movil-trabajo-remoto": [
       {
         "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
-        "title": "GPT-5.5: La llegada de la inteligencia agéntica y el fin del prompting complejo",
+        "title": "GPT-5.5: inteligencia agéntica y el fin del prompting",
         "reason": "Comparten etiquetas: openai, agentes-ia.",
         "score": 18
       },
       {
         "slug": "openai-workspace-agents-chatgpt-autonomia",
-        "title": "OpenAI lanza Workspace Agents: La evolución de ChatGPT hacia la autonomía corporativa",
+        "title": "OpenAI Workspace Agents: ChatGPT autónomo",
         "reason": "Comparten etiquetas: openai, chatgpt.",
         "score": 17
       },
       {
         "slug": "chatgpt-images-2-gpt-image-2",
-        "title": "ChatGPT Images 2.0 y GPT Image 2: el modelo que razona antes de dibujar",
+        "title": "GPT Image 2: el modelo de imágenes que razona antes de dibujar",
         "reason": "Comparten etiquetas: openai.",
         "score": 9
       }
@@ -1273,7 +1273,7 @@ export const KNOWLEDGE_MAP = {
     "como-funciona-el-contexto-en-los-llm": [
       {
         "slug": "que-es-rag-generacion-aumentada-por-recuperacion",
-        "title": "RAG: Qué es la Generación Aumentada por Recuperación y por qué es vital para los LLM",
+        "title": "RAG: Generación Aumentada por Recuperación — qué es",
         "reason": "Comparten etiquetas: llm.",
         "score": 11
       },
@@ -1285,7 +1285,7 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "chatgpt-images-2-gpt-image-2",
-        "title": "ChatGPT Images 2.0 y GPT Image 2: el modelo que razona antes de dibujar",
+        "title": "GPT Image 2: el modelo de imágenes que razona antes de dibujar",
         "reason": "Conectan por conceptos: Contexto, Razonamiento.",
         "score": 4
       }
@@ -1299,13 +1299,13 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
-        "title": "GPT-5.5: La llegada de la inteligencia agéntica y el fin del prompting complejo",
+        "title": "GPT-5.5: inteligencia agéntica y el fin del prompting",
         "reason": "Conectan por conceptos: Multimodal, Google.",
         "score": 4
       },
       {
         "slug": "que-es-rag-generacion-aumentada-por-recuperacion",
-        "title": "RAG: Qué es la Generación Aumentada por Recuperación y por qué es vital para los LLM",
+        "title": "RAG: Generación Aumentada por Recuperación — qué es",
         "reason": "Conectan por conceptos: Google.",
         "score": 3
       }
@@ -1313,19 +1313,19 @@ export const KNOWLEDGE_MAP = {
     "gpt-5-5-novedades-benchmarks-inteligencia-agentica": [
       {
         "slug": "codex-chatgpt-movil-trabajo-remoto",
-        "title": "Codex en ChatGPT móvil: trabajar con agentes desde cualquier lugar",
+        "title": "Codex en ChatGPT móvil: trabajar con agentes de IA",
         "reason": "Comparten etiquetas: openai, agentes-ia.",
         "score": 18
       },
       {
         "slug": "openai-workspace-agents-chatgpt-autonomia",
-        "title": "OpenAI lanza Workspace Agents: La evolución de ChatGPT hacia la autonomía corporativa",
+        "title": "OpenAI Workspace Agents: ChatGPT autónomo",
         "reason": "Comparten etiquetas: openai.",
         "score": 13
       },
       {
         "slug": "chatgpt-images-2-gpt-image-2",
-        "title": "ChatGPT Images 2.0 y GPT Image 2: el modelo que razona antes de dibujar",
+        "title": "GPT Image 2: el modelo de imágenes que razona antes de dibujar",
         "reason": "Comparten etiquetas: openai.",
         "score": 12
       }
@@ -1333,19 +1333,19 @@ export const KNOWLEDGE_MAP = {
     "openai-workspace-agents-chatgpt-autonomia": [
       {
         "slug": "codex-chatgpt-movil-trabajo-remoto",
-        "title": "Codex en ChatGPT móvil: trabajar con agentes desde cualquier lugar",
+        "title": "Codex en ChatGPT móvil: trabajar con agentes de IA",
         "reason": "Comparten etiquetas: openai, chatgpt.",
         "score": 17
       },
       {
         "slug": "claude-managed-agents",
-        "title": "Claude Managed Agents: qué son y cómo aceleran el trabajo real",
+        "title": "Claude Managed Agents: automatización real con IA",
         "reason": "Comparten etiquetas: agentes, productividad.",
         "score": 14
       },
       {
         "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
-        "title": "GPT-5.5: La llegada de la inteligencia agéntica y el fin del prompting complejo",
+        "title": "GPT-5.5: inteligencia agéntica y el fin del prompting",
         "reason": "Comparten etiquetas: openai.",
         "score": 13
       }
@@ -1353,19 +1353,19 @@ export const KNOWLEDGE_MAP = {
     "por-que-astro-para-un-blog-generado-por-ia": [
       {
         "slug": "compresion-inteligente-avif-astro-rendimiento",
-        "title": "Compresión Inteligente y Formatos de Vanguardia: Optimizando imágenes con AVIF y Astro",
+        "title": "Imágenes AVIF en Astro: compresión inteligente y rendimiento",
         "reason": "Comparten etiquetas: astro.",
         "score": 6
       },
       {
         "slug": "que-es-rag-generacion-aumentada-por-recuperacion",
-        "title": "RAG: Qué es la Generación Aumentada por Recuperación y por qué es vital para los LLM",
+        "title": "RAG: Generación Aumentada por Recuperación — qué es",
         "reason": "Conectan por conceptos: Seguridad IA, Anthropic.",
         "score": 5
       },
       {
         "slug": "anthropic-mythos-ciberseguridad-sandbox",
-        "title": "Anthropic Mythos: Capacidades de Ciberseguridad y el Incidente del Sandbox",
+        "title": "Anthropic Mythos: IA, ciberseguridad y el incidente del sandbox",
         "reason": "Conectan por conceptos: Seguridad IA, Anthropic.",
         "score": 4
       }
@@ -1373,7 +1373,7 @@ export const KNOWLEDGE_MAP = {
     "que-es-rag-generacion-aumentada-por-recuperacion": [
       {
         "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
-        "title": "GPT-5.5: La llegada de la inteligencia agéntica y el fin del prompting complejo",
+        "title": "GPT-5.5: inteligencia agéntica y el fin del prompting",
         "reason": "Conectan por conceptos: Contexto, Razonamiento.",
         "score": 12
       },
@@ -1393,19 +1393,19 @@ export const KNOWLEDGE_MAP = {
     "que-son-los-agentes-de-ia": [
       {
         "slug": "claude-managed-agents",
-        "title": "Claude Managed Agents: qué son y cómo aceleran el trabajo real",
+        "title": "Claude Managed Agents: automatización real con IA",
         "reason": "Comparten etiquetas: agentes, automatizacion.",
         "score": 14
       },
       {
         "slug": "openai-workspace-agents-chatgpt-autonomia",
-        "title": "OpenAI lanza Workspace Agents: La evolución de ChatGPT hacia la autonomía corporativa",
+        "title": "OpenAI Workspace Agents: ChatGPT autónomo",
         "reason": "Comparten etiquetas: agentes.",
         "score": 9
       },
       {
         "slug": "que-es-rag-generacion-aumentada-por-recuperacion",
-        "title": "RAG: Qué es la Generación Aumentada por Recuperación y por qué es vital para los LLM",
+        "title": "RAG: Generación Aumentada por Recuperación — qué es",
         "reason": "Comparten etiquetas: llm.",
         "score": 9
       }

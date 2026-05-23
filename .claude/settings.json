@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.command // empty' | grep -q 'git commit' && (git -C /Users/ignaciocubelasfortes/Documents/Antigravity/IdentidadArtificial diff --name-only HEAD~1 HEAD 2>/dev/null | grep -qE 'README\\.md|como-funciona\\.astro' || echo '{\"systemMessage\": \"\\u270f\\ufe0f  Este commit no incluye README.md ni /como-funciona \\u2014 documenta el cambio t\\u00e9cnico si aplica.\"}') || true",
+            "statusMessage": "Verificando documentación..."
+          }
+        ]
+      }
+    ]
+  }
+}

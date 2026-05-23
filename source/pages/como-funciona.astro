@@ -45,7 +45,8 @@ const perf = [
   { label: 'View Transitions API', desc: 'Crossfade suave entre páginas del sitio. Se activa con @view-transition en CSS, respeta prefers-reduced-motion y degrada graciosamente en navegadores sin soporte.' },
   { label: 'Speculation Rules API', desc: 'Prefetch eager + prerender moderate de todos los enlaces internos. El navegador anticipa la siguiente página antes de que el usuario haga clic, consiguiendo navegación casi instantánea.' },
   { label: 'fetchpriority="high"', desc: 'La imagen hero del post destacado en portada lleva fetchpriority="high" para que el navegador la cargue antes que otras imágenes y mejore el LCP.' },
-  { label: 'Sin forced reflow', desc: 'El tooltip del timeline cachea las dimensiones del viewport en variables de closure y las actualiza sólo en resize (passive), eliminando el forced reflow que ocurría al leer window.innerWidth dentro de rAF tras mutaciones del DOM.' },
+  { label: 'Sin forced reflow', desc: 'El tooltip del timeline usa visualViewport.width/height en lugar de window.innerWidth/Height. visualViewport no fuerza un layout flush durante la inicialización del módulo, eliminando 192ms de reflow en el critical path.' },
+  { label: 'Aspect ratio alineado', desc: 'Las PostCard generan imágenes a 800×310 (ratio 2.58:1) igualando el ratio del contenedor .mona-card-img (140px alto × ~362px ancho). Elimina los píxeles descartados por object-fit: cover y reduce ~23% el peso de cada imagen de card.' },
   { label: 'font-size-adjust: from-font', desc: 'Sincroniza el x-height de la fuente de respaldo con Inter antes de que la webfont cargue, eliminando el CLS (Cumulative Layout Shift) visual durante el font swap.' },
   { label: 'text-wrap: balance / pretty', desc: 'Los títulos usan text-wrap: balance para distribuir líneas simétricamente. Los párrafos usan text-wrap: pretty para evitar huérfanos al final de párrafo.' },
 ]

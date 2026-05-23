@@ -246,11 +246,14 @@ const modelsByCompany = Object.fromEntries(
   const GAP  = 12
   let touchTimer: ReturnType<typeof setTimeout> | null = null
 
-  // Cache viewport dimensions to avoid forced reflow inside rAF
-  // (reading window.innerWidth after DOM mutations forces a layout flush)
-  let vw = window.innerWidth
-  let vh = window.innerHeight
-  window.addEventListener('resize', () => { vw = window.innerWidth; vh = window.innerHeight }, { passive: true })
+  // visualViewport.width/height don't trigger a layout flush (unlike window.innerWidth/Height)
+  const _vp = window.visualViewport
+  let vw = _vp?.width ?? screen.width
+  let vh = _vp?.height ?? screen.height
+  ;(_vp ?? window).addEventListener('resize', () => {
+    vw = _vp?.width ?? screen.width
+    vh = _vp?.height ?? screen.height
+  }, { passive: true })
 
   function show(dot: HTMLElement, clientX: number, clientY: number) {
     ttName.textContent = dot.dataset.name ?? ''

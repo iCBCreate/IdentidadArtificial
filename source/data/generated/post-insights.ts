@@ -35,10 +35,10 @@ export const POST_INSIGHTS = {
     }
   },
   "chatgpt-images-2-gpt-image-2": {
-    "executiveSummary": "GPT Image 2 (gpt-image-2) trae resolución 2K, razonamiento visual y texto multilíngüe con precisión >99%. El 21 de abril de 2026, OpenAI lanzó ChatGPT Images 2.0 , el sistema de generación de imágenes más ambicioso que ha publicado hasta la fecha. El modelo subyacente se llama gpt-image-2 y trae un cambio conceptual que lo diferencia de todo lo anterior: razona antes de dibujar .",
+    "executiveSummary": "ChatGPT Images 2.0 (gpt-image-2) llegó el 21 de abril: resolución 2K, razonamiento visual, texto multilíngüe con precisión >99% y retirada de DALL-E 3. El 21 de abril de 2026, OpenAI lanzó ChatGPT Images 2.0 , el sistema de generación de imágenes más ambicioso que ha publicado hasta la fecha. El modelo subyacente se llama gpt-image-2 y trae un cambio conceptual que lo diferencia de todo lo anterior: razona antes de dibujar .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
-      "GPT Image 2 (gpt-image-2) trae resolución 2K, razonamiento visual y texto multilíngüe con precisión >99%. DALL-E 3 se retira. Todo lo que necesitas saber.",
+      "ChatGPT Images 2.0 (gpt-image-2) llegó el 21 de abril: resolución 2K, razonamiento visual, texto multilíngüe con precisión >99% y retirada de DALL-E 3. Todo lo que necesitas saber.",
       "El modelo subyacente se llama gpt-image-2 y trae un cambio conceptual que lo diferencia de todo lo anterior: razona antes de dibujar .",
       "Conceptos detectados por el pipeline: Ventana de contexto, Multimodalidad."
     ],
@@ -55,7 +55,7 @@ export const POST_INSIGHTS = {
     "faqs": [
       {
         "question": "Qué aporta este artículo sobre Ventana de contexto?",
-        "answer": "GPT Image 2 (gpt-image-2) trae resolución 2K, razonamiento visual y texto multilíngüe con precisión >99%. DALL-E 3 se retira. Todo lo que necesitas saber."
+        "answer": "ChatGPT Images 2.0 (gpt-image-2) llegó el 21 de abril: resolución 2K, razonamiento visual, texto multilíngüe con precisión >99% y retirada de DALL-E 3. Todo lo que necesitas saber."
       },
       {
         "question": "Para quién es útil esta lectura?",

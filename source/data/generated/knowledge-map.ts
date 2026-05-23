@@ -62,7 +62,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:chatgpt-images-2-gpt-image-2",
       "type": "post",
-      "label": "GPT Image 2: el modelo de imágenes que razona antes de dibujar",
+      "label": "ChatGPT Images 2.0: el modelo que razona antes de dibujar",
       "slug": "chatgpt-images-2-gpt-image-2",
       "category": "Modelos"
     },
@@ -1265,7 +1265,7 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "chatgpt-images-2-gpt-image-2",
-        "title": "GPT Image 2: el modelo de imágenes que razona antes de dibujar",
+        "title": "ChatGPT Images 2.0: el modelo que razona antes de dibujar",
         "reason": "Comparten etiquetas: openai.",
         "score": 9
       }
@@ -1285,7 +1285,7 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "chatgpt-images-2-gpt-image-2",
-        "title": "GPT Image 2: el modelo de imágenes que razona antes de dibujar",
+        "title": "ChatGPT Images 2.0: el modelo que razona antes de dibujar",
         "reason": "Conectan por conceptos: Contexto, Razonamiento.",
         "score": 4
       }
@@ -1325,7 +1325,7 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "chatgpt-images-2-gpt-image-2",
-        "title": "GPT Image 2: el modelo de imágenes que razona antes de dibujar",
+        "title": "ChatGPT Images 2.0: el modelo que razona antes de dibujar",
         "reason": "Comparten etiquetas: openai.",
         "score": 12
       }

@@ -1,5 +1,6 @@
 import { defineMiddleware } from 'astro:middleware'
 
+// Páginas retiradas del sitio actual
 const GONE_PATHS = new Set([
   '/chatgpt-agent-revolucion-openai/',
   '/chatgpt-image-generation-gpt-image-1/',
@@ -8,7 +9,25 @@ const GONE_PATHS = new Set([
   '/tag/comet/',
   '/tag/hugging-face/',
   '/ultimas-novedades-claude-mythos-anthropic/',
+  // Posts de la era WordPress que Google aún tiene indexados
+  '/firebase-studio-crea-apps-rapidamente-con-ia/',
+  '/chatgpt-5-un-modelo-para-dominarlos-a-todos/',
+  '/la-paradoja-del-progreso-acelerado-como-el-avance/',
+  // Tags de WordPress
+  '/tag/chatgpt/',
+  '/tag/programacion/',
+  '/tag/microsoft/',
+  '/tag/anthropyc/',
+  // Categorías de WordPress
+  '/category/actualidad-tecnologica/',
 ])
+
+// Prefijos de WordPress que nunca existirán en este sitio
+const GONE_PREFIXES = [
+  '/wp-content/',
+  '/wp-admin/',
+  '/wp-includes/',
+]
 
 const GONE_HTML = `<!doctype html>
 <html lang="es">
@@ -30,7 +49,11 @@ const GONE_HTML = `<!doctype html>
 export const onRequest = defineMiddleware(async (context, next) => {
   const pathname = new URL(context.request.url).pathname
 
-  if (GONE_PATHS.has(pathname)) {
+  if (
+    GONE_PATHS.has(pathname) ||
+    GONE_PATHS.has(pathname.replace(/\/feed\/?$/, '/')) ||
+    GONE_PREFIXES.some(prefix => pathname.startsWith(prefix))
+  ) {
     return new Response(GONE_HTML, {
       status: 410,
       headers: {

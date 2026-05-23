@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 
-export const HOME_PAGE_SIZE = 3
+export const HOME_PAGE_SIZE = 6
 export const ARCHIVE_PAGE_SIZE = 6
 
 export type BlogPost = CollectionEntry<'blog'>

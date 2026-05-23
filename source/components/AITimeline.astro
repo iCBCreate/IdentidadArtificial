@@ -246,11 +246,17 @@ const modelsByCompany = Object.fromEntries(
   const GAP  = 12
   let touchTimer: ReturnType<typeof setTimeout> | null = null
 
+  // Cache viewport dimensions to avoid forced reflow inside rAF
+  // (reading window.innerWidth after DOM mutations forces a layout flush)
+  let vw = window.innerWidth
+  let vh = window.innerHeight
+  window.addEventListener('resize', () => { vw = window.innerWidth; vh = window.innerHeight }, { passive: true })
+
   function show(dot: HTMLElement, clientX: number, clientY: number) {
     ttName.textContent = dot.dataset.name ?? ''
     ttDate.textContent = dot.dataset.date ?? ''
     ttDesc.textContent = dot.dataset.desc ?? ''
-    
+
     requestAnimationFrame(() => {
       position(clientX, clientY)
       tt.classList.add('tt-visible')
@@ -265,9 +271,6 @@ const modelsByCompany = Object.fromEntries(
   }
 
   function position(clientX: number, clientY: number) {
-    const vw = window.innerWidth
-    const vh = window.innerHeight
-
     const x = Math.max(8, Math.min(clientX - TT_W / 2, vw - TT_W - 8))
 
     let y: number

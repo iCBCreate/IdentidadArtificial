@@ -18,14 +18,32 @@
   --color-accent: #7C3AED;
 }
 
+/* Cross-document view transitions: smooth crossfade on same-origin navigation */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
 html {
   font-family: var(--font-sans);
+  /* Normalize fallback font size to match Inter's x-height, reducing CLS during font swap */
+  font-size-adjust: from-font;
 }
 
 body {
   @apply bg-[#1C1C2C] text-[#E8E8F0];
   font-size: 17px;
   line-height: 1.7;
+}
+
+/* Balanced headings and clean paragraph orphan prevention */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+p, blockquote, li {
+  text-wrap: pretty;
 }
 
 code {

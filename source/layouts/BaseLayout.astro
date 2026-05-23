@@ -72,6 +72,34 @@ const ogImage = new URL(image, SITE.url).href
 
     <meta name="generator" content={Astro.generator} />
     <link rel="preload" as="font" type="font/woff2" crossorigin href={interFontUrl} />
+
+    <!-- Speculation Rules: prefetch eager + prerender on hover for same-origin links -->
+    <script type="speculationrules">
+      {
+        "prefetch": [{
+          "where": {
+            "and": [
+              { "href_matches": "/*" },
+              { "not": { "href_matches": "/rss.xml" }},
+              { "not": { "href_matches": "/sitemap*" }},
+              { "not": { "selector_matches": "[rel~=nofollow]" }}
+            ]
+          },
+          "eagerness": "eager"
+        }],
+        "prerender": [{
+          "where": {
+            "and": [
+              { "href_matches": "/*" },
+              { "not": { "href_matches": "/rss.xml" }},
+              { "not": { "href_matches": "/sitemap*" }},
+              { "not": { "selector_matches": "[rel~=nofollow]" }}
+            ]
+          },
+          "eagerness": "moderate"
+        }]
+      }
+    </script>
   </head>
   <body>
     <Header />

@@ -105,9 +105,9 @@ El alt text de la imagen se genera automáticamente a partir del `title`.
 ## Estructura del contenido
 
 ### Longitud
-- Mínimo 400 palabras, óptimo 600-1000 palabras
-- Tutoriales cortos y enfocados son mejores que largos y desenfocados
-- Cada paso debe ser simple, una acción clara
+- **Mínimo 800 palabras, óptimo 1000-1400 palabras**
+- Tutoriales bajo 800 palabras no tienen profundidad suficiente para indexar bien en Search Console
+- Cada paso debe ser simple, una acción clara — la longitud viene de explicar bien cada paso, no de relleno
 
 ### Estructura recomendada
 
@@ -171,6 +171,23 @@ Qué puedes hacer después de completar este tutorial.
 
 ---
 
+## Structured data y enlazado interno
+
+### HowTo schema (automático)
+
+El layout de tutoriales genera automáticamente un bloque JSON-LD de tipo `HowTo` para Google. No hace falta hacer nada en el MDX. Para que el schema sea útil, la estructura del tutorial debe ser legible: secciones con headings `##` claros, pasos en orden lógico, `tiempoEstimado` realista.
+
+### Enlazado interno
+
+Cada tutorial debe incluir 2-3 links a posts o tutoriales relacionados del blog, dentro del texto y con anchor text descriptivo.
+
+- Enlaza a posts del blog cuando un concepto requiere más contexto teórico
+- Enlaza a otros tutoriales cuando el lector podría necesitar un paso previo o querer continuar
+- **Correcto:** `Si aún no tienes cuenta, el tutorial [cómo empezar con ChatGPT](/tutoriales/chatgpt-primeros-pasos/) cubre el registro paso a paso.`
+- **Incorrecto:** `Consulta [este tutorial](/tutoriales/chatgpt-primeros-pasos/) para más información.`
+
+---
+
 ## Errores frecuentes que rompen el build
 
 | Error | Incorrecto | Correcto |
@@ -197,8 +214,9 @@ Qué puedes hacer después de completar este tutorial.
 - [ ] `pubDate` sin comillas
 - [ ] `generatedAt` con comillas simples
 - [ ] `humanReviewed` en minúsculas (true o false)
-- [ ] Mínimo 400 palabras
+- [ ] Mínimo 800 palabras
 - [ ] Cada paso es una acción clara, no teoría
+- [ ] 2-3 links internos con anchor text descriptivo
 - [ ] No hay `<Image />` ni `<img>` en el cuerpo
 - [ ] Si usas imagen hero, existe en `source/assets/post/`
 - [ ] El tutorial se puede seguir sin contexto previo

@@ -112,8 +112,9 @@ Si usas una imagen de Pexels u otra fuente, añade el crédito en el primer pár
 ## Estructura del contenido
 
 ### Longitud
-- Mínimo 600 palabras, óptimo 900-1400 palabras
-- Posts más cortos no dan valor suficiente, más largos pierden foco
+- **Mínimo 1200 palabras, óptimo 1400-1800 palabras**
+- Posts bajo 1000 palabras han quedado marcados como "rastreada: sin indexar" en Search Console — señal directa de contenido insuficiente para Google
+- Más largo no es mejor: el objetivo es cobertura temática completa, no relleno
 
 ### Estructura recomendada
 
@@ -166,6 +167,40 @@ Sources:
 
 ---
 
+## SEO y citabilidad por motores de IA (GEO)
+
+Estas reglas afectan directamente si Google indexa el post y si sistemas como ChatGPT, Perplexity o Claude lo citan en sus respuestas.
+
+### Keyword en las primeras 100 palabras
+
+La keyword principal debe aparecer de forma natural en el primer párrafo. No en el heading — en el texto del párrafo de apertura.
+
+### Jerarquía de headings
+
+Usa siempre `##` para secciones principales y `###` para subsecciones. No saltes niveles. Una jerarquía clara es lo que permite a los motores de IA extraer y citar fragmentos correctamente.
+
+### Enlazado interno
+
+Cada post debe enlazar a 3-5 posts relacionados del blog con anchor text descriptivo. El anchor text debe describir el destino, no ser genérico.
+
+- **Correcto:** `Para entender cómo funciona el bucle de un agente, [qué son los agentes de IA](/que-son-los-agentes-de-ia/) explica la mecánica base.`
+- **Incorrecto:** `Para más información [haz clic aquí](/que-son-los-agentes-de-ia/).`
+
+Los links van dentro del texto del post, no en una sección aparte al final.
+
+### Afirmaciones citables
+
+Incluye al menos 2-3 afirmaciones concretas con datos específicos que un sistema de IA pueda extraer directamente. Evita vagas generalidades.
+
+- **Citable:** "Claude Managed Agents expone la infraestructura de agentes a través de la API y desde Claude.ai en planes Team y Enterprise."
+- **No citable:** "Esta tecnología está disponible para usuarios de pago."
+
+### Formato answer-first
+
+Para secciones que responden a una pregunta concreta, pon la respuesta en las primeras 1-2 frases del párrafo antes de desarrollarla. Facilita que los motores de IA citen el fragmento sin necesitar contexto adicional.
+
+---
+
 ## Sources (fuentes)
 
 Al final del post, añade las fuentes reales consultadas:
@@ -213,6 +248,10 @@ Antes de guardar el archivo, comprueba:
 - [ ] Sin `<Image />` ni `<img>` en el cuerpo si `heroImage` está en frontmatter
 - [ ] Imagen guardada en `source/assets/post/` si se referencia en frontmatter
 - [ ] Ruta de `heroImage` empieza por `../../assets/post/`
+- [ ] Mínimo 1200 palabras
+- [ ] Keyword principal en el primer párrafo (primeras 100 palabras)
+- [ ] 3-5 links internos con anchor text descriptivo
+- [ ] Al menos 2-3 afirmaciones concretas con datos específicos
 
 ---
 

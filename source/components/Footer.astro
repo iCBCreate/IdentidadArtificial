@@ -7,7 +7,7 @@ import { SITE } from '../config'
     <p class="text-sm text-[#A0A0C0]">
       © {new Date().getFullYear()} {SITE.author}
     </p>
-    <div class="flex items-center gap-6 flex-wrap justify-center sm:justify-end">
+    <nav aria-label="Legal y redes sociales" class="flex items-center gap-6 flex-wrap justify-center sm:justify-end">
       <a href="/aviso-legal/" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
         Aviso legal
       </a>
@@ -23,6 +23,6 @@ import { SITE } from '../config'
       <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
         LinkedIn
       </a>
-    </div>
+    </nav>
   </div>
 </footer>

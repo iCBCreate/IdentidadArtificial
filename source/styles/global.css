@@ -64,3 +64,23 @@ pre code {
   background: none;
   padding: 0;
 }
+
+/* Skip link and visually-hidden utility */
+.visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Global focus-visible ring — consistent across all interactive elements */
+:where(a:any-link, button):focus-visible {
+  outline: 2px solid #A78BFA;
+  outline-offset: 3px;
+  border-radius: 3px;
+}

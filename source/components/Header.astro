@@ -24,19 +24,24 @@ function isActivePath(href: string): boolean {
 
     <!-- Desktop nav -->
     <ul class="hidden sm:flex items-center gap-6">
-      {navLinks.map(link => (
-        <li>
-          <a
-            href={link.href}
-            class={`text-sm transition-colors ${
-              isActivePath(link.href)
-                ? 'text-[#E8E8F0] font-semibold'
-                : 'text-[#A0A0C0] hover:text-[#E8E8F0]'
-            }`}
-          >
-            {link.label}
-          </a>
-        </li>
+      {navLinks.map((link, i) => (
+        <>
+          {i === 4 && (
+            <li role="separator" aria-hidden="true" class="w-px h-4 bg-[#2A2A40] flex-shrink-0"></li>
+          )}
+          <li>
+            <a
+              href={link.href}
+              class={`text-sm transition-colors ${
+                isActivePath(link.href)
+                  ? 'text-[#E8E8F0] font-semibold'
+                  : 'text-[#A0A0C0] hover:text-[#E8E8F0]'
+              }`}
+            >
+              {link.label}
+            </a>
+          </li>
+        </>
       ))}
     </ul>
 
@@ -66,7 +71,7 @@ function isActivePath(href: string): boolean {
             href={link.href}
             class={`block py-3 text-sm border-b border-[#2A2A40] last:border-0 transition-colors ${
               isActivePath(link.href)
-                ? 'text-[#A78BFA] font-semibold'
+                ? 'text-[#A78BFA] font-semibold border-l-2 border-l-[#A78BFA] pl-2 -ml-2'
                 : 'text-[#A0A0C0] hover:text-[#E8E8F0]'
             }`}
           >
@@ -87,6 +92,13 @@ function isActivePath(href: string): boolean {
     if (!btn || !menu) return
     menu?.classList.toggle('hidden', !open)
     btn.setAttribute('aria-expanded', String(open))
+
+    // Use inert to prevent keyboard/pointer interaction with background content
+    const mainEl = document.querySelector('main')
+    const footerEl = document.querySelector('footer')
+    if (mainEl) mainEl.toggleAttribute('inert', open)
+    if (footerEl) footerEl.toggleAttribute('inert', open)
+
     if (lines) {
       if (open) {
         (lines[0] as HTMLElement).style.transform = 'rotate(45deg) translate(5px, 5px)'

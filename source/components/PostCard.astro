@@ -86,9 +86,15 @@ const catConfig = CATEGORY_CONFIG[category]
   background: #13131F;
   display: flex;
   flex-direction: column;
-  transition: background 0.15s;
+  transition: background 0.15s, box-shadow 0.2s ease;
 }
 .mona-card:hover { background: #1A1A2E; }
+
+@media (hover: hover) {
+  .mona-card:hover {
+    box-shadow: inset 0 0 0 1px #A78BFA40;
+  }
+}
 
 .mona-card--featured .mona-card-img { height: 200px; }
 .mona-card--featured .mona-title a { font-size: 18px; }

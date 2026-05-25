@@ -1,0 +1,78 @@
+---
+title: 'GPT Personalizado vs Skill: ¿cuál elegir para tu problema?'
+description: 'Guía práctica para personas sin experiencia en IA que quieren saber cuándo crear un GPT Personalizado y cuándo crear una Skill. Con tabla, árbol de decisión y caso real.'
+pubDate: 2026-05-25
+herramienta: 'General'
+dificultad: 'Principiante'
+tiempoEstimado: '10 minutos'
+generatedBy: 'claude-sonnet-4-6'
+generatedAt: '2026-05-25T21:35:00Z'
+promptBase: 'Crear una guía práctica que ayude a personas sin experiencia en IA a entender cuándo usar un GPT Personalizado vs cuándo crear una Skill, con analogía, tabla comparativa, árbol de decisión, caso práctico y checklist.'
+humanReviewed: false
+heroImage: '../../assets/post/claude-skills-logo.png'
+---
+
+Cuando empiezas a usar herramientas de IA, llega un momento en que te preguntas: ¿creo un GPT Personalizado o una Skill? Ambas opciones sirven para adaptar la IA a tu trabajo, pero funcionan de formas muy distintas. Esta guía te ayuda a elegir sin rodeos.
+
+## La diferencia en una analogía
+
+Imagina que necesitas que alguien te ayude a ordenar tu almacén cada semana. Tienes dos opciones: contratar a alguien fijo que conoce tu almacén, sabe dónde va cada cosa y recuerda cómo trabajas (eso es un **GPT Personalizado**); o escribir unas instrucciones precisas de cómo hacer el trabajo para que cualquier persona —o tú mismo— pueda seguirlas exactamente igual cada vez (eso es una **Skill**). El empleado fijo es flexible y aprende de tus documentos. Las instrucciones escritas son repetibles, portátiles y no dependen de que alguien recuerde nada.
+
+## Tabla comparativa
+
+| Aspecto | GPT Personalizado | Skill |
+|---|---|---|
+| Qué es | Una versión de ChatGPT configurada con instrucciones, documentos y un nombre propio | Un conjunto de instrucciones que le dice al asistente cómo comportarse en una tarea concreta |
+| Cuándo lo usas | Cuando necesitas un asistente que maneje documentos propios, responda siempre igual y se pueda compartir con otras personas | Cuando quieres automatizar un flujo de trabajo repetitivo o que el asistente siga pasos concretos sin pensar |
+| Cuánto tarda en crear | 20-40 minutos la primera vez | 5-15 minutos si el flujo está claro |
+| Reutilización | Alta: el mismo GPT sirve para muchas personas y muchas consultas distintas | Alta: la misma Skill se puede invocar miles de veces sin cambiar nada |
+| Necesita documentos propios | Sí, es su punto fuerte | No es necesario, aunque puede incluir ejemplos |
+
+## Árbol de decisión
+
+Responde estas preguntas en orden. Para en la primera que te aplique.
+
+**1. ¿Necesitas que la IA aprenda de tus documentos (manuales, catálogos, políticas internas)?**
+- Sí → **Usa GPT Personalizado**
+- No → sigue a la pregunta 2
+
+**2. ¿Quieres guardar varias versiones distintas del asistente (uno para ventas, otro para soporte, otro para redacción)?**
+- Sí → **Usa GPT Personalizado**
+- No → sigue a la pregunta 3
+
+**3. ¿La tarea siempre sigue los mismos pasos, con la misma entrada y la misma salida esperada?**
+- Sí → **Usa Skill**
+- No → sigue a la pregunta 4
+
+**4. ¿Lo van a usar otras personas de tu equipo o quieres compartirlo sin explicar nada?**
+- Sí, otros lo usarán → **Usa GPT Personalizado** si necesitan documentos o contexto propio; **Usa Skill** si solo necesitan seguir pasos
+- No, lo uso solo yo → cualquiera de las dos funciona; empieza por la **Skill** si la tarea es concreta
+
+## Caso práctico: clasificar 50 correos de clientes cada día
+
+Un pequeño negocio recibe cada mañana entre 40 y 60 correos de clientes. Algunos son consultas de precio, otros son quejas, otros son pedidos nuevos y el resto son correos que no requieren respuesta. El equipo pierde 45 minutos al día leyéndolos para decidir quién responde cada uno.
+
+### Opción A: GPT Personalizado
+
+- **Paso 1:** Recopila 20 o 30 correos reales, ya clasificados, que sirvan como ejemplos. Crea un documento con los tipos de correo que existen en tu negocio y las reglas de clasificación.
+- **Paso 2:** Crea un GPT Personalizado en ChatGPT, sube el documento de reglas y los ejemplos como archivos de Knowledge. En las instrucciones, explica que debe leer un correo y devolver una categoría: "consulta de precio", "queja", "pedido nuevo" o "sin respuesta necesaria".
+- **Paso 3:** Cada día, copia y pega los correos uno a uno o en bloque dentro del GPT y lee las clasificaciones que devuelve.
+- **Resultado:** Un asistente que cualquier persona del equipo puede abrir, usar sin instrucciones adicionales y que mejora si actualizas el documento de reglas.
+
+### Opción B: Skill
+
+- **Paso 1:** Define el flujo exacto: entrada = texto del correo, salida = categoría + razón en una línea. Escribe ese flujo como instrucción clara: "Cuando recibas un correo, clasifícalo en una de estas cuatro categorías... Devuelve solo la categoría y una frase de justificación."
+- **Paso 2:** Guarda esas instrucciones como una Skill en tu herramienta de IA (Claude, ChatGPT u otra). Dale un nombre como `clasificar-correo-cliente`.
+- **Paso 3:** Invoca la Skill cada vez que tengas correos que clasificar, pegando el texto como entrada.
+- **Resultado:** Un flujo rápido, repetible y sin pasos adicionales. Tarda menos en crear pero no usa documentos propios ni se puede compartir igual de fácilmente.
+
+### ¿Cuál es mejor para este caso?
+
+**El GPT Personalizado gana aquí.** Motivo: el negocio tiene reglas de clasificación propias que cambian con el tiempo (nuevas categorías, clientes VIP, tipos de pedidos específicos). El GPT puede incorporar esas reglas como documentos y cualquier persona del equipo puede usarlo sin necesitar explicaciones. La Skill funciona bien para una persona técnica que quiere un atajo rápido, pero no escala al equipo con la misma facilidad.
+
+## Checklist final: antes de decidir, pregúntate...
+
+- **¿La tarea depende de información que solo tienes tú?** Si la respuesta es sí (tus precios, tu catálogo, tus políticas), necesitas un GPT Personalizado.
+- **¿Lo va a usar más de una persona?** Si sí, un GPT Personalizado es más fácil de compartir sin instrucciones extra.
+- **¿La tarea siempre es igual, sin variaciones?** Si sí, una Skill es más rápida de crear y de usar.
+- **¿Tienes menos de 15 minutos para montar la solución?** Empieza por una Skill. Si no es suficiente, escala al GPT Personalizado.

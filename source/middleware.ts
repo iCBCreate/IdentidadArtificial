@@ -47,7 +47,14 @@ const GONE_HTML = `<!doctype html>
 </html>`
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const pathname = new URL(context.request.url).pathname
+  const url = new URL(context.request.url)
+
+  if (url.hostname === 'www.identidadartificial.com') {
+    url.hostname = 'identidadartificial.com'
+    return Response.redirect(url.toString(), 301)
+  }
+
+  const pathname = url.pathname
 
   if (
     GONE_PATHS.has(pathname) ||

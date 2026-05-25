@@ -51,6 +51,15 @@ const perf = [
   { label: 'text-wrap: balance / pretty', desc: 'Los títulos usan text-wrap: balance para distribuir líneas simétricamente. Los párrafos usan text-wrap: pretty para evitar huérfanos al final de párrafo.' },
 ]
 
+const a11y = [
+  { label: 'Skip link', desc: 'Enlace "Saltar al contenido principal" visible solo al recibir foco (tecla Tab). El <main> tiene tabindex="-1" para ser focusable programáticamente, siguiendo WCAG 2.4.1.' },
+  { label: 'Atributo inert en menú móvil', desc: 'Al abrir el menú hamburger, se aplica inert a <main> y <footer>. El navegador elimina ambos del árbol de accesibilidad y del flujo de teclado sin necesidad de un focus trap JS manual.' },
+  { label: ':focus-visible global', desc: 'Outline morado (#A78BFA) de 2px en todos los enlaces y botones al navegar con teclado. No afecta a usuarios de ratón. Complementa los estilos específicos de componentes como AITimeline.' },
+  { label: 'Nav landmarks completos', desc: 'El footer envuelve sus enlaces en <nav aria-label="Legal y redes sociales"> para que lectores de pantalla anuncien el grupo. La paginación usa <nav aria-label="Paginación"> con aria-current="page" y aria-label en prev/next.' },
+  { label: 'Indicador activo accesible por color', desc: 'El link activo en el menú móvil muestra borde izquierdo morado además del cambio de color, visible para usuarios con daltonismo que no perciban la diferencia de tono.' },
+  { label: 'Hover solo con puntero fino', desc: 'El estado hover de las PostCard usa @media (hover: hover) para que solo se active en desktop con ratón. En móvil no hay estados hover falsos que confundan al usuario táctil.' },
+]
+
 const geo = [
   { label: 'Open Graph + Twitter Card', desc: 'Imagen OG por post generada en build-time con título, categoría y fecha' },
   { label: 'JSON-LD (schema.org)', desc: 'Metadatos estructurados tipo Article para Google y otros motores' },
@@ -238,6 +247,20 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
     </p>
     <div class="perf-grid">
       {perf.map((item, i) => (
+        <div class="perf-card fade-up" style={`animation-delay: ${i * 0.04}s`}>
+          <div class="perf-label">{item.label}</div>
+          <div class="perf-desc">{item.desc}</div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Accesibilidad -->
+    <div class="section-label">Accesibilidad</div>
+    <p class="cf-note fade-up" style="animation-delay: 0.03s">
+      El sitio cumple WCAG 2.1 AA como mínimo. Las mejoras se aplican progresivamente sin romper la estética ni añadir dependencias externas:
+    </p>
+    <div class="perf-grid">
+      {a11y.map((item, i) => (
         <div class="perf-card fade-up" style={`animation-delay: ${i * 0.04}s`}>
           <div class="perf-label">{item.label}</div>
           <div class="perf-desc">{item.desc}</div>

@@ -36,7 +36,7 @@ source/
   components/          ← Header, Footer, PostCard, TransparencyBlock…
   data/generated/      ← artefactos IA generados en build-time
   layouts/             ← BaseLayout, PostLayout, GoneLayout
-  middleware.ts        ← 410 Gone para URLs retiradas y era WordPress
+  middleware.ts        ← 301 www→non-www + 410 Gone para URLs retiradas, posts eliminados y tags sin página
   pages/               ← rutas del sitio
 scripts/
   generate-og.mjs                      ← generador de OG images (prebuild)

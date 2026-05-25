@@ -10,7 +10,7 @@ promptBase: 'Explica qué son los agentes de IA, cómo funcionan y por qué repr
 humanReviewed: true
 ---
 
-Durante los últimos dos años, la IA pasó de ser una herramienta de conversación a convertirse en algo que puede actuar en el mundo. Los agentes son la razón.
+Durante los últimos dos años, la IA pasó de ser una herramienta de conversación a convertirse en algo que puede actuar en el mundo. Los agentes son la razón. No son chatbots más inteligentes ni una actualización incremental de lo que ya existía: son una arquitectura diferente, con capacidades distintas y consecuencias distintas para cualquier persona que trabaje con información, código o decisiones.
 
 ## ¿Qué distingue a un agente de un chatbot?
 
@@ -18,30 +18,95 @@ Un chatbot toma una entrada y devuelve una salida. Un agente toma un objetivo y 
 
 La diferencia no es solo de grado. Es estructural.
 
-Un agente vive en un bucle:
+Un chatbot es reactivo: espera una pregunta, genera una respuesta, termina. Un agente es proactivo: recibe un objetivo, planifica, actúa, evalúa el resultado y decide qué hacer a continuación. El proceso no termina hasta que el objetivo se cumple o el agente encuentra un bloqueo que no puede resolver solo.
 
-1. Observa el estado actual
-2. Decide qué herramienta usar
-3. Ejecuta la acción
-4. Observa el resultado
-5. Decide el siguiente paso
+El bucle fundamental de un agente funciona así:
 
-Este bucle puede durar segundos o días, dependiendo de la tarea.
+1. Observa el estado actual del entorno
+2. Razona sobre cuál es el siguiente paso útil
+3. Elige y ejecuta una herramienta o acción
+4. Observa el resultado de esa acción
+5. Actualiza su plan y decide el siguiente paso
+
+Este bucle puede durar segundos o días, dependiendo de la tarea. Un agente que responde una consulta de soporte técnico cierra el bucle en segundos. Un agente que investiga competidores, redacta un informe y lo envía por correo puede tardar minutos. Un agente que monitoriza un repositorio de código en busca de vulnerabilidades y genera tickets cuando las encuentra puede operar durante semanas.
 
 ## Las herramientas son el punto clave
 
-Lo que hace que un agente sea útil no es su modelo de lenguaje, sino las herramientas a las que tiene acceso. Un agente con acceso a un navegador web, un intérprete de Python y una API de correo puede hacer cosas que un modelo sin herramientas nunca podría.
+Lo que hace que un agente sea útil no es su modelo de lenguaje, sino las herramientas a las que tiene acceso. El modelo de lenguaje es el cerebro: razona, planifica, interpreta resultados. Las herramientas son los brazos: hacen cosas en el mundo real.
+
+Un agente con acceso a un navegador web, un intérprete de Python y una API de correo puede hacer cosas que un modelo sin herramientas nunca podría. La combinación importa tanto como cada pieza por separado.
+
+Las herramientas más comunes que se dan a los agentes son:
+
+- **Búsqueda web**: para acceder a información actualizada que no está en el entrenamiento del modelo
+- **Intérprete de código**: para ejecutar Python, JavaScript u otros lenguajes y procesar datos reales
+- **Sistema de archivos**: para leer, escribir y modificar documentos, hojas de cálculo o código
+- **APIs externas**: para interactuar con servicios como Slack, GitHub, bases de datos o herramientas de gestión
+- **Navegador**: para interactuar con interfaces web, rellenar formularios o extraer información de páginas
 
 Claude Code, por ejemplo, es un agente que tiene acceso al sistema de archivos, a la terminal y al historial de conversación. Eso es lo que lo convierte en algo útil para programar, y no en un simple autocompletado de código. Anthropic lleva esta idea más lejos con los [Claude Managed Agents](/claude-managed-agents/), que permiten delegar tareas largas y complejas sin construir el scaffolding tú mismo.
 
+## Tipos de agentes según su arquitectura
+
+No todos los agentes funcionan igual. Hay diferencias importantes en cómo toman decisiones y cómo se coordinan entre sí.
+
+### Agentes de un solo paso
+
+El modelo más sencillo: el agente recibe un objetivo, elige una herramienta, la ejecuta y entrega el resultado. No hay iteración ni corrección de errores. Útil para tareas bien definidas con un único paso real.
+
+### Agentes de bucle iterativo
+
+El patrón más común en producción. El agente trabaja en ciclos: actúa, observa el resultado, ajusta el plan y actúa de nuevo. Puede corregir sus propios errores si el resultado de una acción no es el esperado. Este es el patrón que usa Claude Code, Codex y la mayoría de los agentes de código actuales.
+
+### Agentes multi-agente
+
+Varios agentes coordinados, cada uno especializado en una tarea, con uno o varios orquestadores que distribuyen trabajo y consolidan resultados. Esta arquitectura escala mejor para tareas complejas donde la especialización tiene valor: un agente que busca información, otro que la valida, otro que redacta el informe final.
+
+### Agentes con memoria persistente
+
+Agentes que pueden recordar contexto entre sesiones. A diferencia de un chatbot que empieza desde cero en cada conversación, un agente con memoria puede mantener preferencias del usuario, historial de decisiones anteriores o el estado de una tarea en progreso. Es el tipo de memoria que se necesita para flujos de trabajo que duran días o semanas.
+
 ## El problema del contexto
 
-Todo agente tiene un límite: la ventana de contexto. Cada iteración del bucle consume tokens. En tareas largas, el agente puede quedarse sin contexto antes de terminar el trabajo.
+Todo agente tiene un límite operativo fundamental: la ventana de contexto. Cada iteración del bucle consume tokens. Cada herramienta que llama, cada resultado que procesa, cada paso que planifica añade texto al contexto activo. En tareas largas, el agente puede quedarse sin contexto antes de terminar el trabajo.
 
-Los sistemas más sofisticados resuelven esto con memoria externa, resúmenes automáticos y handoffs entre instancias. Es un problema de ingeniería activo, no resuelto.
+Este no es un problema teórico. Es uno de los principales motivos por los que los agentes fallan en producción. Un agente que procesa 200 documentos puede quedarse sin contexto a mitad del análisis. Si no hay mecanismo para manejar eso, el trabajo queda incompleto o corrupto.
+
+Los sistemas más sofisticados resuelven esto con varias estrategias:
+
+- **Memoria externa**: almacenar información relevante fuera del contexto activo y recuperarla cuando hace falta, en lugar de mantenerla todo el tiempo en el prompt
+- **Resúmenes automáticos**: comprimir el historial de acciones anteriores para liberar espacio sin perder el hilo
+- **Handoffs entre instancias**: cuando una instancia del agente se acerca al límite de contexto, transfiere el estado a una instancia nueva que continúa desde donde quedó
+- **Arquitecturas RAG**: recuperar solo la información relevante para el paso actual en lugar de mantener todo el corpus en contexto
+
+Es un problema de ingeniería activo. Los laboratorios que construyen sistemas de agentes lo tratan como una capa de infraestructura, no como un detalle menor.
+
+## Casos de uso donde los agentes tienen más impacto hoy
+
+Los agentes no son igual de útiles en todo tipo de tareas. Rinden especialmente bien en tres categorías:
+
+**Investigación y síntesis de información**: buscar en múltiples fuentes, comparar datos, identificar contradicciones y producir un resumen estructurado. Lo que a una persona le tomaría horas de lectura, un agente con acceso a búsqueda web puede completarlo en minutos.
+
+**Revisión y análisis de código**: auditar repositorios enteros, identificar patrones problemáticos, detectar vulnerabilidades o sugerir refactorizaciones. El agente puede operar sobre bases de código de miles de archivos sin perder el hilo entre distintas partes del sistema.
+
+**Automatización de flujos de trabajo con decisiones**: tareas que no son simples scripts porque requieren criterio en cada paso. Clasificar correos según contenido, priorizar tickets de soporte, generar informes periódicos adaptados al contexto de cada semana. Lo que diferencia a estas tareas de la automatización tradicional es que el siguiente paso depende del resultado del anterior, no de una secuencia fija.
+
+## Los riesgos que hay que tener presentes
+
+Los agentes también tienen modos de fallo específicos que los chatbots no tienen.
+
+**Errores en cascada**: si el agente toma una decisión equivocada en el paso 3, los pasos 4 y 5 construyen sobre esa equivocación. El error se amplifica. En tareas largas sin supervisión humana en puntos críticos, un error temprano puede invalidar todo el trabajo posterior.
+
+**Scope creep**: un agente con acceso amplio a herramientas puede hacer cosas que no esperabas que hiciera. Si le das acceso al correo electrónico para leer mensajes y también puede enviarlos, necesitas definir explícitamente qué está autorizado a enviar y a quién.
+
+**Alucinación sobre resultados de herramientas**: los agentes pueden malinterpretar el output de una herramienta y tomar decisiones basadas en esa interpretación errónea. A diferencia de un chatbot que alucina texto, aquí la alucinación desencadena acciones reales.
+
+La respuesta correcta no es no usar agentes. Es diseñar puntos de revisión humana en los momentos donde las consecuencias de un error son altas, y dar al agente acceso solo a las herramientas que necesita para la tarea específica.
 
 ## Por qué importa esto ahora
 
-La mayoría de los trabajos que hacemos como profesionales del conocimiento son, en el fondo, bucles de observación-decisión-acción. Los agentes de IA no reemplazan a las personas en esos trabajos inmediatamente. Pero sí cambian qué parte del bucle tiene valor añadido.
+La mayoría de los trabajos que hacemos como profesionales del conocimiento son, en el fondo, bucles de observación-decisión-acción. Leer correos y decidir qué hacer con ellos. Analizar datos y extraer conclusiones. Revisar código y proponer cambios. Investigar opciones y recomendar una.
 
-Entender cómo funcionan los agentes no es una curiosidad técnica. Es saber dónde estás parado. Para ver cómo los grandes laboratorios están aplicando esto hoy, los [OpenAI Workspace Agents](/openai-workspace-agents-chatgpt-autonomia/) son un ejemplo concreto de agentes diseñados para flujos de trabajo de equipo.
+Los agentes de IA no reemplazan a las personas en esos trabajos inmediatamente. Pero sí cambian qué parte del bucle tiene valor añadido. La parte mecánica de observar y actuar se puede delegar. La parte de definir el objetivo, evaluar si el resultado es bueno y tomar las decisiones de mayor riesgo sigue requiriendo criterio humano.
+
+Entender cómo funcionan los agentes no es una curiosidad técnica. Es saber dónde estás parado. Para ver cómo los grandes laboratorios están aplicando esto en producción hoy, los [OpenAI Workspace Agents](/openai-workspace-agents-chatgpt-autonomia/) son un ejemplo concreto de agentes diseñados para flujos de trabajo de equipo con autonomía persistente.

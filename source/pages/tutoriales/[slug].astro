@@ -18,11 +18,38 @@ const formattedDate = new Date(tutorial.data.pubDate).toLocaleDateString('es-ES'
   month: 'long',
   day: 'numeric',
 })
+
+const canonicalURL = new URL(`/tutoriales/${tutorial.id}/`, 'https://identidadartificial.com').href
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: tutorial.data.title,
+  description: tutorial.data.description,
+  datePublished: new Date(tutorial.data.pubDate).toISOString(),
+  dateModified: tutorial.data.generatedAt,
+  author: {
+    '@type': 'Person',
+    name: 'Ignacio Cubelas',
+    url: 'https://identidadartificial.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Identidad Artificial',
+    url: 'https://identidadartificial.com',
+  },
+  inLanguage: 'es-ES',
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalURL,
+  },
+}
 ---
 
 <BaseLayout
   title={tutorial.data.title}
   description={tutorial.data.description}
+  jsonLd={jsonLd}
 >
   <article class="tutorial-detail">
     <header class="tutorial-header">

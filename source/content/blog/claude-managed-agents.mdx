@@ -26,7 +26,7 @@ El bucle funciona así:
 4. Decide el siguiente paso basándose en lo que ha encontrado
 5. Repite hasta completar el objetivo
 
-Lo relevante es que "Managed" aquí significa que Anthropic gestiona la infraestructura del agente: memoria, herramientas, límites de seguridad y continuidad entre pasos. No tienes que construir el scaffolding tú mismo.
+Lo relevante es que "Managed" aquí significa que Anthropic gestiona la infraestructura del agente: memoria, herramientas, límites de seguridad y continuidad entre pasos. No tienes que construir el scaffolding tú mismo. Eso es lo que los diferencia de un agente que construyes con el SDK desde cero: la capa de infraestructura ya está resuelta.
 
 ## Qué puede hacer que antes no era posible
 
@@ -41,27 +41,41 @@ Un Claude Managed Agent puede:
 
 Un ejemplo concreto: pedirle que monitorice un repositorio de GitHub, identifique los PRs sin revisar desde hace más de 48 horas, redacte un resumen de cada uno y te lo envíe por correo. Eso es trabajo que antes requería un script, un cron job y un programador. Ahora es una instrucción.
 
+Otro ejemplo menos técnico: pedir al agente que investigue los últimos tres meses de noticias sobre un competidor, identifique cambios de producto, movimientos de precios y contrataciones relevantes, y produzca un informe ejecutivo de dos páginas. El agente busca, filtra, sintetiza y escribe. Tú lees el resultado.
+
 ## Por qué "aceleran" y no solo "automatizan"
 
-La diferencia entre automatización y aceleración es importante.
+La diferencia entre automatización y aceleración es importante y vale la pena entenderla antes de decidir cómo usar agentes.
 
-La automatización reemplaza un proceso fijo. Si sabes exactamente qué pasos hay que dar, puedes automatizarlos con cualquier herramienta.
+La automatización reemplaza un proceso fijo. Si sabes exactamente qué pasos hay que dar, cuál es la entrada y cuál debe ser la salida, puedes automatizarlos con un script, un workflow o una integración de Zapier. No necesitas un agente para eso.
 
-Los agentes aceleran tareas que **no tienen pasos fijos**. Tareas donde la siguiente acción depende del resultado de la anterior. Tareas de conocimiento: investigación, análisis, redacción, debugging, planificación.
+Los agentes aceleran tareas que **no tienen pasos fijos**. Tareas donde la siguiente acción depende del resultado de la anterior. Tareas de conocimiento: investigación, análisis, redacción, debugging, planificación. Tareas donde si le preguntas a alguien cómo las hace, te dice "depende de lo que encuentre".
 
-Un agente puede leer la documentación de una API que no conoce, escribir código para usarla, ejecutarlo, leer el error, buscar la solución y volver a intentarlo. Sin instrucciones paso a paso de tu parte.
+Un agente puede leer la documentación de una API que no conoce, escribir código para usarla, ejecutarlo, leer el error, buscar la solución y volver a intentarlo. Sin instrucciones paso a paso de tu parte. Eso no es automatización en el sentido tradicional: es delegar la capacidad de adaptarse al contexto.
+
+## El diseño de seguridad de Anthropic como ventaja diferencial
+
+Anthropic construyó los Managed Agents con su enfoque de "Constitutional AI" como base. Esto tiene consecuencias prácticas:
+
+**Límites más explícitos por defecto**: el agente está entrenado para detenerse y pedir confirmación antes de tomar acciones irreversibles de alto riesgo, como enviar correos a destinatarios que no estaban en el objetivo original o modificar archivos que no eran parte de la tarea.
+
+**Explicabilidad de las decisiones**: el agente puede describir por qué tomó cada decisión si se le pregunta. Esto facilita la revisión posterior y ayuda a identificar dónde ajustar las instrucciones cuando el resultado no fue el esperado.
+
+**Rechazo de instrucciones problemáticas**: si el objetivo incluye acciones que el agente evalúa como contrarias a sus principios de operación, lo comunica en lugar de ejecutarlas silenciosamente. Para equipos que trabajan con datos sensibles o en sectores regulados, esto reduce el riesgo de que el agente haga algo que nadie quería que hiciera.
+
+Esta diferencia de diseño frente a otros agentes del mercado, como los [OpenAI Workspace Agents](/openai-workspace-agents-chatgpt-autonomia/), no es neutral: implica que en algunos casos el agente de Anthropic hará menos cosas sin aprobación, pero las cosas que haga serán más predecibles y auditables.
 
 ## Los límites que todavía existen
 
 Sería deshonesto no mencionar los límites actuales:
 
-**Coste por tarea.** Cada acción de un agente consume tokens. Las tareas largas pueden ser significativamente más caras que una consulta simple.
+**Coste por tarea.** Cada acción de un agente consume tokens. Las tareas largas pueden ser significativamente más caras que una consulta simple. Una tarea que requiere 50 iteraciones del bucle puede costar diez veces más que una consulta directa sobre el mismo tema.
 
-**Errores en cascada.** Si el agente toma una decisión equivocada en el paso 3, los pasos 4, 5 y 6 pueden construir sobre esa equivocación. Sin revisión humana en puntos críticos, los errores se amplifican.
+**Errores en cascada.** Si el agente toma una decisión equivocada en el paso 3, los pasos 4, 5 y 6 pueden construir sobre esa equivocación. Sin revisión humana en puntos críticos, los errores se amplifican. El coste no es solo el resultado incorrecto, sino el tiempo del agente construyendo sobre una base errónea.
 
-**Tareas que requieren juicio contextual profundo.** Un agente puede resumir 100 contratos, pero decidir cuáles tienen cláusulas problemáticas en el contexto legal específico de tu empresa es otro nivel.
+**Tareas que requieren juicio contextual profundo.** Un agente puede resumir 100 contratos, pero decidir cuáles tienen cláusulas problemáticas en el contexto legal específico de tu empresa es otro nivel. Hay tareas donde el valor añadido humano no está en la lectura sino en el criterio, y ahí el agente es un asistente, no un sustituto.
 
-**Acceso y permisos.** El agente solo puede usar las herramientas a las que le das acceso. Integrarlo con tus sistemas internos requiere trabajo de configuración previo.
+**Acceso y permisos.** El agente solo puede usar las herramientas a las que le das acceso. Integrarlo con tus sistemas internos requiere trabajo de configuración previo. Una empresa con datos en Notion, Slack y una base de datos propia necesita configurar el acceso a cada uno antes de que el agente pueda operar sobre esa información.
 
 ## Cómo empezar a usarlos
 
@@ -71,13 +85,17 @@ Para integraciones más avanzadas, el SDK de Anthropic permite definir herramien
 
 El patrón que funciona mejor para empezar: elige una tarea repetitiva de análisis o investigación que haces cada semana, descríbela como un objetivo y dale al agente las herramientas mínimas necesarias para completarla. Los resultados no serán perfectos al principio, pero la curva de mejora es rápida.
 
+No empieces con la tarea más crítica o la que tenga más consecuencias si sale mal. Empieza con algo que puedas revisar fácilmente y donde un error sea corregible. Usa eso para aprender cómo describe sus objetivos el agente, dónde pide aclaración y cómo maneja los casos que no encajan en las instrucciones originales.
+
 ## Dónde tiene más impacto
 
 Las categorías de trabajo donde los agentes muestran más retorno inmediato:
 
-- **Investigación y síntesis**: analizar fuentes, comparar opciones, producir informes estructurados
-- **Revisión de código**: auditar repositorios, identificar patrones problemáticos, sugerir refactorizaciones
-- **Generación de contenido estructurado**: redactar documentación técnica, generar tests, escribir especificaciones
-- **Monitorización y alertas**: revisar métricas periódicamente y actuar si superan umbrales
+- **Investigación y síntesis**: analizar fuentes, comparar opciones, producir informes estructurados sobre temas donde la información está dispersa
+- **Revisión de código**: auditar repositorios, identificar patrones problemáticos, sugerir refactorizaciones en bases de código que ninguna persona ha leído completa recientemente
+- **Generación de contenido estructurado**: redactar documentación técnica, generar tests a partir de especificaciones, escribir especificaciones a partir de código existente
+- **Monitorización y alertas con contexto**: revisar métricas periódicamente, detectar anomalías y generar un análisis con contexto en lugar de solo un número fuera de umbral
 
-La IA generativa cambió lo que una persona puede producir en una hora. Los agentes cambian lo que puede producir mientras no está mirando.
+La IA generativa cambió lo que una persona puede producir en una hora. Los agentes cambian lo que puede producir mientras no está mirando. La diferencia entre ambas afirmaciones no es de magnitud: es de naturaleza.
+
+El valor real no está en el caso de uso más impresionante. Está en los diez procesos semanales que llevan tiempo, no tienen pasos fijos y no está claro a quién corresponde hacerlos. Esos son los que los agentes empiezan a cambiar primero.

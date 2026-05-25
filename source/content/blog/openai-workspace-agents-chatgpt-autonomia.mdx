@@ -15,26 +15,78 @@ OpenAI ha dado hoy el paso definitivo para transformar ChatGPT de un asistente r
 
 A diferencia de los Custom GPTs lanzados en años anteriores —que siguen siendo útiles para casos más simples y que puedes aprender a configurar en la [guía práctica sobre cómo personalizar un GPT con documentos](/tutoriales/personalizar-gpt-documentos-md-maestro/)—, los Workspace Agents están diseñados para la colaboración en equipo y la integración profunda con la infraestructura digital de las empresas.
 
-## Autonomía y persistencia: Más allá de la sesión de chat
+## Autonomía y persistencia: más allá de la sesión de chat
 
 La principal innovación de Workspace Agents es su capacidad de **operación autónoma**. Mientras que un GPT tradicional requiere una interacción constante del usuario para avanzar, un agente de Workspace puede recibir un objetivo de alto nivel —como "preparar el informe mensual de métricas cruzando datos de Slack y archivos del repositorio"— y trabajar en segundo plano hasta completarlo.
 
 Estos agentes cuentan con su propio espacio de trabajo dedicado, memoria persistente y la capacidad de invocar herramientas externas (vía API o scripts de Python) sin intervención humana inmediata. Esto permite que los procesos se mantengan activos incluso cuando el usuario ha cerrado su sesión, enviando notificaciones o solicitando aprobaciones solo cuando es estrictamente necesario.
 
+La persistencia es el cambio más importante. Un Custom GPT existe solo durante una conversación: cuando la cierras, el estado desaparece. Un Workspace Agent puede operar durante horas o días, mantener memoria de lo que ha procesado y retomar el trabajo donde lo dejó sin que el usuario tenga que re-explicar el contexto.
+
 ## Integración en equipos y control administrativo
 
-OpenAI ha puesto un énfasis especial en la **colaboración**. Los Workspace Agents pueden ser compartidos entre miembros de un equipo, permitiendo que varios usuarios interactúen con el mismo agente en diferentes etapas de un proyecto. 
+OpenAI ha puesto un énfasis especial en la **colaboración**. Los Workspace Agents pueden ser compartidos entre miembros de un equipo, permitiendo que varios usuarios interactúen con el mismo agente en diferentes etapas de un proyecto.
+
+Esto cambia el modelo de uso: en lugar de que cada persona configure su propio GPT personalizado, el equipo comparte un agente con contexto común, historial compartido y acceso a las mismas herramientas y fuentes de datos.
 
 Para facilitar este despliegue en entornos corporativos, se han introducido controles administrativos granulares:
-- **Harnesses nativos:** Infraestructura optimizada para la ejecución segura de código.
-- **Sandboxing de herramientas:** Aislamiento total de las funciones del agente para evitar fugas de datos.
-- **Logs de auditoría:** Registro completo de cada paso lógico y acción ejecutada por el agente.
 
-## El fin del prompt individual
+- **Harnesses nativos:** Infraestructura optimizada para la ejecución segura de código dentro del entorno de OpenAI.
+- **Sandboxing de herramientas:** Aislamiento total de las funciones del agente para evitar fugas de datos entre proyectos o usuarios.
+- **Logs de auditoría:** Registro completo de cada paso lógico y acción ejecutada por el agente, con trazabilidad para cumplimiento normativo.
+- **Control de permisos granular:** Los administradores pueden definir qué herramientas tiene acceso cada agente, qué datos puede leer y escribir, y quién en el equipo puede modificar su configuración.
 
-Este lanzamiento marca un punto de inflexión en la estrategia de OpenAI para 2026. La visión es evolucionar hacia un "superasistente" proactivo. Los agentes ya no esperan a ser consultados; monitorizan flujos de trabajo, sugieren optimizaciones y actúan como miembros digitales del equipo con acceso a contexto compartido.
+## Qué puede hacer un Workspace Agent en la práctica
 
-Desde hoy y hasta el 6 de mayo de 2026, las organizaciones con planes Business, Enterprise y Education pueden acceder a una prueba gratuita de este sistema antes de que se implemente un modelo de facturación basado en créditos por ejecución de tareas complejas.
+La diferencia entre leer la descripción de producto de una herramienta y entender qué puede hacer en el trabajo real es significativa. Algunos flujos de trabajo concretos que Workspace Agents está diseñado para manejar:
+
+**Informes periódicos automatizados**: un agente configurado para ejecutarse cada semana puede cruzar datos de múltiples fuentes (Slack, Google Drive, bases de datos internas), identificar tendencias, redactar el informe en el formato que usa el equipo y enviarlo por correo a las personas correctas. Sin intervención humana más allá de la configuración inicial.
+
+**Revisión de documentos a escala**: un equipo legal o de compliance que recibe docenas de contratos por semana puede configurar un agente que lea cada documento, identifique cláusulas específicas según una lista de criterios y genere un resumen estructurado para revisión humana. El agente no reemplaza al abogado; le libera de la lectura mecánica.
+
+**Monitorización y alertas con contexto**: en lugar de recibir alertas numéricas de un sistema de métricas, un agente puede interpretar los datos en el contexto del negocio, determinar si una variación es relevante y redactar una notificación con el análisis ya hecho. El receptor recibe conclusiones, no datos en bruto.
+
+**Onboarding de nuevos miembros del equipo**: un agente con acceso a la documentación interna, el historial de decisiones y los procesos del equipo puede responder preguntas de personas que acaban de incorporarse, sin consumir tiempo de los miembros senior para preguntas que ya tienen respuesta documentada.
+
+## La diferencia con los Custom GPTs
+
+Los Custom GPTs siguen siendo útiles. Para casos donde necesitas un asistente con instrucciones específicas y documentos de referencia que no requiere autonomía real, un GPT personalizado es más rápido de configurar y suficiente para el caso de uso.
+
+Los Workspace Agents son otra categoría:
+
+| Aspecto | Custom GPT | Workspace Agent |
+|---|---|---|
+| Persistencia | Solo en la conversación activa | Memoria entre sesiones |
+| Autonomía | Reactiva — espera tu siguiente mensaje | Proactiva — ejecuta en segundo plano |
+| Colaboración | Un usuario por conversación | Compartido entre equipos |
+| Herramientas | Limitadas a las capacidades del GPT | APIs externas, scripts, bases de datos |
+| Auditoría | Sin logs de administración | Logs completos por acción |
+
+La elección entre uno y otro depende de si necesitas que el sistema espere instrucciones o que trabaje sin que estés mirando.
+
+## El fin del prompt individual como interfaz principal
+
+Este lanzamiento marca un punto de inflexión en la estrategia de OpenAI para 2026. La visión es evolucionar hacia un sistema proactivo que actúa como miembro del equipo. Los agentes ya no esperan a ser consultados; monitorizan flujos de trabajo, detectan situaciones que requieren atención y actúan dentro de los límites que el administrador ha definido.
+
+Este cambio tiene implicaciones para cómo se diseñan los flujos de trabajo. En un sistema reactivo, el trabajo avanza solo cuando alguien escribe un mensaje. En un sistema con agentes proactivos, el trabajo puede avanzar en paralelo, en segundo plano, sin que ningún humano esté activo en ese momento. La velocidad de ejecución ya no está limitada por la disponibilidad de las personas.
+
+Desde su lanzamiento, las organizaciones con planes Business, Enterprise y Education pueden acceder a una prueba antes de que se implemente un modelo de facturación basado en créditos por ejecución de tareas complejas.
+
+## Qué hay que tener presente antes de adoptarlo
+
+La autonomía tiene un coste: la supervisión requiere diseño deliberado. Un agente que puede actuar sin intervención humana también puede tomar decisiones equivocadas sin que nadie las detenga a tiempo.
+
+Antes de desplegar Workspace Agents en flujos de trabajo críticos, conviene definir tres cosas con claridad: qué decisiones puede tomar el agente sin aprobación, en qué puntos del flujo se requiere revisión humana antes de continuar, y qué hace el agente cuando encuentra un caso que no sabe manejar.
+
+Los logs de auditoría son útiles para investigar errores después de que ocurren. Los puntos de aprobación son lo que los previene. Ambos son necesarios.
+
+## Workspace Agents en el contexto del ecosistema de agentes de IA
+
+OpenAI no es el único laboratorio que está construyendo en esta dirección. Anthropic tiene los [Claude Managed Agents](/claude-managed-agents/), con una propuesta centrada en la seguridad y el control humano como principios de diseño desde el principio. Google está desarrollando capacidades similares dentro de su ecosistema Workspace. La carrera no es solo por el mejor modelo de lenguaje, sino por quién construye la mejor infraestructura de agentes para el trabajo en equipo.
+
+Lo que diferencia a los distintos enfoques no es tanto la capacidad técnica del modelo subyacente como las decisiones de diseño sobre autonomía, transparencia y control. OpenAI con Workspace Agents apuesta por la proactividad y la integración profunda con flujos de trabajo existentes. Anthropic con sus agentes pone más énfasis en los puntos de aprobación humana y la explicabilidad de las decisiones. Ambos enfoques son válidos; cuál funciona mejor depende del tipo de trabajo y del nivel de riesgo que implica cada tarea.
+
+Para los equipos que están evaluando qué sistema adoptar, la pregunta no es cuál es el más capaz en un benchmark. Es cuál encaja mejor con los procesos que ya tienen, con los sistemas en los que ya trabajan y con el nivel de supervisión que su organización puede y quiere mantener.
 
 Sources:
 - [OpenAI Introduces Workspace Agents for Teams](https://openai.com/blog/workspace-agents)

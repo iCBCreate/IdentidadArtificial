@@ -143,7 +143,7 @@ export const POST_INSIGHTS = {
       }
     ],
     "readingProfile": {
-      "minutes": 4,
+      "minutes": 8,
       "density": "media",
       "bestFor": "comparar capacidades de modelos"
     }
@@ -306,13 +306,17 @@ export const POST_INSIGHTS = {
   },
   "openai-workspace-agents-chatgpt-autonomia": {
     "executiveSummary": "OpenAI ha presentado hoy Workspace Agents para ChatGPT, un sistema de agentes autónomos diseñados para gestionar flujos de trabajo complejos y persistentes en entornos de equipo. OpenAI ha dado hoy el paso definitivo para transformar ChatGPT de un asistente reactivo en un sistema operativo de agentes con el lanzamiento de Workspace Agents . Esta nueva arquitectura, disponible inicialmente como Research Preview para planes corporativos y educativos, permite la creación de entidades de IA que no solo responden a prompts, sino que ejecutan flujos de trabajo multi-etapa de forma autónoma y persistente.",
-    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "OpenAI ha presentado hoy Workspace Agents para ChatGPT, un sistema de agentes autónomos diseñados para gestionar flujos de trabajo complejos y persistentes en entornos de equipo.",
-      "A diferencia de los Custom GPTs lanzados en años anteriores, los Workspace Agents están diseñados para la colaboración en equipo y la integración profunda con la infraestructura digital de las empresas.",
-      "Conceptos detectados por el pipeline: Agente, Ventana de contexto."
+      "Para entender la base técnica de lo que hace posible este tipo de sistemas, conviene revisar primero qué son los agentes de IA y qué los diferencia de un chatbot convencional /que-son-los-agentes-de-ia/ .",
+      "Conceptos detectados por el pipeline: LLM, Agente, Ventana de contexto."
     ],
     "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
       {
         "term": "Agente",
         "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
@@ -324,7 +328,7 @@ export const POST_INSIGHTS = {
     ],
     "faqs": [
       {
-        "question": "Qué aporta este artículo sobre Agente?",
+        "question": "Qué aporta este artículo sobre LLM?",
         "answer": "OpenAI ha presentado hoy Workspace Agents para ChatGPT, un sistema de agentes autónomos diseñados para gestionar flujos de trabajo complejos y persistentes en entornos de equipo."
       },
       {
@@ -337,7 +341,7 @@ export const POST_INSIGHTS = {
       }
     ],
     "readingProfile": {
-      "minutes": 3,
+      "minutes": 7,
       "density": "media",
       "bestFor": "evaluar flujos de trabajo prácticos"
     }
@@ -419,13 +423,17 @@ export const POST_INSIGHTS = {
   },
   "que-son-los-agentes-de-ia": {
     "executiveSummary": "Los agentes de IA no son solo chatbots más potentes. Son sistemas que pueden planificar, usar herramientas y ejecutar tareas complejas de forma autónoma. Durante los últimos dos años, la IA pasó de ser una herramienta de conversación a convertirse en algo que puede actuar en el mundo.",
-    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "Los agentes de IA no son solo chatbots más potentes. Son sistemas que pueden planificar, usar herramientas y ejecutar tareas complejas de forma autónoma.",
-      "Las herramientas son el punto clave Lo que hace que un agente sea útil no es su modelo de lenguaje, sino las herramientas a las que tiene acceso.",
-      "Conceptos detectados por el pipeline: LLM, Agente, Ventana de contexto."
+      "No son chatbots más inteligentes ni una actualización incremental de lo que ya existía: son una arquitectura diferente, con capacidades distintas y consecuencias distintas para cualquier persona que trabaje con información, código o decisiones.",
+      "Conceptos detectados por el pipeline: RAG, LLM, Agente, Ventana de contexto."
     ],
     "glossary": [
+      {
+        "term": "RAG",
+        "definition": "Arquitectura que recupera contexto externo antes de pedir una respuesta al modelo."
+      },
       {
         "term": "LLM",
         "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
@@ -441,7 +449,7 @@ export const POST_INSIGHTS = {
     ],
     "faqs": [
       {
-        "question": "Qué aporta este artículo sobre LLM?",
+        "question": "Qué aporta este artículo sobre RAG?",
         "answer": "Los agentes de IA no son solo chatbots más potentes. Son sistemas que pueden planificar, usar herramientas y ejecutar tareas complejas de forma autónoma."
       },
       {
@@ -454,8 +462,8 @@ export const POST_INSIGHTS = {
       }
     ],
     "readingProfile": {
-      "minutes": 2,
-      "density": "media",
+      "minutes": 8,
+      "density": "alta",
       "bestFor": "orientarse en tendencias técnicas"
     }
   }

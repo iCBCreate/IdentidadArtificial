@@ -630,6 +630,12 @@ export const KNOWLEDGE_MAP = {
     },
     {
       "source": "post:claude-managed-agents",
+      "target": "company:openai",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:claude-managed-agents",
       "target": "company:anthropic",
       "weight": 3,
       "relation": "semantic"
@@ -960,6 +966,12 @@ export const KNOWLEDGE_MAP = {
     },
     {
       "source": "post:openai-workspace-agents-chatgpt-autonomia",
+      "target": "concept:llm",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:openai-workspace-agents-chatgpt-autonomia",
       "target": "concept:automatizacion",
       "weight": 3,
       "relation": "semantic"
@@ -973,6 +985,18 @@ export const KNOWLEDGE_MAP = {
     {
       "source": "post:openai-workspace-agents-chatgpt-autonomia",
       "target": "concept:seguridad-ia",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:openai-workspace-agents-chatgpt-autonomia",
+      "target": "company:anthropic",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:openai-workspace-agents-chatgpt-autonomia",
+      "target": "company:google",
       "weight": 3,
       "relation": "semantic"
     },
@@ -1158,7 +1182,31 @@ export const KNOWLEDGE_MAP = {
     },
     {
       "source": "post:que-son-los-agentes-de-ia",
+      "target": "concept:rag",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:que-son-los-agentes-de-ia",
       "target": "concept:contexto",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:que-son-los-agentes-de-ia",
+      "target": "concept:razonamiento",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:que-son-los-agentes-de-ia",
+      "target": "concept:seguridad-ia",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:que-son-los-agentes-de-ia",
+      "target": "company:openai",
       "weight": 3,
       "relation": "semantic"
     },
@@ -1184,10 +1232,10 @@ export const KNOWLEDGE_MAP = {
         "score": 9
       },
       {
-        "slug": "claude-managed-agents",
-        "title": "Claude Managed Agents: automatización real con IA",
+        "slug": "que-son-los-agentes-de-ia",
+        "title": "Qué son los agentes de IA y por qué cambian todo",
         "reason": "Conectan por conceptos: Anthropic, Seguridad IA.",
-        "score": 7
+        "score": 8
       }
     ],
     "chatgpt-images-2-gpt-image-2": [
@@ -1224,10 +1272,10 @@ export const KNOWLEDGE_MAP = {
         "score": 10
       },
       {
-        "slug": "codex-chatgpt-movil-trabajo-remoto",
-        "title": "Codex en ChatGPT móvil: trabajar con agentes de IA",
-        "reason": "Conectan por conceptos: Agentes, Contexto.",
-        "score": 9
+        "slug": "que-son-los-agentes-de-ia",
+        "title": "Qué son los agentes de IA y por qué cambian todo",
+        "reason": "Conectan por conceptos: Anthropic, Agentes.",
+        "score": 10
       }
     ],
     "claude-managed-agents": [
@@ -1235,19 +1283,19 @@ export const KNOWLEDGE_MAP = {
         "slug": "openai-workspace-agents-chatgpt-autonomia",
         "title": "OpenAI Workspace Agents: ChatGPT autónomo",
         "reason": "Comparten etiquetas: agentes, productividad.",
-        "score": 14
+        "score": 18
       },
       {
         "slug": "que-son-los-agentes-de-ia",
         "title": "Qué son los agentes de IA y por qué cambian todo",
         "reason": "Comparten etiquetas: agentes, automatizacion.",
-        "score": 14
+        "score": 18
       },
       {
         "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
         "title": "GPT-5.5: inteligencia agéntica y el fin del prompting",
         "reason": "Conectan por conceptos: Agentes, Automatización.",
-        "score": 11
+        "score": 13
       }
     ],
     "codex-chatgpt-movil-trabajo-remoto": [
@@ -1264,10 +1312,10 @@ export const KNOWLEDGE_MAP = {
         "score": 17
       },
       {
-        "slug": "chatgpt-images-2-gpt-image-2",
-        "title": "ChatGPT Images 2.0: el modelo que razona antes de dibujar",
-        "reason": "Comparten etiquetas: openai.",
-        "score": 9
+        "slug": "que-son-los-agentes-de-ia",
+        "title": "Qué son los agentes de IA y por qué cambian todo",
+        "reason": "Conectan por conceptos: OpenAI, Agentes.",
+        "score": 12
       }
     ],
     "como-funciona-el-contexto-en-los-llm": [
@@ -1281,7 +1329,7 @@ export const KNOWLEDGE_MAP = {
         "slug": "que-son-los-agentes-de-ia",
         "title": "Qué son los agentes de IA y por qué cambian todo",
         "reason": "Comparten etiquetas: llm.",
-        "score": 7
+        "score": 11
       },
       {
         "slug": "chatgpt-images-2-gpt-image-2",
@@ -1321,16 +1369,22 @@ export const KNOWLEDGE_MAP = {
         "slug": "openai-workspace-agents-chatgpt-autonomia",
         "title": "OpenAI Workspace Agents: ChatGPT autónomo",
         "reason": "Comparten etiquetas: openai.",
-        "score": 13
+        "score": 17
       },
       {
-        "slug": "chatgpt-images-2-gpt-image-2",
-        "title": "ChatGPT Images 2.0: el modelo que razona antes de dibujar",
-        "reason": "Comparten etiquetas: openai.",
-        "score": 12
+        "slug": "que-son-los-agentes-de-ia",
+        "title": "Qué son los agentes de IA y por qué cambian todo",
+        "reason": "Conectan por conceptos: OpenAI, Agentes.",
+        "score": 14
       }
     ],
     "openai-workspace-agents-chatgpt-autonomia": [
+      {
+        "slug": "claude-managed-agents",
+        "title": "Claude Managed Agents: automatización real con IA",
+        "reason": "Comparten etiquetas: agentes, productividad.",
+        "score": 18
+      },
       {
         "slug": "codex-chatgpt-movil-trabajo-remoto",
         "title": "Codex en ChatGPT móvil: trabajar con agentes de IA",
@@ -1338,16 +1392,10 @@ export const KNOWLEDGE_MAP = {
         "score": 17
       },
       {
-        "slug": "claude-managed-agents",
-        "title": "Claude Managed Agents: automatización real con IA",
-        "reason": "Comparten etiquetas: agentes, productividad.",
-        "score": 14
-      },
-      {
         "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
         "title": "GPT-5.5: inteligencia agéntica y el fin del prompting",
         "reason": "Comparten etiquetas: openai.",
-        "score": 13
+        "score": 17
       }
     ],
     "por-que-astro-para-un-blog-generado-por-ia": [
@@ -1372,22 +1420,22 @@ export const KNOWLEDGE_MAP = {
     ],
     "que-es-rag-generacion-aumentada-por-recuperacion": [
       {
+        "slug": "que-son-los-agentes-de-ia",
+        "title": "Qué son los agentes de IA y por qué cambian todo",
+        "reason": "Comparten etiquetas: llm.",
+        "score": 17
+      },
+      {
         "slug": "gpt-5-5-novedades-benchmarks-inteligencia-agentica",
         "title": "GPT-5.5: inteligencia agéntica y el fin del prompting",
         "reason": "Conectan por conceptos: Contexto, Razonamiento.",
         "score": 12
       },
       {
-        "slug": "como-funciona-el-contexto-en-los-llm",
-        "title": "Cómo funciona el contexto en los modelos de lenguaje",
-        "reason": "Comparten etiquetas: llm.",
-        "score": 11
-      },
-      {
-        "slug": "que-son-los-agentes-de-ia",
-        "title": "Qué son los agentes de IA y por qué cambian todo",
-        "reason": "Comparten etiquetas: llm.",
-        "score": 9
+        "slug": "openai-workspace-agents-chatgpt-autonomia",
+        "title": "OpenAI Workspace Agents: ChatGPT autónomo",
+        "reason": "Conectan por conceptos: LLM, Contexto.",
+        "score": 12
       }
     ],
     "que-son-los-agentes-de-ia": [
@@ -1395,19 +1443,19 @@ export const KNOWLEDGE_MAP = {
         "slug": "claude-managed-agents",
         "title": "Claude Managed Agents: automatización real con IA",
         "reason": "Comparten etiquetas: agentes, automatizacion.",
-        "score": 14
+        "score": 18
       },
       {
         "slug": "openai-workspace-agents-chatgpt-autonomia",
         "title": "OpenAI Workspace Agents: ChatGPT autónomo",
         "reason": "Comparten etiquetas: agentes.",
-        "score": 9
+        "score": 17
       },
       {
         "slug": "que-es-rag-generacion-aumentada-por-recuperacion",
         "title": "RAG: Generación Aumentada por Recuperación — qué es",
         "reason": "Comparten etiquetas: llm.",
-        "score": 9
+        "score": 17
       }
     ]
   }

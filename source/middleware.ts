@@ -13,20 +13,38 @@ const GONE_PATHS = new Set([
   '/firebase-studio-crea-apps-rapidamente-con-ia/',
   '/chatgpt-5-un-modelo-para-dominarlos-a-todos/',
   '/la-paradoja-del-progreso-acelerado-como-el-avance/',
+  // Posts eliminados — aparecían como "rastreada: sin indexar" en GSC
+  '/ia-expendedora-san-francisco-projet-vend/',
+  '/meta-refuerza-laboratorio-superinteligencia-fichajes-altman/',
+  '/grok-4-nueva-frontera-inteligencia-artificial-comparativa/',
+  '/chatgpt-5-novedades-lanzamiento-2025/',
+  '/chatgpt-5-novedades-lanzamiento-2025',
+  '/politica-de-cookies/',
   // Tags de WordPress
   '/tag/chatgpt/',
   '/tag/programacion/',
   '/tag/microsoft/',
   '/tag/anthropyc/',
+  // Tags sin página — aparecían como "rastreada: sin indexar" en GSC
+  '/tag/reflexion/',
+  '/tag/agentes-de-ia/',
+  '/tag/gemini/',
+  '/tag/grok/',
+  '/tag/chatgpt-agent/',
+  '/tag/inteligencia-artificial/',
+  '/tag/gpt-oss/',
+  '/tag/openai/',
+  '/tag/ia/',
   // Categorías de WordPress
   '/category/actualidad-tecnologica/',
 ])
 
-// Prefijos de WordPress que nunca existirán en este sitio
+// Prefijos que nunca existirán en este sitio
 const GONE_PREFIXES = [
   '/wp-content/',
   '/wp-admin/',
   '/wp-includes/',
+  '/category/',
 ]
 
 const GONE_HTML = `<!doctype html>

@@ -219,6 +219,33 @@ const formattedDate = new Date(tutorial.data.pubDate).toLocaleDateString('es-ES'
   font-style: italic;
 }
 
+.tutorial-content :global(table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 15px;
+  color: #C8C8E0;
+}
+
+.tutorial-content :global(th) {
+  background: #1E1E2E;
+  color: #E8E8F0;
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 14px;
+  border: 1px solid #2A2A40;
+}
+
+.tutorial-content :global(td) {
+  padding: 10px 14px;
+  border: 1px solid #2A2A40;
+  vertical-align: top;
+}
+
+.tutorial-content :global(tr:nth-child(even) td) {
+  background: #16162A;
+}
+
 .tutorial-footer {
   margin-top: 48px;
   padding-top: 32px;

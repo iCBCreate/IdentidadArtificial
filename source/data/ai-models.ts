@@ -44,6 +44,8 @@ export const AI_MODELS: AIModel[] = [
   { name: 'Gemini 2.0 Flash', company: 'Gemini', date: 'Feb 2025', dateValue: toDateValue(2025,  2), color: '#8AB4F8', description: 'Velocidad de inferencia muy alta con capacidades multimodales nativas. Base de los agentes de Google.' },
   { name: 'Gemini 2.5 Pro',  company: 'Gemini', date: 'Mar 2025', dateValue: toDateValue(2025,  3), color: '#8AB4F8', description: 'El modelo más capaz de Google. Razonamiento avanzado, compite con o3 y Claude en ciencia y código.' },
   { name: 'Gemini 2.5 Flash', company: 'Gemini', date: 'May 2025', dateValue: toDateValue(2025,  5), color: '#8AB4F8', description: 'Versión rápida y económica de Gemini 2.5. Razonamiento activable con coste mínimo.' },
+  { name: 'Gemini 3.5 Flash', company: 'Gemini', date: 'May 2026', dateValue: toDateValue(2026,  5), color: '#8AB4F8', description: '4× más rápido que otros modelos de frontera con inteligencia equiparable a los modelos insignia. Lidera en agentes, programación y multimodalidad.' },
+  { name: 'Gemini 3.5 Pro',   company: 'Gemini', date: 'Jun 2026', dateValue: toDateValue(2026,  6), color: '#8AB4F8', description: 'Modelo insignia de la serie 3.5. Anunciado en mayo 2026, lanzamiento público en junio. Máxima capacidad de la familia Gemini.' },
 
   // Meta
   { name: 'Llama 3',    company: 'Meta',      date: 'Abr 2024', dateValue: toDateValue(2024,  4), color: '#0668E1', description: 'El modelo open source más descargado de la historia. Igualó a GPT-3.5 y se ejecuta en local.' },

@@ -34,64 +34,96 @@ const modelsByCompany = Object.fromEntries(
 <section class="tl-section">
   <h2 class="tl-heading">Evolución de modelos de IA</h2>
 
-  <div class="tl-wrap">
-    <div class="tl-scroll">
-      <div class="tl-inner">
+  <!-- ── Desktop: swimlane horizontal ── -->
+  <div class="tl-desktop">
+    <div class="tl-wrap">
+      <div class="tl-scroll">
+        <div class="tl-inner">
 
-        <!-- Year axis -->
-        <div class="year-axis">
-          <div class="axis-spacer"></div>
-          <div class="axis-ticks">
-            {years.map(y => <span class="year-tick">{y}</span>)}
+          <div class="year-axis">
+            <div class="axis-spacer"></div>
+            <div class="axis-ticks">
+              {years.map(y => <span class="year-tick">{y}</span>)}
+            </div>
           </div>
-        </div>
 
-        <!-- Lanes -->
-        {COMPANIES.map(company => {
-          const models = modelsByCompany[company]
-          if (!models.length) return null
-          const color = models[0].color
-          return (
-            <div class="lane">
-              <div class="lane-name" style={`color: ${color}`}>{company}</div>
-              <div class="lane-track">
-                {models.map(model => (
-                  <button
-                    class="dot"
-                    style={`left: ${toPct(model.dateValue)}%; background: ${color}; top: calc(50% + ${model.topOffset}px)`}
-                    data-name={model.name}
-                    data-date={model.date}
-                    data-desc={model.description}
-                    aria-label={`${model.name} — ${model.date}`}
-                  />
-                ))}
+          {COMPANIES.map(company => {
+            const models = modelsByCompany[company]
+            if (!models.length) return null
+            const color = models[0].color
+            return (
+              <div class="lane">
+                <div class="lane-name" style={`color: ${color}`}>{company}</div>
+                <div class="lane-track">
+                  {models.map(model => (
+                    <button
+                      class="dot"
+                      style={`left: ${toPct(model.dateValue)}%; background: ${color}; top: calc(50% + ${model.topOffset}px)`}
+                      data-name={model.name}
+                      data-date={model.date}
+                      data-desc={model.description}
+                      aria-label={`${model.name} — ${model.date}`}
+                    />
+                  ))}
+                </div>
               </div>
+            )
+          })}
+
+        </div>
+      </div>
+
+      <div class="legend">
+        {COMPANIES.map(co => {
+          const color = AI_MODELS.find(m => m.company === co)?.color ?? '#888888'
+          return (
+            <div class="legend-item">
+              <span class="legend-dot" style={`background: ${color}`}></span>
+              <span>{co}</span>
             </div>
           )
         })}
-
       </div>
-    </div>
 
-    <!-- Legend -->
-    <div class="legend">
-      {COMPANIES.map(co => {
-        const color = AI_MODELS.find(m => m.company === co)?.color ?? '#888888'
-        return (
-          <div class="legend-item">
-            <span class="legend-dot" style={`background: ${color}`}></span>
-            <span>{co}</span>
+      <p class="mobile-hint">← desliza →</p>
+    </div>
+  </div>
+
+  <!-- ── Móvil: secciones verticales por empresa ── -->
+  <div class="tl-mobile">
+    {COMPANIES.map(company => {
+      const models = modelsByCompany[company]
+      if (!models.length) return null
+      const color = models[0].color
+      return (
+        <div class="mob-company">
+          <div class="mob-company-header">
+            <span class="mob-company-dot" style={`background: ${color}`}></span>
+            <span class="mob-company-name" style={`color: ${color}`}>{company}</span>
           </div>
-        )
-      })}
-    </div>
-
-    <p class="mobile-hint">← desliza →</p>
+          <div class="mob-models">
+            {models.map((model, idx) => (
+              <div class={`mob-model ${idx === models.length - 1 ? 'last' : ''}`}>
+                <div class="mob-model-line" style={`--co: ${color}`}></div>
+                <div class="mob-model-dot" style={`background: ${color}`}></div>
+                <div class="mob-model-body">
+                  <div class="mob-model-top">
+                    <span class="mob-model-name">{model.name}</span>
+                    <span class="mob-model-date">{model.date}</span>
+                  </div>
+                  <p class="mob-model-desc">{model.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    })}
   </div>
 </section>
 
-<!-- Tooltip — position: fixed, outside scroll context, single instance per page -->
-<div id="tt" role="tooltip" aria-hidden="true">
+<!-- Tooltip — desktop only, position: fixed outside scroll context -->
+<div id="tt" popover="manual" role="tooltip" aria-hidden="true">
   <div id="tt-arrow"></div>
   <p id="tt-name"></p>
   <p id="tt-date"></p>
@@ -99,6 +131,7 @@ const modelsByCompany = Object.fromEntries(
 </div>
 
 <style>
+/* ── Shared ── */
 .tl-section {
   max-width: 64rem;
   margin: 0 auto;
@@ -116,6 +149,15 @@ const modelsByCompany = Object.fromEntries(
   margin-bottom: 1rem;
 }
 
+/* ── Desktop swimlane (hidden on mobile) ── */
+.tl-desktop { display: block; }
+.tl-mobile  { display: none; }
+
+@media (max-width: 639px) {
+  .tl-desktop { display: none; }
+  .tl-mobile  { display: block; }
+}
+
 .tl-wrap {
   border: 1px solid #2A2A40;
   border-radius: 8px;
@@ -124,7 +166,6 @@ const modelsByCompany = Object.fromEntries(
   position: relative;
 }
 
-/* Right-edge fade — must be on tl-wrap (non-scrolling) */
 .tl-wrap::after {
   content: '';
   position: absolute;
@@ -146,11 +187,7 @@ const modelsByCompany = Object.fromEntries(
 
 .tl-inner { min-width: 720px; }
 
-/* Year axis */
-.year-axis {
-  display: flex;
-  margin-bottom: 10px;
-}
+.year-axis { display: flex; margin-bottom: 10px; }
 .axis-spacer { width: 76px; flex-shrink: 0; }
 .axis-ticks  { flex: 1; display: flex; }
 .year-tick {
@@ -162,7 +199,6 @@ const modelsByCompany = Object.fromEntries(
   left: 0; top: 100%; width: 1px; height: 6px; background: #2A2A40;
 }
 
-/* Lanes */
 .lane { display: flex; align-items: center; margin-bottom: 8px; }
 .lane-name {
   width: 72px; font-size: 10px; font-weight: 600;
@@ -177,7 +213,6 @@ const modelsByCompany = Object.fromEntries(
   overflow: visible;
 }
 
-/* Dots */
 .dot {
   position: absolute;
   top: 50%;
@@ -197,7 +232,6 @@ const modelsByCompany = Object.fromEntries(
   z-index: 5;
 }
 
-/* Legend */
 .legend {
   display: flex; gap: 14px; flex-wrap: wrap;
   padding: 10px 20px 0;
@@ -207,11 +241,12 @@ const modelsByCompany = Object.fromEntries(
 
 .mobile-hint { text-align: center; font-size: 10px; color: #3A3A5A; padding-top: 6px; letter-spacing: 1px; }
 
-/* Tooltip */
+/* ── Tooltip (desktop) — top-layer via Popover API (Baseline 2025) ── */
 #tt {
-  display: none;
   position: fixed;
-  z-index: 9999;
+  /* Reset popover UA defaults so JS positioning works */
+  margin: unset;
+  inset: unset;
   background: #1E1E3A;
   border: 1px solid #3A3A5A;
   border-radius: 8px;
@@ -220,7 +255,6 @@ const modelsByCompany = Object.fromEntries(
   pointer-events: none;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
 }
-#tt.tt-visible { display: block; }
 #tt-arrow {
   position: absolute;
   width: 0; height: 0;
@@ -232,6 +266,141 @@ const modelsByCompany = Object.fromEntries(
 #tt-name { font-size: 12px; font-weight: 700; color: #E8E8F0; margin: 0 0 2px; }
 #tt-date { font-size: 10px; color: #6A6A8A; margin: 0 0 6px; }
 #tt-desc { font-size: 11px; color: #A0A0C0; line-height: 1.5; margin: 0; }
+
+/* ── Móvil: layout vertical por empresa ── */
+.tl-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mob-company {
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  background: #13131F;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.mob-company-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #2A2A40;
+  background: rgba(255,255,255,0.02);
+}
+
+.mob-company-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.mob-company-name {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.mob-models {
+  padding: 8px 14px 10px;
+}
+
+.mob-model {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  grid-template-rows: auto;
+  column-gap: 10px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.mob-model.last {
+  padding-bottom: 4px;
+}
+
+/* Vertical timeline line */
+.mob-model-line {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  position: absolute;
+  left: 9px;
+  top: 16px;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--co), transparent);
+  opacity: 0.25;
+}
+
+.mob-model.last .mob-model-line {
+  display: none;
+}
+
+.mob-model-dot {
+  grid-column: 1;
+  grid-row: 1;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 0 3px #13131F;
+}
+
+.mob-model-body {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.mob-model-top {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.mob-model-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #E8E8F0;
+  line-height: 1.3;
+}
+
+.mob-model-date {
+  font-size: 9px;
+  color: #4A4A6A;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mob-model-desc {
+  font-size: 11px;
+  color: #7A7A9A;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── Scroll-driven entry animation for mobile model items ── */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    @keyframes mob-model-enter {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+    }
+    .tl-mobile .mob-model {
+      animation: mob-model-enter auto linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
 </style>
 
 <script>
@@ -246,7 +415,6 @@ const modelsByCompany = Object.fromEntries(
   const GAP  = 12
   let touchTimer: ReturnType<typeof setTimeout> | null = null
 
-  // visualViewport.width/height don't trigger a layout flush (unlike window.innerWidth/Height)
   const _vp = window.visualViewport
   let vw = _vp?.width ?? screen.width
   let vh = _vp?.height ?? screen.height
@@ -262,13 +430,13 @@ const modelsByCompany = Object.fromEntries(
 
     requestAnimationFrame(() => {
       position(clientX, clientY)
-      tt.classList.add('tt-visible')
+      if (!tt.matches(':popover-open')) tt.showPopover()
       tt.setAttribute('aria-hidden', 'false')
     })
   }
 
   function hide() {
-    tt.classList.remove('tt-visible')
+    if (tt.matches(':popover-open')) tt.hidePopover()
     tt.setAttribute('aria-hidden', 'true')
     if (touchTimer) { clearTimeout(touchTimer); touchTimer = null }
   }
@@ -296,7 +464,7 @@ const modelsByCompany = Object.fromEntries(
     ttArrow.style.transform = 'translateX(-50%)'
   }
 
-  document.querySelectorAll<HTMLElement>('.tl-section .dot').forEach(dot => {
+  document.querySelectorAll<HTMLElement>('.tl-desktop .dot').forEach(dot => {
     dot.addEventListener('mouseenter', e => show(dot, (e as MouseEvent).clientX, (e as MouseEvent).clientY))
     dot.addEventListener('mouseleave', hide)
     dot.addEventListener('focus',      () => {
@@ -317,5 +485,30 @@ const modelsByCompany = Object.fromEntries(
   document.addEventListener('touchend', e => {
     if (!(e.target as HTMLElement).classList.contains('dot')) hide()
   })
+
+  // Fallback for mobile scroll animations in browsers without scroll-driven animations (Firefox)
+  if (
+    !CSS.supports('(animation-timeline: view()) and (animation-range: entry)') &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ) {
+    const observer = new IntersectionObserver(
+      entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            ;(entry.target as HTMLElement).style.opacity = '1'
+            ;(entry.target as HTMLElement).style.transform = 'none'
+            observer.unobserve(entry.target)
+          }
+        }
+      },
+      { threshold: 0.1 }
+    )
+    document.querySelectorAll<HTMLElement>('.tl-mobile .mob-model').forEach(el => {
+      el.style.opacity = '0'
+      el.style.transform = 'translateY(10px)'
+      el.style.transition = 'opacity 0.4s ease, transform 0.4s ease'
+      observer.observe(el)
+    })
+  }
 })()
 </script>

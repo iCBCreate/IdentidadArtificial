@@ -173,9 +173,13 @@ Qué puedes hacer después de completar este tutorial.
 
 ## Structured data y enlazado interno
 
-### HowTo schema (automático)
+### Article schema (automático)
 
-El layout de tutoriales genera automáticamente un bloque JSON-LD de tipo `HowTo` para Google. No hace falta hacer nada en el MDX. Para que el schema sea útil, la estructura del tutorial debe ser legible: secciones con headings `##` claros, pasos en orden lógico, `tiempoEstimado` realista.
+El layout de tutoriales genera automáticamente un bloque JSON-LD de tipo `Article` con `articleSection: 'Tutorial'` para Google. No hace falta hacer nada en el MDX.
+
+> **Nota:** El schema `HowTo` fue deprecado por Google en septiembre 2023 y ya no genera rich results. El layout usa `Article` como reemplazo válido que sí es indexado correctamente.
+
+Para que el schema sea útil, la estructura del tutorial debe ser legible: secciones con headings `##` claros, pasos en orden lógico, `tiempoEstimado` realista.
 
 ### Enlazado interno
 

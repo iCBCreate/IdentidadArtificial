@@ -73,6 +73,28 @@ npm run deploy   # build completo + wrangler deploy (manual)
 
 El despliegue es **manual**: hay que ejecutar `npm run deploy` desde la CLI. El push a `main` no despliega automáticamente.
 
+## SEO y GEO
+
+El sitio implementa SEO técnico clásico y GEO (Generative Engine Optimization) para visibilidad en motores de respuesta:
+
+**Schema.org por tipo de página:**
+- Home: `WebSite` + `Organization` + `Blog` + `Person` (autor)
+- Posts: `Article` con `author.sameAs` → LinkedIn + GitHub
+- Tutoriales: `Article` con `articleSection: Tutorial` + `ItemList` en índice
+- `/como-funciona/`: `TechArticle`
+- `/mapa-ia/`: `Dataset`
+- `/archivo/`: `CollectionPage` + `ItemList` completo
+- `/radar/`: `CollectionPage` + `ItemList` de temas
+- `/sobre/`: `Person` con `jobTitle`, `knowsAbout` y `sameAs`
+
+**robots.txt:** todos los crawlers IA autorizados — GPTBot, ChatGPT-User, PerplexityBot, ClaudeBot, Google-Extended (Gemini training), OAI-SearchBot, Bytespider, Applebot-Extended, CCBot, anthropic-ai.
+
+**llms.txt:** lista artículos individuales con descripciones. Declara permisos RSL 1.0 (indexing, training, citation required). Charset UTF-8 explícito vía `_headers`.
+
+**llms-full.txt:** endpoint dinámico en `/source/pages/llms-full.txt.js` — genera el corpus completo con texto íntegro de cada post en runtime.
+
+**Sitemap:** `lastmod` real de cada archivo fuente, excluye páginas legales y paginación, detecta subdirectorios (`tutoriales/index.astro`) vía `addSubdirectoryIndexFiles`.
+
 ## Métricas privadas
 
 La ruta `/metricas/` permite consultar Search Console desde la web y descargar un informe JSON/CSV. Las credenciales no se exponen al navegador: viven como variables del Worker.

@@ -2,22 +2,62 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import KnowledgeGraph from '../components/KnowledgeGraph.astro'
 import { KNOWLEDGE_MAP } from '../data/generated/knowledge-map'
+import { SITE } from '../config'
+
+const postCount = KNOWLEDGE_MAP.nodes.filter(n => n.type === 'post').length
+const conceptCount = KNOWLEDGE_MAP.nodes.filter(n => n.type === 'concept').length
+const companyCount = KNOWLEDGE_MAP.nodes.filter(n => n.type === 'company').length
+const linkCount = KNOWLEDGE_MAP.links.length
+
+const datasetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Mapa Semántico de Identidad Artificial',
+  description: 'Grafo semántico generado en build-time que conecta artículos, conceptos, empresas y categorías del corpus de Identidad Artificial sobre IA generativa.',
+  url: `${SITE.url}/mapa-ia/`,
+  inLanguage: 'es',
+  isAccessibleForFree: true,
+  creator: {
+    '@type': 'Person',
+    name: SITE.author,
+    url: `${SITE.url}/sobre/`,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+  },
+  keywords: ['inteligencia artificial', 'grafo semántico', 'LLM', 'modelos de lenguaje', 'mapa conceptual IA'],
+}
 ---
 
 <BaseLayout
-  title="Mapa IA"
-  description="Grafo semántico generado en build-time a partir de artículos, tags, conceptos y relaciones de Identidad Artificial."
+  title="Mapa Semántico de IA"
+  description="Grafo semántico que conecta artículos, conceptos, empresas y modelos de IA generados en el sitio. Explora las relaciones entre temas de inteligencia artificial."
+  jsonLd={datasetSchema}
 >
   <section class="page-hero">
-    <p>Base de conocimiento</p>
+    <p class="page-eyebrow">Base de conocimiento</p>
     <h1>Mapa semántico de IA</h1>
-    <span>
+    <p class="page-subtitle">
       Artículos, conceptos, empresas y categorías conectados por el pipeline del sitio.
       No usa IA en vivo: los datos se derivan durante el build.
-    </span>
+    </p>
   </section>
 
   <div class="page-body">
+    <section class="graph-meta">
+      <h2>Qué muestra este grafo</h2>
+      <p>
+        El grafo conecta <strong>{postCount} artículos</strong> con <strong>{conceptCount} conceptos</strong>,
+        <strong>{companyCount} empresas</strong> y sus categorías mediante <strong>{linkCount} relaciones</strong>
+        extraídas automáticamente por el pipeline de build. Cada nodo es un elemento del corpus;
+        cada arista representa una co-ocurrencia de tags, categoría compartida o mención explícita.
+        Los datos se regeneran en cada deploy sin llamadas a APIs externas.
+        Más detalles en <a href="/como-funciona/">cómo funciona el sitio</a>.
+      </p>
+    </section>
+
     <KnowledgeGraph nodes={KNOWLEDGE_MAP.nodes} links={KNOWLEDGE_MAP.links} />
   </div>
 </BaseLayout>
@@ -28,13 +68,16 @@ import { KNOWLEDGE_MAP } from '../data/generated/knowledge-map'
   margin: 0 auto;
   padding: 56px 24px 26px;
 }
-.page-hero p {
+
+.page-eyebrow {
   color: #60A5FA;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .12em;
   text-transform: uppercase;
+  margin: 0 0 10px;
 }
+
 h1 {
   color: #E8E8F0;
   font-size: clamp(34px, 6vw, 58px);
@@ -42,7 +85,8 @@ h1 {
   line-height: 1;
   margin-top: 10px;
 }
-.page-hero span {
+
+.page-subtitle {
   display: block;
   max-width: 680px;
   color: #A0A0C0;
@@ -50,9 +94,48 @@ h1 {
   line-height: 1.7;
   margin-top: 16px;
 }
+
 .page-body {
   max-width: 72rem;
   margin: 0 auto;
   padding: 16px 24px 48px;
+}
+
+.graph-meta {
+  max-width: 680px;
+  margin: 0 auto 32px;
+}
+
+.graph-meta h2 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A0A0C0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #2A2A40;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+.graph-meta p {
+  color: #C8C8E0;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.graph-meta strong {
+  color: #E8E8F0;
+}
+
+.graph-meta a {
+  color: #60A5FA;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+.graph-meta a:hover {
+  border-bottom-color: #60A5FA;
 }
 </style>

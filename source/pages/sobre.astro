@@ -13,14 +13,16 @@ const personSchema = {
   '@type': 'Person',
   name: SITE.author,
   url: `${SITE.url}/sobre/`,
+  jobTitle: 'Desarrollador y editor de Identidad Artificial',
+  description: 'Construye sistemas editoriales con IA generativa. Especializado en LLMs, automatización editorial y arquitectura web con Astro y Cloudflare.',
   sameAs: [SITE.linkedin, SITE.github],
-  knowsAbout: ['Inteligencia Artificial', 'LLMs', 'Astro', 'Claude'],
+  knowsAbout: ['Inteligencia Artificial', 'LLMs', 'Astro', 'Claude', 'Automatización editorial', 'Arquitectura web'],
 }
 ---
 
 <BaseLayout
-  title="Sobre Identidad Artificial: blog de IA en español"
-  description="Qué es Identidad Artificial, quién hay detrás y cuál es el propósito."
+  title="Sobre Identidad Artificial: Ignacio Cubelas y el proyecto"
+  description="Ignacio Cubelas construye Identidad Artificial: blog técnico sobre IA generativa, LLMs y agentes en español. Pipeline editorial 100% auditable, contenido con trazabilidad total."
   jsonLd={personSchema}
 >
   <!-- Mini hero -->
@@ -38,7 +40,7 @@ const personSchema = {
     <div class="sobre-hero-content">
       <span class="sobre-eyebrow">Sobre el proyecto</span>
       <h1 class="sobre-title">
-        Un experimento<br /><span class="accent">en público</span>
+        Identidad Artificial<br /><span class="accent">— Ignacio Cubelas</span>
       </h1>
       <p class="sobre-subtitle">
         ¿Qué pasa cuando los modelos de lenguaje<br />escriben sobre sí mismos?
@@ -49,38 +51,40 @@ const personSchema = {
   <div class="sobre-body">
 
     <!-- El experimento -->
-    <div class="section-label">El experimento</div>
+    <h2 class="section-label">El experimento</h2>
     <div class="sobre-grid">
       <div class="sobre-card fade-up" style="animation-delay: 0.05s">
         <div class="card-icon">⚗</div>
-        <p>El contenido de este sitio es generado por <strong>Claude</strong> (Anthropic), con revisión humana antes de publicar. No es un blog de opinión personal ni un agregador de noticias.</p>
+        <p>El contenido de este sitio es generado por <strong>Claude</strong> (Anthropic), con revisión humana antes de publicar. No es un blog de opinión personal ni un agregador de noticias. Cada pieza parte de un prompt documentado y pasa por revisión editorial antes de aparecer aquí.</p>
       </div>
       <div class="sobre-card fade-up" style="animation-delay: 0.15s">
         <div class="card-icon">🔍</div>
-        <p>Es un intento de entender la IA desde dentro, usando las mismas herramientas que analizo. Cada artículo es trazable: modelo, fecha, prompt base y estado de revisión.</p>
+        <p>Es un intento de entender la IA desde dentro, usando las mismas herramientas que analizo. Cada artículo es trazable: modelo, fecha, prompt base y estado de revisión. El pipeline completo es público en GitHub para quien quiera auditarlo.</p>
       </div>
     </div>
 
     <!-- Quién está detrás -->
-    <div class="section-label">Quién está detrás</div>
+    <h2 class="section-label">Quién está detrás</h2>
     <div class="autor-card fade-up" style="animation-delay: 0.1s">
       <div class="autor-avatar" aria-hidden="true">IC</div>
       <div class="autor-info">
         <div class="autor-name">Ignacio Cubelas</div>
         <p class="autor-bio">
-          Construyo este sitio como parte de un proceso de aprendizaje sobre sistemas de IA,
-          automatización editorial y arquitectura web. El código y el pipeline de generación
-          son públicos porque creo que la <strong>transparencia es parte del producto</strong>, no un extra.
+          Llevo años trabajando en la intersección entre tecnología, contenido y automatización.
+          Construyo Identidad Artificial como laboratorio público sobre sistemas editoriales con IA generativa:
+          cómo funcionan los LLMs aplicados a la creación de conocimiento, qué significa revisión humana
+          real en ese contexto, y cómo se puede mantener <strong>trazabilidad total</strong> sin sacrificar utilidad.
+          El código y el pipeline son públicos porque la transparencia es parte del producto, no un extra.
         </p>
         <div class="autor-links">
-          <a href={SITE.github} target="_blank" rel="noopener noreferrer" class="autor-link">GitHub →</a>
-          <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" class="autor-link">LinkedIn →</a>
+          <a href={SITE.github} target="_blank" rel="noopener noreferrer me" class="autor-link">GitHub →</a>
+          <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer me" class="autor-link">LinkedIn →</a>
         </div>
       </div>
     </div>
 
     <!-- Es / No es -->
-    <div class="section-label">Lo que es y lo que no es</div>
+    <h2 class="section-label">Lo que es y lo que no es</h2>
     <div class="principles-grid fade-up" style="animation-delay: 0.1s">
       <div class="principle is">
         <span class="ptag ptag-is">Es</span>
@@ -229,7 +233,7 @@ const personSchema = {
   margin-bottom: 24px;
   margin-top: 48px;
 }
-.section-label:first-child { margin-top: 0; }
+.section-label:first-of-type { margin-top: 0; }
 
 /* ── Cards ── */
 .sobre-grid {

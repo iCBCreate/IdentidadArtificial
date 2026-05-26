@@ -148,6 +148,48 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "claude-mythos-glasswing-10000-vulnerabilidades": {
+    "executiveSummary": "Anthropic publicó los primeros resultados de Project Glasswing: Claude Mythos Preview encontró más de 10.000 vulnerabilidades críticas en software estratégico en solo un mes. Anthropic publicó el 22 de mayo de 2026 los primeros resultados de Project Glasswing , su programa de ciberseguridad basado en Claude Mythos Preview . El balance de un mes de operación con unos cincuenta socios seleccionados: más de 10.000 vulnerabilidades de severidad alta o crítica identificadas en software considerado estratégico para internet, empresas e infraestructuras esenciales.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Agente, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Anthropic publicó los primeros resultados de Project Glasswing: Claude Mythos Preview encontró más de 10.000 vulnerabilidades críticas en software estratégico en solo un mes.",
+      "Si no estás familiarizado con el modelo, el post anterior sobre Mythos y el incidente del sandbox /anthropic-mythos-ciberseguridad-sandbox/ describe los antecedentes y las capacidades que lo diferencian del resto de la familia Claude.",
+      "Conceptos detectados por el pipeline: LLM, Agente, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre LLM?",
+        "answer": "Anthropic publicó los primeros resultados de Project Glasswing: Claude Mythos Preview encontró más de 10.000 vulnerabilidades críticas en software estratégico en solo un mes."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender modelos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 8,
+      "density": "media",
+      "bestFor": "comparar capacidades de modelos"
+    }
+  },
   "codex-chatgpt-movil-trabajo-remoto": {
     "executiveSummary": "OpenAI lleva Codex a la app móvil de ChatGPT para supervisar tareas, aprobar comandos y mantener agentes de código en marcha desde el teléfono. OpenAI ha llevado Codex a la app móvil de ChatGPT . La actualización, anunciada el 14 de mayo de 2026 bajo el título \"Work with Codex from anywhere\", no presenta un nuevo modelo, sino una forma distinta de trabajar con agentes de código: iniciar, seguir, desbloquear y revisar tareas desde el teléfono mientras Codex sigue ejecutándose en una máquina de confianza.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

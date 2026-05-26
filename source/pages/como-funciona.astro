@@ -10,13 +10,13 @@ const pills = [
 ]
 
 const stack = [
-  { name: 'Astro 6', desc: 'Output estático con JavaScript mínimo para interacción', icon: '🚀' },
-  { name: 'Tailwind CSS v4', desc: 'Estilos utilitarios, CSS inlinado en build', icon: '🎨' },
-  { name: 'MDX', desc: 'Posts y tutoriales en Markdown con soporte de componentes', icon: '📝' },
-  { name: 'Cloudflare', desc: 'Workers + Assets, despliegue manual con wrangler', icon: '☁️' },
-  { name: 'Modelos de IA', desc: 'Claude, GPT-4o, Gemini… registrado en metadatos', icon: '🤖' },
-  { name: 'Satori + resvg', desc: 'Imágenes Open Graph generadas en build time', icon: '🖼️' },
-  { name: 'Sharp', desc: 'Optimización hero: AVIF quality 30 + srcset automático (ahorro ~30% vs quality 50)', icon: '⚡' },
+  { name: 'Astro 6', desc: 'Output estático con JavaScript mínimo para interacción', icon: '🚀', href: 'https://astro.build' },
+  { name: 'Tailwind CSS v4', desc: 'Estilos utilitarios, CSS inlinado en build', icon: '🎨', href: 'https://tailwindcss.com' },
+  { name: 'MDX', desc: 'Posts y tutoriales en Markdown con soporte de componentes', icon: '📝', href: 'https://mdxjs.com' },
+  { name: 'Cloudflare Workers', desc: 'Workers + Assets, despliegue manual con wrangler', icon: '☁️', href: 'https://workers.cloudflare.com' },
+  { name: 'Modelos de IA', desc: 'Claude, GPT-4o, Gemini… registrado en metadatos', icon: '🤖', href: 'https://claude.ai' },
+  { name: 'Satori + resvg', desc: 'Imágenes Open Graph generadas en build time', icon: '🖼️', href: 'https://github.com/vercel/satori' },
+  { name: 'Sharp', desc: 'Optimización hero: AVIF quality 30 + srcset automático (ahorro ~30% vs quality 50)', icon: '⚡', href: 'https://sharp.pixelplumbing.com' },
   { name: 'Datos derivados', desc: 'Mapa semántico, lecturas IA y radar editorial en build-time', icon: '🧠' },
 ]
 
@@ -35,7 +35,7 @@ const pipeline = [
 ]
 
 const aiSystem = [
-  { label: 'Mapa semántico', desc: 'generate-knowledge-map.mjs extrae categorías, tags, empresas y conceptos para alimentar /mapa-ia/ y el bloque “Conecta con” de cada post.' },
+  { label: 'Mapa semántico', desc: 'generate-knowledge-map.mjs extrae categorías, tags, empresas y conceptos para alimentar /mapa-ia/ y el bloque "Conecta con" de cada post.' },
   { label: 'Lecturas generadas', desc: 'generate-post-insights.mjs crea resumen ejecutivo, lectura técnica, puntos clave, glosario y FAQ por artículo sin llamar a una API en runtime.' },
   { label: 'Radar editorial', desc: 'generate-editorial-radar.mjs compara el corpus con temas técnicos pendientes y publica señales filtradas en /radar/.' },
   { label: 'Expediente IA', desc: 'Cada post muestra modelo, prompt base, revisión humana, confianza, calidad de fuentes, claims revisados y correcciones cuando existen.' },
@@ -61,12 +61,14 @@ const a11y = [
 ]
 
 const geo = [
-  { label: 'Open Graph + Twitter Card', desc: 'Imagen OG por post generada en build-time con título, categoría y fecha' },
-  { label: 'JSON-LD (schema.org)', desc: 'Article en posts y HowTo en tutoriales, generados en build-time para Google y otros motores' },
-  { label: 'Sitemap XML', desc: 'Generado automáticamente por @astrojs/sitemap' },
-  { label: 'robots.txt', desc: 'Indexación total por buscadores y bots de IA' },
-  { label: 'llms.txt', desc: 'Estándar emergente para indicar a sistemas de IA cómo indexar el contenido' },
-  { label: 'RSS', desc: 'Feed estándar para lectores y agregadores' },
+  { label: 'Open Graph + Twitter Card', desc: 'Imagen OG por post generada en build-time con título, categoría y fecha. og:image, og:url, og:locale es_ES y twitter:card summary_large_image en todas las páginas.' },
+  { label: 'JSON-LD por tipo de página', desc: 'WebSite + Organization + Blog en home, TechArticle en /como-funciona/, Dataset en /mapa-ia/, CollectionPage + ItemList en /archivo/ y /radar/, Article en posts y tutoriales. Generados en build-time, en el HTML inicial — no requieren JS.' },
+  { label: 'Person schema con sameAs', desc: 'Ignacio Cubelas como entidad en cada post: url apunta a /sobre/, sameAs enlaza LinkedIn y GitHub. Permite a sistemas de IA vincular el autor con su identidad real.' },
+  { label: 'Sitemap XML', desc: 'Generado por @astrojs/sitemap con lastmod real de cada archivo fuente. Excluye páginas legales, paginación y posts retirados. /tutoriales/ incluye lastmod vía detección recursiva de subdirectorios.' },
+  { label: 'robots.txt con todos los crawlers IA', desc: 'GPTBot, ChatGPT-User, PerplexityBot, ClaudeBot, Google-Extended, OAI-SearchBot, Bytespider, Applebot-Extended, CCBot, anthropic-ai — todos con Allow: /. Charset UTF-8 explícito en _headers.' },
+  { label: 'llms.txt + llms-full.txt + RSL 1.0', desc: 'llms.txt lista artículos individuales con descripciones y declara permisos RSL 1.0 (indexing, training, citation required). llms-full.txt genera en runtime el corpus completo con texto íntegro de cada post.' },
+  { label: 'Byline rel="author"', desc: 'Cada post muestra "Por Ignacio Cubelas" con rel="author" enlazado a /sobre/. Señal E-E-A-T visible en HTML — no solo en schema.' },
+  { label: 'RSS', desc: 'Feed estándar para lectores y agregadores. Referenciado en <head> con rel="alternate" en todas las páginas.' },
 ]
 
 const security = [
@@ -77,11 +79,32 @@ const security = [
   { label: 'Referrer-Policy', desc: 'Limita la información de referencia enviada' },
   { label: 'Permissions-Policy', desc: 'Deshabilita acceso a cámara, micrófono y geolocalización' },
 ]
+
+const techArticleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'Cómo funciona Identidad Artificial: stack, pipeline y despliegue',
+  description: 'Documentación técnica del stack, pipeline editorial y arquitectura de Identidad Artificial: Astro 6, Cloudflare Workers, IA generativa y GEO.',
+  url: `${SITE.url}/como-funciona/`,
+  inLanguage: 'es',
+  author: {
+    '@type': 'Person',
+    name: SITE.author,
+    url: `${SITE.url}/sobre/`,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+  },
+  keywords: ['Astro', 'Cloudflare Workers', 'IA generativa', 'pipeline editorial', 'LLMs', 'MDX', 'GEO', 'SEO'],
+}
 ---
 
 <BaseLayout
-  title="Cómo funciona este blog de IA: stack, pipeline y despliegue"
-  description="El pipeline completo: stack, flujo de generación, SEO/GEO, infraestructura de despliegue y decisiones de diseño de Identidad Artificial."
+  title="Stack y pipeline del blog de IA — Cómo funciona"
+  description="El pipeline completo de Identidad Artificial: stack técnico, flujo de generación con IA, SEO/GEO, infraestructura Cloudflare y decisiones de diseño. Documentación pública y auditable."
+  jsonLd={techArticleSchema}
 >
   <!-- Mini hero -->
   <section class="cf-hero">
@@ -98,7 +121,7 @@ const security = [
     <div class="cf-hero-content">
       <span class="cf-eyebrow">Transparencia radical</span>
       <h1 class="cf-title">
-        Cómo <span class="accent">funciona</span>
+        Cómo funciona: <span class="accent">stack, pipeline y IA</span>
       </h1>
       <p class="cf-subtitle">
         Stack, pipeline de publicación, IA build-time,<br />SEO/GEO e infraestructura de despliegue.
@@ -109,13 +132,16 @@ const security = [
   <div class="cf-body">
 
     <!-- Stack -->
-    <div class="section-label">El stack</div>
+    <h2 class="section-label">El stack</h2>
     <div class="stack-grid">
       {stack.map((item, i) => (
         <div class="stack-card fade-up" style={`animation-delay: ${i * 0.04}s`}>
           <span class="stack-icon" aria-hidden="true">{item.icon}</span>
           <div>
-            <div class="stack-name">{item.name}</div>
+            {item.href
+              ? <a href={item.href} target="_blank" rel="noopener noreferrer" class="stack-name stack-link">{item.name}</a>
+              : <div class="stack-name">{item.name}</div>
+            }
             <div class="stack-desc">{item.desc}</div>
           </div>
         </div>
@@ -123,18 +149,18 @@ const security = [
     </div>
 
     <!-- Pipeline -->
-    <div class="section-label">El pipeline de publicación</div>
-    <div class="pipeline fade-up" style="animation-delay: 0.05s">
+    <h2 class="section-label">El pipeline de publicación</h2>
+    <ol class="pipeline fade-up" style="animation-delay: 0.05s">
       {pipeline.map((step) => (
-        <div class="pipeline-step">
-          <div class="step-num">{step.n}</div>
+        <li class="pipeline-step">
+          <div class="step-num" aria-hidden="true">{step.n}</div>
           <div class="step-label">{step.label}</div>
-        </div>
+        </li>
       ))}
-    </div>
+    </ol>
 
     <!-- Repo structure -->
-    <div class="section-label">Estructura del repositorio</div>
+    <h2 class="section-label">Estructura del repositorio</h2>
     <div class="code-block fade-up" style="animation-delay: 0.05s">
       <pre><code>{`identidad-artificial/
 ├── source/
@@ -166,7 +192,7 @@ const security = [
     </div>
 
     <!-- Frontmatter -->
-    <div class="section-label">Frontmatter de cada post</div>
+    <h2 class="section-label">Frontmatter de cada post</h2>
     <p class="cf-note fade-up" style="animation-delay: 0.03s">
       Metadatos de transparencia validados con Zod en build time y mostrados al pie de cada artículo:
     </p>
@@ -197,7 +223,7 @@ claimsReviewed:
       <code>claimsReviewed</code> alimentan el nuevo expediente IA.
     </p>
 
-    <div class="section-label">Frontmatter de cada tutorial</div>
+    <h2 class="section-label">Frontmatter de cada tutorial</h2>
     <p class="cf-note fade-up" style="animation-delay: 0.03s">
       Los tutoriales viven en una colección separada para tener campos propios: herramienta, dificultad y tiempo estimado.
     </p>
@@ -219,7 +245,7 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
     </div>
 
     <!-- IA build-time -->
-    <div class="section-label">IA aplicada al sitio</div>
+    <h2 class="section-label">IA aplicada al sitio</h2>
     <p class="cf-note fade-up" style="animation-delay: 0.03s">
       La IA no aparece como un chatbot en vivo. El enfoque es más barato, auditable y estable:
       el build transforma el corpus en datos derivados que luego se renderizan como páginas estáticas.
@@ -241,7 +267,7 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
     </div>
 
     <!-- Rendimiento web -->
-    <div class="section-label">Rendimiento web</div>
+    <h2 class="section-label">Rendimiento web</h2>
     <p class="cf-note fade-up" style="animation-delay: 0.03s">
       El sitio aplica las APIs modernas del navegador para mejorar Core Web Vitals y la experiencia de navegación sin dependencias extra:
     </p>
@@ -255,7 +281,7 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
     </div>
 
     <!-- Accesibilidad -->
-    <div class="section-label">Accesibilidad</div>
+    <h2 class="section-label">Accesibilidad</h2>
     <p class="cf-note fade-up" style="animation-delay: 0.03s">
       El sitio cumple WCAG 2.1 AA como mínimo. Las mejoras se aplican progresivamente sin romper la estética ni añadir dependencias externas:
     </p>
@@ -269,7 +295,7 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
     </div>
 
     <!-- SEO/GEO -->
-    <div class="section-label">Infraestructura SEO y GEO</div>
+    <h2 class="section-label">Infraestructura SEO y GEO</h2>
     <p class="cf-note fade-up" style="animation-delay: 0.03s">
       GEO (Generative Engine Optimization) es el equivalente del SEO para motores de respuesta como ChatGPT, Perplexity o Claude. El sitio está preparado para ambos:
     </p>
@@ -283,7 +309,7 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
     </div>
 
     <!-- Seguridad -->
-    <div class="section-label">Seguridad</div>
+    <h2 class="section-label">Seguridad</h2>
     <p class="cf-note fade-up" style="animation-delay: 0.03s">
       Cabeceras HTTP aplicadas a nivel de Cloudflare via <code>public/_headers</code>:
     </p>
@@ -297,7 +323,7 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
     </div>
 
     <!-- Variables de entorno -->
-    <div class="section-label">Variables de entorno</div>
+    <h2 class="section-label">Variables de entorno</h2>
     <div class="env-card fade-up" style="animation-delay: 0.05s">
       <span class="env-icon" aria-hidden="true">🔒</span>
       <p>Ninguna credencial está en el repositorio. Las variables de entorno se gestionan exclusivamente en el panel de Cloudflare.</p>
@@ -424,7 +450,7 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
   margin-bottom: 20px;
   margin-top: 48px;
 }
-.section-label:first-child { margin-top: 0; }
+.section-label:first-of-type { margin-top: 0; }
 
 .cf-note {
   font-size: 14px;
@@ -474,6 +500,13 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
   margin-bottom: 4px;
 }
 
+.stack-link {
+  display: block;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.stack-link:hover { color: #A78BFA; }
+
 .stack-desc {
   font-size: 12px;
   color: #8080A0;
@@ -485,6 +518,9 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
   border: 1px solid #2A2A40;
   border-radius: 8px;
   overflow: hidden;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .pipeline-step {

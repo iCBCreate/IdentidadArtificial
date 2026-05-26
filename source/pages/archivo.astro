@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import PostCard from '../components/PostCard.astro'
 import Pagination from '../components/Pagination.astro'
+import { SITE } from '../config'
 import {
   ARCHIVE_PAGE_SIZE,
   calcReadingTime,
@@ -20,13 +21,44 @@ const pills = [
   ['modelos', 'conceptos', 'arquitectura', 'herramientas', 'inteligencia artificial', 'tendencias', 'ética'],
   ['Claude', 'GPT-4o', 'Gemini', 'RAG', 'agentes', 'contexto', 'tokens', 'embeddings', 'fine-tuning'],
 ]
+
+const archiveSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Artículos de IA en español — Identidad Artificial',
+  description: 'Todos los artículos de Identidad Artificial sobre IA generativa, LLMs, modelos y agentes en español. Análisis técnicos con revisión experta.',
+  url: `${SITE.url}/archivo/`,
+  inLanguage: 'es',
+  isAccessibleForFree: true,
+  author: {
+    '@type': 'Person',
+    name: SITE.author,
+    url: `${SITE.url}/sobre/`,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+  },
+  mainEntity: {
+    '@type': 'ItemList',
+    name: 'Artículos sobre inteligencia artificial',
+    numberOfItems: allPosts.length,
+    itemListElement: allPosts.map((post, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: post.data.title,
+      url: `${SITE.url}/${post.id}/`,
+    })),
+  },
+}
 ---
 
 <BaseLayout
-  title="Archivo"
-  description="Todos los artículos publicados en Identidad Artificial."
+  title="Artículos de IA en español"
+  description="Todos los artículos de Identidad Artificial sobre IA generativa, LLMs, modelos y agentes en español. Análisis técnicos con revisión experta."
+  jsonLd={archiveSchema}
 >
-  <!-- Header visual -->
   <section class="archivo-hero">
     <div class="pills-bg" aria-hidden="true">
       {pills.map((row, i) => (
@@ -39,8 +71,8 @@ const pills = [
     </div>
     <div class="pills-overlay"></div>
     <div class="archivo-hero-content">
-      <span class="archivo-eyebrow">Identidad Artificial</span>
-      <h1 class="archivo-title">Archivo</h1>
+      <span class="archivo-eyebrow">Todo el corpus</span>
+      <h1 class="archivo-title">Artículos de IA</h1>
       <p class="archivo-count">
         <span class="count-num">{allPosts.length}</span>
         {allPosts.length === 1 ? 'artículo publicado' : 'artículos publicados'}
@@ -54,7 +86,7 @@ const pills = [
   </section>
 
   <div class="archivo-body">
-    <h2 class="section-label">Todos los artículos</h2>
+    <h2 class="section-label" aria-label="Listado completo de artículos sobre inteligencia artificial">Todos los artículos</h2>
 
     <div class="cards-grid">
       {posts.map((post) => (
@@ -215,7 +247,7 @@ const pills = [
   margin-bottom: 24px;
 }
 
-/* ── Cards grid (igual al Home) ── */
+/* ── Cards grid ── */
 .cards-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

@@ -2,22 +2,69 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import EditorialRadar from '../components/EditorialRadar.astro'
 import { EDITORIAL_RADAR } from '../data/generated/editorial-radar'
+import { SITE } from '../config'
+
+const topicCount = EDITORIAL_RADAR.topics.length
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Radar Editorial — Huecos de contenido IA',
+  description: 'Análisis automático de huecos de contenido sobre inteligencia artificial generativa. Temas detectados por el pipeline editorial de Identidad Artificial a partir del corpus publicado.',
+  url: `${SITE.url}/radar/`,
+  inLanguage: 'es',
+  isAccessibleForFree: true,
+  author: {
+    '@type': 'Person',
+    name: SITE.author,
+    url: `${SITE.url}/sobre/`,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+  },
+  mainEntity: {
+    '@type': 'ItemList',
+    name: 'Temas detectados por el radar editorial',
+    numberOfItems: topicCount,
+    itemListElement: EDITORIAL_RADAR.topics.map((t, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: t.topic,
+      description: t.intent,
+    })),
+  },
+}
 ---
 
 <BaseLayout
-  title="Radar Editorial IA"
-  description="Temas detectados por el radar editorial de Identidad Artificial a partir del corpus existente."
+  title="Radar Editorial — Huecos de contenido IA"
+  description="Análisis automático de huecos de contenido sobre IA generativa. El pipeline detecta temas sin cobertura en el corpus publicado y los prioriza por señales editoriales."
+  jsonLd={collectionSchema}
 >
   <section class="page-hero">
-    <p>Sistema editorial</p>
+    <p class="page-eyebrow">Sistema editorial</p>
     <h1>Radar Editorial IA</h1>
-    <span>
+    <p class="page-subtitle">
       Temas que el pipeline sugiere vigilar a partir del contenido publicado,
       las etiquetas existentes y los huecos técnicos del proyecto.
-    </span>
+    </p>
   </section>
 
   <div class="page-body">
+    <section class="radar-meta">
+      <h2>Qué muestra este radar</h2>
+      <p>
+        El radar analiza el corpus de <a href="/">{SITE.name}</a> en cada build y detecta
+        <strong>{topicCount} huecos de contenido</strong> — temas con señales en los artículos
+        existentes pero sin pieza dedicada. Cada entrada incluye la intención de búsqueda estimada,
+        las etiquetas relacionadas y los artículos que generaron la señal.
+        Los datos se regeneran en cada deploy sin llamadas a APIs externas.
+        Más detalles en <a href="/como-funciona/">cómo funciona el sitio</a>.
+      </p>
+    </section>
+
     <EditorialRadar radar={EDITORIAL_RADAR} />
   </div>
 </BaseLayout>
@@ -28,13 +75,16 @@ import { EDITORIAL_RADAR } from '../data/generated/editorial-radar'
   margin: 0 auto;
   padding: 56px 24px 26px;
 }
-.page-hero p {
+
+.page-eyebrow {
   color: #34D399;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .12em;
   text-transform: uppercase;
+  margin: 0 0 10px;
 }
+
 h1 {
   color: #E8E8F0;
   font-size: clamp(34px, 6vw, 58px);
@@ -42,7 +92,8 @@ h1 {
   line-height: 1;
   margin-top: 10px;
 }
-.page-hero span {
+
+.page-subtitle {
   display: block;
   max-width: 680px;
   color: #A0A0C0;
@@ -50,9 +101,48 @@ h1 {
   line-height: 1.7;
   margin-top: 16px;
 }
+
 .page-body {
   max-width: 64rem;
   margin: 0 auto;
   padding: 16px 24px 48px;
+}
+
+.radar-meta {
+  max-width: 680px;
+  margin: 0 auto 32px;
+}
+
+.radar-meta h2 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A0A0C0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #2A2A40;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+.radar-meta p {
+  color: #C8C8E0;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.radar-meta strong {
+  color: #E8E8F0;
+}
+
+.radar-meta a {
+  color: #34D399;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+.radar-meta a:hover {
+  border-bottom-color: #34D399;
 }
 </style>

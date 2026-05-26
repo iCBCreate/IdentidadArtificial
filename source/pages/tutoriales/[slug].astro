@@ -23,15 +23,18 @@ const canonicalURL = new URL(`/tutoriales/${tutorial.id}/`, 'https://identidadar
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'HowTo',
+  '@type': 'Article',
+  articleSection: 'Tutorial',
+  learningResourceType: 'tutorial',
   name: tutorial.data.title,
+  headline: tutorial.data.title,
   description: tutorial.data.description,
   datePublished: new Date(tutorial.data.pubDate).toISOString(),
   dateModified: tutorial.data.generatedAt,
   author: {
     '@type': 'Person',
     name: 'Ignacio Cubelas',
-    url: 'https://identidadartificial.com',
+    url: 'https://identidadartificial.com/sobre/',
   },
   publisher: {
     '@type': 'Organization',
@@ -65,7 +68,7 @@ const jsonLd = {
       <h1 class="tutorial-title">{tutorial.data.title}</h1>
       <p class="tutorial-description">{tutorial.data.description}</p>
       <div class="tutorial-byline">
-        Por {tutorial.data.generatedBy} · Actualizado {formattedDate}
+        Por <a href="/sobre/" class="byline-author">Ignacio Cubelas</a> · Actualizado {formattedDate}
       </div>
     </header>
 
@@ -164,6 +167,13 @@ const jsonLd = {
   color: #6A6A8A;
   font-size: 13px;
 }
+
+.byline-author {
+  color: #A78BFA;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.byline-author:hover { color: #C4B5FD; }
 
 .tutorial-content {
   padding: 32px 0;

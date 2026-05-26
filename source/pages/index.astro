@@ -35,9 +35,22 @@ const homepageJsonLd = [
     '@type': 'Organization',
     name: SITE.name,
     url: SITE.url,
-    logo: `${SITE.url}/og/default.png`,
+    logo: `${SITE.url}/favicon.svg`,
     founder: { '@type': 'Person', name: SITE.author },
     sameAs: [SITE.github, SITE.linkedin],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+    inLanguage: 'es',
+    author: {
+      '@type': 'Person',
+      name: SITE.author,
+      url: SITE.linkedin,
+    },
   },
 ]
 ---

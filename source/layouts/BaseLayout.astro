@@ -25,7 +25,7 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, SITE.url).href
 const fullTitle = title === SITE.name
-  ? `${SITE.name} — Blog de Inteligencia Artificial en Español`
+  ? `${SITE.name} | Blog de IA en Español`
   : `${title} — ${SITE.name}`
 const ogImage = new URL(image, SITE.url).href
 ---

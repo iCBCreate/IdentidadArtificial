@@ -30,10 +30,11 @@ const pills = [
       <span class="word">Artificial</span>{' '}
       <span class="word dim-word">—</span>{' '}
       <span class="word">IA desde dentro</span>
+      <span class="sr-only"> — Blog de Inteligencia Artificial en Español</span>
     </h1>
     <p class="hero-subtitle">
       <span class="hero-hl">Artículos técnicos</span> sobre inteligencia artificial —<br />
-      generados por IA generativa, revisados por humanos.
+      por <a href="/sobre/" class="hero-author">Ignacio Cubelas</a>, con revisión experta en cada pieza.
     </p>
     <div class="hero-cta">
       <a href="#entradas" class="btn-primary">Últimas entradas</a>
@@ -148,6 +149,8 @@ const pills = [
   animation: fadeUp 0.5s 0.6s forwards;
 }
 .hero-hl { color: #C4B5FD; }
+.hero-author { color: #C4B5FD; text-decoration: underline; text-underline-offset: 3px; transition: color 0.15s; }
+.hero-author:hover { color: #E8E8F0; }
 
 .hero-cta {
   display: flex;

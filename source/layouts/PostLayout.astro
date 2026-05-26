@@ -79,7 +79,8 @@ const jsonLd = {
   author: {
     '@type': 'Person',
     name: SITE.author,
-    url: SITE.url,
+    url: `${SITE.url}/sobre/`,
+    sameAs: [SITE.linkedin, SITE.github],
   },
   publisher: {
     '@type': 'Organization',
@@ -87,9 +88,9 @@ const jsonLd = {
     url: SITE.url,
     logo: {
       '@type': 'ImageObject',
-      url: new URL('/og/default.png', SITE.url).href,
-      width: 1200,
-      height: 630,
+      url: new URL('/favicon.svg', SITE.url).href,
+      width: 48,
+      height: 48,
     },
   },
   mainEntityOfPage: {
@@ -148,7 +149,10 @@ const postJsonLd = [jsonLd, faqSchema].filter(Boolean)
       <h1 class="text-3xl sm:text-4xl font-bold leading-tight mb-4 text-[#E8E8F0]">
         {title}
       </h1>
-      <p class="text-lg text-[#A0A0C0]">{description}</p>
+      <p class="text-lg text-[#A0A0C0] mb-3">{description}</p>
+      <p class="text-sm text-[#6A6A8A]">
+        Por <a href="/sobre/" rel="author" class="text-[#A78BFA] hover:text-[#C4B5FD] transition-colors">{SITE.author}</a>
+      </p>
     </header>
 
     {heroImage && (

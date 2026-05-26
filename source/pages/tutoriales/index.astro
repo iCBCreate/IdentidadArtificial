@@ -1,29 +1,57 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
+import { SITE } from '../../config'
 
 const tutoriales = await getCollection('tutoriales')
 const sorted = tutoriales.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Tutoriales de IA para Principiantes',
+  description: 'Guías paso a paso para aprender a usar herramientas de IA generativa',
+  url: `${SITE.url}/tutoriales/`,
+  numberOfItems: sorted.length,
+  itemListElement: sorted.map((t, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: t.data.title,
+    url: `${SITE.url}/tutoriales/${t.id}/`,
+  })),
+}
 ---
 
 <BaseLayout
-  title="Tutoriales"
-  description="Guías prácticas paso a paso para aprender a usar herramientas de IA. Tutoriales para principiantes en ChatGPT, Claude, Gemini y más."
+  title="Tutoriales de IA para Principiantes — ChatGPT, Claude y Gemini"
+  description="Guías paso a paso para principiantes: aprende a usar ChatGPT, Claude, Gemini y otras herramientas de IA desde cero. Empieza sin conocimientos previos."
+  jsonLd={itemListSchema}
 >
   <section class="tutoriales-hero">
     <div class="tutoriales-hero-content">
       <p class="tutoriales-eyebrow">Aprende IA</p>
-      <h1>Tutoriales</h1>
+      <h1>Tutoriales de IA para Principiantes</h1>
       <span class="tutoriales-subtitle">Guías prácticas para empezar con herramientas de IA</span>
     </div>
   </section>
 
   <div class="tutoriales-body">
+    <div class="tutoriales-intro">
+      <p>
+        Cada tutorial es una guía autosuficiente: explica qué hacer y por qué, paso a paso,
+        sin asumir conocimientos previos. El foco está en herramientas reales —
+        <strong>ChatGPT</strong>, <strong>Claude</strong> y <strong>Gemini</strong> —
+        con ejemplos prácticos y resultados esperados. El tiempo estimado es realista.
+        Si quieres entender cómo se generan y revisan estos tutoriales,
+        <a href="/como-funciona/">consulta cómo funciona el sitio</a>.
+      </p>
+    </div>
+
     <div class="tutoriales-grid">
       {sorted.map(tutorial => (
         <a href={`/tutoriales/${tutorial.id}/`} class="tutorial-card">
           <div class="card-header">
-            <h3>{tutorial.data.title}</h3>
+            <h2>{tutorial.data.title}</h2>
             <div class="card-badges">
               <span class="tool-badge">{tutorial.data.herramienta}</span>
               <span class={`difficulty-badge difficulty-${tutorial.data.dificultad.toLowerCase()}`}>
@@ -64,9 +92,9 @@ const sorted = tutoriales.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDa
 
 h1 {
   color: #E8E8F0;
-  font-size: clamp(34px, 6vw, 58px);
+  font-size: clamp(28px, 5vw, 48px);
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.1;
   margin-top: 10px;
 }
 
@@ -84,6 +112,33 @@ h1 {
   max-width: 72rem;
   margin: 0 auto;
   padding: 16px 24px 48px;
+}
+
+.tutoriales-intro {
+  max-width: 680px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+.tutoriales-intro p {
+  color: #A0A0C0;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.tutoriales-intro strong {
+  color: #C8C8E0;
+}
+
+.tutoriales-intro a {
+  color: #60A5FA;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+.tutoriales-intro a:hover {
+  border-bottom-color: #60A5FA;
 }
 
 .tutoriales-grid {
@@ -117,7 +172,7 @@ h1 {
   gap: 8px;
 }
 
-.card-header h3 {
+.card-header h2 {
   color: #E8E8F0;
   font-size: 16px;
   font-weight: 600;

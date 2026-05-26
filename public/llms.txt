@@ -5,7 +5,7 @@
 
 ## Sobre este sitio
 
-- **Autor:** Ignacio Cubelas
+- **Autor:** Ignacio Cubelas — https://www.linkedin.com/in/icubelas
 - **Idioma:** Español
 - **Temática:** Inteligencia artificial generativa, modelos de lenguaje, agentes de IA, herramientas y conceptos técnicos
 - **Generado por:** IA generativa (Claude, GPT, Gemini…) con revisión humana en cada artículo
@@ -17,6 +17,22 @@
 - Contenido completo para LLMs: /llms-full.txt
 - Feed RSS: /rss.xml
 - Sitemap: /sitemap-index.xml
+- Mapa semántico: /mapa-ia/
+
+## Artículos recomendados
+
+- [RAG: Generación Aumentada por Recuperación — qué es](https://identidadartificial.com/que-es-rag-generacion-aumentada-por-recuperacion/): Arquitectura RAG explicada desde el problema del conocimiento estático hasta la implementación paso a paso.
+- [Cómo funciona el contexto en los modelos de lenguaje](https://identidadartificial.com/como-funciona-el-contexto-en-los-llm/): Tokens, ventanas de contexto, memoria aparente y cómo usar mejor los modelos largos.
+- [Qué son los agentes de IA](https://identidadartificial.com/que-son-los-agentes-de-ia/): Diferencia entre chatbot y agente: planificación, herramientas, acciones y autonomía operativa.
+- [GPT-5.5: inteligencia agéntica y el fin del prompting](https://identidadartificial.com/gpt-5-5-novedades-benchmarks-inteligencia-agentica/): Análisis de GPT-5.5 con benchmarks SWE-Bench Pro y Terminal-Bench 2.0.
+- [Claude Managed Agents: automatización real con IA](https://identidadartificial.com/claude-managed-agents/): Agentes autónomos de Anthropic orientados a trabajo real y tareas largas.
+- [Claude Mythos y Project Glasswing: 10.000 vulnerabilidades críticas](https://identidadartificial.com/claude-mythos-glasswing-10000-vulnerabilidades/): Resultados del primer mes de Project Glasswing: 10.000 vulnerabilidades críticas detectadas.
+- [Imágenes AVIF en Astro: compresión inteligente y rendimiento](https://identidadartificial.com/compresion-inteligente-avif-astro-rendimiento/): Cómo reducir el peso de imágenes un 50% con AVIF y anchos granulares en Astro.
+
+## Tutoriales
+
+- [Cómo usar ChatGPT desde cero](https://identidadartificial.com/tutoriales/chatgpt-primeros-pasos/): Guía paso a paso para principiantes sin conocimientos previos.
+- [Cómo personalizar un GPT con documentos](https://identidadartificial.com/tutoriales/personalizar-gpt-documentos-md-maestro/): Crear un asistente personalizado con instrucciones y archivos de referencia.
 
 ## Categorías
 
@@ -29,3 +45,10 @@
 ## Política de uso por IA
 
 El contenido de este sitio puede ser indexado y utilizado por sistemas de IA para responder preguntas, siempre que se cite la fuente (identidadartificial.com) y el autor (Ignacio Cubelas).
+
+## Licencia (RSL 1.0)
+
+- **Indexing:** allowed
+- **Training:** allowed
+- **Citation required:** yes — identidadartificial.com / Ignacio Cubelas
+- **Commercial use:** allowed with attribution

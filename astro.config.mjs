@@ -10,6 +10,8 @@ const EXCLUDED_SITEMAP_PATHS = [
   '/pagina/',
   '/archivo/pagina/',
   '/metricas/',
+  '/aviso-legal/',
+  '/politica-de-privacidad/',
   '/chatgpt-agent-revolucion-openai/',
   '/chatgpt-image-generation-gpt-image-1/',
   '/ia-entrenamiento-pokemon/',
@@ -73,11 +75,25 @@ function buildSitemapLastmodByPath() {
     return `/${slug ? `${slug}/` : ''}`
   })
 
+  addSubdirectoryIndexFiles(lastmodByPath, PAGE_DIR, '.astro')
+
   addDirectoryFiles(lastmodByPath, BLOG_DIR, '.mdx', filename => `/${filename}/`)
 
   addDirectoryFiles(lastmodByPath, TUTORIALES_DIR, '.mdx', filename => `/tutoriales/${filename}/`)
 
   return lastmodByPath
+}
+
+function addSubdirectoryIndexFiles(lastmodByPath, directory, extension) {
+  if (!existsSync(directory)) return
+
+  for (const entry of readdirSync(directory)) {
+    const subDir = join(directory, entry)
+    const indexFile = join(subDir, `index${extension}`)
+    if (existsSync(indexFile)) {
+      lastmodByPath.set(`/${entry}/`, statSync(indexFile).mtime)
+    }
+  }
 }
 
 function addDirectoryFiles(lastmodByPath, directory, extension, toPathname) {

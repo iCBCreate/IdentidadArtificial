@@ -49,7 +49,7 @@ const catConfig = CATEGORY_CONFIG[category]
             height={310}
             quality={30}
             format="avif"
-            class="w-full h-full object-cover"
+            class=""
           />
         : <div class="cat-icon" set:html={catConfig.icon} />
       }
@@ -104,12 +104,22 @@ const catConfig = CATEGORY_CONFIG[category]
   width: 100%;
   height: 140px;
   overflow: hidden;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.mona-card-img img { width: 100%; height: 100%; object-fit: cover; }
+/* :global needed — <Image> renders <img> outside Astro's scope boundary */
+.mona-card-img :global(img) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
 
 .cat-icon {
   width: 56px;

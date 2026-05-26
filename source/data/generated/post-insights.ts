@@ -304,6 +304,56 @@ export const POST_INSIGHTS = {
       "bestFor": "diseñar sistemas con IA"
     }
   },
+  "genie-3-google-deepmind-mundos-interactivos": {
+    "executiveSummary": "Genie 3 de Google DeepMind genera entornos 3D fotorrealistas a 24 fps y 720p a partir de texto. Analizamos su arquitectura, capacidades y qué lo diferencia de Genie 2. import YouTubeEmbed from '../../components/YouTubeEmbed.astro' Google DeepMind presentó Genie 3 el 5 de agosto de 2025 como su modelo de mundo de propósito general más avanzado hasta la fecha: un sistema capaz de generar entornos fotorrealistas completamente interactivos a partir de una descripción de texto, con una fluidez de 24 fotogramas por segundo y una resolución de 720p .",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Genie 3 de Google DeepMind genera entornos 3D fotorrealistas a 24 fps y 720p a partir de texto. Analizamos su arquitectura, capacidades y qué lo diferencia de Genie 2.",
+      "Analizamos su arquitectura, capacidades y qué lo diferencia de Genie 2.",
+      "Conceptos detectados por el pipeline: RAG, LLM, Agente, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "RAG",
+        "definition": "Arquitectura que recupera contexto externo antes de pedir una respuesta al modelo."
+      },
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre RAG?",
+        "answer": "Genie 3 de Google DeepMind genera entornos 3D fotorrealistas a 24 fps y 720p a partir de texto. Analizamos su arquitectura, capacidades y qué lo diferencia de Genie 2."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender modelos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 7,
+      "density": "alta",
+      "bestFor": "comparar capacidades de modelos"
+    }
+  },
   "gpt-5-5-novedades-benchmarks-inteligencia-agentica": {
     "executiveSummary": "OpenAI lanza GPT-5.5 con un enfoque en la autonomía y capacidades de agente. Analizamos sus benchmarks en SWE-Bench Pro y Terminal-Bench 2.0. El 23 de abril de 2026 quedará marcado como el día en que la interacción con la Inteligencia Artificial cambió de paradigma.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

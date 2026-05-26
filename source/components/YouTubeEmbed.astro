@@ -1,0 +1,43 @@
+---
+interface Props {
+  id: string
+  title: string
+}
+const { id, title } = Astro.props
+const thumb = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`
+---
+
+<div class="yt-facade" data-id={id} data-title={title} style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;cursor:pointer;background:#000;border-radius:8px;margin:2rem 0;">
+  <img
+    src={thumb}
+    alt={title}
+    loading="lazy"
+    decoding="async"
+    style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.85;"
+  />
+  <button
+    aria-label={`Reproducir: ${title}`}
+    style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,0,0,0.9);border:none;border-radius:50%;width:68px;height:68px;cursor:pointer;display:flex;align-items:center;justify-content:center;"
+  >
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.yt-facade').forEach(facade => {
+    facade.addEventListener('click', () => {
+      const id = facade.dataset.id!
+      const title = facade.dataset.title!
+      const iframe = document.createElement('iframe')
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`
+      iframe.title = title
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+      iframe.allowFullscreen = true
+      iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:0;'
+      facade.style.cursor = 'default'
+      facade.replaceChildren(iframe)
+    }, { once: true })
+  })
+</script>

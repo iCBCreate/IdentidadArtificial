@@ -232,6 +232,56 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "claude-opus-4-8-lanzamiento-benchmarks-agentes": {
+    "executiveSummary": "Anthropic lanza Claude Opus 4.8 con mejor rendimiento en agentes, Dynamic Workflows en Claude Code y un Fast Mode 3 veces más barato que Opus 4.7. Anthropic publicó Claude Opus 4.8 el 28 de mayo de 2026, una actualización de Opus 4.7 que mejora el rendimiento en tareas agenticas, introduce herramientas de control de esfuerzo para el usuario y lanza un Fast Mode sensiblemente más barato. El precio se mantiene igual que su predecesor.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Anthropic lanza Claude Opus 4.8 con mejor rendimiento en agentes, Dynamic Workflows en Claude Code y un Fast Mode 3 veces más barato que Opus 4.7.",
+      "Qué cambia respecto a Opus 4.7 Las mejoras de Opus 4.8 se concentran en tres áreas: fiabilidad en código, honestidad y capacidades multimodales.",
+      "Conceptos detectados por el pipeline: RAG, LLM, Agente, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "RAG",
+        "definition": "Arquitectura que recupera contexto externo antes de pedir una respuesta al modelo."
+      },
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre RAG?",
+        "answer": "Anthropic lanza Claude Opus 4.8 con mejor rendimiento en agentes, Dynamic Workflows en Claude Code y un Fast Mode 3 veces más barato que Opus 4.7."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender modelos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 5,
+      "density": "alta",
+      "bestFor": "comparar capacidades de modelos"
+    }
+  },
   "codex-chatgpt-movil-trabajo-remoto": {
     "executiveSummary": "OpenAI lleva Codex a la app móvil de ChatGPT para supervisar tareas, aprobar comandos y mantener agentes de código en marcha desde el teléfono. OpenAI ha llevado Codex a la app móvil de ChatGPT . La actualización, anunciada el 14 de mayo de 2026 bajo el título \"Work with Codex from anywhere\", no presenta un nuevo modelo, sino una forma distinta de trabajar con agentes de código: iniciar, seguir, desbloquear y revisar tareas desde el teléfono mientras Codex sigue ejecutándose en una máquina de confianza.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

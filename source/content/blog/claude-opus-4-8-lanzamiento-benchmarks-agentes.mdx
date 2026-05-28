@@ -1,0 +1,90 @@
+---
+title: 'Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode'
+description: 'Anthropic lanza Claude Opus 4.8 con mejor rendimiento en agentes, Dynamic Workflows en Claude Code y un Fast Mode 3 veces más barato que Opus 4.7.'
+pubDate: 2026-05-28
+category: 'Modelos'
+tags: ['claude', 'anthropic', 'opus', 'agentes', 'llm']
+generatedBy: 'claude-sonnet-4-6'
+generatedAt: '2026-05-28T21:00:00Z'
+promptBase: 'Crea un post sobre el lanzamiento de Claude Opus 4.8 de Anthropic (28 mayo 2026). Incluye: benchmarks, Dynamic Workflows, Effort Control, cambios en la API de mensajes, Fast Mode y precios. Tono técnico, sin hype, con comparativas concretas frente a Opus 4.7 y GPT-5.5.'
+humanReviewed: false
+heroImage: '../../assets/post/claude-opus-4-8-hero.jpg'
+sourceQuality: 'Alta'
+confidenceLevel: 'Alta'
+claimsReviewed: ['Opus 4.8 es 4 veces menos propenso a pasar por alto fallos de código que Opus 4.7', 'Fast Mode cuesta 3 veces menos que el Fast Mode de modelos anteriores', 'Primer modelo en superar el 10% en el Legal Agent Benchmark con el criterio all-pass', 'Precio estándar: $5/M tokens entrada, $25/M tokens salida']
+---
+
+Anthropic publicó **Claude Opus 4.8** el 28 de mayo de 2026, una actualización de Opus 4.7 que mejora el rendimiento en tareas agenticas, introduce herramientas de control de esfuerzo para el usuario y lanza un Fast Mode sensiblemente más barato. El precio se mantiene igual que su predecesor.
+
+## Qué cambia respecto a Opus 4.7
+
+Las mejoras de Opus 4.8 se concentran en tres áreas: fiabilidad en código, honestidad y capacidades multimodales.
+
+En revisión de código, Opus 4.8 es aproximadamente cuatro veces menos propenso que Opus 4.7 a pasar por alto fallos. En la práctica, esto reduce los ciclos de revisión cuando el modelo actúa como revisor automático en pipelines de CI/CD o flujos de [agentes de IA](/que-son-los-agentes-de-ia/) que auditan repositorios.
+
+En honestidad, el modelo señala incertidumbres con más frecuencia y evita afirmaciones sin respaldo. Anthropic mide esto con pruebas de comportamientos prosociales: Opus 4.8 alcanza nuevos máximos en métricas de autonomía del usuario y reduce sustancialmente las tasas de comportamiento desalineado frente a Opus 4.7.
+
+En multimodalidad, el modelo procesa mejor PDFs y contenido no estructurado, lo que amplía su utilidad para tareas de extracción de datos en documentos legales, financieros o técnicos.
+
+## Benchmarks
+
+Opus 4.8 supera a Opus 4.7 en varios benchmarks relevantes para uso en producción:
+
+| Benchmark | Resultado |
+|---|---|
+| Online-Mind2Web (agentes de navegador) | 84% |
+| Legal Agent Benchmark (all-pass) | >10% — primero en superar ese umbral |
+| CursorBench (varios niveles de esfuerzo) | supera a Opus 4.7 en todos |
+| Super-Agent benchmark | supera a GPT-5.5 |
+
+El resultado en Legal Agent Benchmark merece atención: es el primer modelo en superar el 10% bajo el criterio "all-pass", que exige resolver todos los pasos de una tarea legal sin errores parciales. Para [contexto sobre cómo los LLM procesan instrucciones complejas](/como-funciona-el-contexto-en-los-llm/), ese umbral refleja la dificultad de mantener coherencia a lo largo de tareas con múltiples pasos interdependientes.
+
+La comparativa con GPT-5.5 en Super-Agent es relevante porque ese benchmark mide capacidades agenticas generales: planificación, uso de herramientas y recuperación ante errores. Si quieres ver cómo se compara GPT-5.5 en el resto de métricas, el post sobre [GPT-5.5 y su apuesta por la inteligencia agentica](/gpt-5-5-novedades-benchmarks-inteligencia-agentica/) tiene el detalle.
+
+## Dynamic Workflows en Claude Code
+
+La novedad más significativa para equipos de desarrollo es **Dynamic Workflows**, disponible como research preview en Claude Code para planes Enterprise, Team y Max.
+
+Dynamic Workflows permite ejecutar cientos de subagentes en paralelo dentro de una misma sesión. Anthropic lo describe como herramienta para migraciones a escala de repositorio: refactorizaciones que afectan a cientos de miles de líneas de código que antes requerían semanas de trabajo manual o múltiples sesiones de agente pueden planificarse y ejecutarse como una única tarea coordinada.
+
+El modelo actúa como orquestador: divide el trabajo, despacha subagentes especializados para fragmentos concretos y consolida los resultados. Esto es distinto a ejecutar un agente en bucle: los subagentes trabajan en paralelo, no en secuencia. Para entender la mecánica de un agente individual antes de pensar en cómo se coordinan múltiples, [qué son los agentes de IA](/que-son-los-agentes-de-ia/) explica el bucle base.
+
+La feature está en research preview, lo que implica que la API y el comportamiento pueden cambiar antes de la disponibilidad general.
+
+## Effort Control: el usuario elige cuánto piensa el modelo
+
+**Effort Control** llega a claude.ai y a Cowork. Permite seleccionar el nivel de esfuerzo del modelo antes de enviar una solicitud: niveles más altos producen respuestas más elaboradas; niveles más bajos priorizan velocidad.
+
+Por defecto, el modelo opera en esfuerzo alto. La intención es dar al usuario control explícito sobre el balance calidad/latencia sin necesidad de manipular parámetros técnicos de la API. Para tareas rápidas y repetitivas —borrador inicial, resumen breve, búsqueda de un dato— un esfuerzo bajo reduce el tiempo de respuesta de forma perceptible.
+
+## Cambio en la Messages API
+
+Opus 4.8 introduce un cambio técnico en la API de mensajes: los **system entries ahora se aceptan dentro del array de mensajes**, no solo en el parámetro `system` de nivel superior.
+
+El beneficio práctico es que un agente puede actualizar instrucciones del sistema a mitad de una tarea —cambiar permisos, ajustar el presupuesto de tokens, actualizar el contexto del entorno— sin romper el caché del prompt. Hasta ahora, modificar el system prompt reiniciaba la caché, lo que incrementaba la latencia y el coste en conversaciones largas. Este cambio es especialmente útil en [flujos de trabajo con agentes como los que describe OpenAI Workspace](/openai-workspace-agents-chatgpt-autonomia/) o en pipelines de RAG donde el contexto de recuperación cambia entre turnos.
+
+## Precios: igual en estándar, más barato en Fast Mode
+
+El precio estándar no cambia respecto a Opus 4.7:
+
+| Modo | Entrada | Salida |
+|---|---|---|
+| Estándar | $5 / millón de tokens | $25 / millón de tokens |
+| Fast Mode | $10 / millón de tokens | $50 / millón de tokens |
+
+El dato relevante es el Fast Mode: cuesta tres veces menos que el Fast Mode de los modelos anteriores de la misma gama y opera a 2,5 veces la velocidad del modo estándar. Para aplicaciones que necesitan latencia baja con calidad Opus —asistentes conversacionales, interfaces de usuario con respuesta en tiempo real— esto cambia el cálculo de coste de forma significativa.
+
+## Qué queda pendiente: Claude Mythos
+
+Anthropic menciona en el anuncio que **Claude Mythos Preview** representa una clase de inteligencia superior a Opus. Actualmente está en despliegue limitado en ciberseguridad mientras se completan las salvaguardas necesarias. La expectativa es que llegue a disponibilidad general en semanas.
+
+Opus 4.8 ocupa, por tanto, el lugar de modelo de producción más capaz hasta que Mythos salga de preview. La hoja de ruta también menciona el desarrollo de alternativas de menor coste con capacidades comparables a Opus.
+
+## Por qué importa ahora
+
+Opus 4.8 no es un salto de generación: es una actualización incremental con mejoras medibles en fiabilidad de código, honestidad y rendimiento agentico. Lo más sustancial para equipos técnicos es Dynamic Workflows, que abre la puerta a automatizar migraciones de repositorio a escala. El Fast Mode más barato hace viable usar Opus en más casos de uso donde antes Sonnet era la única opción económicamente razonable.
+
+El modelo está disponible desde hoy con el identificador `claude-opus-4-8` en la API.
+
+Sources:
+- [Introducing Claude Opus 4.8 — Anthropic](https://www.anthropic.com/news/claude-opus-4-8)

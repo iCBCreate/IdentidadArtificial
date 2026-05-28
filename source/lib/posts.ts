@@ -12,9 +12,11 @@ export function calcReadingTime(text: string): string {
 }
 
 export async function getSortedPosts(): Promise<BlogPost[]> {
-  return (await getCollection('blog')).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-  )
+  return (await getCollection('blog')).sort((a, b) => {
+    const dateDiff = b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+    if (dateDiff !== 0) return dateDiff
+    return new Date(b.data.generatedAt).valueOf() - new Date(a.data.generatedAt).valueOf()
+  })
 }
 
 export function getTotalPages(totalItems: number, pageSize: number): number {

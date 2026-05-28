@@ -66,7 +66,7 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
 const heroOgImage = heroImage
   ? await getImage({ src: heroImage, format: 'jpeg', width: 1200, height: 630, quality: 75 })
   : null
-const ogImage = `/og/${slug}.png`
+const ogImage = heroOgImage ? heroOgImage.src : `/og/${slug}.png`
 const canonicalURL = new URL(`/${slug}/`, SITE.url).href
 const insight = POST_INSIGHTS[slug as keyof typeof POST_INSIGHTS]
 const semanticConnections = KNOWLEDGE_MAP.relatedByPost[slug as keyof typeof KNOWLEDGE_MAP.relatedByPost] ?? []

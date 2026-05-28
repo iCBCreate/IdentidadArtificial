@@ -12,8 +12,8 @@ Blog técnico en español sobre IA generativa. El contenido lo generan modelos d
 - **Tailwind CSS v4** — estilos inlinados en build
 - **MDX** — posts con frontmatter validado con Zod
 - **Cloudflare Workers + Assets** — despliegue manual con wrangler
-- **Sharp** — optimización de imágenes hero en build time (AVIF quality 30 + srcset)
-- **Satori + @resvg/resvg-js** — imágenes Open Graph generadas en prebuild
+- **Sharp** — optimización de imágenes hero en build time (AVIF quality 30 + srcset); JPEG quality 75 para `og:image`
+- **Satori + @resvg/resvg-js** — imágenes Open Graph de texto generadas en prebuild (fallback cuando no hay `heroImage`)
 
 ## Rendimiento web
 

@@ -71,7 +71,7 @@ claimsReviewed: ['claim 1', 'claim 2']  # opcional
 | `generatedAt` | ISO 8601 | Fecha y hora de generación. Ej: `2026-05-01T10:00:00Z`. Entre comillas simples. |
 | `promptBase` | string | Resumen del prompt o encargo original. Transparencia sobre el origen. |
 | `humanReviewed` | boolean | `true` si un humano revisó y aprobó el post antes de publicar. Siempre en minúsculas: `true` o `false`. |
-| `heroImage` | ruta relativa | Opcional. Ruta relativa desde el MDX hasta la imagen en `source/assets/post/`. Ver sección imagen. |
+| `heroImage` | ruta relativa | **Obligatorio.** Ruta relativa desde el MDX hasta la imagen en `source/assets/post/`. Se usa para web (AVIF optimizado) y para og:image en RRSS (JPEG 1200×630). Ver sección imagen. |
 | `correctionNote` | string | Opcional. Solo si el post corrige errores de una versión anterior. Visible en el bloque de transparencia. |
 | `reviewNotes` | string | Opcional. Notas de revisión humana sobre el contenido, precisión o cambios realizados. |
 | `sourceQuality` | enum | Opcional. Calidad de las fuentes consultadas: `'Alta'`, `'Media'` o `'Baja'`. |
@@ -91,9 +91,20 @@ Usa exactamente uno de estos valores (respetando mayúsculas/minúsculas):
 
 ---
 
-## Imagen hero (opcional pero recomendado)
+## Imagen hero (obligatoria)
 
-Si el post tiene imagen principal:
+Todos los posts deben tener `heroImage`. Es la imagen que aparece en la cabecera del post, en las cards de la home y como imagen de previsualización en redes sociales (og:image / twitter:image).
+
+### Cómo funciona el pipeline de imagen
+
+Una sola imagen fuente genera dos versiones automáticamente durante el build:
+
+- **Web** → Astro optimiza la imagen a AVIF con múltiples resoluciones (responsive). Se sirve desde `/_astro/nombre-hash.avif`.
+- **RRSS (og:image)** → PostLayout genera un JPEG 1200×630 a partir de la misma imagen y lo usa como `og:image` y `twitter:image`. Es lo que ven LinkedIn, X, WhatsApp y cualquier scraper de metadatos al compartir el enlace.
+
+Si no se define `heroImage`, el fallback para og:image es la imagen Satori generada por `generate-og.mjs` (`/og/{slug}.png`), que muestra el título sobre fondo oscuro con la marca del blog. Esa imagen es genérica — **siempre es mejor tener heroImage**.
+
+### Pasos
 
 1. **Guarda la imagen** en `source/assets/post/nombre-descriptivo.png` (acepta `.png` o `.jpg`)
 2. **Nombra el archivo** en inglés, descriptivo, sin espacios: `ai-reasoning-model-screen.png`
@@ -101,7 +112,14 @@ Si el post tiene imagen principal:
    ```yaml
    heroImage: '../../assets/post/ai-reasoning-model-screen.png'
    ```
-4. **No pongas `<Image />` ni `<img>` en el cuerpo del MDX** — el layout ya renderiza la heroImage automáticamente en el header. Astro convierte la imagen a `.webp` optimizado durante el build.
+4. **No pongas `<Image />` ni `<img>` en el cuerpo del MDX** — el layout ya renderiza la heroImage automáticamente en el header.
+
+### Requisitos de la imagen fuente
+
+- **Formato:** PNG o JPG
+- **Ratio recomendado:** 1200×630 px (ratio 1.91:1) — coincide exactamente con og:image estándar y evita recortes en RRSS
+- **Fondo:** preferiblemente oscuro o con contraste claro; fondos blancos funcionan en og:image pero quedan mal en las cards de la home (diseño oscuro)
+- **Peso:** sin límite estricto — Astro comprime agresivamente a AVIF durante el build
 
 El alt text de la imagen se genera automáticamente a partir del `title`.
 
@@ -245,9 +263,11 @@ Antes de guardar el archivo, comprueba:
 - [ ] `tags` en kebab-case y minúsculas
 - [ ] `category` exactamente como aparece en la lista de categorías válidas
 - [ ] Fuentes reales al final del post
-- [ ] Sin `<Image />` ni `<img>` en el cuerpo si `heroImage` está en frontmatter
-- [ ] Imagen guardada en `source/assets/post/` si se referencia en frontmatter
+- [ ] `heroImage` definida (obligatorio — sin ella no hay og:image para RRSS)
+- [ ] Imagen guardada en `source/assets/post/` antes de referenciarla
 - [ ] Ruta de `heroImage` empieza por `../../assets/post/`
+- [ ] Imagen en ratio 1200×630 px o similar (16:9 / 1.91:1) para que no se recorte en RRSS
+- [ ] Sin `<Image />` ni `<img>` en el cuerpo del MDX
 - [ ] Mínimo 1200 palabras
 - [ ] Keyword principal en el primer párrafo (primeras 100 palabras)
 - [ ] 3-5 links internos con anchor text descriptivo

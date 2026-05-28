@@ -1,0 +1,105 @@
+---
+title: 'Google Spark vs OpenClaw: dos arquitecturas opuestas para el agente personal'
+description: 'Google Spark y OpenClaw resuelven el mismo problema —un agente de IA que actúa por ti— desde extremos técnicos opuestos. Análisis de cómo funcionan por dentro.'
+pubDate: 2026-05-27
+category: 'Arquitectura'
+tags: ['google', 'openclaw', 'agentes', 'arquitectura', 'open-source']
+generatedBy: 'claude-sonnet-4-6'
+generatedAt: '2026-05-27T18:45:00Z'
+promptBase: 'Comparativa técnica de Google Spark y OpenClaw: arquitectura de ejecución, modelo de dependencia LLM, sistema de skills/herramientas, gestión de memoria, seguridad y modelo de despliegue. No solo opensource vs propietario, sino cómo funcionan por dentro.'
+humanReviewed: true
+heroImage: '../../assets/post/openclaw-hero-logo.png'
+sourceQuality: 'Alta'
+confidenceLevel: 'Alta'
+---
+
+**Google Spark** y **OpenClaw** son, en este momento, los dos proyectos que más definen cómo va a ser el agente personal de IA a corto plazo. El primero es el agente de Google, propietario, cloud-hosted y orientado al ecosistema Workspace. El segundo es el proyecto open-source con más estrellas en la historia de GitHub —347.000 en abril de 2026— que se ejecuta en tu máquina. La diferencia obvia es que uno es de pago y el otro es libre, pero esa descripción esconde lo más interesante: los dos tienen arquitecturas fundamentalmente distintas que determinan qué pueden y qué no pueden hacer.
+
+## Qué es Google Spark
+
+Spark es el agente personal de Google, disponible para suscriptores de Google AI Ultra en Estados Unidos. No es un chatbot al que le haces preguntas: es un proceso que se ejecuta en la infraestructura de Google de forma continua, incluido cuando tienes el dispositivo apagado. Google lo describe como un "24/7 personal AI agent" y la promesa central es que puede tomar acción proactiva sin que tú se lo pidas explícitamente en cada momento.
+
+El modelo subyacente es **Gemini 3.5 Flash con Antigravity**, una variante optimizada para latencia baja en tareas agenticas. El agente se organiza en tres primitivas:
+
+- **Tasks**: unidades de trabajo puntuales que el agente ejecuta una vez.
+- **Skills**: patrones de acción reutilizables que definen cómo responder a condiciones recurrentes.
+- **Schedules**: automatizaciones basadas en tiempo o en eventos externos.
+
+Las integraciones nativas cubren el ecosistema Google completo —Gmail, Calendar, Drive, Docs, Sheets, Slides, YouTube, Maps— pero están desactivadas por defecto. El usuario debe autorizar cada conexión de forma explícita, lo que es coherente con el modelo de confianza de Google pero limita la utilidad inicial.
+
+## Qué es OpenClaw
+
+OpenClaw empezó en noviembre de 2025 como Clawdbot, un proyecto del desarrollador austriaco Peter Steinberger. Tras dos renombrados en dos meses —primero a Moltbot, luego a OpenClaw— y el fichaje de Steinberger por OpenAI en febrero de 2026, el proyecto quedó bajo la gestión de una fundación sin ánimo de lucro. Hoy es el repositorio con más estrellas en la historia de GitHub.
+
+El contraste técnico con Spark empieza en lo más básico: OpenClaw no se ejecuta en la nube de ningún proveedor. Se instala localmente en Mac, Windows o Linux, corre sobre Node 24 como proceso permanente, y actúa como un **gateway local** que hace de punto de control único para sesiones, canales, herramientas y eventos.
+
+El soporte de modelos es agnóstico al proveedor: puedes conectarlo a Claude, GPT, cualquier modelo de OpenAI-compatible API, o modelos locales. Parte de la comunidad lo ejecuta completamente offline sobre MiniMax 2.5. No hay proveedor predeterminado; el usuario trae sus propias claves de API.
+
+## Diferencias de arquitectura de ejecución
+
+Esta es la divergencia más importante entre los dos sistemas.
+
+**Spark ejecuta en la nube de Google.** Tu agente existe como un proceso en la infraestructura de Google, con acceso a tus datos de Gmail y Drive a través de APIs internas. La latencia de respuesta es baja porque el modelo y las herramientas están en el mismo entorno. El precio de esto es que toda la actividad del agente pasa por los servidores de Google, y el agente solo puede acceder a lo que Google tiene conectado.
+
+**OpenClaw ejecuta en tu máquina.** El Gateway es un proceso Node.js que actúa como enrutador central. Cuando el agente necesita hacer algo, la herramienta se ejecuta directamente en el host, no en un servidor remoto. El agente puede abrir el navegador, ejecutar comandos de shell, leer y escribir ficheros locales, o provisionar credenciales en servicios externos, porque tiene acceso real al sistema operativo. Esto es lo que hace que usuarios reporten que su instancia "abrió el navegador, entró en Google Cloud Console y configuró las credenciales de API" de forma autónoma.
+
+Para entender por qué esto importa desde el punto de vista de la arquitectura de agentes, vale la pena revisar [cómo un agente planifica y usa herramientas en un bucle de ejecución](/que-son-los-agentes-de-ia/): la diferencia entre tener herramientas cloud-hosted y herramientas que corren en el host del usuario no es solo de privacidad, es de qué tipo de acciones son físicamente posibles.
+
+## El sistema de skills
+
+Los dos sistemas tienen un concepto de "skill", pero la implementación es radicalmente diferente.
+
+En Spark, las Skills son patrones configurados a través de la interfaz de usuario. Son declarativas: defines una condición y una acción dentro de las integraciones que Spark ya soporta. No puedes añadir herramientas arbitrarias; el conjunto de acciones posibles está determinado por lo que Google ha integrado.
+
+En OpenClaw, una Skill es un fichero `SKILL.md` en `~/.openclaw/workspace/skills/<nombre>/`. El agente lee ese fichero como instrucción de comportamiento y tiene acceso a todas las herramientas que el Gateway tiene disponibles —shell, sistema de ficheros, navegador, APIs externas. El repositorio central de skills es ClawHub, pero cualquier usuario puede escribir y distribuir sus propias. Hay más de 100 skills preconfiguradas que cubren desde gestión de ficheros hasta automatización web.
+
+Esta diferencia arquitectural explica por qué OpenClaw puede integrarse con 25 plataformas de mensajería —WhatsApp, Telegram, Discord, Slack, Signal, iMessage, Google Chat y otras— mientras Spark se limita al ecosistema Google. El Gateway de OpenClaw enruta mensajes entrantes desde cualquier canal hacia agentes aislados, con sesiones y workspaces separados por canal.
+
+## Gestión de memoria y contexto
+
+Cómo los dos sistemas mantienen contexto a lo largo del tiempo es otra diferencia estructural.
+
+Spark almacena el estado del agente en la infraestructura de Google. La continuidad viene de la plataforma: tus preferencias, el historial de tareas y los patrones de comportamiento son datos que Google gestiona. Esto es transparente para el usuario pero opaco en su implementación.
+
+OpenClaw usa tres ficheros de prompt inyectables que viven en el workspace local:
+
+- `AGENTS.md`: instrucciones de comportamiento del agente y contexto de proyecto.
+- `SOUL.md`: personalidad y preferencias persistentes.
+- `TOOLS.md`: declaración de herramientas disponibles y cómo usarlas.
+
+La memoria persiste como ficheros en disco, lo que significa que es inspeccionable, modificable y portable. El contexto es explícito en lugar de opaco. Cuando un usuario reporta que su agente "hizo ediciones a su propio prompt que se recargaron en caliente", lo que está describiendo es el agente reescribiendo `SOUL.md` y aplicando los cambios sin reiniciar el proceso.
+
+Para el tipo de persistencia que esto permite —memoria que sobrevive entre sesiones y se transfiere entre agentes— el mecanismo es distinto al [contexto de una conversación LLM convencional](/como-funciona-el-contexto-en-los-llm/), donde todo lo que el modelo sabe en cada momento cabe en la ventana de tokens activa.
+
+## Modelo de seguridad
+
+Los dos sistemas tienen superficies de ataque completamente diferentes.
+
+Spark opera bajo el modelo de confianza de Google. El agente tiene acceso a tus datos mediante OAuth con los scopes que has autorizado. La seguridad depende de que Google gestione correctamente el acceso y de que los modelos no alucinando acciones no autorizadas. No tienes control sobre el entorno de ejecución porque ese entorno es la infraestructura de Google.
+
+OpenClaw distingue entre sesiones principales y sesiones en sandbox. Las sesiones principales tienen acceso completo al host. Las sesiones no principales se ejecutan dentro de Docker por defecto, con permisos explícitos: bash, procesos y lectura/escritura de ficheros están permitidos; acceso al navegador y canvas están denegados en el sandbox por defecto. El usuario puede modificar estos permisos. Hay también alternativas a Docker como SSH o OpenShell para entornos donde Docker no está disponible.
+
+El trade-off es claro: Spark tiene una superficie de ataque conocida y gestionada por un actor con recursos, pero sin control de usuario sobre el entorno. OpenClaw expone la superficie de ataque completa del host, pero permite al operador definir con precisión qué puede hacer cada agente.
+
+## Acceso y modelo de distribución
+
+Spark requiere suscripción a Google AI Ultra, está disponible inicialmente solo en Estados Unidos y se está distribuyendo de forma gradual entre testers de confianza. No hay forma de instalarlo fuera de los canales de Google.
+
+OpenClaw se instala con un comando `npm`. El código fuente es público, el proyecto es auditadle, y la gestión recae en una fundación independiente desde que Steinberger se incorporó a OpenAI. Es comparable a cómo [OpenAI Workspace Agents](/openai-workspace-agents-chatgpt-autonomia/) cerró su acceso inicial a planes enterprise antes de ampliar disponibilidad: la diferencia es que OpenClaw nunca tuvo ese cierre.
+
+La implicación práctica para empresas es que OpenClaw puede auditarse línea por línea antes de concederle acceso a sistemas críticos, algo que no es posible con ningún agente propietario. Por otro lado, Spark delega en Google la responsabilidad de la seguridad operacional, lo que para muchas organizaciones es el modelo preferido.
+
+## Por qué importa la comparación
+
+La tensión entre Spark y OpenClaw refleja una decisión de diseño que afecta a todos los sistemas agenticos: [Claude Managed Agents](/claude-managed-agents/) expone infraestructura de agentes a través de la API de Anthropic con un modelo de herramientas controlado por el proveedor; OpenClaw lleva ese modelo de herramientas al host del usuario.
+
+Ninguna de las dos arquitecturas domina en todos los casos. Spark tiene sentido si trabajas dentro del ecosistema Google, quieres un agente sin gestión de infraestructura, y confías en que Google manejará el acceso a tus datos correctamente. OpenClaw tiene sentido si necesitas que el agente opere en sistemas que no tienen API pública, si la privacidad del procesamiento es un requisito, o si el conjunto de integraciones necesarias no está cubierto por ningún proveedor cloud.
+
+Lo que sí es claro es que la arquitectura local-first de OpenClaw resuelve problemas que la arquitectura cloud-hosted de Spark no puede resolver por diseño. Y viceversa: la integración nativa de Spark con Gmail y Calendar es más fiable que cualquier integración vía API que OpenClaw pueda construir sobre esos mismos servicios.
+
+Sources:
+- [Gemini Spark — Google](https://gemini.google/overview/agent/spark/)
+- [OpenClaw GitHub Repository](https://github.com/openclaw/openclaw)
+- [OpenClaw — Personal AI Assistant](https://openclaw.ai/)
+- [What is OpenClaw: Open-Source AI Agent in 2026 — Medium](https://medium.com/@gemQueenx/what-is-openclaw-open-source-ai-agent-in-2026-setup-features-8e020db20e5e)
+- [OpenClaw Explained — KDnuggets](https://www.kdnuggets.com/openclaw-explained-the-free-ai-agent-tool-going-viral-already-in-2026)

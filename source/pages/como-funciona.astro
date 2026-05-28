@@ -61,7 +61,7 @@ const a11y = [
 ]
 
 const geo = [
-  { label: 'Open Graph + Twitter Card', desc: 'Imagen OG por post generada en build-time con título, categoría y fecha. og:image, og:url, og:locale es_ES y twitter:card summary_large_image en todas las páginas.' },
+  { label: 'Open Graph + Twitter Card', desc: 'og:image usa la heroImage del post convertida a JPEG 1200×630 quality 75 en build-time con getImage() de Astro — compatible con scrapers sociales que no leen AVIF. Si no hay heroImage, usa la tarjeta de texto PNG generada por Satori con título, categoría y fecha. og:url, og:locale es_ES y twitter:card summary_large_image en todas las páginas.' },
   { label: 'JSON-LD por tipo de página', desc: 'WebSite + Organization + Blog en home, TechArticle en /como-funciona/, Dataset en /mapa-ia/, CollectionPage + ItemList en /archivo/ y /radar/, Article en posts y tutoriales. Generados en build-time, en el HTML inicial — no requieren JS.' },
   { label: 'Person schema con sameAs', desc: 'Ignacio Cubelas como entidad en cada post: url apunta a /sobre/, sameAs enlaza LinkedIn y GitHub. Permite a sistemas de IA vincular el autor con su identidad real.' },
   { label: 'Sitemap XML', desc: 'Generado por @astrojs/sitemap con lastmod real de cada archivo fuente. Excluye páginas legales, paginación y posts retirados. /tutoriales/ incluye lastmod vía detección recursiva de subdirectorios.' },
@@ -104,6 +104,7 @@ const techArticleSchema = {
 <BaseLayout
   title="Stack y pipeline del blog de IA — Cómo funciona"
   description="El pipeline completo de Identidad Artificial: stack técnico, flujo de generación con IA, SEO/GEO, infraestructura Cloudflare y decisiones de diseño. Documentación pública y auditable."
+  image="/og/como-funciona.png"
   jsonLd={techArticleSchema}
 >
   <!-- Mini hero -->

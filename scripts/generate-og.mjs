@@ -103,10 +103,21 @@ async function renderOG({ title, category, date, accent }) {
   return resvg.render().asPng()
 }
 
+const PAGES = [
+  { slug: 'index',         title: 'Identidad Artificial',     subtitle: 'IA desde dentro',                     accent: '#7C3AED' },
+  { slug: 'sobre',         title: 'Sobre el proyecto',        subtitle: 'Blog de IA generado con supervisión', accent: '#2563EB' },
+  { slug: 'como-funciona', title: 'Cómo funciona',            subtitle: 'Stack técnico y pipeline editorial',  accent: '#EA580C' },
+  { slug: 'mapa-ia',       title: 'Mapa Semántico de IA',     subtitle: 'Conexiones entre conceptos clave',    accent: '#059669' },
+  { slug: 'radar',         title: 'Radar Editorial',          subtitle: 'Temas emergentes bajo seguimiento',   accent: '#CA8A04' },
+  { slug: 'archivo',       title: 'Archivo de artículos',     subtitle: 'Todos los posts de IA en español',   accent: '#0284C7' },
+  { slug: 'tutoriales',    title: 'Tutoriales de IA',         subtitle: 'Guías prácticas paso a paso',         accent: '#9333EA' },
+]
+
 // Generate per-post OG images
 const files = readdirSync(POSTS_DIR).filter(f => f.endsWith('.mdx') || f.endsWith('.md'))
 const expectedImages = new Set([
   ...files.map(file => `${basename(file, file.endsWith('.mdx') ? '.mdx' : '.md')}.png`),
+  ...PAGES.map(p => `${p.slug}.png`),
   'default.png',
 ])
 
@@ -132,6 +143,13 @@ for (const file of files) {
   const png = await renderOG({ title, category, date, accent })
   writeFileSync(join(OUT_DIR, `${slug}.png`), png)
   console.log(`  ✓ /og/${slug}.png`)
+}
+
+// Generate per-page OG images
+for (const page of PAGES) {
+  const png = await renderOG({ title: page.title, category: page.subtitle, date: '', accent: page.accent })
+  writeFileSync(join(OUT_DIR, `${page.slug}.png`), png)
+  console.log(`  ✓ /og/${page.slug}.png`)
 }
 
 // Generate default OG image

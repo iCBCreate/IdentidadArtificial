@@ -1,20 +1,22 @@
 ---
 import { SITE } from '../config'
+import { categoryToSlug, type BlogCategory } from '../lib/categories'
 
 interface Props {
-  category: string
+  category: BlogCategory
   title: string
 }
 
 const { category, title } = Astro.props
 const truncated = title.length > 42 ? title.slice(0, 42) + '…' : title
+const categoryUrl = `${SITE.url}/categoria/${categoryToSlug(category)}/`
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
-    { '@type': 'ListItem', position: 2, name: category, item: `${SITE.url}/archivo/` },
+    { '@type': 'ListItem', position: 2, name: category, item: categoryUrl },
     { '@type': 'ListItem', position: 3, name: title },
   ],
 }
@@ -24,7 +26,7 @@ const breadcrumbSchema = {
 <nav class="flex items-center gap-2 text-xs text-[#A0A0C0] mb-4" aria-label="Breadcrumb">
   <a href="/" class="hover:text-[#A78BFA] transition-colors" aria-label="Inicio">⌂</a>
   <span class="text-[#3A3A54]">›</span>
-  <a href="/archivo/" class="hover:text-[#A78BFA] transition-colors">{category}</a>
+  <a href={`/categoria/${categoryToSlug(category)}/`} class="hover:text-[#A78BFA] transition-colors">{category}</a>
   <span class="text-[#3A3A54]">›</span>
   <span class="text-[#E8E8F0]">{truncated}</span>
 </nav>

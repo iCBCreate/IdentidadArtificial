@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content'
+import { getImage } from 'astro:assets'
 import BaseLayout from '../../layouts/BaseLayout.astro'
+import { SITE } from '../../config'
 
 export async function getStaticPaths() {
   const tutoriales = await getCollection('tutoriales')
@@ -21,7 +23,11 @@ const formattedDate = new Date(tutorial.data.pubDate).toLocaleDateString('es-ES'
 
 const canonicalURL = new URL(`/tutoriales/${tutorial.id}/`, 'https://identidadartificial.com').href
 
-const jsonLd = {
+const heroOgImage = tutorial.data.heroImage
+  ? await getImage({ src: tutorial.data.heroImage, format: 'jpeg', width: 1200, height: 630, quality: 75 })
+  : null
+
+const articleJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   articleSection: 'Tutorial',
@@ -33,13 +39,13 @@ const jsonLd = {
   dateModified: tutorial.data.generatedAt,
   author: {
     '@type': 'Person',
-    name: 'Ignacio Cubelas',
-    url: 'https://identidadartificial.com/sobre/',
+    name: SITE.author,
+    url: `${SITE.url}/sobre/`,
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Identidad Artificial',
-    url: 'https://identidadartificial.com',
+    name: SITE.name,
+    url: SITE.url,
   },
   inLanguage: 'es-ES',
   mainEntityOfPage: {
@@ -47,14 +53,34 @@ const jsonLd = {
     '@id': canonicalURL,
   },
 }
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Tutoriales', item: `${SITE.url}/tutoriales/` },
+    { '@type': 'ListItem', position: 3, name: tutorial.data.title },
+  ],
+}
+
+const jsonLd = [articleJsonLd, breadcrumbJsonLd]
 ---
 
 <BaseLayout
   title={tutorial.data.title}
   description={tutorial.data.description}
   jsonLd={jsonLd}
+  image={heroOgImage?.src}
 >
   <article class="tutorial-detail">
+    <nav class="tutorial-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Inicio</a>
+      <span>›</span>
+      <a href="/tutoriales/">Tutoriales</a>
+      <span>›</span>
+      <span>{tutorial.data.title.length > 42 ? tutorial.data.title.slice(0, 42) + '…' : tutorial.data.title}</span>
+    </nav>
     <header class="tutorial-header">
       <div class="tutorial-meta">
         <span class="meta-badge">{tutorial.data.herramienta}</span>
@@ -102,6 +128,21 @@ const jsonLd = {
   margin: 0 auto;
   padding: 0 24px;
 }
+
+.tutorial-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6A6A8A;
+  padding: 20px 0 0;
+}
+.tutorial-breadcrumb a {
+  color: #A78BFA;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.tutorial-breadcrumb a:hover { color: #E8E8F0; }
 
 .tutorial-header {
   padding: 40px 0 32px;

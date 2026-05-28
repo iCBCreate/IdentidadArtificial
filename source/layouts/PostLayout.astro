@@ -9,7 +9,7 @@ import { Image, getImage } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import { SITE } from '../config'
-import type { BlogCategory } from '../lib/categories'
+import { categoryToSlug, type BlogCategory } from '../lib/categories'
 import { POST_INSIGHTS } from '../data/generated/post-insights'
 import { KNOWLEDGE_MAP } from '../data/generated/knowledge-map'
 
@@ -139,9 +139,9 @@ const postJsonLd = [jsonLd, faqSchema].filter(Boolean)
     <header class="mb-10">
       <Breadcrumbs category={category} title={title} />
       <div class="flex items-center gap-2 mb-4 flex-wrap">
-        <span class="inline-block bg-[#6D28D9] text-white text-[9px] font-bold tracking-[1.5px] uppercase px-2 py-0.5 rounded-[3px]">
+        <a href={`/categoria/${categoryToSlug(category)}/`} class="inline-block bg-[#6D28D9] text-white text-[9px] font-bold tracking-[1.5px] uppercase px-2 py-0.5 rounded-[3px] hover:bg-[#7C3AED] transition-colors">
           {category}
-        </span>
+        </a>
         <span class="text-[#3A3A54]">·</span>
         <time class="text-xs text-[#A0A0C0]" datetime={pubDate.toISOString()}>
           {formattedDate}
@@ -185,6 +185,19 @@ const postJsonLd = [jsonLd, faqSchema].filter(Boolean)
       prose-strong:text-[#E8E8F0]">
       <slot />
     </div>
+
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mt-10 mb-2">
+        {tags.map(tag => (
+          <a
+            href={`/tag/${tag}/`}
+            class="text-[11px] font-medium text-[#A78BFA] border border-[#3A2A5A] bg-[#1C1C2E] px-2.5 py-1 rounded-full hover:bg-[#2A1A4A] hover:border-[#6D28D9] transition-colors"
+          >
+            #{tag}
+          </a>
+        ))}
+      </div>
+    )}
 
     <RelatedPosts
       currentSlug={slug}

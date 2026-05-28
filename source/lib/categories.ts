@@ -9,6 +9,15 @@ export const BLOG_CATEGORIES = [
 
 export type BlogCategory = (typeof BLOG_CATEGORIES)[number]
 
+export function categoryToSlug(category: BlogCategory): string {
+  return category
+    .toLowerCase()
+    .normalize('NFD')
+    // eslint-disable-next-line no-misleading-character-class
+    .replace(/\p{Mn}/gu, '')
+    .replace(/ /g, '-')
+}
+
 type CategoryConfig = {
   gradient: string
   icon: string

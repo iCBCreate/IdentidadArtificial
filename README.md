@@ -95,6 +95,21 @@ El sitio implementa SEO técnico clásico y GEO (Generative Engine Optimization)
 
 **Sitemap:** `lastmod` real de cada archivo fuente, excluye páginas legales y paginación, detecta subdirectorios (`tutoriales/index.astro`) vía `addSubdirectoryIndexFiles`.
 
+## Ticker de noticias IA en tiempo real
+
+El home incluye un ticker estilo Wall Street entre el hero y el timeline de modelos. Muestra titulares reales de IA en español obtenidos de NewsData.io.
+
+**Arquitectura:**
+- `source/pages/api/news-ticker.json.ts` — endpoint CF Worker con `prerender = false`. Llama a NewsData.io (`language=es`, `category=technology`), cachea la respuesta 30 minutos en el edge.
+- `source/components/NewsTicker.astro` — marquee CSS continuo (`translateX 0 → -50%` con contenido duplicado para loop seamless). JS en cliente fetcha `/api/news-ticker.json` y rellena el track. Fallback estático si la API falla. Respeta `prefers-reduced-motion`.
+
+**Secret requerido en producción:**
+```bash
+npx wrangler secret put NEWSDATA_API_KEY
+```
+
+Para desarrollo local, añadir `NEWSDATA_API_KEY=<key>` a `.dev.vars`.
+
 ## Métricas privadas
 
 La ruta `/metricas/` permite consultar Search Console desde la web y descargar un informe JSON/CSV. Las credenciales no se exponen al navegador: viven como variables del Worker.

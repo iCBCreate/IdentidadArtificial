@@ -72,27 +72,29 @@
   }
 }
 
-.nt-item {
+/* :global() needed — these elements are created dynamically via JS and don't receive the Astro scoped attribute */
+:global(.nt-item) {
   color: #C4B5FD;
   font-size: 11px;
-  padding: 0 4px;
+  padding: 0 8px;
   text-decoration: none;
-  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: color 0.15s;
 }
 
-a.nt-item:hover {
+:global(a.nt-item:hover) {
   color: #E8E8F0;
 }
 
-.nt-sep {
+:global(.nt-sep) {
   color: #4A4A6A;
   font-size: 9px;
   padding: 0 14px;
   flex-shrink: 0;
 }
 
-.nt-loading {
+:global(.nt-loading) {
   color: #4A4A6A;
   font-size: 10px;
   padding: 0 14px;

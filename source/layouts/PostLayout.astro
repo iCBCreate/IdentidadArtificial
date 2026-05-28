@@ -5,7 +5,7 @@ import PostInsights from '../components/PostInsights.astro'
 import SemanticConnections from '../components/SemanticConnections.astro'
 import Breadcrumbs from '../components/Breadcrumbs.astro'
 import RelatedPosts from '../components/RelatedPosts.astro'
-import { Image } from 'astro:assets'
+import { Image, getImage } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import { SITE } from '../config'
@@ -63,6 +63,9 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
   day: 'numeric',
 })
 
+const heroOgImage = heroImage
+  ? await getImage({ src: heroImage, format: 'jpeg', width: 1200, height: 630, quality: 75 })
+  : null
 const ogImage = `/og/${slug}.png`
 const canonicalURL = new URL(`/${slug}/`, SITE.url).href
 const insight = POST_INSIGHTS[slug as keyof typeof POST_INSIGHTS]

@@ -34,6 +34,48 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "apple-intelligence-google-gemini-siri-filtraciones-2026": {
+    "executiveSummary": "Desde las primeras filtraciones en noviembre de 2025 hasta WWDC 2026: cómo Google Gemini se convierte en el motor de Apple Intelligence sin tocar los datos de los usuarios. El 8 de junio de 2026, Apple abrirá la WWDC con lo que se espera sea la mayor transformación de Apple Intelligence desde su presentación: una Siri completamente rediseñada y alimentada por Google Gemini . Durante los últimos siete meses, una serie de filtraciones fue revelando los detalles del pacto más relevante entre las dos empresas en décadas.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Desde las primeras filtraciones en noviembre de 2025 hasta WWDC 2026: cómo Google Gemini se convierte en el motor de Apple Intelligence sin tocar los datos de los usuarios.",
+      "Apple llevaba meses reconociendo internamente que sus propios modelos fundacionales no eran suficientes para competir con las capacidades de razonamiento y planificación de OpenAI o Google.",
+      "Conceptos detectados por el pipeline: LLM, Agente, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre LLM?",
+        "answer": "Desde las primeras filtraciones en noviembre de 2025 hasta WWDC 2026: cómo Google Gemini se convierte en el motor de Apple Intelligence sin tocar los datos de los usuarios."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender modelos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 8,
+      "density": "media",
+      "bestFor": "comparar capacidades de modelos"
+    }
+  },
   "chatgpt-images-2-gpt-image-2": {
     "executiveSummary": "ChatGPT Images 2.0 (gpt-image-2) llegó el 21 de abril: resolución 2K, razonamiento visual, texto multilíngüe con precisión >99% y retirada de DALL-E 3. El 21 de abril de 2026, OpenAI lanzó ChatGPT Images 2.0 , el sistema de generación de imágenes más ambicioso que ha publicado hasta la fecha. El modelo subyacente se llama gpt-image-2 y trae un cambio conceptual que lo diferencia de todo lo anterior: razona antes de dibujar .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
@@ -352,6 +394,48 @@ export const POST_INSIGHTS = {
       "minutes": 7,
       "density": "alta",
       "bestFor": "comparar capacidades de modelos"
+    }
+  },
+  "google-spark-vs-openclaw-agentes-personales": {
+    "executiveSummary": "Google Spark y OpenClaw resuelven el mismo problema —un agente de IA que actúa por ti— desde extremos técnicos opuestos. Google Spark y OpenClaw son, en este momento, los dos proyectos que más definen cómo va a ser el agente personal de IA a corto plazo. El primero es el agente de Google, propietario, cloud-hosted y orientado al ecosistema Workspace.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de arquitectura centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Google Spark y OpenClaw resuelven el mismo problema —un agente de IA que actúa por ti— desde extremos técnicos opuestos. Análisis de cómo funcionan por dentro.",
+      "Google Spark y OpenClaw resuelven el mismo problema —un agente de IA que actúa por ti— desde extremos técnicos opuestos.",
+      "Conceptos detectados por el pipeline: LLM, Agente, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre LLM?",
+        "answer": "Google Spark y OpenClaw resuelven el mismo problema —un agente de IA que actúa por ti— desde extremos técnicos opuestos. Análisis de cómo funcionan por dentro."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender arquitectura con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 9,
+      "density": "media",
+      "bestFor": "diseñar sistemas con IA"
     }
   },
   "gpt-5-5-novedades-benchmarks-inteligencia-agentica": {

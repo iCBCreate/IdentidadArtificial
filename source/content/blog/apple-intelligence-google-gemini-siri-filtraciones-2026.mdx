@@ -1,0 +1,93 @@
+---
+title: 'Apple Intelligence y Google Gemini: todo lo que se ha filtrado sobre el acuerdo que cambia Siri'
+description: 'Desde las primeras filtraciones en noviembre de 2025 hasta WWDC 2026: cómo Google Gemini se convierte en el motor de Apple Intelligence sin tocar los datos de los usuarios.'
+pubDate: 2026-05-28
+category: 'Modelos'
+tags: ['apple', 'siri', 'google', 'gemini', 'apple-intelligence']
+generatedBy: 'claude-sonnet-4-6'
+generatedAt: '2026-05-28T14:00:00Z'
+promptBase: 'Crea un artículo sobre las últimas filtraciones de Apple Intelligence con la integración de modelos de IA de Google Gemini. Enfoque cronológico desde noviembre 2025 hasta WWDC 2026 (8 junio), con arquitectura técnica y ángulo de privacidad. Tono técnico pero accesible, sin hype, fuentes reales.'
+humanReviewed: true
+heroImage: '../../assets/post/apple-intelligence-google-gemini.png'
+sourceQuality: 'Alta'
+confidenceLevel: 'Alta'
+claimsReviewed: ['Apple paga ~$1B anuales por acceso a un modelo Gemini de 1,2 billones de parámetros', 'Gemini corre en servidores de Apple bajo Private Cloud Compute, no en infraestructura de Google', 'iOS 26.4 fue la primera versión en incluir características alimentadas por Gemini', 'WWDC 2026 está previsto para el 8 de junio de 2026']
+---
+
+El 8 de junio de 2026, Apple abrirá la WWDC con lo que se espera sea la mayor transformación de **Apple Intelligence** desde su presentación: una Siri completamente rediseñada y alimentada por **Google Gemini**. El acuerdo no llegó de sorpresa. Durante los últimos siete meses, una serie de filtraciones fue revelando los detalles del pacto más relevante entre las dos empresas en décadas.
+
+## Las primeras filtraciones: noviembre de 2025
+
+El 3 de noviembre de 2025, 9to5Mac publicó que [Apple estaba negociando el uso de modelos de Google Gemini para la nueva Siri](https://9to5mac.com/2025/11/03/apple-iphone-new-siri-google-gemini-deal/), con el objetivo de que la integración fuera invisible para el usuario: Gemini operaría "en segundo plano", sin que Apple lo anunciara públicamente de forma inmediata.
+
+Dos días después, el mismo medio detalló que el acuerdo se acercaba a los [1.000 millones de dólares anuales](https://9to5mac.com/2025/11/05/google-gemini-1-billion-deal-apple-siri/) por el acceso a una versión personalizada del modelo. En ese momento la información era imprecisa: no estaba claro qué funciones concretas asumiría Gemini ni cómo se gestionaría la privacidad.
+
+Lo que sí estaba claro era la dirección. Apple llevaba meses reconociendo internamente que sus propios modelos fundacionales no eran suficientes para competir con las capacidades de razonamiento y planificación de OpenAI o Google. La alianza ya existente con OpenAI para el acceso a ChatGPT desde Siri había sido solo el primer paso.
+
+## El acuerdo confirmado: enero de 2026
+
+El 12 de enero de 2026, Bloomberg y CNBC confirmaron que Apple y Google habían sellado un acuerdo multi-año y no exclusivo. Apple abonaría aproximadamente **1.000 millones de dólares anuales** por acceso a un modelo Gemini personalizado de **1,2 billones de parámetros**, diseñado específicamente para integrarse en la infraestructura de Apple. Gene Munster, analista de Deepwater Asset Management, estimó el valor total del acuerdo en hasta **5.000 millones de dólares** a lo largo de su duración.
+
+El mismo día, [9to5Mac describió el alcance del acuerdo como "más grande y mejor de lo esperado"](https://9to5mac.com/2026/01/12/apples-new-google-gemini-deal-sounds-bigger-better-than-expected/), señalando que la colaboración iba más allá de simplemente añadir Gemini como opción de chatbot en Siri, el camino que había tomado la integración con OpenAI. En este caso, Gemini formaría parte de los propios Apple Foundation Models.
+
+## Cómo entra Gemini en Apple sin ver tus datos
+
+El aspecto técnico más relevante de las filtraciones es la arquitectura de privacidad que Apple ha diseñado alrededor de la integración. Según los reportes, **Gemini no corre en servidores de Google**: corre en la infraestructura de **Private Cloud Compute (PCC)** de Apple, la misma red de servidores en la nube diseñados para que los datos del usuario nunca salgan del control de Apple.
+
+El modelo resultante se denomina internamente **Apple Foundation Models v10**. Apple tiene acceso completo al modelo Gemini en sus propias instalaciones y puede usarlo de dos formas: como modelo base para tareas complejas que requieren nube, o como punto de partida para destilar modelos más pequeños capaces de correr directamente en el dispositivo.
+
+Dentro de Apple Intelligence, Gemini se encarga específicamente de las funciones de **planificación (planner)** y **resumen (summarizer)**: las dos capacidades que requieren razonamiento más profundo y que los modelos propios de Apple no cubrían con suficiente calidad. Las tareas de procesamiento básico del lenguaje y las funciones que se ejecutan completamente en el dispositivo siguen usando los modelos propios de Apple.
+
+Para entender por qué esta separación importa, conviene conocer [cómo funciona el contexto en los LLM](/como-funciona-el-contexto-en-los-llm/): el modelo que gestiona el contexto largo y la planificación de tareas complejas es el que necesita más parámetros, y por tanto el que más se beneficia de tener acceso a Gemini.
+
+## Nuevos detalles de marzo: qué cambia en el modelo
+
+El 25 de marzo de 2026, 9to5Mac publicó [un nuevo reporte con detalles técnicos adicionales](https://9to5mac.com/2026/03/25/new-details-on-apple-google-ai-deal-revealed-including-gemini-changes-report/) sobre los cambios que Google había realizado en Gemini para adaptarlo a los requisitos de Apple. El modelo no es Gemini estándar: Google ha desarrollado una versión específica con modificaciones en su comportamiento, sus límites de seguridad y su forma de responder, ajustadas al tono y las políticas de Apple.
+
+Además, se confirmó que Apple puede usar el acceso al modelo completo para destilar versiones más compactas, de entre 7.000 y 70.000 millones de parámetros, capaces de ejecutarse directamente en iPhone y Mac sin necesidad de conexión a la nube. Esta capacidad de destilación es clave para la estrategia de Apple a largo plazo: usar el modelo de Google como punto de partida para desarrollar progresivamente sus propios modelos más potentes.
+
+La relación entre un modelo grande de referencia y sus versiones destiladas para dispositivo es similar a la arquitectura que se utiliza en los [agentes de IA modernos](/que-son-los-agentes-de-ia/), donde un modelo orquestador gestiona la planificación y delega en modelos más ligeros la ejecución.
+
+## iOS 26.4: la primera fase ya está aquí
+
+El 25 de enero de 2026, Apple anunció que los primeros resultados de la colaboración llegarían en febrero con iOS 26.4. La actualización activó las primeras funciones alimentadas por Gemini: **mayor conciencia de contexto** en Siri y **reconocimiento mejorado de contenido en pantalla** para Visual Intelligence.
+
+Estas características están disponibles para los más de 1.500 millones de usuarios activos diarios de dispositivos Apple. La integración es transparente: no hay un botón "usar Gemini" ni ninguna indicación visible en la interfaz de que el modelo de Google está procesando la solicitud.
+
+La filosofía es radicalmente distinta a la integración con ChatGPT, que requiere una confirmación explícita del usuario antes de enviar la consulta al modelo de OpenAI. Con Gemini, Apple ha optado por integración total y silenciosa, argumentando que la arquitectura PCC elimina la necesidad de consentimiento adicional porque los datos nunca salen de su infraestructura.
+
+## WWDC 2026: lo que se espera el 8 de junio
+
+La conferencia de desarrolladores de Apple, que comienza el 8 de junio de 2026, es el escenario previsto para la presentación de la Siri completamente rediseñada en iOS 27. Las filtraciones apuntan a varias capacidades nuevas:
+
+- **Memoria de conversaciones anteriores**: Siri recordará el contexto de interacciones pasadas con el usuario.
+- **Sugerencias proactivas**: el sistema podrá sugerir acciones anticipándose a necesidades del usuario, como alertar sobre el tiempo necesario para llegar a un aeropuerto.
+- **Automatización en lenguaje natural**: Shortcuts recibirá una actualización que permitirá crear automatizaciones usando lenguaje natural en lugar de bloques visuales.
+- **Visual Intelligence extendida**: capacidad para leer etiquetas nutricionales, escanear tarjetas de visita y guardar la información directamente en Contactos.
+
+La creación del subdominio `genai.apple.com` semanas antes del evento es otra señal: Apple está preparando una presentación centrada en IA generativa que va más allá de los anuncios incrementales de los últimos años.
+
+Este esfuerzo de Apple contrasta con el ritmo de lanzamiento de otros laboratorios. El salto entre [GPT-5.5 y sus capacidades de inteligencia agéntica](/gpt-5-5-novedades-benchmarks-inteligencia-agentica/) o los recientes modelos de [Google DeepMind para generación de mundos interactivos](/genie-3-google-deepmind-mundos-interactivos/) refleja un ecosistema que se mueve rápido, y Apple lleva meses acortando distancias.
+
+## Las preocupaciones de privacidad
+
+La integración de Gemini no ha estado exenta de controversia. Numerosos usuarios y analistas han señalado la paradoja de que Apple, cuya identidad de marca descansa sobre la privacidad, haya elegido a Google como socio de IA. Google enfrenta además un proceso antimonopolio por parte del Departamento de Justicia de Estados Unidos relacionado con su posición dominante en el mercado de búsqueda, lo que añade una capa de escrutinio político al acuerdo.
+
+Apple ha respondido con argumentos técnicos: Private Cloud Compute garantiza que **ningún dato del usuario llega a servidores de Google**. El modelo Gemini que Apple usa es una copia que corre en su propia infraestructura, no una llamada a la API de Google. Apple ha publicado documentación técnica sobre PCC que permite a investigadores de seguridad independientes verificar las garantías de privacidad, un nivel de transparencia que la compañía no había ofrecido anteriormente con sus sistemas en la nube.
+
+El debate, sin embargo, no se cierra solo con garantías técnicas. El acuerdo económico implica que Apple paga a Google por tecnología que Google usará también para entrenar y mejorar sus propios modelos, creando una relación de interdependencia que algunos analistas consideran problemática a largo plazo. Para contexto, vale la pena revisar cómo [Google está posicionando sus agentes personales frente a competidores](/google-spark-vs-openclaw-agentes-personales/) y qué implica ese ecosistema para los usuarios de Apple.
+
+## El acuerdo que define la próxima etapa de Apple Intelligence
+
+El timeline desde noviembre de 2025 hasta WWDC 2026 describe una transición acelerada: Apple pasó de tener sus propios modelos fundacionales insuficientes a integrar uno de los modelos más capaces del mercado en menos de un año. La arquitectura resultante —Gemini en PCC, destilación hacia modelos on-device, funciones de planner y summarizer— es técnicamente sofisticada y políticamente compleja.
+
+Lo que WWDC revelará el 8 de junio no es solo una Siri más capaz. Es la primera demostración pública de una estrategia que Apple ha construido en secreto durante meses: usar el modelo de Google como andamio para construir los propios.
+
+Sources:
+- [Apple's new Siri will secretly use Google Gemini models behind the scenes — 9to5Mac](https://9to5mac.com/2025/11/03/apple-iphone-new-siri-google-gemini-deal/)
+- [Apple nears $1 billion Google deal for custom Gemini model to power Siri — 9to5Mac](https://9to5mac.com/2025/11/05/google-gemini-1-billion-deal-apple-siri/)
+- [Apple's new Google Gemini deal sounds bigger, better than expected — 9to5Mac](https://9to5mac.com/2026/01/12/apples-new-google-gemini-deal-sounds-bigger-better-than-expected/)
+- [Apple picks Google's Gemini to run AI-powered Siri coming this year — CNBC](https://www.cnbc.com/2026/01/12/apple-google-ai-siri-gemini.html)
+- [New details on Apple-Google AI deal revealed, including Gemini changes — 9to5Mac](https://9to5mac.com/2026/03/25/new-details-on-apple-google-ai-deal-revealed-including-gemini-changes-report/)
+- [Google Confirms Gemini-Powered Siri Coming Later This Year — MacRumors](https://www.macrumors.com/2026/04/22/google-gemini-powered-siri-2026/)
+- [Apple's new "genai.apple.com" hints at WWDC AI plans — tech-ish](https://tech-ish.com/2026/05/24/apples-new-genai-apple-com-hints-at-wwdc-ai-plans/)

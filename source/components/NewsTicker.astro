@@ -155,11 +155,13 @@
     track.appendChild(fragment)
     track.appendChild(clone)
 
-    // Duration: ~80px/s — adjust based on total content width
-    const totalWidth = track.scrollWidth / 2
-    const duration = Math.max(15, Math.round(totalWidth / 80))
-    track.style.setProperty('--nt-duration', `${duration}s`)
-    track.classList.add('nt-animate')
+    // Defer duration calc until after browser layout so scrollWidth is accurate
+    requestAnimationFrame(() => {
+      const totalWidth = track.scrollWidth / 2
+      const duration = Math.max(15, Math.round(totalWidth / 80))
+      track.style.setProperty('--nt-duration', `${duration}s`)
+      track.classList.add('nt-animate')
+    })
   }
 
   // Show loading state

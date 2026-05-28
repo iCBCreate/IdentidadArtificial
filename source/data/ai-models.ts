@@ -37,6 +37,7 @@ export const AI_MODELS: AIModel[] = [
   { name: 'Claude 3.7 Sonnet', company: 'Claude', date: 'Feb 2025', dateValue: toDateValue(2025,  2), color: '#CC785C', description: 'Primer modelo de Anthropic con razonamiento extendido activable. Lidera benchmarks de programación.' },
   { name: 'Claude Sonnet 4',   company: 'Claude', date: 'May 2025', dateValue: toDateValue(2025,  5), color: '#CC785C', description: 'Generación 4 de Claude. Razonamiento y codificación de frontera. Motor de Claude Code y agentes autónomos.' },
   { name: 'Claude Opus 4',     company: 'Claude', date: 'May 2025', dateValue: toDateValue(2025,  5), color: '#CC785C', description: 'El modelo más potente de Anthropic. Diseñado para tareas de agente complejas y razonamiento de máxima profundidad.' },
+  { name: 'Claude Opus 4.8',   company: 'Claude', date: 'May 2026', dateValue: toDateValue(2026,  5), color: '#CC785C', description: 'Mejoras en codificación, razonamiento y agentes autónomos. 4× menos propenso a ignorar defectos en código. Modo rápido 2.5× más veloz y 3× más económico.' },
 
   // Gemini (Google)
   { name: 'Gemini 1.0',      company: 'Gemini', date: 'Dic 2023', dateValue: toDateValue(2023, 12), color: '#8AB4F8', description: 'Primer modelo nativo multimodal de Google. Integrado en todo el ecosistema Google.' },

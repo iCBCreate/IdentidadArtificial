@@ -8,4 +8,5 @@ interface Env {
   GOOGLE_SEARCH_CONSOLE_REFRESH_TOKEN?: string
   GOOGLE_SEARCH_CONSOLE_SITE_URL?: string
   METRICS_ACCESS_TOKEN?: string
+  NEWSDATA_API_KEY?: string
 }

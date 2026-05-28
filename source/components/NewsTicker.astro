@@ -1,0 +1,176 @@
+---
+---
+<div class="nt-bar" role="marquee" aria-label="Titulares de inteligencia artificial en tiempo real" aria-live="off">
+  <span class="nt-label">IA AHORA</span>
+  <div class="nt-track-wrap">
+    <div class="nt-track" id="nt-track">
+      <!-- Filled by client JS; static fallback below if JS disabled -->
+      <noscript>
+        <span class="nt-item">Últimas noticias de inteligencia artificial</span>
+        <span class="nt-sep">◆</span>
+        <span class="nt-item">Modelos de lenguaje, agentes y más</span>
+        <span class="nt-sep">◆</span>
+        <span class="nt-item">Identidad Artificial — el pulso de la IA</span>
+      </noscript>
+    </div>
+  </div>
+</div>
+
+<style>
+.nt-bar {
+  display: flex;
+  align-items: center;
+  background: #13131F;
+  border-top: 1px solid #7C3AED;
+  border-bottom: 1px solid #2A2A40;
+  height: 34px;
+  overflow: hidden;
+}
+
+.nt-label {
+  background: #7C3AED;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0 12px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nt-track-wrap {
+  flex: 1;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+}
+
+.nt-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.nt-track.nt-animate {
+  animation: nt-scroll var(--nt-duration, 40s) linear infinite;
+}
+
+@keyframes nt-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nt-track.nt-animate {
+    animation-play-state: paused;
+  }
+}
+
+.nt-item {
+  color: #C4B5FD;
+  font-size: 11px;
+  padding: 0 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+a.nt-item:hover {
+  color: #E8E8F0;
+}
+
+.nt-sep {
+  color: #4A4A6A;
+  font-size: 9px;
+  padding: 0 14px;
+  flex-shrink: 0;
+}
+
+.nt-loading {
+  color: #4A4A6A;
+  font-size: 10px;
+  padding: 0 14px;
+  font-style: italic;
+}
+</style>
+
+<script>
+(function () {
+  const track = document.getElementById('nt-track')
+  if (!track) return
+
+  const FALLBACK = [
+    { title: 'Últimas noticias de inteligencia artificial en español', link: '' },
+    { title: 'Modelos de lenguaje: avances y tendencias del sector', link: '' },
+    { title: 'Agentes autónomos, RAG y el futuro de la IA generativa', link: '' },
+  ]
+
+  function buildItems(articles: { title: string; link: string }[]) {
+    return articles.map(a => {
+      if (a.link) {
+        const el = document.createElement('a')
+        el.className = 'nt-item'
+        el.href = a.link
+        el.target = '_blank'
+        el.rel = 'noopener noreferrer'
+        el.textContent = a.title
+        return el
+      }
+      const el = document.createElement('span')
+      el.className = 'nt-item'
+      el.textContent = a.title
+      return el
+    })
+  }
+
+  function renderTicker(articles: { title: string; link: string }[]) {
+    while (track.firstChild) track.removeChild(track.firstChild)
+
+    const items = buildItems(articles)
+    const sep = () => {
+      const s = document.createElement('span')
+      s.className = 'nt-sep'
+      s.textContent = '◆'
+      return s
+    }
+
+    // Build one copy
+    const fragment = document.createDocumentFragment()
+    items.forEach((el, i) => {
+      fragment.appendChild(el)
+      if (i < items.length - 1) fragment.appendChild(sep())
+    })
+    fragment.appendChild(sep())
+
+    // Duplicate for seamless loop
+    const clone = fragment.cloneNode(true)
+    track.appendChild(fragment)
+    track.appendChild(clone)
+
+    // Duration: ~80px/s — adjust based on total content width
+    const totalWidth = track.scrollWidth / 2
+    const duration = Math.max(15, Math.round(totalWidth / 80))
+    track.style.setProperty('--nt-duration', `${duration}s`)
+    track.classList.add('nt-animate')
+  }
+
+  // Show loading state
+  const loading = document.createElement('span')
+  loading.className = 'nt-loading'
+  loading.textContent = 'Cargando titulares...'
+  track.appendChild(loading)
+
+  fetch('/api/news-ticker.json')
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then((articles: { title: string; link: string }[]) => {
+      renderTicker(articles.length ? articles : FALLBACK)
+    })
+    .catch(() => renderTicker(FALLBACK))
+})()
+</script>

@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import HeroSection from '../components/HeroSection.astro'
 import AITimeline from '../components/AITimeline.astro'
+import NewsTicker from '../components/NewsTicker.astro'
 import AIShowcase from '../components/AIShowcase.astro'
 import PostCard from '../components/PostCard.astro'
 import Pagination from '../components/Pagination.astro'
@@ -46,6 +47,8 @@ const homepageJsonLd = [
 
 <BaseLayout title={SITE.name} description={SITE.description} image="/og/index.png" jsonLd={homepageJsonLd}>
   <HeroSection />
+
+  <NewsTicker />
 
   <AITimeline />
 

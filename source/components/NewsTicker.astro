@@ -158,7 +158,7 @@
     // Defer duration calc until after browser layout so scrollWidth is accurate
     requestAnimationFrame(() => {
       const totalWidth = track.scrollWidth / 2
-      const duration = Math.max(15, Math.round(totalWidth / 80))
+      const duration = Math.max(8, Math.round(totalWidth / 160))
       track.style.setProperty('--nt-duration', `${duration}s`)
       track.classList.add('nt-animate')
     })

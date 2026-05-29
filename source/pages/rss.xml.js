@@ -11,12 +11,24 @@ export async function GET(context) {
     title: SITE.name,
     description: SITE.description,
     site: context.site,
-    items: posts.slice(0, 20).map(post => ({
-      title: post.data.title,
-      description: post.data.description,
-      pubDate: post.data.pubDate,
-      link: `/${post.id}/`,
-    })),
+    xmlns: {
+      media: 'http://search.yahoo.com/mrss/',
+    },
+    items: posts.slice(0, 20).map(post => {
+      const postUrl = new URL(`/${post.id}/`, context.site)
+      const imageUrl = new URL(`/og/${post.id}.png`, context.site)
+
+      return {
+        title: post.data.title,
+        description: post.data.description,
+        pubDate: post.data.pubDate,
+        link: postUrl.pathname,
+        customData: [
+          `<media:content url="${imageUrl.href}" medium="image" type="image/png" width="1200" height="630" />`,
+          `<enclosure url="${imageUrl.href}" type="image/png" length="0" />`,
+        ].join(''),
+      }
+    }),
     customData: `<language>es-es</language>`,
   })
 }

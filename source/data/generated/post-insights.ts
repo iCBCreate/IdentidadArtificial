@@ -34,6 +34,48 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "anthropic-series-h-compute-claude": {
+    "executiveSummary": "Anthropic levanta 65.000 millones en Series H y acelera la carrera por compute, clientes enterprise y distribución cloud de Claude. La Anthropic Series H no es solo una ronda de financiación grande: es una señal de cómo se está reorganizando la economía de la IA generativa alrededor de tres recursos escasos: compute, distribución enterprise y confianza operativa. Anthropic anunció el 28 de mayo de 2026 una ronda de 65.000 millones de dólares con una valoración post-money de 965.000 millones, cifras que colocan a Claude en el centro de la carrera por convertir modelos frontier en infraestructura de trabajo real.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Anthropic levanta 65.000 millones en Series H y acelera la carrera por compute, clientes enterprise y distribución cloud de Claude.",
+      "Anthropic está financiando una fase en la que el producto ya no depende solo de tener un modelo competitivo, sino de poder servirlo a millones de usuarios, integrarlo en grandes empresas, aumentar límites de uso, mantener acuerdos de capacidad y sostener investigación de seguridad e interpretabilidad al mismo tiempo.",
+      "Conceptos detectados por el pipeline: LLM, Agente, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre LLM?",
+        "answer": "Anthropic levanta 65.000 millones en Series H y acelera la carrera por compute, clientes enterprise y distribución cloud de Claude."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 10,
+      "density": "media",
+      "bestFor": "orientarse en tendencias técnicas"
+    }
+  },
   "apple-intelligence-google-gemini-siri-filtraciones-2026": {
     "executiveSummary": "Desde las primeras filtraciones en noviembre de 2025 hasta WWDC 2026: cómo Google Gemini se convierte en el motor de Apple Intelligence sin tocar los datos de los usuarios. El 8 de junio de 2026, Apple abrirá la WWDC con lo que se espera sea la mayor transformación de Apple Intelligence desde su presentación: una Siri completamente rediseñada y alimentada por Google Gemini . Durante los últimos siete meses, una serie de filtraciones fue revelando los detalles del pacto más relevante entre las dos empresas en décadas.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

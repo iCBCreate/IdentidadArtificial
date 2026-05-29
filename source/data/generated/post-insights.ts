@@ -77,10 +77,10 @@ export const POST_INSIGHTS = {
     }
   },
   "chatgpt-images-2-gpt-image-2": {
-    "executiveSummary": "ChatGPT Images 2.0 (gpt-image-2) llegó el 21 de abril: resolución 2K, razonamiento visual, texto multilíngüe con precisión >99% y retirada de DALL-E 3. El 21 de abril de 2026, OpenAI lanzó ChatGPT Images 2.0 , el sistema de generación de imágenes más ambicioso que ha publicado hasta la fecha. El modelo subyacente se llama gpt-image-2 y trae un cambio conceptual que lo diferencia de todo lo anterior: razona antes de dibujar .",
+    "executiveSummary": "GPT Image 2 es el modelo de imagen de OpenAI que razona antes de dibujar. Resuelve oclusión, sombras y perspectiva donde DALL-E 3 fallaba. El 21 de abril de 2026, OpenAI lanzó ChatGPT Images 2.0 , el sistema de generación de imágenes más ambicioso que ha publicado hasta la fecha.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
-      "ChatGPT Images 2.0 (gpt-image-2) llegó el 21 de abril: resolución 2K, razonamiento visual, texto multilíngüe con precisión >99% y retirada de DALL-E 3. Todo lo que necesitas saber.",
+      "GPT Image 2 es el modelo de imagen de OpenAI que razona antes de dibujar. Resuelve oclusión, sombras y perspectiva donde DALL-E 3 fallaba.",
       "El modelo subyacente se llama gpt-image-2 y trae un cambio conceptual que lo diferencia de todo lo anterior: razona antes de dibujar .",
       "Conceptos detectados por el pipeline: Ventana de contexto, Multimodalidad."
     ],
@@ -97,7 +97,7 @@ export const POST_INSIGHTS = {
     "faqs": [
       {
         "question": "Qué aporta este artículo sobre Ventana de contexto?",
-        "answer": "ChatGPT Images 2.0 (gpt-image-2) llegó el 21 de abril: resolución 2K, razonamiento visual, texto multilíngüe con precisión >99% y retirada de DALL-E 3. Todo lo que necesitas saber."
+        "answer": "GPT Image 2 es el modelo de imagen de OpenAI que razona antes de dibujar. Resuelve oclusión, sombras y perspectiva donde DALL-E 3 fallaba."
       },
       {
         "question": "Para quién es útil esta lectura?",
@@ -237,7 +237,7 @@ export const POST_INSIGHTS = {
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "Anthropic lanza Claude Opus 4.8 con mejor rendimiento en agentes, Dynamic Workflows en Claude Code y un Fast Mode 3 veces más barato que Opus 4.7.",
-      "Qué cambia respecto a Opus 4.7 Las mejoras de Opus 4.8 se concentran en tres áreas: fiabilidad en código, honestidad y capacidades multimodales.",
+      "Las mejoras de Opus 4.8 se concentran en tres áreas: fiabilidad en código, honestidad y capacidades multimodales.",
       "Conceptos detectados por el pipeline: RAG, LLM, Agente, Ventana de contexto."
     ],
     "glossary": [
@@ -287,7 +287,7 @@ export const POST_INSIGHTS = {
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "OpenAI lleva Codex a la app móvil de ChatGPT para supervisar tareas, aprobar comandos y mantener agentes de código en marcha desde el teléfono.",
-      "Qué anunció OpenAI La novedad principal es que Codex entra en la app móvil de ChatGPT en preview .",
+      "La novedad principal es que Codex entra en la app móvil de ChatGPT en preview .",
       "Conceptos detectados por el pipeline: Agente, Ventana de contexto."
     ],
     "glossary": [

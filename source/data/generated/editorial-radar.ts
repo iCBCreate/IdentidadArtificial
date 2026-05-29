@@ -50,11 +50,11 @@ export const EDITORIAL_RADAR = {
       "relatedPosts": [
         {
           "slug": "claude-managed-agents",
-          "title": "Claude Managed Agents: automatización real con IA"
+          "title": "Claude Managed Agents: automatización con IA"
         },
         {
           "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-          "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode"
+          "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode"
         }
       ]
     },
@@ -71,11 +71,11 @@ export const EDITORIAL_RADAR = {
       "relatedPosts": [
         {
           "slug": "anthropic-mythos-ciberseguridad-sandbox",
-          "title": "Anthropic Mythos: IA, ciberseguridad y el incidente del sandbox"
+          "title": "Anthropic Mythos: IA y ciberseguridad"
         },
         {
           "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-          "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode"
+          "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode"
         }
       ]
     },
@@ -92,11 +92,11 @@ export const EDITORIAL_RADAR = {
       "relatedPosts": [
         {
           "slug": "como-funciona-el-contexto-en-los-llm",
-          "title": "Cómo funciona el contexto en los modelos de lenguaje"
+          "title": "Cómo funciona el contexto en un LLM"
         },
         {
           "slug": "google-spark-vs-openclaw-agentes-personales",
-          "title": "Google Spark vs OpenClaw: dos arquitecturas opuestas para el agente personal"
+          "title": "Google Spark vs OpenClaw: agente personal"
         }
       ]
     },
@@ -113,11 +113,11 @@ export const EDITORIAL_RADAR = {
       "relatedPosts": [
         {
           "slug": "claude-managed-agents",
-          "title": "Claude Managed Agents: automatización real con IA"
+          "title": "Claude Managed Agents: automatización con IA"
         },
         {
           "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-          "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode"
+          "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode"
         }
       ]
     }

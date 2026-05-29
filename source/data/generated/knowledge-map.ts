@@ -5,7 +5,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:anthropic-mythos-ciberseguridad-sandbox",
       "type": "post",
-      "label": "Anthropic Mythos: IA, ciberseguridad y el incidente del sandbox",
+      "label": "Anthropic Mythos: IA y ciberseguridad",
       "slug": "anthropic-mythos-ciberseguridad-sandbox",
       "category": "Modelos"
     },
@@ -62,7 +62,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:apple-intelligence-google-gemini-siri-filtraciones-2026",
       "type": "post",
-      "label": "Apple Intelligence y Google Gemini: todo lo que se ha filtrado sobre el acuerdo que cambia Siri",
+      "label": "Apple Intelligence y Gemini: el acuerdo Siri",
       "slug": "apple-intelligence-google-gemini-siri-filtraciones-2026",
       "category": "Modelos"
     },
@@ -119,7 +119,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:chatgpt-images-2-gpt-image-2",
       "type": "post",
-      "label": "ChatGPT Images 2.0: el modelo que razona antes de dibujar",
+      "label": "GPT Image 2: el modelo que razona antes de dibujar",
       "slug": "chatgpt-images-2-gpt-image-2",
       "category": "Modelos"
     },
@@ -156,7 +156,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:claude-code-security-anthropic",
       "type": "post",
-      "label": "Claude Code Security: seguridad de código con revisión agente",
+      "label": "Claude Code Security: revisión de código con IA",
       "slug": "claude-code-security-anthropic",
       "category": "Herramientas"
     },
@@ -183,7 +183,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:claude-managed-agents",
       "type": "post",
-      "label": "Claude Managed Agents: automatización real con IA",
+      "label": "Claude Managed Agents: automatización con IA",
       "slug": "claude-managed-agents",
       "category": "Modelos"
     },
@@ -210,7 +210,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:claude-mythos-glasswing-10000-vulnerabilidades",
       "type": "post",
-      "label": "Claude Mythos y Project Glasswing: 10.000 vulnerabilidades críticas en un mes",
+      "label": "Claude Mythos y Glasswing: 10.000 CVEs en un mes",
       "slug": "claude-mythos-glasswing-10000-vulnerabilidades",
       "category": "Modelos"
     },
@@ -232,7 +232,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:claude-opus-4-8-lanzamiento-benchmarks-agentes",
       "type": "post",
-      "label": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+      "label": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
       "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
       "category": "Modelos"
     },
@@ -286,7 +286,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:como-funciona-el-contexto-en-los-llm",
       "type": "post",
-      "label": "Cómo funciona el contexto en los modelos de lenguaje",
+      "label": "Cómo funciona el contexto en un LLM",
       "slug": "como-funciona-el-contexto-en-los-llm",
       "category": "Conceptos"
     },
@@ -308,7 +308,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:compresion-inteligente-avif-astro-rendimiento",
       "type": "post",
-      "label": "Imágenes AVIF en Astro: compresión inteligente y rendimiento",
+      "label": "Imágenes AVIF en Astro: rendimiento real",
       "slug": "compresion-inteligente-avif-astro-rendimiento",
       "category": "Arquitectura"
     },
@@ -355,7 +355,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:genie-3-google-deepmind-mundos-interactivos",
       "type": "post",
-      "label": "Genie 3: el modelo de mundo de Google DeepMind que genera entornos interactivos en tiempo real",
+      "label": "Genie 3: mundos interactivos de DeepMind en tiempo real",
       "slug": "genie-3-google-deepmind-mundos-interactivos",
       "category": "Modelos"
     },
@@ -382,7 +382,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:google-spark-vs-openclaw-agentes-personales",
       "type": "post",
-      "label": "Google Spark vs OpenClaw: dos arquitecturas opuestas para el agente personal",
+      "label": "Google Spark vs OpenClaw: agente personal",
       "slug": "google-spark-vs-openclaw-agentes-personales",
       "category": "Arquitectura"
     },
@@ -438,7 +438,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:por-que-astro-para-un-blog-generado-por-ia",
       "type": "post",
-      "label": "Por qué elegí Astro para un blog generado por IA",
+      "label": "Por qué elegí Astro para un blog de IA",
       "slug": "por-que-astro-para-un-blog-generado-por-ia",
       "category": "Arquitectura"
     },
@@ -1774,19 +1774,19 @@ export const KNOWLEDGE_MAP = {
     "anthropic-mythos-ciberseguridad-sandbox": [
       {
         "slug": "claude-mythos-glasswing-10000-vulnerabilidades",
-        "title": "Claude Mythos y Project Glasswing: 10.000 vulnerabilidades críticas en un mes",
+        "title": "Claude Mythos y Glasswing: 10.000 CVEs en un mes",
         "reason": "Comparten etiquetas: anthropic, mythos.",
         "score": 18
       },
       {
         "slug": "claude-code-security-anthropic",
-        "title": "Claude Code Security: seguridad de código con revisión agente",
+        "title": "Claude Code Security: revisión de código con IA",
         "reason": "Comparten etiquetas: anthropic, ciberseguridad.",
         "score": 12
       },
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Comparten etiquetas: anthropic.",
         "score": 12
       }
@@ -1794,13 +1794,13 @@ export const KNOWLEDGE_MAP = {
     "apple-intelligence-google-gemini-siri-filtraciones-2026": [
       {
         "slug": "google-spark-vs-openclaw-agentes-personales",
-        "title": "Google Spark vs OpenClaw: dos arquitecturas opuestas para el agente personal",
+        "title": "Google Spark vs OpenClaw: agente personal",
         "reason": "Comparten etiquetas: google.",
         "score": 17
       },
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Conectan por conceptos: LLM, Agentes.",
         "score": 15
       },
@@ -1820,7 +1820,7 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Conectan por conceptos: OpenAI, Razonamiento.",
         "score": 9
       },
@@ -1834,19 +1834,19 @@ export const KNOWLEDGE_MAP = {
     "claude-code-security-anthropic": [
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Comparten etiquetas: anthropic.",
         "score": 13
       },
       {
         "slug": "anthropic-mythos-ciberseguridad-sandbox",
-        "title": "Anthropic Mythos: IA, ciberseguridad y el incidente del sandbox",
+        "title": "Anthropic Mythos: IA y ciberseguridad",
         "reason": "Comparten etiquetas: anthropic, ciberseguridad.",
         "score": 12
       },
       {
         "slug": "claude-mythos-glasswing-10000-vulnerabilidades",
-        "title": "Claude Mythos y Project Glasswing: 10.000 vulnerabilidades críticas en un mes",
+        "title": "Claude Mythos y Glasswing: 10.000 CVEs en un mes",
         "reason": "Comparten etiquetas: anthropic, ciberseguridad.",
         "score": 12
       }
@@ -1854,7 +1854,7 @@ export const KNOWLEDGE_MAP = {
     "claude-managed-agents": [
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Comparten etiquetas: claude, agentes.",
         "score": 19
       },
@@ -1874,13 +1874,13 @@ export const KNOWLEDGE_MAP = {
     "claude-mythos-glasswing-10000-vulnerabilidades": [
       {
         "slug": "anthropic-mythos-ciberseguridad-sandbox",
-        "title": "Anthropic Mythos: IA, ciberseguridad y el incidente del sandbox",
+        "title": "Anthropic Mythos: IA y ciberseguridad",
         "reason": "Comparten etiquetas: anthropic, mythos.",
         "score": 18
       },
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Comparten etiquetas: anthropic.",
         "score": 18
       },
@@ -1900,13 +1900,13 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "claude-managed-agents",
-        "title": "Claude Managed Agents: automatización real con IA",
+        "title": "Claude Managed Agents: automatización con IA",
         "reason": "Comparten etiquetas: claude, agentes.",
         "score": 19
       },
       {
         "slug": "claude-mythos-glasswing-10000-vulnerabilidades",
-        "title": "Claude Mythos y Project Glasswing: 10.000 vulnerabilidades críticas en un mes",
+        "title": "Claude Mythos y Glasswing: 10.000 CVEs en un mes",
         "reason": "Comparten etiquetas: anthropic.",
         "score": 18
       }
@@ -1926,7 +1926,7 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "apple-intelligence-google-gemini-siri-filtraciones-2026",
-        "title": "Apple Intelligence y Google Gemini: todo lo que se ha filtrado sobre el acuerdo que cambia Siri",
+        "title": "Apple Intelligence y Gemini: el acuerdo Siri",
         "reason": "Conectan por conceptos: OpenAI, Agentes.",
         "score": 12
       }
@@ -1934,7 +1934,7 @@ export const KNOWLEDGE_MAP = {
     "como-funciona-el-contexto-en-los-llm": [
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Comparten etiquetas: llm.",
         "score": 11
       },
@@ -1954,19 +1954,19 @@ export const KNOWLEDGE_MAP = {
     "compresion-inteligente-avif-astro-rendimiento": [
       {
         "slug": "genie-3-google-deepmind-mundos-interactivos",
-        "title": "Genie 3: el modelo de mundo de Google DeepMind que genera entornos interactivos en tiempo real",
+        "title": "Genie 3: mundos interactivos de DeepMind en tiempo real",
         "reason": "Conectan por conceptos: Astro, Multimodal.",
         "score": 8
       },
       {
         "slug": "por-que-astro-para-un-blog-generado-por-ia",
-        "title": "Por qué elegí Astro para un blog generado por IA",
+        "title": "Por qué elegí Astro para un blog de IA",
         "reason": "Comparten etiquetas: astro.",
         "score": 6
       },
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Conectan por conceptos: Rendimiento, Multimodal.",
         "score": 4
       }
@@ -1974,19 +1974,19 @@ export const KNOWLEDGE_MAP = {
     "genie-3-google-deepmind-mundos-interactivos": [
       {
         "slug": "apple-intelligence-google-gemini-siri-filtraciones-2026",
-        "title": "Apple Intelligence y Google Gemini: todo lo que se ha filtrado sobre el acuerdo que cambia Siri",
+        "title": "Apple Intelligence y Gemini: el acuerdo Siri",
         "reason": "Comparten etiquetas: google.",
         "score": 12
       },
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Conectan por conceptos: LLM, RAG.",
         "score": 11
       },
       {
         "slug": "google-spark-vs-openclaw-agentes-personales",
-        "title": "Google Spark vs OpenClaw: dos arquitecturas opuestas para el agente personal",
+        "title": "Google Spark vs OpenClaw: agente personal",
         "reason": "Comparten etiquetas: google.",
         "score": 11
       }
@@ -2000,13 +2000,13 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "apple-intelligence-google-gemini-siri-filtraciones-2026",
-        "title": "Apple Intelligence y Google Gemini: todo lo que se ha filtrado sobre el acuerdo que cambia Siri",
+        "title": "Apple Intelligence y Gemini: el acuerdo Siri",
         "reason": "Comparten etiquetas: google.",
         "score": 17
       },
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Comparten etiquetas: agentes.",
         "score": 17
       }
@@ -2020,7 +2020,7 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Conectan por conceptos: OpenAI, Agentes.",
         "score": 17
       },
@@ -2034,19 +2034,19 @@ export const KNOWLEDGE_MAP = {
     "openai-workspace-agents-chatgpt-autonomia": [
       {
         "slug": "google-spark-vs-openclaw-agentes-personales",
-        "title": "Google Spark vs OpenClaw: dos arquitecturas opuestas para el agente personal",
+        "title": "Google Spark vs OpenClaw: agente personal",
         "reason": "Comparten etiquetas: agentes.",
         "score": 19
       },
       {
         "slug": "claude-managed-agents",
-        "title": "Claude Managed Agents: automatización real con IA",
+        "title": "Claude Managed Agents: automatización con IA",
         "reason": "Comparten etiquetas: agentes, productividad.",
         "score": 18
       },
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Comparten etiquetas: agentes.",
         "score": 17
       }
@@ -2054,13 +2054,13 @@ export const KNOWLEDGE_MAP = {
     "por-que-astro-para-un-blog-generado-por-ia": [
       {
         "slug": "compresion-inteligente-avif-astro-rendimiento",
-        "title": "Imágenes AVIF en Astro: compresión inteligente y rendimiento",
+        "title": "Imágenes AVIF en Astro: rendimiento real",
         "reason": "Comparten etiquetas: astro.",
         "score": 6
       },
       {
         "slug": "google-spark-vs-openclaw-agentes-personales",
-        "title": "Google Spark vs OpenClaw: dos arquitecturas opuestas para el agente personal",
+        "title": "Google Spark vs OpenClaw: agente personal",
         "reason": "Conectan por conceptos: Seguridad IA, Anthropic.",
         "score": 5
       },
@@ -2074,7 +2074,7 @@ export const KNOWLEDGE_MAP = {
     "que-es-rag-generacion-aumentada-por-recuperacion": [
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Comparten etiquetas: llm.",
         "score": 17
       },
@@ -2086,7 +2086,7 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "google-spark-vs-openclaw-agentes-personales",
-        "title": "Google Spark vs OpenClaw: dos arquitecturas opuestas para el agente personal",
+        "title": "Google Spark vs OpenClaw: agente personal",
         "reason": "Conectan por conceptos: LLM, Contexto.",
         "score": 13
       }
@@ -2094,19 +2094,19 @@ export const KNOWLEDGE_MAP = {
     "que-son-los-agentes-de-ia": [
       {
         "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
-        "title": "Claude Opus 4.8: mejoras en agentes, honestidad y Fast Mode",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
         "reason": "Comparten etiquetas: agentes, llm.",
         "score": 24
       },
       {
         "slug": "claude-managed-agents",
-        "title": "Claude Managed Agents: automatización real con IA",
+        "title": "Claude Managed Agents: automatización con IA",
         "reason": "Comparten etiquetas: agentes, automatizacion.",
         "score": 18
       },
       {
         "slug": "google-spark-vs-openclaw-agentes-personales",
-        "title": "Google Spark vs OpenClaw: dos arquitecturas opuestas para el agente personal",
+        "title": "Google Spark vs OpenClaw: agente personal",
         "reason": "Comparten etiquetas: agentes.",
         "score": 17
       }

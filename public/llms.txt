@@ -19,15 +19,37 @@
 - Sitemap: /sitemap-index.xml
 - Mapa semántico: /mapa-ia/
 
-## Artículos recomendados
+## Artículos — Modelos y agentes
+
+- [Claude Opus 4.8: agentes, honestidad y Fast Mode](https://identidadartificial.com/claude-opus-4-8-lanzamiento-benchmarks-agentes/): Anthropic lanza Claude Opus 4.8 con Dynamic Workflows en Claude Code y Fast Mode 3 veces más barato que Opus 4.7.
+- [Claude Managed Agents: automatización con IA](https://identidadartificial.com/claude-managed-agents/): Agentes autónomos de Anthropic orientados a trabajo real y tareas largas sin supervisión constante.
+- [GPT-5.5: inteligencia agéntica y el fin del prompting](https://identidadartificial.com/gpt-5-5-novedades-benchmarks-inteligencia-agentica/): Análisis de GPT-5.5 con benchmarks SWE-Bench Pro y Terminal-Bench 2.0.
+- [OpenAI Workspace Agents: ChatGPT autónomo](https://identidadartificial.com/openai-workspace-agents-chatgpt-autonomia/): Sistema de agentes autónomos de OpenAI para gestionar flujos de trabajo complejos en entornos de equipo.
+- [GPT Image 2: el modelo que razona antes de dibujar](https://identidadartificial.com/chatgpt-images-2-gpt-image-2/): GPT Image 2 resuelve oclusión, sombras y perspectiva donde DALL-E 3 fallaba.
+- [Google Spark vs OpenClaw: agente personal](https://identidadartificial.com/google-spark-vs-openclaw-agentes-personales/): Análisis técnico comparado de dos enfoques opuestos para el agente personal de IA.
+- [Codex en ChatGPT móvil: trabajar con agentes de IA](https://identidadartificial.com/codex-chatgpt-movil-trabajo-remoto/): OpenAI lleva Codex a la app móvil para supervisar y aprobar tareas de agentes desde el teléfono.
+
+## Artículos — Ciberseguridad y IA
+
+- [Claude Mythos y Glasswing: 10.000 CVEs en un mes](https://identidadartificial.com/claude-mythos-glasswing-10000-vulnerabilidades/): Anthropic publica resultados de Project Glasswing: Claude Mythos encontró más de 10.000 vulnerabilidades críticas en un mes.
+- [Anthropic Mythos: IA y ciberseguridad](https://identidadartificial.com/anthropic-mythos-ciberseguridad-sandbox/): Modelo Mythos especializado en detección de vulnerabilidades zero-day y el incidente de evasión de sandbox.
+- [Claude Code Security: revisión de código con IA](https://identidadartificial.com/claude-code-security-anthropic/): Claude Code Security analiza repositorios, valida vulnerabilidades y propone parches revisables.
+
+## Artículos — Conceptos fundamentales
 
 - [RAG: Generación Aumentada por Recuperación — qué es](https://identidadartificial.com/que-es-rag-generacion-aumentada-por-recuperacion/): Arquitectura RAG explicada desde el problema del conocimiento estático hasta la implementación paso a paso.
 - [Cómo funciona el contexto en los modelos de lenguaje](https://identidadartificial.com/como-funciona-el-contexto-en-los-llm/): Tokens, ventanas de contexto, memoria aparente y cómo usar mejor los modelos largos.
 - [Qué son los agentes de IA](https://identidadartificial.com/que-son-los-agentes-de-ia/): Diferencia entre chatbot y agente: planificación, herramientas, acciones y autonomía operativa.
-- [GPT-5.5: inteligencia agéntica y el fin del prompting](https://identidadartificial.com/gpt-5-5-novedades-benchmarks-inteligencia-agentica/): Análisis de GPT-5.5 con benchmarks SWE-Bench Pro y Terminal-Bench 2.0.
-- [Claude Managed Agents: automatización real con IA](https://identidadartificial.com/claude-managed-agents/): Agentes autónomos de Anthropic orientados a trabajo real y tareas largas.
-- [Claude Mythos y Project Glasswing: 10.000 vulnerabilidades críticas](https://identidadartificial.com/claude-mythos-glasswing-10000-vulnerabilidades/): Resultados del primer mes de Project Glasswing: 10.000 vulnerabilidades críticas detectadas.
-- [Imágenes AVIF en Astro: compresión inteligente y rendimiento](https://identidadartificial.com/compresion-inteligente-avif-astro-rendimiento/): Cómo reducir el peso de imágenes un 50% con AVIF y anchos granulares en Astro.
+
+## Artículos — Novedades tecnológicas
+
+- [Apple Intelligence y Gemini: el acuerdo Siri](https://identidadartificial.com/apple-intelligence-google-gemini-siri-filtraciones-2026/): Cómo Google Gemini se convierte en el motor de Apple Intelligence desde WWDC 2026.
+- [Genie 3: mundos interactivos de DeepMind en tiempo real](https://identidadartificial.com/genie-3-google-deepmind-mundos-interactivos/): Genie 3 genera entornos 3D fotorrealistas a 24 fps y 720p desde texto.
+
+## Artículos — Arquitectura y herramientas
+
+- [Por qué elegí Astro para un blog de IA](https://identidadartificial.com/por-que-astro-para-un-blog-generado-por-ia/): Razones técnicas para usar Astro sobre Next.js, Hugo o WordPress en un blog generado por IA.
+- [Imágenes AVIF en Astro: rendimiento real](https://identidadartificial.com/compresion-inteligente-avif-astro-rendimiento/): Cómo reducir el peso de imágenes un 50% con AVIF y anchos granulares en Astro.
 
 ## Tutoriales
 
@@ -41,6 +63,8 @@
 - **Conceptos** — explicaciones técnicas accesibles (tokens, contexto, embeddings…)
 - **Arquitectura** — infraestructura técnica del blog y herramientas de desarrollo con IA
 - **Herramientas** — software y plataformas relacionadas con IA
+- **Ética** — implicaciones sociales y éticas de la IA
+- **Tendencias** — movimientos del sector y análisis prospectivo
 
 ## Política de uso por IA
 

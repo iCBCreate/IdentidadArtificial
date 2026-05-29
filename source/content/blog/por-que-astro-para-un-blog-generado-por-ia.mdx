@@ -16,7 +16,7 @@ heroImage: ../../assets/post/astro-blog-ia-hero.png
 
 Cuando empecé a diseñar este sitio, la primera decisión fue el framework. Es una decisión que parece técnica pero en realidad es editorial: el framework define qué tipo de sitio puedes construir.
 
-## Por qué no Next.js
+## ¿Por qué no Next.js?
 
 Next.js es excelente para aplicaciones web complejas, con autenticación, estado del cliente y actualizaciones en tiempo real.
 
@@ -24,13 +24,13 @@ Pero un blog estático no es una aplicación compleja. Si usas Next.js para un b
 
 El problema real: Next.js envía JavaScript al cliente por defecto. Para contenido que no necesita interactividad, eso es ruido puro.
 
-## Por qué no Hugo
+## ¿Por qué no Hugo?
 
 Hugo genera sitios estáticos a velocidad brutal. Pero usa un lenguaje de plantillas (Go templates) que no es natural para nadie que venga del ecosistema JavaScript/TypeScript.
 
 Y lo más importante: no hay manera fácil de usar componentes MDX con Hugo. Los posts de este sitio pueden necesitar componentes interactivos en el futuro.
 
-## Por qué Astro
+## ¿Por qué Astro?
 
 Astro resuelve exactamente el problema que tengo:
 

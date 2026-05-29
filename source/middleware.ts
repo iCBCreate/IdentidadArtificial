@@ -25,6 +25,7 @@ const GONE_PATHS = new Set([
   '/tag/programacion/',
   '/tag/microsoft/',
   '/tag/anthropyc/',
+  '/tag/perplexity/',
   // Tags sin página — aparecían como "rastreada: sin indexar" en GSC
   '/tag/reflexion/',
   '/tag/agentes-de-ia/',

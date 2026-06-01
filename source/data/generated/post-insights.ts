@@ -572,6 +572,52 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "nvidia-rtx-spark": {
+    "executiveSummary": "NVIDIA RTX Spark integra 1 petaflop de IA, GPU Blackwell y CPU Grace en un chip para ejecutar LLMs de 120B parámetros en portátiles Windows. Análisis técnico del hardware, OpenShell y ecosistema. Durante décadas, ejecutar un modelo de lenguaje serio en un portátil significaba una de dos cosas: recortar el modelo hasta hacerlo casi irrelevante, o depender de una API remota con sus latencias, costes por token y política de privacidad de un tercero.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "NVIDIA RTX Spark integra 1 petaflop de IA, GPU Blackwell y CPU Grace en un chip para ejecutar LLMs de 120B parámetros en portátiles Windows. Análisis técnico del hardware, OpenShell y ecosistema.",
+      "NVIDIA introduce OpenShell , una capa de ejecución que controla qué capacidades puede ejercer un agente en el sistema: qué archivos puede leer, a qué servicios puede conectarse, qué acciones puede invocar.",
+      "Conceptos detectados por el pipeline: LLM, Agente, Ventana de contexto, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre LLM?",
+        "answer": "NVIDIA RTX Spark integra 1 petaflop de IA, GPU Blackwell y CPU Grace en un chip para ejecutar LLMs de 120B parámetros en portátiles Windows. Análisis técnico del hardware, OpenShell y ecosistema."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender herramientas con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 5,
+      "density": "alta",
+      "bestFor": "evaluar flujos de trabajo prácticos"
+    }
+  },
   "openai-workspace-agents-chatgpt-autonomia": {
     "executiveSummary": "OpenAI ha presentado hoy Workspace Agents para ChatGPT, un sistema de agentes autónomos diseñados para gestionar flujos de trabajo complejos y persistentes en entornos de equipo. OpenAI ha dado hoy el paso definitivo para transformar ChatGPT de un asistente reactivo en un sistema operativo de agentes con el lanzamiento de Workspace Agents . Esta nueva arquitectura, disponible inicialmente como Research Preview para planes corporativos y educativos, permite la creación de entidades de IA que no solo responden a prompts, sino que ejecutan flujos de trabajo multi-etapa de forma autónoma y persistente.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

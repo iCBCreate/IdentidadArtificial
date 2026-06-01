@@ -45,6 +45,7 @@
 
 - [Apple Intelligence y Gemini: el acuerdo Siri](https://identidadartificial.com/apple-intelligence-google-gemini-siri-filtraciones-2026/): Cómo Google Gemini se convierte en el motor de Apple Intelligence desde WWDC 2026.
 - [Genie 3: mundos interactivos de DeepMind en tiempo real](https://identidadartificial.com/genie-3-google-deepmind-mundos-interactivos/): Genie 3 genera entornos 3D fotorrealistas a 24 fps y 720p desde texto.
+- [Últimas novedades de Claude: Mythos y Anthropic](https://identidadartificial.com/ultimas-novedades-claude-mythos-anthropic/): Resumen de los proyectos de investigación activos de Anthropic: Claude Mythos, Constitutional AI y seguridad de modelos.
 
 ## Artículos — Arquitectura y herramientas
 
@@ -55,6 +56,7 @@
 
 - [Cómo usar ChatGPT desde cero](https://identidadartificial.com/tutoriales/chatgpt-primeros-pasos/): Guía paso a paso para principiantes sin conocimientos previos.
 - [Cómo personalizar un GPT con documentos](https://identidadartificial.com/tutoriales/personalizar-gpt-documentos-md-maestro/): Crear un asistente personalizado con instrucciones y archivos de referencia.
+- [GPT personalizado vs Skill: cuál elegir](https://identidadartificial.com/tutoriales/gpt-personalizado-vs-skill-cual-elegir/): Comparativa práctica para decidir cuándo usar un GPT personalizado y cuándo una Skill de ChatGPT.
 
 ## Categorías
 

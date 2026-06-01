@@ -20,6 +20,10 @@ const GONE_PATHS = new Set([
   '/chatgpt-5-novedades-lanzamiento-2025/',
   '/chatgpt-5-novedades-lanzamiento-2025',
   '/politica-de-cookies/',
+  // Paginación fuera de rango (18 posts / PAGE_SIZE 6 = 3 páginas máx)
+  '/pagina/4/',
+  '/pagina/5/',
+  '/pagina/6/',
   // Tags de WordPress
   '/tag/chatgpt/',
   '/tag/programacion/',

@@ -23,7 +23,9 @@
     "gsc:oauth": "node scripts/google-search-console-oauth.mjs",
     "gsc:report": "node scripts/download-search-console-report.mjs",
     "gsc:inspect": "node scripts/inspect-search-console-urls.mjs",
-    "gsc:submit-sitemap": "node scripts/submit-search-console-sitemap.mjs"
+    "gsc:submit-sitemap": "node scripts/submit-search-console-sitemap.mjs",
+    "indexnow": "node scripts/submit-indexnow.mjs",
+    "indexnow:dry": "node scripts/submit-indexnow.mjs --dry-run"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",

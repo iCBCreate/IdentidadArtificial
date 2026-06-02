@@ -47,6 +47,7 @@ scripts/
   download-search-console-report.mjs   ← informe de tráfico GSC
   inspect-search-console-urls.mjs      ← inspección de indexación GSC
   submit-search-console-sitemap.mjs    ← envío de sitemap a GSC
+  submit-indexnow.mjs                  ← envío IndexNow (Bing/Yandex); deriva URLs del sitemap en vivo
 docs/
   guia-crear-post.md     ← instrucciones para generar posts
   guia-crear-tutorial.md ← instrucciones para generar tutoriales
@@ -88,6 +89,8 @@ El sitio implementa SEO técnico clásico y GEO (Generative Engine Optimization)
 - `/sobre/`: `Person` con `jobTitle`, `knowsAbout` y `sameAs`
 
 **robots.txt:** todos los crawlers IA autorizados — GPTBot, ChatGPT-User, PerplexityBot, ClaudeBot, Google-Extended (Gemini training), OAI-SearchBot, Bytespider, Applebot-Extended, CCBot, anthropic-ai.
+
+**IndexNow:** `scripts/submit-indexnow.mjs` notifica a Bing, Yandex y otros motores compatibles en cada despliegue. Las URLs se derivan en tiempo real del sitemap desplegado (`/sitemap-index.xml`), sin hardcoding — siempre en sync con lo publicado.
 
 **llms.txt:** lista artículos individuales con descripciones. Declara permisos RSL 1.0 (indexing, training, citation required). Charset UTF-8 explícito vía `_headers`.
 

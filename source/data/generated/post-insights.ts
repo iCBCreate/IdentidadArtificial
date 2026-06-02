@@ -735,48 +735,6 @@ export const POST_INSIGHTS = {
       "bestFor": "diseñar sistemas con IA"
     }
   },
-  "que-indexan-realmente-los-llms": {
-    "executiveSummary": "Analizamos cómo ChatGPT, Perplexity, Claude y Google AI Overviews obtienen información y qué puedes hacer para aparecer en cada uno. import LlmsTxtGenerator from '../../components/LlmsTxtGenerator.astro' Un modelo de lenguaje no rastrea tu web. No hay crawler visitando tus páginas cada semana.",
-    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de conceptos centrada en LLM, Ventana de contexto, GEO. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
-    "keyPoints": [
-      "Los LLMs no rastrean webs como Google. Analizamos cómo ChatGPT, Perplexity, Claude y Google AI Overviews obtienen información y qué puedes hacer para aparecer en cada uno.",
-      "Su principal fuente de citas es Reddit 46,7% , seguida de Wikipedia.",
-      "Conceptos detectados por el pipeline: LLM, Ventana de contexto, GEO."
-    ],
-    "glossary": [
-      {
-        "term": "LLM",
-        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
-      },
-      {
-        "term": "Ventana de contexto",
-        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
-      },
-      {
-        "term": "GEO",
-        "definition": "Optimización del contenido para sistemas generativos que responden citando fuentes."
-      }
-    ],
-    "faqs": [
-      {
-        "question": "Qué aporta este artículo sobre LLM?",
-        "answer": "Los LLMs no rastrean webs como Google. Analizamos cómo ChatGPT, Perplexity, Claude y Google AI Overviews obtienen información y qué puedes hacer para aparecer en cada uno."
-      },
-      {
-        "question": "Para quién es útil esta lectura?",
-        "answer": "Para lectores que quieren entender conceptos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
-      },
-      {
-        "question": "Cómo se generó esta capa de lectura?",
-        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
-      }
-    ],
-    "readingProfile": {
-      "minutes": 7,
-      "density": "media",
-      "bestFor": "entender fundamentos"
-    }
-  },
   "que-son-los-agentes-de-ia": {
     "executiveSummary": "Los agentes de IA no son solo chatbots más potentes. Son sistemas que pueden planificar, usar herramientas y ejecutar tareas complejas de forma autónoma. Durante los últimos dos años, la IA pasó de ser una herramienta de conversación a convertirse en algo que puede actuar en el mundo.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

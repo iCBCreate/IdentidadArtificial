@@ -1,33 +1,28 @@
-import { readBlogPosts, slugify } from './content-utils.mjs'
-
 const SITE_URL = 'https://identidadartificial.com'
 const INDEXNOW_KEY = '9fafa2e3af37ff118bf3ded108481f6b'
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow'
+const SITEMAP_INDEX = `${SITE_URL}/sitemap-index.xml`
 
 const isDryRun = process.argv.includes('--dry-run')
 
-const STATIC_URLS = [
-  '/',
-  '/sobre/',
-  '/archivo/',
-  '/mapa-ia/',
-  '/radar/',
-  '/como-funciona/',
-  '/tutoriales/',
-]
+async function fetchSitemapUrls() {
+  const { XMLParser } = await import('fast-xml-parser').catch(() => null) ?? {}
 
-// Derived via slugify — same function used by Astro routes — stays in sync when categories change
-const BLOG_CATEGORY_NAMES = ['Modelos', 'Inteligencia Artificial', 'Conceptos', 'Arquitectura', 'Herramientas', 'Ética']
+  // Fallback: parse with regex if fast-xml-parser unavailable
+  const getText = (xml, tag) => [...xml.matchAll(new RegExp(`<${tag}[^>]*>([^<]+)</${tag}>`, 'g'))].map(m => m[1].trim())
 
-const posts = await readBlogPosts()
-const postUrls = posts.map(p => `/${p.slug}/`)
-const categoryUrls = BLOG_CATEGORY_NAMES.map(c => `/categoria/${slugify(c)}/`)
+  const indexXml = await fetch(SITEMAP_INDEX).then(r => r.text())
+  const sitemapLocs = getText(indexXml, 'loc')
 
-const urlList = [
-  ...STATIC_URLS,
-  ...categoryUrls,
-  ...postUrls,
-].map(path => `${SITE_URL}${path}`)
+  const allUrls = []
+  for (const loc of sitemapLocs) {
+    const xml = await fetch(loc).then(r => r.text())
+    allUrls.push(...getText(xml, 'loc'))
+  }
+  return allUrls
+}
+
+const urlList = await fetchSitemapUrls()
 
 console.log(`IndexNow: ${urlList.length} URLs preparadas`)
 

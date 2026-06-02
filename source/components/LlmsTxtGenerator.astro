@@ -1,0 +1,343 @@
+---
+// source/components/LlmsTxtGenerator.astro
+---
+
+<section class="llms-gen" aria-labelledby="llms-gen-title">
+  <h3 id="llms-gen-title">Genera tu llms.txt</h3>
+  <p class="llms-gen__desc">Pega la URL de tu sitio y analizamos su contenido para generar un llms.txt listo para copiar o descargar.</p>
+
+  <div class="llms-gen__input-row">
+    <label for="llms-url" class="sr-only">URL de tu sitio web</label>
+    <input
+      id="llms-url"
+      type="url"
+      placeholder="https://tusitio.com"
+      autocomplete="url"
+      class="llms-gen__url-input"
+    />
+    <button id="llms-analyze" type="button" class="llms-gen__btn">
+      Analizar →
+    </button>
+  </div>
+
+  <p id="llms-status" class="llms-gen__status" aria-live="polite" hidden></p>
+
+  <div id="llms-fields" class="llms-gen__fields" hidden>
+    <div class="llms-gen__field-row">
+      <label for="llms-name">Nombre del sitio</label>
+      <input id="llms-name" type="text" />
+    </div>
+    <div class="llms-gen__field-row">
+      <label for="llms-canonical">URL canónica</label>
+      <input id="llms-canonical" type="url" />
+    </div>
+    <div class="llms-gen__field-row">
+      <label for="llms-description">Descripción</label>
+      <textarea id="llms-description" rows="2"></textarea>
+    </div>
+    <div class="llms-gen__field-row">
+      <label for="llms-author">Autor</label>
+      <input id="llms-author" type="text" placeholder="Tu nombre" />
+    </div>
+    <div class="llms-gen__field-row">
+      <label for="llms-lang">Idioma</label>
+      <input id="llms-lang" type="text" placeholder="es" />
+    </div>
+    <div id="llms-nav-section" class="llms-gen__field-row" hidden>
+      <fieldset>
+        <legend>Páginas principales detectadas</legend>
+        <div id="llms-nav-checks" class="llms-gen__nav-checks"></div>
+      </fieldset>
+    </div>
+  </div>
+
+  <div id="llms-preview-wrap" class="llms-gen__preview-wrap" hidden aria-live="polite">
+    <h4>Vista previa</h4>
+    <pre id="llms-preview" class="llms-gen__preview"></pre>
+    <div class="llms-gen__actions">
+      <button id="llms-copy" type="button" class="llms-gen__btn llms-gen__btn--secondary">Copiar</button>
+      <button id="llms-download" type="button" class="llms-gen__btn llms-gen__btn--secondary">Descargar llms.txt</button>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ── Visually hidden but accessible ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Section wrapper ── */
+.llms-gen {
+  border: 1px solid #2A2A40;
+  border-radius: 10px;
+  padding: 1.5rem;
+  background: color-mix(in srgb, #13131F 85%, #7C3AED 15%);
+  margin: 2rem 0;
+}
+
+.llms-gen h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #E8E8F0;
+  margin: 0 0 0.5rem;
+}
+
+.llms-gen__desc {
+  font-size: 0.875rem;
+  color: #A0A0C0;
+  margin: 0 0 1.25rem;
+  line-height: 1.55;
+}
+
+/* ── URL input row ── */
+.llms-gen__input-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.llms-gen__url-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  background: #0D0D1A;
+  border: 1px solid #2A2A40;
+  border-radius: 6px;
+  color: #E8E8F0;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.llms-gen__url-input::placeholder {
+  color: #4A4A6A;
+}
+
+.llms-gen__url-input:focus {
+  border-color: #7C3AED;
+  box-shadow: 0 0 0 2px color-mix(in srgb, #7C3AED 25%, transparent);
+}
+
+/* ── Buttons ── */
+.llms-gen__btn {
+  padding: 0.5rem 1rem;
+  background: #7C3AED;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  white-space: nowrap;
+}
+
+.llms-gen__btn:hover {
+  background: #6D28D9;
+}
+
+.llms-gen__btn:focus-visible {
+  outline: 2px solid #A78BFA;
+  outline-offset: 2px;
+}
+
+.llms-gen__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.llms-gen__btn--secondary {
+  background: transparent;
+  border: 1px solid #2A2A40;
+  color: #A0A0C0;
+}
+
+.llms-gen__btn--secondary:hover {
+  background: color-mix(in srgb, #2A2A40 60%, transparent);
+  color: #E8E8F0;
+}
+
+/* ── Status message ── */
+.llms-gen__status {
+  font-size: 0.8125rem;
+  color: #A0A0C0;
+  margin: 0 0 0.75rem;
+  min-height: 1.2em;
+}
+
+.llms-gen__status.llms-gen__status--error {
+  color: #F87171;
+}
+
+/* ── Editable fields ── */
+.llms-gen__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.llms-gen__field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.llms-gen__field-row label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6A6A8A;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.llms-gen__field-row input,
+.llms-gen__field-row textarea {
+  padding: 0.4rem 0.65rem;
+  background: #0D0D1A;
+  border: 1px solid #2A2A40;
+  border-radius: 5px;
+  color: #E8E8F0;
+  font-size: 0.875rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+  resize: vertical;
+}
+
+.llms-gen__field-row input:focus,
+.llms-gen__field-row textarea:focus {
+  border-color: #7C3AED;
+  box-shadow: 0 0 0 2px color-mix(in srgb, #7C3AED 20%, transparent);
+}
+
+.llms-gen__field-row input::placeholder,
+.llms-gen__field-row textarea::placeholder {
+  color: #4A4A6A;
+}
+
+/* ── Fieldset for nav pages ── */
+.llms-gen__field-row fieldset {
+  border: 1px solid #2A2A40;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin: 0;
+}
+
+.llms-gen__field-row fieldset legend {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6A6A8A;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 0.25rem;
+}
+
+.llms-gen__nav-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+/* Dynamically added checkboxes via JS will inherit these via :global if needed */
+:global(.llms-nav-check) {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: #A0A0C0;
+  cursor: pointer;
+}
+
+:global(.llms-nav-check input[type="checkbox"]) {
+  accent-color: #7C3AED;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+/* ── Preview section ── */
+.llms-gen__preview-wrap {
+  margin-top: 1.25rem;
+}
+
+.llms-gen__preview-wrap h4 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6A6A8A;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.5rem;
+}
+
+.llms-gen__preview {
+  background: #0D0D1A;
+  border: 1px solid #2A2A40;
+  border-radius: 6px;
+  padding: 0.875rem 1rem;
+  font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.8rem;
+  color: #C4B5FD;
+  line-height: 1.6;
+  max-height: 18rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #2A2A40 transparent;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0 0 0.875rem;
+}
+
+.llms-gen__preview::-webkit-scrollbar {
+  width: 4px;
+}
+
+.llms-gen__preview::-webkit-scrollbar-thumb {
+  background: #2A2A40;
+  border-radius: 2px;
+}
+
+/* ── Copy / Download actions ── */
+.llms-gen__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ── Responsive: stack input-row on narrow screens ── */
+@media (max-width: 480px) {
+  .llms-gen__input-row {
+    flex-direction: column;
+  }
+
+  .llms-gen__url-input {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .llms-gen__btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .llms-gen__actions {
+    flex-direction: column;
+  }
+
+  .llms-gen__actions .llms-gen__btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+</style>

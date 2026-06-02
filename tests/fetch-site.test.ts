@@ -25,3 +25,11 @@ test('validateUrl acepta HTTPS con path', () => {
   const url = validateUrl('https://example.com/blog/')
   assert.ok(url instanceof URL)
 })
+
+test('validateUrl rechaza localhost', () => {
+  assert.equal(validateUrl('https://localhost/api'), null)
+})
+
+test('validateUrl rechaza IP privada 127.0.0.1', () => {
+  assert.equal(validateUrl('https://127.0.0.1/'), null)
+})

@@ -5,6 +5,8 @@ export function validateUrl(raw: string | null): URL | null {
   try {
     const url = new URL(raw)
     if (url.protocol !== 'https:') return null
+    const blocked = /^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.|::1)/
+    if (blocked.test(url.hostname)) return null
     return url
   } catch {
     return null
@@ -21,6 +23,18 @@ interface SiteData {
 
 export async function onRequest(context: { request: Request; env: Record<string, string> }): Promise<Response> {
   const { request } = context
+
+  if (request.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://identidadartificial.com',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    })
+  }
+
   const incoming = new URL(request.url)
   const rawUrl = incoming.searchParams.get('url')
 

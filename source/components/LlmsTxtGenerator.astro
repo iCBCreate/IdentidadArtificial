@@ -328,3 +328,162 @@
   }
 }
 </style>
+
+<script>
+(function () {
+  const urlInput    = document.getElementById('llms-url') as HTMLInputElement
+  const analyzeBtn  = document.getElementById('llms-analyze') as HTMLButtonElement
+  const statusEl    = document.getElementById('llms-status') as HTMLParagraphElement
+  const fieldsEl    = document.getElementById('llms-fields') as HTMLDivElement
+  const previewWrap = document.getElementById('llms-preview-wrap') as HTMLDivElement
+  const previewEl   = document.getElementById('llms-preview') as HTMLPreElement
+  const nameInput   = document.getElementById('llms-name') as HTMLInputElement
+  const canonInput  = document.getElementById('llms-canonical') as HTMLInputElement
+  const descInput   = document.getElementById('llms-description') as HTMLTextAreaElement
+  const authorInput = document.getElementById('llms-author') as HTMLInputElement
+  const langInput   = document.getElementById('llms-lang') as HTMLInputElement
+  const navSection  = document.getElementById('llms-nav-section') as HTMLDivElement
+  const navChecks   = document.getElementById('llms-nav-checks') as HTMLDivElement
+  const copyBtn     = document.getElementById('llms-copy') as HTMLButtonElement
+  const dlBtn       = document.getElementById('llms-download') as HTMLButtonElement
+
+  function setStatus(msg: string, isError = false) {
+    statusEl.textContent = msg
+    statusEl.hidden = !msg
+    statusEl.className = 'llms-gen__status' + (isError ? ' llms-gen__status--error' : '')
+  }
+
+  function generateLlmsTxt(): string {
+    const name   = nameInput.value.trim()
+    const canon  = canonInput.value.trim()
+    const desc   = descInput.value.trim()
+    const author = authorInput.value.trim()
+    const lang   = langInput.value.trim()
+
+    const checkedLinks = Array.from(
+      navChecks.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:checked')
+    ).map(cb => cb.value)
+
+    let out = `# ${name || 'Mi sitio'}\n`
+    if (canon) out += `# ${canon}\n`
+    out += '\n'
+    if (desc) out += `> ${desc}\n\n`
+    if (author) out += `## Autoría\n\n- **Autor:** ${author}\n\n`
+    if (lang)   out += `## Idioma\n\n- ${lang}\n\n`
+
+    if (checkedLinks.length > 0) {
+      out += `## Páginas principales\n\n`
+      for (const path of checkedLinks) {
+        let abs = path
+        if (canon) {
+          try {
+            abs = new URL(path, canon).href
+          } catch {
+            abs = path
+          }
+        }
+        out += `- [${path}](${abs})\n`
+      }
+      out += '\n'
+    }
+
+    out += `## Política de uso por IA\n\n`
+    out += `El contenido de este sitio puede ser indexado por sistemas de IA para responder preguntas, siempre que se cite la fuente.\n`
+
+    return out
+  }
+
+  function updatePreview() {
+    previewEl.textContent = generateLlmsTxt()
+    previewWrap.hidden = false
+  }
+
+  function buildNavChecks(links: string[]) {
+    navChecks.innerHTML = ''
+    if (links.length === 0) {
+      navSection.hidden = true
+      return
+    }
+    navSection.hidden = false
+    for (const path of links) {
+      const id = `nav-${path.replace(/\//g, '-')}`
+      const label = document.createElement('label')
+      label.className = 'llms-nav-check'
+      const cb    = document.createElement('input')
+      cb.type    = 'checkbox'
+      cb.id      = id
+      cb.value   = path
+      cb.checked = true
+      cb.addEventListener('change', updatePreview)
+      label.appendChild(cb)
+      label.appendChild(document.createTextNode(path))
+      navChecks.appendChild(label)
+    }
+  }
+
+  async function analyze() {
+    const raw = urlInput.value.trim()
+    if (!raw) {
+      setStatus('Introduce una URL primero.', true)
+      return
+    }
+
+    analyzeBtn.disabled = true
+    setStatus('Analizando...')
+    fieldsEl.hidden = true
+    previewWrap.hidden = true
+
+    try {
+      const res = await fetch(`/api/fetch-site?url=${encodeURIComponent(raw)}`)
+      const data = await res.json() as {
+        title?: string; description?: string; canonical?: string
+        lang?: string; navLinks?: string[]; error?: string
+      }
+
+      if (!res.ok || data.error) {
+        setStatus(data.error ?? 'Error al analizar el sitio.', true)
+        return
+      }
+
+      nameInput.value   = data.title       ?? ''
+      canonInput.value  = data.canonical   ?? raw
+      descInput.value   = data.description ?? ''
+      langInput.value   = data.lang        ?? 'es'
+      buildNavChecks(data.navLinks ?? [])
+
+      fieldsEl.hidden = false
+      setStatus('')
+      updatePreview()
+    } catch {
+      setStatus('No se pudo conectar. Comprueba la URL e inténtalo de nuevo.', true)
+    } finally {
+      analyzeBtn.disabled = false
+    }
+  }
+
+  analyzeBtn.addEventListener('click', analyze)
+  urlInput.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Enter') analyze()
+  })
+
+  for (const field of [nameInput, canonInput, descInput, authorInput, langInput]) {
+    field.addEventListener('input', updatePreview)
+  }
+
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(generateLlmsTxt()).then(() => {
+      copyBtn.textContent = '¡Copiado!'
+      setTimeout(() => { copyBtn.textContent = 'Copiar' }, 2000)
+    })
+  })
+
+  dlBtn.addEventListener('click', () => {
+    const blob = new Blob([generateLlmsTxt()], { type: 'text/plain' })
+    const a    = document.createElement('a')
+    a.href     = URL.createObjectURL(blob)
+    a.download = 'llms.txt'
+    a.click()
+    URL.revokeObjectURL(a.href)
+  })
+})()
+</script>

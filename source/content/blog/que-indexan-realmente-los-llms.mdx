@@ -1,0 +1,138 @@
+---
+title: "Qué indexan realmente los LLMs: ChatGPT, Claude, Perplexity y AI Overviews no funcionan igual"
+description: "Los LLMs no rastrean webs como Google. Analizamos cómo ChatGPT, Perplexity, Claude y Google AI Overviews obtienen información y qué puedes hacer para aparecer en cada uno."
+pubDate: 2026-06-02
+category: Conceptos
+tags:
+  - llms-txt
+  - geo
+  - visibilidad-ia
+  - seo
+generatedBy: claude-sonnet-4-6
+generatedAt: 2026-06-02T00:00:00Z
+promptBase: "Comparativa visibilidad en ChatGPT, Claude, Perplexity y Google AI Overviews. Los LLMs no indexan como Google. Incluye generador llms.txt interactivo."
+humanReviewed: false
+heroImage: ../../assets/post/que-indexan-llms-hero.png
+---
+
+import LlmsTxtGenerator from '../../components/LlmsTxtGenerator.astro'
+
+Un modelo de lenguaje no rastrea tu web. No hay crawler visitando tus páginas cada semana. El conocimiento que tiene ChatGPT, Claude o Perplexity sobre tu sitio viene de una fuente distinta para cada plataforma — y optimizar para una no garantiza visibilidad en las demás.
+
+## ¿Cómo obtiene información cada plataforma de IA?
+
+| Plataforma | Fuente principal | Frecuencia de actualización | Cita principalmente |
+|---|---|---|---|
+| **ChatGPT** | Training data + Bing Search | Meses (training) / Días (búsqueda) | Wikipedia (47,9%), Reddit (11,3%) |
+| **Perplexity** | Crawler propio en tiempo real | Horas / Días | Reddit (46,7%), Wikipedia |
+| **Claude** | Training data + herramientas opcionales | Meses | Web general, fuentes académicas |
+| **Google AI Overviews** | Google Search index | Horas | Top-10 orgánico (92% de citas) |
+
+Fuentes: [estudio Ahrefs diciembre 2025](https://ahrefs.com/blog/) (75.000 marcas), [SparkToro 2025](https://sparktoro.com/blog/), datos oficiales de plataformas.
+
+Solo el **11% de los dominios** aparecen citados a la vez por ChatGPT y Google AI Overviews para la misma consulta. La optimización para IA no es universal: es específica por plataforma.
+
+## ¿Dónde obtiene información ChatGPT?
+
+ChatGPT combina su conocimiento de entrenamiento con Bing Search cuando el usuario activa la búsqueda web. Su conocimiento de entrenamiento tiene fecha de corte — información publicada después no existe para el modelo sin búsqueda activa.
+
+Las fuentes que más cita ChatGPT son Wikipedia (47,9% de las citas) y Reddit (11,3%). Esto no es accidental: son las fuentes con mayor cobertura en su corpus de entrenamiento y las que Bing indexa con más autoridad. Si tu contenido no tiene presencia en estas plataformas ni backlinks desde ellas, tu visibilidad en ChatGPT depende casi exclusivamente de si Bing te indexa bien.
+
+Para aparecer en ChatGPT: trabaja la presencia en Wikipedia si tu marca o concepto lo justifica, genera menciones en Reddit y foros especializados, y asegúrate de que Bing tiene acceso completo a tu sitio. IndexNow acelera la indexación en Bing desde el primer día.
+
+## ¿Cómo indexa Perplexity tu web?
+
+Perplexity tiene su propio bot (`PerplexityBot`) que rastrea webs con frecuencia similar a Google. Es el sistema más parecido a un buscador tradicional entre los motores de IA — analiza páginas en tiempo real y cita fuentes con enlaces.
+
+Su principal fuente de citas es Reddit (46,7%), seguida de Wikipedia. Pero a diferencia de ChatGPT, Perplexity puede indexar contenido reciente en horas. Si publicas algo relevante hoy y PerplexityBot tiene acceso, puede aparecer en respuestas mañana.
+
+Para aparecer en Perplexity: permite `PerplexityBot` en tu `robots.txt`, usa Server-Side Rendering (el bot no ejecuta JavaScript), y crea contenido con hechos específicos y citas verificables — el sistema prioriza pasajes que puede citar con enlace.
+
+## ¿Qué sabe Claude sobre tu sitio?
+
+Claude (Anthropic) tiene acceso a búsqueda web como herramienta opcional, pero en su modo estándar trabaja desde su conocimiento de entrenamiento. No tiene un índice propio ni un crawler público equiparable a Bing o PerplexityBot.
+
+Las menciones de tu marca en Claude dependen principalmente de si apareces en su corpus de entrenamiento — artículos, documentación, foros, repositorios — y de si los usuarios activan la búsqueda web explícitamente. `ClaudeBot` existe para funciones web específicas pero no opera como crawler masivo.
+
+Para aparecer en Claude: construye presencia en fuentes de alta calidad que formen parte de datos de entrenamiento (artículos técnicos, documentación, GitHub), y mantén un `llms.txt` que declare el propósito y contenido de tu sitio cuando Claude lo consulte con herramientas.
+
+## ¿Cómo funciona Google AI Overviews?
+
+Google AI Overviews cita principalmente páginas que ya están en el top-10 orgánico para esa consulta — el 92% de las citas provienen de ahí. Esto lo convierte en el sistema más predecible: si rankeas bien para una búsqueda, tienes alta probabilidad de aparecer en el bloque de IA.
+
+El 47% de las citas en AI Overviews vienen de páginas que rankean por debajo del puesto 5, lo que muestra que el sistema tiene su propia lógica de selección basada en relevancia de pasajes, no solo posición.
+
+Para aparecer en AI Overviews: SEO tradicional (velocidad, autoridad, estructura), Schema.org relevante (`Article`, `FAQPage`, `HowTo`), y pasajes directamente respondibles de 134-167 palabras.
+
+## Señales que importan en cada plataforma
+
+| Señal | ChatGPT | Perplexity | Claude | Google AIO |
+|---|:---:|:---:|:---:|:---:|
+| Server-Side Rendering | ● | ● | ● | ● |
+| Robots.txt permisivo para bots IA | ● | ● | ● | ● |
+| llms.txt | ○ | ○ | ● | ○ |
+| Presencia en Wikipedia | ● | ● | ● | ○ |
+| Menciones en Reddit | ● | ● | ○ | ○ |
+| Schema.org | ○ | ○ | ○ | ● |
+| Ranking orgánico Google | ○ | ○ | ○ | ● |
+| IndexNow / Bing | ● | ○ | ○ | ○ |
+
+● Alta correlación · ○ Correlación moderada o baja
+
+## ¿Qué es llms.txt y qué NO es?
+
+`llms.txt` es un archivo de texto en la raíz de tu dominio que declara, en formato legible por máquinas, qué contiene tu sitio y cómo puede usarse. Es una señal de intención, no un mecanismo de indexación garantizado.
+
+**Lo que llms.txt SÍ hace:**
+- Da contexto estructurado a modelos que acceden directamente a tu sitio
+- Declara licencia de uso del contenido (compatible con RSL 1.0)
+- Facilita que Claude y otros modelos entiendan la estructura de tu web cuando la consultan con herramientas
+
+**Lo que llms.txt NO hace:**
+- No obliga a ningún modelo a citarte
+- No reemplaza el SEO ni el ranking orgánico
+- No garantiza que tu contenido entre en datos de entrenamiento
+- No es equivalente a `robots.txt` — no tiene efecto en crawlers de entrenamiento salvo que el operador lo respete voluntariamente
+
+Este sitio tiene su propio [llms.txt](https://identidadartificial.com/llms.txt) como ejemplo de implementación real.
+
+## Genera tu llms.txt
+
+Analiza tu sitio y crea un `llms.txt` en menos de 30 segundos:
+
+<LlmsTxtGenerator />
+
+## Preguntas frecuentes
+
+**¿Los LLMs rastrean mi web continuamente?**
+No todos. Perplexity tiene un crawler activo. ChatGPT usa Bing para búsqueda web. Claude solo accede si el usuario activa herramientas web explícitamente. Google AI Overviews usa el índice de Google Search, no un crawler propio de IA.
+
+**¿Bloquear CCBot evita que mi contenido entre en datos de entrenamiento?**
+CCBot (Common Crawl) es una fuente común de datos de entrenamiento, pero no la única. Bloquearlo reduce la probabilidad de inclusión en futuros entrenamientos, pero no elimina el riesgo. Muchos modelos ya se han entrenado con datos previos a cualquier bloqueo.
+
+**¿Tiene sentido implementar llms.txt si soy un blog pequeño?**
+Sí, especialmente si tu contenido es técnico o de nicho. Los modelos que acceden con herramientas web leen el llms.txt para entender el contexto del sitio antes de profundizar. Es el equivalente de presentarte antes de una conversación.
+
+**¿Qué pasa si mi web usa JavaScript para renderizar el contenido principal?**
+Los crawlers de IA no ejecutan JavaScript. Si tu contenido depende de JS para renderizarse, la mayoría de bots de IA verán una página vacía o incompleta. Usa SSR o genera HTML estático.
+
+**¿Con qué frecuencia actualiza Perplexity su índice?**
+PerplexityBot rastrea páginas con una frecuencia similar a los buscadores principales — entre horas y pocos días para contenido nuevo y relevante. No hay datos oficiales de cadencia exacta.
+
+**¿Los brand mentions en Reddit realmente impactan en ChatGPT?**
+Según el estudio Ahrefs de diciembre 2025 con 75.000 marcas, las menciones en YouTube tienen la correlación más fuerte con visibilidad en IA (~0,737), seguidas de Reddit. Los backlinks tienen una correlación mucho menor (~0,266). Las menciones importan más que los enlaces.
+
+## Checklist de visibilidad en IA
+
+Ordenado por impacto estimado:
+
+1. **SSR obligatorio** — todo el contenido importante en HTML puro, sin depender de JS
+2. **Permite crawlers clave** — `GPTBot`, `OAI-SearchBot`, `PerplexityBot`, `ClaudeBot` en `robots.txt`
+3. **Pasajes autocompletos** — bloques de 134-167 palabras que responden una pregunta directamente
+4. **H2/H3 como preguntas** — facilita extracción de fragmentos por sistemas QA
+5. **Schema.org relevante** — `Article`, `Person`, `FAQPage` para AI Overviews
+6. **llms.txt actualizado** — declara estructura, autor y licencia del contenido
+7. **Presencia en Wikipedia** — si la marca o concepto lo justifica
+8. **Menciones en Reddit/YouTube** — contenido citado en comunidades relevantes
+9. **IndexNow activo** — acelera indexación en Bing para visibilidad en ChatGPT
+10. **Datos únicos con fuente** — estadísticas originales o curadas con atribución clara

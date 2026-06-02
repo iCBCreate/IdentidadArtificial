@@ -53,6 +53,9 @@ const homepageJsonLd = [
       '@type': 'Person',
       name: SITE.author,
       url: `${SITE.url}/sobre/`,
+      description: 'Construye sistemas editoriales con IA generativa. Especializado en LLMs, automatización editorial y arquitectura web.',
+      sameAs: [SITE.linkedin, SITE.github],
+      knowsAbout: ['Inteligencia Artificial', 'Modelos de lenguaje (LLM)', 'Agentes de IA', 'Automatización editorial', 'Arquitectura web'],
     },
     blogPost: posts.slice(0, 5).map(post => ({
       '@type': 'BlogPosting',

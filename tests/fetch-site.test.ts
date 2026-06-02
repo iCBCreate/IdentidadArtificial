@@ -1,7 +1,7 @@
 // tests/fetch-site.test.ts
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { validateUrl } from '../functions/api/fetch-site.ts'
+import { validateUrl } from '../source/pages/api/fetch-site.ts'
 
 test('validateUrl rechaza null', () => {
   assert.equal(validateUrl(null), null)

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import { SITE } from '../config'
+import { SITE, AUTHOR_PERSON } from '../config'
 
 const pills = [
   ['experimento público', 'transparencia', 'Claude', 'Anthropic', 'pipeline editorial', 'trazabilidad'],
@@ -10,13 +10,8 @@ const pills = [
 
 const personSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: SITE.author,
-  url: `${SITE.url}/sobre/`,
+  ...AUTHOR_PERSON,
   jobTitle: 'Desarrollador y editor de Identidad Artificial',
-  description: 'Construye sistemas editoriales con IA generativa. Especializado en LLMs, automatización editorial y arquitectura web con Astro y Cloudflare.',
-  sameAs: [SITE.linkedin, SITE.github],
-  knowsAbout: ['Inteligencia Artificial', 'LLMs', 'Astro', 'Claude', 'Automatización editorial', 'Arquitectura web'],
 }
 ---
 

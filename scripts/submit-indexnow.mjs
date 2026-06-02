@@ -1,4 +1,4 @@
-import { readBlogPosts } from './content-utils.mjs'
+import { readBlogPosts, slugify } from './content-utils.mjs'
 
 const SITE_URL = 'https://identidadartificial.com'
 const INDEXNOW_KEY = '9fafa2e3af37ff118bf3ded108481f6b'
@@ -16,18 +16,12 @@ const STATIC_URLS = [
   '/tutoriales/',
 ]
 
-const CATEGORY_SLUGS = [
-  'modelos',
-  'inteligencia-artificial',
-  'conceptos',
-  'arquitectura',
-  'herramientas',
-  'etica',
-]
+// Derived via slugify — same function used by Astro routes — stays in sync when categories change
+const BLOG_CATEGORY_NAMES = ['Modelos', 'Inteligencia Artificial', 'Conceptos', 'Arquitectura', 'Herramientas', 'Ética']
 
 const posts = await readBlogPosts()
 const postUrls = posts.map(p => `/${p.slug}/`)
-const categoryUrls = CATEGORY_SLUGS.map(s => `/categoria/${s}/`)
+const categoryUrls = BLOG_CATEGORY_NAMES.map(c => `/categoria/${slugify(c)}/`)
 
 const urlList = [
   ...STATIC_URLS,

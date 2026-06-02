@@ -6,7 +6,7 @@ import NewsTicker from '../components/NewsTicker.astro'
 import AIShowcase from '../components/AIShowcase.astro'
 import PostCard from '../components/PostCard.astro'
 import Pagination from '../components/Pagination.astro'
-import { SITE } from '../config'
+import { SITE, AUTHOR_PERSON } from '../config'
 import {
   HOME_PAGE_SIZE,
   calcReadingTime,
@@ -49,18 +49,11 @@ const homepageJsonLd = [
     url: SITE.url,
     description: SITE.description,
     inLanguage: 'es',
-    author: {
-      '@type': 'Person',
-      name: SITE.author,
-      url: `${SITE.url}/sobre/`,
-      description: 'Construye sistemas editoriales con IA generativa. Especializado en LLMs, automatización editorial y arquitectura web.',
-      sameAs: [SITE.linkedin, SITE.github],
-      knowsAbout: ['Inteligencia Artificial', 'Modelos de lenguaje (LLM)', 'Agentes de IA', 'Automatización editorial', 'Arquitectura web'],
-    },
+    author: AUTHOR_PERSON,
     blogPost: posts.slice(0, 5).map(post => ({
       '@type': 'BlogPosting',
       headline: post.data.title,
-      url: `${SITE.url}/blog/${post.id}/`,
+      url: `${SITE.url}/${post.id}/`,
       datePublished: post.data.pubDate.toISOString().slice(0, 10),
       author: { '@type': 'Person', name: SITE.author },
     })),

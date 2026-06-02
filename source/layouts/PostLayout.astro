@@ -8,7 +8,7 @@ import RelatedPosts from '../components/RelatedPosts.astro'
 import { Image, getImage } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
 import type { CollectionEntry } from 'astro:content'
-import { SITE } from '../config'
+import { SITE, AUTHOR_PERSON } from '../config'
 import { categoryToSlug, type BlogCategory } from '../lib/categories'
 import { POST_INSIGHTS } from '../data/generated/post-insights'
 import { KNOWLEDGE_MAP } from '../data/generated/knowledge-map'
@@ -71,14 +71,13 @@ const canonicalURL = new URL(`/${slug}/`, SITE.url).href
 const insight = POST_INSIGHTS[slug as keyof typeof POST_INSIGHTS]
 const semanticConnections = KNOWLEDGE_MAP.relatedByPost[slug as keyof typeof KNOWLEDGE_MAP.relatedByPost] ?? []
 
-const CATEGORY_ABOUT: Record<string, { '@type': string; name: string; sameAs: string }> = {
+const CATEGORY_ABOUT: Record<BlogCategory, { '@type': string; name: string; sameAs: string }> = {
   'Modelos': { '@type': 'Thing', name: 'Modelo de lenguaje', sameAs: 'https://es.wikipedia.org/wiki/Modelo_de_lenguaje' },
   'Inteligencia Artificial': { '@type': 'Thing', name: 'Inteligencia artificial', sameAs: 'https://es.wikipedia.org/wiki/Inteligencia_artificial' },
   'Conceptos': { '@type': 'Thing', name: 'Inteligencia artificial generativa', sameAs: 'https://es.wikipedia.org/wiki/Inteligencia_artificial_generativa' },
   'Arquitectura': { '@type': 'Thing', name: 'Red neuronal artificial', sameAs: 'https://es.wikipedia.org/wiki/Red_neuronal_artificial' },
   'Herramientas': { '@type': 'Thing', name: 'Inteligencia artificial generativa', sameAs: 'https://es.wikipedia.org/wiki/Inteligencia_artificial_generativa' },
   'Ética': { '@type': 'Thing', name: 'Ética de la inteligencia artificial', sameAs: 'https://es.wikipedia.org/wiki/%C3%89tica_de_la_inteligencia_artificial' },
-  'Tendencias': { '@type': 'Thing', name: 'Inteligencia artificial generativa', sameAs: 'https://es.wikipedia.org/wiki/Inteligencia_artificial_generativa' },
 }
 
 const jsonLd = {
@@ -89,21 +88,7 @@ const jsonLd = {
   image: new URL(ogImage, SITE.url).href,
   datePublished: pubDate.toISOString(),
   dateModified: generatedAt.toISOString(),
-  author: {
-    '@type': 'Person',
-    name: SITE.author,
-    url: `${SITE.url}/sobre/`,
-    sameAs: [SITE.linkedin, SITE.github],
-    description:
-      'Autor especializado en inteligencia artificial generativa. Publica en identidadartificial.com análisis técnicos sobre modelos de lenguaje, agentes de IA y herramientas de IA generativa.',
-    knowsAbout: [
-      'Inteligencia artificial generativa',
-      'Modelos de lenguaje (LLM)',
-      'Agentes de IA',
-      'Arquitectura de sistemas de IA',
-      'Herramientas de IA generativa',
-    ],
-  },
+  author: AUTHOR_PERSON,
   publisher: {
     '@type': 'Organization',
     name: SITE.name,
@@ -122,7 +107,7 @@ const jsonLd = {
   articleSection: category,
   keywords: [category, ...tags].join(', '),
   inLanguage: 'es-ES',
-  ...(CATEGORY_ABOUT[category] ? { about: [CATEGORY_ABOUT[category]] } : {}),
+  about: [CATEGORY_ABOUT[category]],
 }
 
 const faqSchema = insight?.faqs?.length

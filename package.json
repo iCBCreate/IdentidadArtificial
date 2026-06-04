@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build:data": "node scripts/generate-knowledge-map.mjs && node scripts/generate-post-insights.mjs && node scripts/generate-editorial-radar.mjs",
-    "build": "npm run build:data && node scripts/generate-og.mjs && astro build",
+    "build": "npm run build:data && node scripts/generate-og.mjs && astro build && node scripts/validate-build.mjs",
     "test": "node --import tsx --test tests/*.test.mjs tests/*.test.ts",
     "preview": "npm run build && wrangler dev",
     "astro": "astro",

@@ -64,7 +64,7 @@ const ogImage = new URL(image, SITE.url).href
 
     <!-- JSON-LD -->
     {jsonLd && (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map(schema => (
-      <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
     ))}
 
     <!-- Extra head tags (e.g. article:* meta from PostLayout) -->

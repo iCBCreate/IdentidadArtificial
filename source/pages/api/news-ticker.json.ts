@@ -35,7 +35,7 @@ export const GET: APIRoute = async () => {
     const data = await res.json() as { results?: Record<string, unknown>[] }
     const articles: Article[] = (data.results ?? []).slice(0, 12).map((a) => ({
       title: String(a.title ?? ''),
-      link: String(a.link ?? ''),
+      link: (a.link && /^https?:\/\//i.test(String(a.link))) ? String(a.link) : '',
       source: String(a.source_id ?? ''),
     })).filter(a => a.title)
 

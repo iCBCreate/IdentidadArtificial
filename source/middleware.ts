@@ -28,8 +28,7 @@ const GONE_PATHS = new Set([
   '/pagina/4/',
   '/pagina/5/',
   '/pagina/6/',
-  // Tags de WordPress
-  '/tag/chatgpt/',
+  // Tags de WordPress sin contenido en el sitio actual
   '/tag/programacion/',
   '/tag/microsoft/',
   '/tag/anthropyc/',
@@ -42,7 +41,6 @@ const GONE_PATHS = new Set([
   '/tag/chatgpt-agent/',
   '/tag/inteligencia-artificial/',
   '/tag/gpt-oss/',
-  '/tag/openai/',
   '/tag/ia/',
   // Categorías de WordPress
   '/category/actualidad-tecnologica/',

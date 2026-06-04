@@ -27,7 +27,7 @@ Astro 6 static site on Cloudflare Workers. Source root `source/` (not `src/`), s
 
 **Hybrid static + Workers:** `output: 'static'` but needs `@astrojs/cloudflare` adapter: `source/pages/api/search-console/report.json.ts` has `prerender = false` → Workers function. Rest = static assets.
 
-**Middleware** (`source/middleware.ts`): returns HTTP 410 for 7 retired URLs. Dead tag pages (`tag/comet.astro`, `tag/hugging-face.astro`) use `GoneLayout` for static 410s.
+**Middleware** (`source/middleware.ts`): returns HTTP 410 for retired URLs. All 410s go through middleware — no static GoneLayout pages.
 
 **Content schema** (`source/content.config.ts`): all posts require AI provenance fields — `generatedBy`, `generatedAt`, `promptBase`, `humanReviewed`. Validated with Zod. Invalid frontmatter = build fails.
 

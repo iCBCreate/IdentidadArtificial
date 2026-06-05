@@ -156,6 +156,44 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "chatgpt-mil-millones-usuarios-anthropic-valoracion-paradoja": {
+    "executiveSummary": "ChatGPT llegó al billón de usuarios en mayo de 2026. Dos métricas que apuntan en direcciones opuestas. La misma semana de mayo de 2026 produjo dos titulares que, puestos uno al lado del otro, parecen difíciles de reconciliar.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "ChatGPT llegó al billón de usuarios en mayo de 2026. Anthropic superó a OpenAI en valoración. Dos métricas que apuntan en direcciones opuestas.",
+      "Es un matiz relevante de cara al esperado expected IPO filing : cuando una empresa se acerca a los mercados públicos, la diferencia entre una métrica de marketing y una métrica verificable deja de ser cosmética y pasa a ser material.",
+      "Conceptos detectados por el pipeline: Agente, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Agente?",
+        "answer": "ChatGPT llegó al billón de usuarios en mayo de 2026. Anthropic superó a OpenAI en valoración. Dos métricas que apuntan en direcciones opuestas."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 8,
+      "density": "media",
+      "bestFor": "orientarse en tendencias técnicas"
+    }
+  },
   "claude-code-security-anthropic": {
     "executiveSummary": "Claude Code Security analiza repositorios, valida vulnerabilidades y propone parches revisables para reducir deuda de seguridad en equipos de desarrollo. Anthropic ha movido una pieza importante en el uso de agentes para seguridad de software. Lo que presentó en febrero como Claude Code Security , una capacidad integrada en Claude Code en la web, aparece ahora como Claude Security : una beta pública para clientes Enterprise que escanea repositorios, razona sobre vulnerabilidades y propone parches revisables.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
@@ -358,6 +396,44 @@ export const POST_INSIGHTS = {
     ],
     "readingProfile": {
       "minutes": 8,
+      "density": "media",
+      "bestFor": "evaluar flujos de trabajo prácticos"
+    }
+  },
+  "codex-plugins-roles-sites-openai-2026": {
+    "executiveSummary": "OpenAI expande Codex con 6 plugins específicos por rol, 62 apps integradas, 110 skills y una función para crear webs interactivas desde lenguaje natural. El 20% de sus 5 millones de usuarios ya no son desarrolladores. Codex empezó siendo una herramienta para programadores.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "OpenAI expande Codex con 6 plugins específicos por rol, 62 apps integradas, 110 skills y una función para crear webs interactivas desde lenguaje natural. El 20% de sus 5 millones de usuarios ya no son desarrolladores.",
+      "OpenAI expande Codex con 6 plugins específicos por rol, 62 apps integradas, 110 skills y una función para crear webs interactivas desde lenguaje natural.",
+      "Conceptos detectados por el pipeline: Agente, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Agente?",
+        "answer": "OpenAI expande Codex con 6 plugins específicos por rol, 62 apps integradas, 110 skills y una función para crear webs interactivas desde lenguaje natural. El 20% de sus 5 millones de usuarios ya no son desarrolladores."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender herramientas con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 4,
       "density": "media",
       "bestFor": "evaluar flujos de trabajo prácticos"
     }

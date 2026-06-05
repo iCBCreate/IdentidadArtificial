@@ -79,6 +79,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return Response.redirect(url.toString(), 301)
   }
 
+  // Cloudflare Workers adds trailing slash as 307 (temporary) — force 301
+  if (!url.pathname.endsWith('/') && !url.pathname.includes('.')) {
+    url.pathname = url.pathname + '/'
+    return Response.redirect(url.toString(), 301)
+  }
+
   const pathname = url.pathname
 
   if (

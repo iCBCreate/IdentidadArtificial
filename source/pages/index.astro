@@ -6,6 +6,7 @@ import NewsTicker from '../components/NewsTicker.astro'
 import AIShowcase from '../components/AIShowcase.astro'
 import PostCard from '../components/PostCard.astro'
 import Pagination from '../components/Pagination.astro'
+import { getCollection } from 'astro:content'
 import { SITE, AUTHOR_PERSON } from '../config'
 import {
   HOME_PAGE_SIZE,
@@ -18,6 +19,15 @@ import {
 const allPosts = await getSortedPosts()
 const posts = getPageItems(allPosts, 1, HOME_PAGE_SIZE)
 const totalPages = getTotalPages(allPosts.length, HOME_PAGE_SIZE)
+const allTutoriales = await getCollection('tutoriales')
+const featuredTutorialIds = [
+  'chatgpt-primeros-pasos',
+  'que-indexan-realmente-los-llms',
+  'gpt-personalizado-vs-skill-cual-elegir',
+]
+const featuredTutoriales = featuredTutorialIds
+  .map(id => allTutoriales.find(tutorial => tutorial.id === id))
+  .filter(tutorial => tutorial !== undefined)
 
 const homepageJsonLd = [
   {
@@ -70,6 +80,23 @@ const homepageJsonLd = [
 
   <AIShowcase />
 
+  <section class="tutoriales-destacados" aria-labelledby="tutoriales-destacados-title">
+    <div class="tutoriales-destacados-head">
+      <h2 id="tutoriales-destacados-title">Tutoriales destacados</h2>
+      <a href="/tutoriales/">Ver todos</a>
+    </div>
+
+    <div class="tutoriales-destacados-grid">
+      {featuredTutoriales.map(tutorial => (
+        <a href={`/tutoriales/${tutorial.id}/`} class="tutorial-destacado-card">
+          <span>{tutorial.data.herramienta}</span>
+          <h3>{tutorial.data.title}</h3>
+          <p>{tutorial.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
   <div class="max-w-5xl mx-auto px-6 py-10">
     <h2 id="entradas" class="text-xs font-semibold text-[#A0A0C0] uppercase tracking-widest mb-6 pb-3 border-b border-[#2A2A40]">
       Últimas entradas
@@ -120,12 +147,96 @@ const homepageJsonLd = [
   grid-column: span 2;
 }
 
+.tutoriales-destacados {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 34px 24px 6px;
+}
+
+.tutoriales-destacados-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #2A2A40;
+  padding-bottom: 12px;
+}
+
+.tutoriales-destacados h2 {
+  color: #E8E8F0;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.tutoriales-destacados-head a {
+  color: #60A5FA;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tutoriales-destacados-head a:hover {
+  text-decoration: underline;
+}
+
+.tutoriales-destacados-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.tutorial-destacado-card {
+  min-height: 180px;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  background: #1C1C2E;
+  padding: 16px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.tutorial-destacado-card:hover {
+  border-color: #60A5FA;
+  background: #24243A;
+}
+
+.tutorial-destacado-card span {
+  color: #60A5FA;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.tutorial-destacado-card h3 {
+  color: #E8E8F0;
+  font-size: 16px;
+  line-height: 1.35;
+  margin: 10px 0 8px;
+}
+
+.tutorial-destacado-card p {
+  color: #A0A0C0;
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+}
+
 @media (max-width: 640px) {
   .cards-grid {
     grid-template-columns: 1fr;
   }
   .cards-grid > :first-child {
     grid-column: span 1;
+  }
+  .tutoriales-destacados-grid {
+    grid-template-columns: 1fr;
+  }
+  .tutoriales-destacados-head {
+    align-items: start;
+    flex-direction: column;
   }
 }
 </style>

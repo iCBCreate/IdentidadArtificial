@@ -24,6 +24,11 @@ const GONE_PATHS = new Set([
   '/post-sitemap.xml',
   '/post_tag-sitemap.xml',
   '/page-sitemap.xml',
+  // Literales que Google descubrió desde Speculation Rules antiguas
+  '/*',
+  '/*/',
+  '/sitemap*',
+  '/sitemap*/',
   // Paginación fuera de rango (18 posts / PAGE_SIZE 6 = 3 páginas máx)
   '/pagina/4/',
   '/pagina/5/',

@@ -232,6 +232,48 @@ export const POST_INSIGHTS = {
       "bestFor": "evaluar flujos de trabajo prácticos"
     }
   },
+  "claude-fable-5-mythos-5-lanzamiento": {
+    "executiveSummary": "Anthropic lanza Claude Fable 5 (uso general) y Mythos 5 (acceso restringido). Salvaguardas integradas en inferencia, benchmarks y diferencias clave. Anthropic ha lanzado hoy Claude Fable 5 y Claude Mythos 5 , los dos primeros modelos de lo que la compañía describe como una clase de inteligencia distinta a todo lo anterior.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Anthropic lanza Claude Fable 5 (uso general) y Mythos 5 (acceso restringido). Precio: $10/$50 por millón de tokens. Salvaguardas integradas en inferencia, benchmarks y diferencias clave.",
+      "Salvaguardas integradas en inferencia, benchmarks y diferencias clave.",
+      "Conceptos detectados por el pipeline: LLM, Agente, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre LLM?",
+        "answer": "Anthropic lanza Claude Fable 5 (uso general) y Mythos 5 (acceso restringido). Precio: $10/$50 por millón de tokens. Salvaguardas integradas en inferencia, benchmarks y diferencias clave."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender modelos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 5,
+      "density": "media",
+      "bestFor": "comparar capacidades de modelos"
+    }
+  },
   "claude-managed-agents": {
     "executiveSummary": "Los Claude Managed Agents son agentes de IA autónomos que planifican, usan herramientas y completan tareas complejas sin intervención constante. Anthropic acaba de lanzar Claude Managed Agents: un sistema que permite a Claude actuar de forma autónoma en tareas largas y complejas, coordinando herramientas, tomando decisiones y completando trabajo real sin que tengas que supervisar cada paso. Es un cambio en lo que significa \"usar IA en el trabajo\".",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
@@ -855,6 +897,56 @@ export const POST_INSIGHTS = {
       "minutes": 8,
       "density": "alta",
       "bestFor": "orientarse en tendencias técnicas"
+    }
+  },
+  "siri-ai-wwdc-2026-apple-intelligence-nueva-generacion": {
+    "executiveSummary": "Apple presentó Siri AI en WWDC 2026: nueva app dedicada, integración con Gemini, capacidades agénticas y Visual Intelligence expandida. El 8 de junio de 2026, durante la WWDC, Apple presentó Siri AI : la renovación más profunda de su asistente desde su lanzamiento en 2011. El anuncio es también la confirmación oficial de todo lo que las filtraciones de los últimos meses habían anticipado sobre Apple Intelligence y su integración con modelos de lenguaje de terceros.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Apple presentó Siri AI en WWDC 2026: nueva app dedicada, integración con Gemini, capacidades agénticas y Visual Intelligence expandida. Disponible en otoño 2026.",
+      "Apple presentó Siri AI en WWDC 2026: nueva app dedicada, integración con Gemini, capacidades agénticas y Visual Intelligence expandida.",
+      "Conceptos detectados por el pipeline: RAG, LLM, Agente, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "RAG",
+        "definition": "Arquitectura que recupera contexto externo antes de pedir una respuesta al modelo."
+      },
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre RAG?",
+        "answer": "Apple presentó Siri AI en WWDC 2026: nueva app dedicada, integración con Gemini, capacidades agénticas y Visual Intelligence expandida. Disponible en otoño 2026."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender modelos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 7,
+      "density": "alta",
+      "bestFor": "comparar capacidades de modelos"
     }
   }
 } as const

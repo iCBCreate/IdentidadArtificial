@@ -1,0 +1,105 @@
+---
+title: 'Claude Fable 5 y Mythos 5: el salto de Anthropic a frontera'
+description: 'Anthropic lanza Claude Fable 5 (uso general) y Mythos 5 (acceso restringido). Precio: $10/$50 por millón de tokens. Salvaguardas integradas en inferencia, benchmarks y diferencias clave.'
+pubDate: 2026-06-09
+category: 'Modelos'
+tags: ['claude', 'anthropic', 'fable', 'mythos', 'llm', 'agentes']
+generatedBy: 'claude-sonnet-4-6'
+generatedAt: '2026-06-09T12:00:00Z'
+promptBase: 'Crea un post sobre el lanzamiento de Claude Fable 5 y Claude Mythos 5 de Anthropic (9 junio 2026). Incluye capacidades, benchmarks, salvaguardas de Fable 5, acceso restringido de Mythos 5, precios y diferencias entre ambos modelos. Tono técnico, sin hype, con datos concretos.'
+humanReviewed: false
+heroImage: '../../assets/post/claude-fable-5-mythos-5-hero.png'
+sourceQuality: 'Alta'
+confidenceLevel: 'Alta'
+claimsReviewed:
+  - 'Fable 5 disponible hoy para uso general; Mythos 5 solo para socios de Project Glasswing e investigadores seleccionados'
+  - 'Precio: $10/M tokens de entrada, $50/M tokens de salida'
+  - 'Stripe reportó que Fable 5 comprimió meses de ingeniería en días en migraciones de código'
+  - 'Los clasificadores de salvaguarda activan menos del 5% de sesiones en promedio'
+---
+
+Anthropic ha lanzado hoy **Claude Fable 5** y **Claude Mythos 5**, los dos primeros modelos de lo que la compañía describe como una clase de inteligencia distinta a todo lo anterior. Fable 5 está disponible desde hoy para todos los usuarios. Mythos 5, la versión sin restricciones, queda reservada a un grupo reducido de investigadores y socios de ciberseguridad.
+
+El anuncio cierra un ciclo que [empezó con Mythos Preview en ciberseguridad](/claude-mythos-glasswing-10000-vulnerabilidades/) y siguió con las menciones en el lanzamiento de [Opus 4.8](/claude-opus-4-8-lanzamiento-benchmarks-agentes/) de que Mythos representaba "una clase de inteligencia superior".
+
+## Qué puede hacer Fable 5
+
+Anthropic sitúa a Fable 5 como estado del arte en cuatro áreas: ingeniería de software, trabajo analítico, visión por computadora e investigación científica.
+
+En la práctica, el modelo puede ejecutar tareas complejas de forma autónoma durante períodos extendidos —lo que en la literatura de agentes se llama "tarea larga"— sin necesidad de intervención humana continua. Stripe, uno de los socios que ha probado el modelo en pre-lanzamiento, resumió el resultado de forma directa: Fable 5 "comprimió meses de ingeniería en días" en proyectos de migración de código.
+
+Para entender qué significa eso en términos de arquitectura, [qué son los agentes de IA](/que-son-los-agentes-de-ia/) explica el bucle básico de planificación, ejecución y corrección que hace posible ese tipo de autonomía.
+
+## Benchmarks
+
+Anthropic publica resultados cualitativos en varios benchmarks de frontera, pero no incluye tablas numéricas con comparativas directas contra GPT o Gemini en el anuncio inicial:
+
+| Área | Benchmark | Resultado |
+|------|-----------|-----------|
+| Ingeniería de software | FrontierCode (esfuerzo medio) | Primero entre modelos de frontera |
+| Ciberseguridad | Pruebas de jailbreak (30 técnicas) | 0 solicitudes dañinas ejecutadas |
+| Alineación | Comportamiento desalineado | Similar a Opus 4.8 (nivel bajo) |
+| Investigación científica | Diseño de proteínas (Mythos 5) | Complejos proteicos funcionales |
+
+El dato más concreto es el de ciberseguridad: un evaluador externo probó 30 técnicas distintas de jailbreak contra Fable 5 y el modelo no ejecutó ninguna solicitud dañina. Es el tipo de evaluación adversarial que Anthropic viene publicando desde el piloto de Glasswing.
+
+En FrontierCode, Anthropic afirma el primer puesto entre modelos de frontera a esfuerzo medio —lo que implica que no necesita el modo de mayor coste computacional para superar a sus competidores directos en tareas de código. Los benchmarks completos con puntuaciones numéricas estarán disponibles en la [página de lanzamiento oficial](https://www.anthropic.com/news/claude-fable-5-mythos-5).
+
+## Las salvaguardas de Fable 5
+
+Fable 5 incorpora un sistema de salvaguardas directamente en el flujo de inferencia, no como capa externa. El mecanismo funciona así:
+
+- **Clasificadores en tiempo real** detectan si una consulta se aproxima a áreas de alto riesgo: ciberseguridad ofensiva, síntesis de agentes biológicos o químicos, o intentos de extracción de pesos del modelo (destilación).
+- Cuando se activa un clasificador, la sesión se **deriva automáticamente a Claude Opus 4.8**, que responde con las restricciones habituales.
+- Anthropic estima que este mecanismo se activa en **menos del 5% de las sesiones** en promedio.
+
+El sistema es distinto al enfoque de prompt engineering defensivo que usan otros modelos: la detección ocurre a nivel de inferencia, lo que dificulta las técnicas de jailbreak convencionales. Anthropic retiene datos de las sesiones derivadas durante 30 días para análisis de seguridad.
+
+Este diseño es consecuencia directa del trabajo con Glasswing: [el piloto de ciberseguridad](/claude-mythos-glasswing-10000-vulnerabilidades/) demostró que la capacidad del modelo y el riesgo de uso indebido escalan juntos, y que las salvaguardas tienen que ir integradas desde el entrenamiento.
+
+## Mythos 5: acceso restringido
+
+**Claude Mythos 5** es la versión de Fable 5 sin las restricciones de derivación. Anthropic no lo describe como "sin censura" —esa terminología viene del ecosistema open source— sino como un modelo diseñado para contextos donde el operador asume responsabilidad sobre el uso.
+
+El acceso está limitado a:
+
+- **Socios de Project Glasswing**: equipos de ciberseguridad defensiva que participaron en el piloto.
+- **Investigadores seleccionados**: académicos y equipos de bioseguridad con acuerdos de uso firmados.
+
+Mythos 5 es el modelo que genera los complejos proteicos mencionados en los benchmarks de investigación científica. Para ese tipo de trabajo, las restricciones de Fable 5 serían un obstáculo.
+
+## Precios
+
+El precio de Fable 5 supera al de [Opus 4.8](/claude-opus-4-8-lanzamiento-benchmarks-agentes/):
+
+| | Entrada | Salida |
+|---|---|---|
+| **Fable 5** | $10 / millón de tokens | $50 / millón de tokens |
+| Opus 4.8 (referencia) | $5 / millón de tokens | $25 / millón de tokens |
+
+Fable 5 cuesta exactamente el doble que Opus 4.8. Para aplicaciones que no necesiten el techo de capacidad de Fable 5, Opus 4.8 sigue siendo la opción más eficiente en coste. Si quieres entender [cómo el tamaño del contexto afecta al coste real en producción](/como-funciona-el-contexto-en-los-llm/), ese post explica los cálculos concretos.
+
+## ¿Qué significa esto para la hoja de ruta?
+
+Con Fable 5, Anthropic completa la transición que anunció en mayo: una familia de modelos donde Opus es la capa de producción estable y Fable/Mythos es la capa de frontera con mayor capacidad y mayor coste.
+
+La pregunta relevante es cuándo Fable 5 baja de precio —el patrón con Opus es que los modelos de frontera se abaratan en 3-6 meses cuando llega la siguiente generación. Por ahora, $10/$50 por millón de tokens es el precio de acceder al mejor modelo de Anthropic disponible para uso general.
+
+## Preguntas frecuentes
+
+**¿Cuánto cuesta Claude Fable 5?**
+$10 por millón de tokens de entrada y $50 por millón de tokens de salida. Es el doble del precio de Opus 4.8 ($5/$25).
+
+**¿En qué se diferencia Fable 5 de Mythos 5?**
+Fable 5 incluye salvaguardas integradas que derivan automáticamente a Opus 4.8 cuando detectan consultas de alto riesgo. Mythos 5 no tiene esas restricciones y está diseñado para investigadores con acuerdos de uso firmados.
+
+**¿Cómo puedo acceder a Claude Mythos 5?**
+Solo está disponible para socios de Project Glasswing y para investigadores seleccionados por Anthropic en áreas de ciberseguridad defensiva y bioseguridad. No hay acceso público ni lista de espera abierta.
+
+**¿Fable 5 reemplaza a Opus 4.8?**
+No directamente. Opus 4.8 sigue siendo el modelo de producción recomendado para la mayoría de casos de uso. Fable 5 ocupa la capa de frontera: mayor capacidad, mayor coste. Para aplicaciones sensibles al precio, Opus 4.8 sigue siendo más eficiente.
+
+---
+
+Sources:
+- [Claude Fable 5 and Claude Mythos 5 — Anthropic](https://www.anthropic.com/news/claude-fable-5-mythos-5)

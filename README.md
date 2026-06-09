@@ -128,6 +128,8 @@ npx wrangler secret put METRICS_ACCESS_TOKEN
 
 `GOOGLE_SEARCH_CONSOLE_SITE_URL` no es secreto; puede ir en `.dev.vars` o en `[vars]` de `wrangler.toml`.
 
+Si `npm run gsc:oauth` devuelve `redirect_uri_mismatch`, registra en el cliente OAuth de Google Cloud la URI indicada por el script. Por defecto es `http://127.0.0.1:8787/oauth2callback`; si el cliente ya tiene otra URI local autorizada, configúrala en `.dev.vars` con `GOOGLE_SEARCH_CONSOLE_REDIRECT_URI`.
+
 ## Crear un post
 
 Lee [`docs/guia-crear-post.md`](docs/guia-crear-post.md). Cualquier modelo de IA puede seguir esa guía para producir posts compatibles con el formato del blog.

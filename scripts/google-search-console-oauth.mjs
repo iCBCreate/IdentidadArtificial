@@ -3,21 +3,27 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { randomBytes } from 'node:crypto'
 
 const ENV_PATH = '.dev.vars'
-const REDIRECT_URI = 'http://127.0.0.1:8787/oauth2callback'
+const DEFAULT_REDIRECT_URI = 'http://127.0.0.1:8787/oauth2callback'
 const SCOPE = 'https://www.googleapis.com/auth/webmasters'
 
 const env = readEnv(ENV_PATH)
 const clientId = env.GOOGLE_SEARCH_CONSOLE_CLIENT_ID
 const clientSecret = env.GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET
+const redirectUri = env.GOOGLE_SEARCH_CONSOLE_REDIRECT_URI || DEFAULT_REDIRECT_URI
+const redirectUrl = new URL(redirectUri)
 
 if (!clientId || !clientSecret) {
   throw new Error('Missing GOOGLE_SEARCH_CONSOLE_CLIENT_ID or GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET in .dev.vars')
 }
 
+if (redirectUrl.protocol !== 'http:' || redirectUrl.pathname !== '/oauth2callback') {
+  throw new Error('GOOGLE_SEARCH_CONSOLE_REDIRECT_URI must use http and end with /oauth2callback')
+}
+
 const state = randomBytes(16).toString('hex')
 const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth')
 authUrl.searchParams.set('client_id', clientId)
-authUrl.searchParams.set('redirect_uri', REDIRECT_URI)
+authUrl.searchParams.set('redirect_uri', redirectUri)
 authUrl.searchParams.set('response_type', 'code')
 authUrl.searchParams.set('scope', SCOPE)
 authUrl.searchParams.set('access_type', 'offline')
@@ -28,7 +34,7 @@ const server = createServer(async (request, response) => {
   let shouldClose = false
 
   try {
-    const url = new URL(request.url ?? '/', REDIRECT_URI)
+    const url = new URL(request.url ?? '/', redirectUri)
     if (url.pathname !== '/oauth2callback') {
       response.writeHead(404)
       response.end('Not found')
@@ -55,7 +61,7 @@ const server = createServer(async (request, response) => {
         client_id: clientId,
         client_secret: clientSecret,
         code,
-        redirect_uri: REDIRECT_URI,
+        redirect_uri: redirectUri,
         grant_type: 'authorization_code',
       }),
     })
@@ -86,9 +92,9 @@ const server = createServer(async (request, response) => {
   }
 })
 
-server.listen(8787, '127.0.0.1', () => {
+server.listen(Number(redirectUrl.port || 80), redirectUrl.hostname, () => {
   console.log('Before opening the URL, make sure this redirect URI is authorized in Google Cloud:')
-  console.log(`  ${REDIRECT_URI}`)
+  console.log(`  ${redirectUri}`)
   console.log('')
   console.log('Open this URL and authorize Search Console read-only access:')
   console.log(authUrl.href)
@@ -115,6 +121,7 @@ function writeEnv(path, values) {
     'GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET',
     'GOOGLE_SEARCH_CONSOLE_REFRESH_TOKEN',
     'GOOGLE_SEARCH_CONSOLE_SITE_URL',
+    'GOOGLE_SEARCH_CONSOLE_REDIRECT_URI',
     'METRICS_ACCESS_TOKEN',
   ]
   const lines = order

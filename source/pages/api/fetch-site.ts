@@ -7,8 +7,10 @@ export function validateUrl(raw: string | null): URL | null {
   try {
     const url = new URL(raw)
     if (url.protocol !== 'https:') return null
-    const blocked = /^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.|0\.0\.0\.0|::1|::ffff:|fc[0-9a-f]{2}:|fd[0-9a-f]{2}:|fe80:)/i
-    if (blocked.test(url.hostname)) return null
+    // IPv6 literals come bracketed in URL.hostname ([::1]) — strip before matching
+    const hostname = url.hostname.replace(/^\[|\]$/g, '')
+    const blocked = /^(localhost$|.*\.localhost$|127\.|0\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.|100\.(6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.|::1$|::ffff:|::$|fc[0-9a-f]{2}:|fd[0-9a-f]{2}:|fe80:)/i
+    if (blocked.test(hostname)) return null
     return url
   } catch {
     return null
@@ -38,7 +40,29 @@ export const OPTIONS: APIRoute = () =>
     },
   })
 
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>()
+
 export const GET: APIRoute = async ({ request }) => {
+  const ip = request.headers.get('cf-connecting-ip') ?? 'unknown'
+  const now = Date.now()
+  let entry = rateLimitMap.get(ip)
+  if (!entry || now >= entry.resetAt) {
+    entry = { count: 0, resetAt: now + 60000 }
+    rateLimitMap.set(ip, entry)
+  }
+  if (entry.count >= 10) {
+    return new Response(JSON.stringify({ error: 'Too Many Requests' }), {
+      status: 429,
+      headers: { ...CORS, 'Retry-After': String(Math.ceil((entry.resetAt - now) / 1000)) },
+    })
+  }
+  entry.count++
+  if (rateLimitMap.size > 10000) {
+    for (const [key, e] of rateLimitMap) {
+      if (now >= e.resetAt) rateLimitMap.delete(key)
+    }
+  }
+
   const rawUrl = new URL(request.url).searchParams.get('url')
 
   const url = validateUrl(rawUrl)

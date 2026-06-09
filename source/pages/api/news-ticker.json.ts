@@ -46,9 +46,9 @@ export const GET: APIRoute = async () => {
       },
     })
   } catch (error) {
+    console.error('NewsData.io request failed:', error instanceof Error ? error.message : error)
     return new Response(JSON.stringify({
       error: 'NewsData.io request failed',
-      detail: error instanceof Error ? error.message : 'Unknown error',
     }), {
       status: 502,
       headers: { 'content-type': 'application/json' },

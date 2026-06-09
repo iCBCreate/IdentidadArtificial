@@ -54,6 +54,6 @@
   },
   "overrides": {
     "vite": "^7",
-    "yaml": "$yaml"
+    "yaml": "^2.8.4"
   }
 }

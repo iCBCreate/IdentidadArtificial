@@ -73,7 +73,7 @@ export const GET: APIRoute = async ({ request }) => {
   const auth = request.headers.get('authorization') ?? ''
   const expectedToken = env.METRICS_ACCESS_TOKEN
 
-  if (!expectedToken || auth !== `Bearer ${expectedToken}`) {
+  if (!expectedToken || !(await safeEqual(auth, `Bearer ${expectedToken}`))) {
     return json({ error: 'Unauthorized' }, 401)
   }
 
@@ -123,6 +123,20 @@ export const GET: APIRoute = async ({ request }) => {
       detail: error instanceof Error ? error.message : 'Unknown error',
     }, 502)
   }
+}
+
+// Comparación en tiempo constante: los digests igualan longitudes y el bucle no corta antes
+async function safeEqual(a: string, b: string): Promise<boolean> {
+  const enc = new TextEncoder()
+  const [da, db] = await Promise.all([
+    crypto.subtle.digest('SHA-256', enc.encode(a)),
+    crypto.subtle.digest('SHA-256', enc.encode(b)),
+  ])
+  const va = new Uint8Array(da)
+  const vb = new Uint8Array(db)
+  let diff = 0
+  for (let i = 0; i < va.length; i++) diff |= va[i] ^ vb[i]
+  return diff === 0
 }
 
 function json(body: unknown, status = 200): Response {

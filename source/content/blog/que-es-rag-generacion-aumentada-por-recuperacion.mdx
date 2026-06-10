@@ -33,6 +33,8 @@ Antes de que el LLM pueda consultar la información, esta debe transformarse a u
 - **Embeddings:** Cada fragmento de texto se pasa por un modelo de embedding que lo convierte en un **vector numérico**. Este vector representa el significado semántico del texto en un espacio multidimensional.
 - **Base de Datos Vectorial:** Estos vectores se almacenan en una base de datos especializada (como Pinecone, Milvus o Weaviate). A diferencia de una base de datos SQL tradicional, aquí no buscamos por palabras clave exactas, sino por cercanía matemática entre significados.
 
+Puedes experimentar con esta idea en el [explorador de embeddings del laboratorio](/laboratorio/embeddings/): un modelo real corre en tu navegador, convierte frases en vectores y muestra su similitud semántica.
+
 ### 2. El Ciclo de Consulta (Fase de Ejecución)
 
 Cuando un usuario hace una pregunta, ocurre la "magia" del RAG:

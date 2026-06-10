@@ -81,7 +81,25 @@ function buildSitemapLastmodByPath() {
 
   addDirectoryFiles(lastmodByPath, TUTORIALES_DIR, '.mdx', filename => `/tutoriales/${filename}/`)
 
+  // Páginas .astro dentro de subdirectorios de pages (p. ej. /laboratorio/*)
+  addNestedPageFiles(lastmodByPath, PAGE_DIR)
+
   return lastmodByPath
+}
+
+function addNestedPageFiles(lastmodByPath, pageDir) {
+  if (!existsSync(pageDir)) return
+
+  for (const entry of readdirSync(pageDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue
+    const subDir = join(pageDir, entry.name)
+
+    for (const file of readdirSync(subDir)) {
+      if (!file.endsWith('.astro') || file === 'index.astro') continue
+      const filename = basename(file, '.astro')
+      lastmodByPath.set(`/${entry.name}/${filename}/`, statSync(join(subDir, file)).mtime)
+    }
+  }
 }
 
 function addSubdirectoryIndexFiles(lastmodByPath, directory, extension) {

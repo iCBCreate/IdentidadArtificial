@@ -1,0 +1,62 @@
+---
+import LabLayout from '../../layouts/LabLayout.astro'
+import LabCard from '../../components/lab/LabCard.astro'
+import { collectionSchema } from '../../lib/lab/schema'
+
+const cards = [
+  {
+    title: 'Tokenizador interactivo',
+    description: 'Escribe cualquier texto y mira cómo un LLM lo trocea en tokens. Entiende por qué «esternocleidomastoideo» cuesta más que «casa».',
+    href: '/laboratorio/tokenizador/',
+    tag: 'Tokenización',
+    note: 'Carga diferida ~800 KB',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="9" width="5" height="6" rx="1"/><rect x="9.5" y="9" width="5" height="6" rx="1"/><rect x="17" y="9" width="5" height="6" rx="1"/></svg>',
+  },
+  {
+    title: 'Temperatura y sampling',
+    description: 'Sliders de temperatura, top-k y top-p sobre una distribución de 20 tokens. Muestrea y comprueba por qué la misma pregunta da respuestas distintas.',
+    href: '/laboratorio/sampling/',
+    tag: 'Generación',
+    note: 'Sin descargas',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20V10M9 20V4M15 20v-8M21 20V7"/></svg>',
+  },
+  {
+    title: 'Contexto y costes',
+    description: 'Pega un texto o indica un número de tokens y compara coste y ocupación de ventana de contexto en 10 modelos actuales.',
+    href: '/laboratorio/calculadora-contexto/',
+    tag: 'Costes',
+    note: 'Sin descargas',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h2M14 10h2M8 14h2M14 14h2M8 18h2M14 18h2"/></svg>',
+  },
+  {
+    title: 'Explorador de embeddings',
+    description: 'Un modelo multilingüe real (e5-small) corre en tu navegador, convierte frases en vectores y las posiciona en un mapa semántico 2D.',
+    href: '/laboratorio/embeddings/',
+    tag: 'Embeddings',
+    note: 'Modelo opcional ~115 MB',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="8" r="2.2"/><circle cx="9" cy="17" r="2.2"/><circle cx="18.5" cy="17.5" r="2.2"/><path d="M7.8 7.2l8.2 0M7.5 7.8l1 7M16.5 9.5l1.5 5.8M11.2 17.2l5.1 0.2"/></svg>',
+  },
+]
+---
+
+<LabLayout
+  title="Laboratorio de IA"
+  description="Demos interactivas para entender los LLM por dentro: tokenización, temperatura y sampling, ventanas de contexto y embeddings. 100% en tu navegador, sin API keys."
+  image="/og/laboratorio.png"
+  jsonLd={collectionSchema()}
+  eyebrow="Demos interactivas"
+  heading="Laboratorio de IA"
+  subtitle="Cuatro experimentos para tocar con las manos lo que los artículos explican con palabras: cómo un LLM trocea texto, elige el siguiente token, gestiona su ventana de contexto y entiende el significado. Todo corre en tu navegador."
+>
+  <div class="lab-grid">
+    {cards.map(card => <LabCard {...card} />)}
+  </div>
+</LabLayout>
+
+<style>
+.lab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+</style>

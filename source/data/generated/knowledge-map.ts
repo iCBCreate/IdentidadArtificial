@@ -198,7 +198,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:chatgpt-mil-millones-usuarios-anthropic-valoracion-paradoja",
       "type": "post",
-      "label": "ChatGPT llega al billón de usuarios. Anthropic vale más que OpenAI. ¿Qué mide cada cifra?",
+      "label": "ChatGPT al billón de usuarios y Anthropic supera a OpenAI",
       "slug": "chatgpt-mil-millones-usuarios-anthropic-valoracion-paradoja",
       "category": "Inteligencia Artificial"
     },
@@ -342,7 +342,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:codex-plugins-roles-sites-openai-2026",
       "type": "post",
-      "label": "Codex ya no es solo para programadores: plugins por rol, Sites y Annotations",
+      "label": "Codex ya no es solo para programadores: plugins por rol",
       "slug": "codex-plugins-roles-sites-openai-2026",
       "category": "Herramientas"
     },
@@ -494,7 +494,7 @@ export const KNOWLEDGE_MAP = {
     {
       "id": "post:nvidia-rtx-spark",
       "type": "post",
-      "label": "NVIDIA RTX Spark: el superchip que lleva agentes de IA a tu PC Windows",
+      "label": "NVIDIA RTX Spark: agentes de IA en tu PC Windows",
       "slug": "nvidia-rtx-spark",
       "category": "Herramientas"
     },
@@ -2406,7 +2406,7 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "chatgpt-mil-millones-usuarios-anthropic-valoracion-paradoja",
-        "title": "ChatGPT llega al billón de usuarios. Anthropic vale más que OpenAI. ¿Qué mide cada cifra?",
+        "title": "ChatGPT al billón de usuarios y Anthropic supera a OpenAI",
         "reason": "Comparten etiquetas: anthropic.",
         "score": 20
       }
@@ -2574,7 +2574,7 @@ export const KNOWLEDGE_MAP = {
     "codex-chatgpt-movil-trabajo-remoto": [
       {
         "slug": "codex-plugins-roles-sites-openai-2026",
-        "title": "Codex ya no es solo para programadores: plugins por rol, Sites y Annotations",
+        "title": "Codex ya no es solo para programadores: plugins por rol",
         "reason": "Comparten etiquetas: openai, codex.",
         "score": 18
       },
@@ -2700,7 +2700,7 @@ export const KNOWLEDGE_MAP = {
       },
       {
         "slug": "chatgpt-mil-millones-usuarios-anthropic-valoracion-paradoja",
-        "title": "ChatGPT llega al billón de usuarios. Anthropic vale más que OpenAI. ¿Qué mide cada cifra?",
+        "title": "ChatGPT al billón de usuarios y Anthropic supera a OpenAI",
         "reason": "Comparten etiquetas: openai.",
         "score": 17
       },
@@ -2734,7 +2734,7 @@ export const KNOWLEDGE_MAP = {
     "openai-workspace-agents-chatgpt-autonomia": [
       {
         "slug": "chatgpt-mil-millones-usuarios-anthropic-valoracion-paradoja",
-        "title": "ChatGPT llega al billón de usuarios. Anthropic vale más que OpenAI. ¿Qué mide cada cifra?",
+        "title": "ChatGPT al billón de usuarios y Anthropic supera a OpenAI",
         "reason": "Comparten etiquetas: openai, chatgpt.",
         "score": 20
       },

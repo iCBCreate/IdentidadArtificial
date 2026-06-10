@@ -1,0 +1,200 @@
+---
+import LabLayout from '../../layouts/LabLayout.astro'
+import { LAB_DEMOS, webAppSchema } from '../../lib/lab/schema'
+
+const demo = LAB_DEMOS.find(d => d.slug === 'tokenizador')!
+---
+
+<LabLayout
+  title="Tokenizador interactivo"
+  description="Escribe texto y visualiza en tiempo real cómo un LLM lo trocea en tokens con el encoding o200k_base. 100% en tu navegador, sin enviar datos."
+  image="/og/laboratorio-tokenizador.png"
+  jsonLd={webAppSchema(demo)}
+  heading="Tokenizador interactivo"
+  subtitle="Los LLM no leen letras ni palabras: leen tokens. Escribe abajo y observa cómo el encoding o200k_base (el de los modelos recientes de OpenAI) trocea tu texto. El tokenizador (~800 KB) se descarga la primera vez que escribes."
+>
+  <div class="tok-app">
+    <label class="tok-label" for="tok-input">Tu texto</label>
+    <textarea
+      id="tok-input"
+      class="tok-input"
+      rows="5"
+      placeholder="Escribe aquí… por ejemplo: El esternocleidomastoideo es un músculo del cuello."
+      spellcheck="false"
+    ></textarea>
+
+    <div class="tok-stats" aria-live="polite">
+      <div class="tok-stat"><span class="tok-stat-num" id="tok-count">0</span><span class="tok-stat-label">tokens</span></div>
+      <div class="tok-stat"><span class="tok-stat-num" id="char-count">0</span><span class="tok-stat-label">caracteres</span></div>
+      <div class="tok-stat"><span class="tok-stat-num" id="ratio">—</span><span class="tok-stat-label">chars/token</span></div>
+      <span class="tok-status" id="tok-status"></span>
+    </div>
+
+    <div class="tok-output" id="tok-output" aria-label="Tokens del texto"></div>
+
+    <div class="tok-explainer">
+      <h2>Qué estás viendo</h2>
+      <p>
+        Cada bloque de color es un token: la unidad mínima que procesa el modelo. Las palabras frecuentes
+        en inglés suelen ser un solo token; el español se fragmenta algo más, y las palabras raras o muy
+        largas se rompen en varios trozos. Por eso el coste de una petición y el límite de la
+        <a href="/como-funciona-el-contexto-en-los-llm/">ventana de contexto</a> se miden en tokens, no en palabras.
+      </p>
+      <p>
+        Nota: cada familia de modelos usa su propio tokenizador. Este es <code>o200k_base</code>;
+        los modelos de Anthropic o Google darían recuentos parecidos pero no idénticos.
+      </p>
+    </div>
+  </div>
+</LabLayout>
+
+<script>
+  const input = document.getElementById('tok-input') as HTMLTextAreaElement
+  const output = document.getElementById('tok-output') as HTMLDivElement
+  const tokCount = document.getElementById('tok-count') as HTMLSpanElement
+  const charCount = document.getElementById('char-count') as HTMLSpanElement
+  const ratio = document.getElementById('ratio') as HTMLSpanElement
+  const status = document.getElementById('tok-status') as HTMLSpanElement
+
+  const PALETTE = ['#A78BFA', '#34D399', '#F472B6', '#60A5FA', '#FBBF24', '#F87171', '#2DD4BF', '#C084FC']
+
+  type Tokenizer = { encode: (text: string) => number[]; decode: (tokens: number[]) => string }
+  let tokenizer: Tokenizer | null = null
+  let loading = false
+
+  async function ensureTokenizer(): Promise<Tokenizer> {
+    if (tokenizer) return tokenizer
+    status.textContent = 'cargando tokenizador…'
+    loading = true
+    const mod = await import('gpt-tokenizer/encoding/o200k_base')
+    tokenizer = { encode: mod.encode, decode: mod.decode }
+    loading = false
+    status.textContent = ''
+    return tokenizer
+  }
+
+  function render() {
+    const text = input.value
+    charCount.textContent = String(text.length)
+    if (!tokenizer || text.length === 0) {
+      if (text.length === 0) {
+        output.innerHTML = ''
+        tokCount.textContent = '0'
+        ratio.textContent = '—'
+      }
+      return
+    }
+    const ids = tokenizer.encode(text)
+    tokCount.textContent = String(ids.length)
+    ratio.textContent = ids.length > 0 ? (text.length / ids.length).toFixed(1) : '—'
+
+    const frag = document.createDocumentFragment()
+    ids.forEach((id, i) => {
+      const span = document.createElement('span')
+      span.className = 'tok'
+      const color = PALETTE[i % PALETTE.length]
+      span.style.borderColor = color + '66'
+      span.style.color = color
+      span.textContent = tokenizer!.decode([id]).replace(/ /g, '␣').replace(/\n/g, '⏎')
+      span.title = `token #${i + 1} · id ${id}`
+      frag.appendChild(span)
+    })
+    output.replaceChildren(frag)
+  }
+
+  let pending = false
+  input.addEventListener('input', async () => {
+    charCount.textContent = String(input.value.length)
+    if (!tokenizer) {
+      if (loading || pending) return
+      pending = true
+      try {
+        await ensureTokenizer()
+      } catch {
+        status.textContent = 'error cargando el tokenizador — recarga la página'
+        return
+      }
+      pending = false
+    }
+    render()
+  })
+</script>
+
+<style>
+.tok-app { max-width: 760px; }
+
+.tok-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #A0A0C0;
+  margin-bottom: 8px;
+}
+
+.tok-input {
+  width: 100%;
+  background: #13131F;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  color: #E8E8F0;
+  font-size: 15px;
+  line-height: 1.6;
+  padding: 14px 16px;
+  resize: vertical;
+  transition: border-color 0.15s;
+}
+.tok-input:focus { outline: none; border-color: #A78BFA; }
+
+.tok-stats {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  margin: 18px 0 14px;
+  flex-wrap: wrap;
+}
+.tok-stat { display: flex; align-items: baseline; gap: 6px; }
+.tok-stat-num { font-size: 22px; font-weight: 800; color: #E8E8F0; font-variant-numeric: tabular-nums; }
+.tok-stat-label { font-size: 12px; color: #A0A0C0; }
+.tok-status { font-size: 12px; color: #FBBF24; }
+
+.tok-output {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 48px;
+  padding: 14px;
+  background: #13131F;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+}
+.tok-output :global(.tok) {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  padding: 2px 6px;
+  border: 1px solid;
+  border-radius: 4px;
+  white-space: pre;
+}
+
+.tok-explainer { margin-top: 32px; max-width: 680px; }
+.tok-explainer h2 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A78BFA;
+  margin-bottom: 10px;
+}
+.tok-explainer p { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 12px; }
+.tok-explainer a { color: #A78BFA; }
+.tok-explainer code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: #13131F;
+  border: 1px solid #2A2A40;
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+</style>

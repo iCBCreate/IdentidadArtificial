@@ -1,0 +1,372 @@
+---
+import LabLayout from '../../layouts/LabLayout.astro'
+import { LAB_DEMOS, webAppSchema } from '../../lib/lab/schema'
+
+const demo = LAB_DEMOS.find(d => d.slug === 'embeddings')!
+---
+
+<LabLayout
+  title="Explorador de embeddings"
+  description="Genera embeddings reales en tu navegador con multilingual-e5-small y visualiza la similitud semántica entre frases en español en un mapa 2D interactivo."
+  image="/og/laboratorio-embeddings.png"
+  jsonLd={webAppSchema(demo)}
+  heading="Explorador de embeddings"
+  subtitle="Los embeddings convierten texto en vectores: frases con significado parecido acaban cerca en el espacio. Esta demo ejecuta un modelo real (multilingual-e5-small, cuantizado) directamente en tu navegador con transformers.js."
+>
+  <div class="emb-app">
+    <div class="emb-load" id="emb-load">
+      <p class="emb-load-text">
+        El modelo pesa <strong>~115 MB</strong> y se descarga una sola vez (queda cacheado en el navegador).
+        No se envía ningún dato: la inferencia ocurre en tu dispositivo.
+      </p>
+      <button class="emb-load-btn" id="emb-load-btn" type="button">⬇ Cargar modelo (~115 MB)</button>
+      <div class="emb-progress" id="emb-progress" hidden>
+        <div class="emb-progress-track"><div class="emb-progress-fill" id="emb-progress-fill"></div></div>
+        <span class="emb-progress-label" id="emb-progress-label">Preparando…</span>
+      </div>
+    </div>
+
+    <div class="emb-main" id="emb-main" hidden>
+      <div class="emb-sentences">
+        <label class="emb-label" for="emb-input">Frases (una por línea)</label>
+        <textarea id="emb-input" class="emb-textarea" rows="10" spellcheck="false">El gato duerme en el sofá
+Mi perro juega en el parque
+Los animales domésticos necesitan cariño
+La bolsa cayó un 3% este martes
+Los inversores temen una recesión
+El banco central subió los tipos de interés
+La paella valenciana lleva arroz
+Me encanta cocinar tortilla de patatas
+La receta necesita aceite de oliva</textarea>
+        <button class="emb-run" id="emb-run" type="button">Calcular embeddings</button>
+        <span class="emb-status" id="emb-status"></span>
+      </div>
+
+      <div class="emb-results">
+        <h2 class="emb-h2">Mapa semántico 2D (PCA)</h2>
+        <svg id="emb-scatter" class="emb-scatter" viewBox="0 0 560 380" role="img" aria-label="Proyección 2D de los embeddings"></svg>
+
+        <h2 class="emb-h2">Matriz de similitud coseno</h2>
+        <div class="emb-matrix-wrap">
+          <table class="emb-matrix" id="emb-matrix"></table>
+        </div>
+      </div>
+    </div>
+
+    <div class="emb-explainer">
+      <h2>Qué estás viendo</h2>
+      <p>
+        Cada frase se convierte en un vector de 384 dimensiones; aquí se proyecta a 2D con PCA para
+        poder dibujarlo. Las frases sobre mascotas, finanzas y cocina deberían formar tres grupos.
+        La matriz muestra la similitud coseno entre cada par: 1 = mismo significado, 0 = sin relación.
+        Esta es la técnica que usa <a href="/que-es-rag-generacion-aumentada-por-recuperacion/">RAG</a>
+        para recuperar los documentos relevantes a una pregunta.
+      </p>
+    </div>
+  </div>
+</LabLayout>
+
+<script>
+  import { cosineSimilarity, projectTo2D } from '../../lib/lab/projection'
+
+  const loadBox = document.getElementById('emb-load') as HTMLDivElement
+  const loadBtn = document.getElementById('emb-load-btn') as HTMLButtonElement
+  const progress = document.getElementById('emb-progress') as HTMLDivElement
+  const progressFill = document.getElementById('emb-progress-fill') as HTMLDivElement
+  const progressLabel = document.getElementById('emb-progress-label') as HTMLSpanElement
+  const main = document.getElementById('emb-main') as HTMLDivElement
+  const input = document.getElementById('emb-input') as HTMLTextAreaElement
+  const runBtn = document.getElementById('emb-run') as HTMLButtonElement
+  const status = document.getElementById('emb-status') as HTMLSpanElement
+  const scatter = document.getElementById('emb-scatter') as unknown as SVGSVGElement
+  const matrix = document.getElementById('emb-matrix') as HTMLTableElement
+
+  const SVG_NS = 'http://www.w3.org/2000/svg'
+  const COLORS = ['#A78BFA', '#34D399', '#F472B6', '#60A5FA', '#FBBF24', '#F87171', '#2DD4BF', '#C084FC', '#A3E635', '#FB923C']
+
+  type Embedder = (texts: string[]) => Promise<number[][]>
+  let embedder: Embedder | null = null
+
+  loadBtn.addEventListener('click', async () => {
+    loadBtn.disabled = true
+    progress.hidden = false
+    try {
+      const { pipeline, env } = await import('@huggingface/transformers')
+      // Servir el runtime WASM desde el propio dominio: la CSP bloquea cdn.jsdelivr.net
+      // (por defecto onnxruntime-web lo descarga de ahí). Copiado en build por scripts/copy-ort-wasm.mjs.
+      env.backends.onnx.wasm.wasmPaths = '/vendor/ort/'
+      const fileProgress = new Map<string, { loaded: number; total: number }>()
+      // q8: 118 MB. La variante q4 de este modelo pesa 398 MB (la capa de embeddings
+      // del vocabulario multilingüe no se cuantiza), así que q8 es la opción ligera real.
+      const extractor = await pipeline('feature-extraction', 'Xenova/multilingual-e5-small', {
+        dtype: 'q8',
+        progress_callback: (info: { status?: string; file?: string; loaded?: number; total?: number }) => {
+          if (info.status === 'progress' && info.file && info.total) {
+            fileProgress.set(info.file, { loaded: info.loaded ?? 0, total: info.total })
+            let loaded = 0
+            let total = 0
+            for (const f of fileProgress.values()) { loaded += f.loaded; total += f.total }
+            const pct = total > 0 ? (loaded / total) * 100 : 0
+            progressFill.style.width = `${pct.toFixed(1)}%`
+            progressLabel.textContent = `Descargando modelo… ${(loaded / 1048576).toFixed(0)} / ${(total / 1048576).toFixed(0)} MB`
+          } else if (info.status === 'ready') {
+            progressLabel.textContent = 'Modelo listo'
+          }
+        },
+      })
+      embedder = async (texts: string[]) => {
+        // e5 espera prefijo "query: " en las entradas
+        const output = await extractor(texts.map(t => `query: ${t}`), { pooling: 'mean', normalize: true })
+        return output.tolist() as number[][]
+      }
+      loadBox.hidden = true
+      main.hidden = false
+      runEmbeddings()
+    } catch (err) {
+      progressLabel.textContent = 'Error descargando el modelo. Comprueba tu conexión y recarga la página.'
+      console.error(err)
+      loadBtn.disabled = false
+    }
+  })
+
+  async function runEmbeddings() {
+    if (!embedder) return
+    const sentences = input.value.split('\n').map(s => s.trim()).filter(Boolean).slice(0, 12)
+    if (sentences.length < 2) {
+      status.textContent = 'Escribe al menos 2 frases.'
+      return
+    }
+    runBtn.disabled = true
+    status.textContent = 'Calculando…'
+    try {
+      const vectors = await embedder(sentences)
+      renderScatter(sentences, vectors)
+      renderMatrix(sentences, vectors)
+      status.textContent = ''
+    } catch (err) {
+      status.textContent = 'Error calculando embeddings.'
+      console.error(err)
+    } finally {
+      runBtn.disabled = false
+    }
+  }
+
+  runBtn.addEventListener('click', runEmbeddings)
+
+  function renderScatter(sentences: string[], vectors: number[][]) {
+    const points = projectTo2D(vectors)
+    const W = 560
+    const H = 380
+    const PAD = 50
+
+    const xs = points.map(p => p[0])
+    const ys = points.map(p => p[1])
+    const minX = Math.min(...xs); const maxX = Math.max(...xs)
+    const minY = Math.min(...ys); const maxY = Math.max(...ys)
+    const sx = (x: number) => PAD + ((x - minX) / (maxX - minX || 1)) * (W - 2 * PAD)
+    const sy = (y: number) => H - PAD - ((y - minY) / (maxY - minY || 1)) * (H - 2 * PAD)
+
+    scatter.replaceChildren()
+    points.forEach(([x, y], i) => {
+      const g = document.createElementNS(SVG_NS, 'g')
+      const circle = document.createElementNS(SVG_NS, 'circle')
+      circle.setAttribute('cx', String(sx(x)))
+      circle.setAttribute('cy', String(sy(y)))
+      circle.setAttribute('r', '7')
+      circle.setAttribute('fill', COLORS[i % COLORS.length])
+      circle.setAttribute('opacity', '0.9')
+
+      const label = document.createElementNS(SVG_NS, 'text')
+      label.setAttribute('x', String(sx(x) + 11))
+      label.setAttribute('y', String(sy(y) + 4))
+      label.setAttribute('class', 'emb-point-label')
+      const short = sentences[i].length > 28 ? sentences[i].slice(0, 28) + '…' : sentences[i]
+      label.textContent = short
+
+      const title = document.createElementNS(SVG_NS, 'title')
+      title.textContent = sentences[i]
+      g.appendChild(title)
+      g.appendChild(circle)
+      g.appendChild(label)
+      scatter.appendChild(g)
+    })
+  }
+
+  function renderMatrix(sentences: string[], vectors: number[][]) {
+    matrix.replaceChildren()
+    const header = document.createElement('tr')
+    header.appendChild(document.createElement('th'))
+    sentences.forEach((_, i) => {
+      const th = document.createElement('th')
+      th.textContent = String(i + 1)
+      header.appendChild(th)
+    })
+    matrix.appendChild(header)
+
+    sentences.forEach((s, i) => {
+      const tr = document.createElement('tr')
+      const th = document.createElement('th')
+      th.textContent = `${i + 1}. ${s.length > 24 ? s.slice(0, 24) + '…' : s}`
+      th.title = s
+      tr.appendChild(th)
+      sentences.forEach((_, j) => {
+        const td = document.createElement('td')
+        const sim = cosineSimilarity(vectors[i], vectors[j])
+        td.textContent = sim.toFixed(2)
+        // e5 normalizado produce similitudes ~[0.6, 1]; reescalar para que el color discrimine
+        const intensity = Math.max(0, Math.min(1, (sim - 0.6) / 0.4))
+        td.style.background = `rgba(167, 139, 250, ${(intensity * 0.55).toFixed(3)})`
+        if (i === j) td.classList.add('diag')
+        tr.appendChild(td)
+      })
+      matrix.appendChild(tr)
+    })
+  }
+</script>
+
+<style>
+.emb-app { max-width: 860px; }
+
+.emb-load {
+  background: #13131F;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 560px;
+}
+.emb-load-text { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 16px; }
+.emb-load-text strong { color: #E8E8F0; }
+
+.emb-load-btn {
+  background: #A78BFA;
+  color: #13131F;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 11px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.emb-load-btn:hover { background: #C4B5FD; }
+.emb-load-btn:disabled { background: #3A3A54; color: #9A9ABF; cursor: wait; }
+
+.emb-progress { margin-top: 16px; }
+.emb-progress-track {
+  height: 8px;
+  background: #1F1F33;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.emb-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #A78BFA;
+  border-radius: 4px;
+  transition: width 0.2s ease;
+}
+.emb-progress-label { font-size: 12px; color: #A0A0C0; }
+
+.emb-main {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+}
+@media (max-width: 720px) {
+  .emb-main { grid-template-columns: 1fr; }
+}
+
+.emb-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #A0A0C0;
+  margin-bottom: 8px;
+}
+
+.emb-textarea {
+  width: 100%;
+  background: #13131F;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  color: #E8E8F0;
+  font-size: 13px;
+  line-height: 1.7;
+  padding: 12px 14px;
+  resize: vertical;
+}
+.emb-textarea:focus { outline: none; border-color: #A78BFA; }
+
+.emb-run {
+  margin-top: 10px;
+  background: #A78BFA;
+  color: #13131F;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.emb-run:hover { background: #C4B5FD; }
+.emb-run:disabled { background: #3A3A54; color: #9A9ABF; cursor: wait; }
+.emb-status { display: block; font-size: 12px; color: #FBBF24; margin-top: 8px; }
+
+.emb-h2 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A78BFA;
+  margin: 0 0 10px;
+}
+
+.emb-scatter {
+  width: 100%;
+  height: auto;
+  background: #13131F;
+  border: 1px solid #2A2A40;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+.emb-scatter :global(.emb-point-label) { fill: #A0A0C0; font-size: 10px; }
+
+.emb-matrix-wrap { overflow-x: auto; }
+.emb-matrix {
+  border-collapse: collapse;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.emb-matrix :global(th) {
+  color: #A0A0C0;
+  font-weight: 600;
+  text-align: left;
+  padding: 4px 8px;
+  white-space: nowrap;
+  font-size: 10px;
+}
+.emb-matrix :global(td) {
+  color: #E8E8F0;
+  text-align: center;
+  padding: 4px 8px;
+  border: 1px solid #1F1F33;
+  min-width: 42px;
+}
+.emb-matrix :global(td.diag) { color: #34D399; font-weight: 700; }
+
+.emb-explainer { margin-top: 32px; max-width: 680px; }
+.emb-explainer h2 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A78BFA;
+  margin-bottom: 10px;
+}
+.emb-explainer p { font-size: 14px; line-height: 1.7; color: #A0A0C0; }
+.emb-explainer a { color: #A78BFA; }
+</style>

@@ -111,6 +111,11 @@ const PAGES = [
   { slug: 'radar',         title: 'Radar Editorial',          subtitle: 'Temas emergentes bajo seguimiento',   accent: '#CA8A04' },
   { slug: 'archivo',       title: 'Archivo de artículos',     subtitle: 'Todos los posts de IA en español',   accent: '#0284C7' },
   { slug: 'tutoriales',    title: 'Tutoriales de IA',         subtitle: 'Guías prácticas paso a paso',         accent: '#9333EA' },
+  { slug: 'laboratorio',   title: 'Laboratorio de IA',        subtitle: 'Demos interactivas en tu navegador',  accent: '#7C3AED' },
+  { slug: 'laboratorio-tokenizador', title: 'Tokenizador interactivo', subtitle: 'Cómo un LLM trocea tu texto', accent: '#A78BFA' },
+  { slug: 'laboratorio-sampling',    title: 'Temperatura y sampling',  subtitle: 'Cómo un LLM elige el siguiente token', accent: '#34D399' },
+  { slug: 'laboratorio-calculadora', title: 'Contexto y costes LLM',   subtitle: 'Compara precios y ventanas de contexto', accent: '#FBBF24' },
+  { slug: 'laboratorio-embeddings',  title: 'Explorador de embeddings', subtitle: 'Similitud semántica en tu navegador', accent: '#F472B6' },
 ]
 
 // Generate per-post OG images

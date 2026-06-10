@@ -58,6 +58,14 @@
 - [Cómo personalizar un GPT con documentos](https://identidadartificial.com/tutoriales/personalizar-gpt-documentos-md-maestro/): Crear un asistente personalizado con instrucciones y archivos de referencia.
 - [GPT personalizado vs Skill: cuál elegir](https://identidadartificial.com/tutoriales/gpt-personalizado-vs-skill-cual-elegir/): Comparativa práctica para decidir cuándo usar un GPT personalizado y cuándo una Skill de ChatGPT.
 
+## Laboratorio
+
+- [Laboratorio de IA](https://identidadartificial.com/laboratorio/): Demos interactivas 100% en navegador para entender los LLM por dentro. Sin API keys ni envío de datos.
+- [Tokenizador interactivo](https://identidadartificial.com/laboratorio/tokenizador/): Visualiza cómo un LLM trocea texto en tokens con el encoding o200k_base.
+- [Temperatura y sampling](https://identidadartificial.com/laboratorio/sampling/): Simulador de temperatura, top-k y top-p sobre una distribución de probabilidad real.
+- [Contexto y costes](https://identidadartificial.com/laboratorio/calculadora-contexto/): Calculadora comparativa de coste y ventana de contexto en 10 LLMs actuales.
+- [Explorador de embeddings](https://identidadartificial.com/laboratorio/embeddings/): Embeddings reales con multilingual-e5-small ejecutado en el navegador, mapa 2D y matriz de similitud.
+
 ## Categorías
 
 - **Modelos** — comparativas, novedades y análisis de modelos de lenguaje

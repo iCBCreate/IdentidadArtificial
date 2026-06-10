@@ -24,6 +24,8 @@ Los modelos no procesan texto como tú y yo. Procesan tokens: fragmentos de text
 
 Por qué importa: el límite de los modelos se mide en tokens, no en palabras ni en caracteres. Un modelo con 200.000 tokens de contexto puede procesar aproximadamente 150.000 palabras de una vez.
 
+Si quieres verlo en acción, en el [tokenizador interactivo del laboratorio](/laboratorio/tokenizador/) puedes escribir cualquier texto y observar en tiempo real cómo se trocea en tokens.
+
 ## La ventana de contexto
 
 Todo lo que el modelo "ve" al generar una respuesta está en su ventana de contexto: el historial de la conversación, las instrucciones del sistema, los documentos adjuntos, y la respuesta que está generando en este momento.
@@ -51,3 +53,5 @@ Para usar bien un modelo de lenguaje, necesitas pensar en términos de contexto:
 - Los documentos largos reducen el espacio disponible para razonar.
 
 El contexto no es una limitación técnica que vayan a resolver pronto. Es una consecuencia de cómo funcionan los transformers. Aprender a manejarlo es parte de saber usar estas herramientas.
+
+¿Quieres ponerle números? La [calculadora de contexto y costes del laboratorio](/laboratorio/calculadora-contexto/) compara cuánto ocupa y cuesta tu texto en los principales modelos actuales.

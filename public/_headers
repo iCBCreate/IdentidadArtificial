@@ -43,3 +43,16 @@
   # - frame-ancestors 'none': refuerza X-Frame-Options
   # - frame-src: permite iframes de YouTube (nocookie) para vídeos embebidos en posts
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
+# Runtime WASM de onnxruntime-web (22 MB) — cachear fuerte, cambia solo con npm update
+/vendor/ort/*
+  Cache-Control: public, max-age=604800
+
+# CSP específica de /laboratorio/embeddings/ — transformers.js necesita:
+# - connect-src a Hugging Face (descarga del modelo, con redirecciones a CDN *.hf.co)
+# - 'wasm-unsafe-eval' para onnxruntime-web (WASM)
+# - worker-src blob: para los web workers del runtime
+# La regla quita la CSP global (regla /*) y la sustituye; verificado en wrangler dev.
+/laboratorio/embeddings/
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com https://huggingface.co https://*.huggingface.co https://*.hf.co; worker-src 'self' blob:; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'

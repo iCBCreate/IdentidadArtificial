@@ -43,3 +43,4 @@ reports/
 
 # Claude-mem internal context
 AGENTS.md
+public/vendor/

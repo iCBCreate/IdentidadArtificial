@@ -90,14 +90,14 @@ function buildSitemapLastmodByPath() {
 function addNestedPageFiles(lastmodByPath, pageDir) {
   if (!existsSync(pageDir)) return
 
-  for (const entry of readdirSync(pageDir)) {
-    const subDir = join(pageDir, entry)
-    if (!statSync(subDir).isDirectory()) continue
+  for (const entry of readdirSync(pageDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue
+    const subDir = join(pageDir, entry.name)
 
     for (const file of readdirSync(subDir)) {
       if (!file.endsWith('.astro') || file === 'index.astro') continue
       const filename = basename(file, '.astro')
-      lastmodByPath.set(`/${entry}/${filename}/`, statSync(join(subDir, file)).mtime)
+      lastmodByPath.set(`/${entry.name}/${filename}/`, statSync(join(subDir, file)).mtime)
     }
   }
 }

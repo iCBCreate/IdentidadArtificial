@@ -94,7 +94,7 @@ La receta necesita aceite de oliva</textarea>
       const { pipeline, env } = await import('@huggingface/transformers')
       // Servir el runtime WASM desde el propio dominio: la CSP bloquea cdn.jsdelivr.net
       // (por defecto onnxruntime-web lo descarga de ahí). Copiado en build por scripts/copy-ort-wasm.mjs.
-      env.backends.onnx.wasm.wasmPaths = '/vendor/ort/'
+      if (env.backends.onnx.wasm) env.backends.onnx.wasm.wasmPaths = '/vendor/ort/'
       const fileProgress = new Map<string, { loaded: number; total: number }>()
       // q8: 118 MB. La variante q4 de este modelo pesa 398 MB (la capa de embeddings
       // del vocabulario multilingüe no se cuantiza), así que q8 es la opción ligera real.

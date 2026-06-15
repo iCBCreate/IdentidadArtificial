@@ -131,8 +131,8 @@
     })
   }
 
-  function renderTicker(articles: { title: string; link: string }[]) {
-    while (track.firstChild) track.removeChild(track.firstChild)
+  function renderTicker(el: HTMLElement, articles: { title: string; link: string }[]) {
+    while (el.firstChild) el.removeChild(el.firstChild)
 
     const items = buildItems(articles)
     const sep = () => {
@@ -144,23 +144,23 @@
 
     // Build one copy
     const fragment = document.createDocumentFragment()
-    items.forEach((el, i) => {
-      fragment.appendChild(el)
+    items.forEach((item, i) => {
+      fragment.appendChild(item)
       if (i < items.length - 1) fragment.appendChild(sep())
     })
     fragment.appendChild(sep())
 
     // Duplicate for seamless loop
     const clone = fragment.cloneNode(true)
-    track.appendChild(fragment)
-    track.appendChild(clone)
+    el.appendChild(fragment)
+    el.appendChild(clone)
 
     // Defer duration calc until after browser layout so scrollWidth is accurate
     requestAnimationFrame(() => {
-      const totalWidth = track.scrollWidth / 2
+      const totalWidth = el.scrollWidth / 2
       const duration = Math.max(8, Math.round(totalWidth / 160))
-      track.style.setProperty('--nt-duration', `${duration}s`)
-      track.classList.add('nt-animate')
+      el.style.setProperty('--nt-duration', `${duration}s`)
+      el.classList.add('nt-animate')
     })
   }
 
@@ -173,8 +173,8 @@
   fetch('/api/news-ticker.json')
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
     .then((articles: { title: string; link: string }[]) => {
-      renderTicker(articles.length ? articles : FALLBACK)
+      renderTicker(track, articles.length ? articles : FALLBACK)
     })
-    .catch(() => renderTicker(FALLBACK))
+    .catch(() => renderTicker(track, FALLBACK))
 })()
 </script>

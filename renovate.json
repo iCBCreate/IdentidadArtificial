@@ -34,10 +34,6 @@
       "groupName": "Tooling",
       "matchPackageNames": ["typescript", "tsx"]
     },
-    {
-      "matchUpdateTypes": ["patch"],
-      "automerge": false
-    }
   ],
   "docker": {
     "enabled": true

@@ -12,7 +12,7 @@
   "packageRules": [
     {
       "groupName": "Astro core",
-      "matchPackageNames": ["astro", "@astrojs/*"]
+      "matchPackageNames": ["astro", "@astrojs/check", "@astrojs/mdx", "@astrojs/rss", "@astrojs/sitemap"]
     },
     {
       "groupName": "Cloudflare",
@@ -28,11 +28,11 @@
     },
     {
       "groupName": "Fuentes y render",
-      "matchPackageNames": ["@fontsource*", "@resvg/resvg-js", "satori", "wawoff2"]
+      "matchPackageNames": ["@fontsource-variable/inter", "@fontsource/jetbrains-mono", "@resvg/resvg-js", "satori", "wawoff2"]
     },
     {
       "groupName": "Tooling",
-      "matchPackageNames": ["typescript", "tsx", "@astrojs/check"]
+      "matchPackageNames": ["typescript", "tsx"]
     },
     {
       "matchUpdateTypes": ["patch"],

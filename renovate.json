@@ -1,0 +1,45 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":dependencyDashboard"],
+  "schedule": ["every weekend"],
+  "timezone": "Europe/Madrid",
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "schedule": ["at any time"],
+    "automerge": false,
+    "labels": ["security"]
+  },
+  "packageRules": [
+    {
+      "groupName": "Astro core",
+      "matchPackageNames": ["astro", "@astrojs/*"]
+    },
+    {
+      "groupName": "Cloudflare",
+      "matchPackageNames": ["wrangler", "@cloudflare/*", "@astrojs/cloudflare"]
+    },
+    {
+      "groupName": "Tailwind CSS",
+      "matchPackageNames": ["tailwindcss", "@tailwindcss/*"]
+    },
+    {
+      "groupName": "AI / ML",
+      "matchPackageNames": ["@huggingface/transformers", "openai", "gpt-tokenizer", "@qdrant/js-client-rest"]
+    },
+    {
+      "groupName": "Fuentes y render",
+      "matchPackageNames": ["@fontsource*", "@resvg/resvg-js", "satori", "wawoff2"]
+    },
+    {
+      "groupName": "Tooling",
+      "matchPackageNames": ["typescript", "tsx", "@astrojs/check"]
+    },
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": false
+    }
+  ],
+  "docker": {
+    "enabled": true
+  }
+}

@@ -41,6 +41,9 @@ SRC/fonts/
 # Generated Search Console reports
 reports/
 
+# Service account keys (GSC auth)
+secrets/
+
 # Claude-mem internal context
 AGENTS.md
 public/vendor/

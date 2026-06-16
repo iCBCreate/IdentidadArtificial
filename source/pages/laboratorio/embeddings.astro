@@ -63,6 +63,30 @@ La receta necesita aceite de oliva</textarea>
         para recuperar los documentos relevantes a una pregunta.
       </p>
     </div>
+
+  <div class="emb-reference">
+    <h2>Cómo funciona la similitud semántica</h2>
+    <p>
+      El modelo <strong>multilingual-e5-small</strong> (cuantizado a 8 bits, ~115 MB) convierte cada frase en un vector de 384 dimensiones. Frases con significado parecido producen vectores cercanos en ese espacio de alta dimensión. Para visualizarlos en 2D se aplica PCA (Análisis de Componentes Principales), que proyecta las 384 dimensiones sobre los dos ejes de mayor varianza.
+    </p>
+    <p>
+      La <strong>similitud coseno</strong> mide el ángulo entre dos vectores: 1 significa vectores idénticos (mismo significado), 0 significa sin relación. Los modelos de embeddings multilingüe están entrenados para que el español y el inglés con el mismo significado produzcan vectores parecidos.
+    </p>
+    <h3>Casos de uso comunes de embeddings</h3>
+    <ul>
+      <li><strong>Búsqueda semántica</strong>: encontrar documentos relevantes sin que contengan las palabras exactas de la consulta.</li>
+      <li><strong>RAG (Retrieval-Augmented Generation)</strong>: recuperar los fragmentos de texto más relevantes antes de pasarlos al LLM. Ver <a href="/que-es-rag-generacion-aumentada-por-recuperacion/">qué es RAG</a>.</li>
+      <li><strong>Detección de duplicados</strong>: identificar textos con el mismo significado aunque usen palabras distintas.</li>
+      <li><strong>Clustering de documentos</strong>: agrupar automáticamente textos por tema sin etiquetas previas.</li>
+    </ul>
+    <h3>Preguntas frecuentes</h3>
+    <dl>
+      <dt>¿Por qué el modelo pesa 115 MB si el texto de entrada es pequeño?</dt>
+      <dd>El peso no depende del texto de entrada sino del vocabulario y la arquitectura. multilingual-e5-small tiene ~117 millones de parámetros para cubrir 100+ idiomas. La variante q8 ya es la más ligera disponible: la q4 pesa ~398 MB porque la capa de embeddings del vocabulario multilingüe no se cuantiza.</dd>
+      <dt>¿Qué diferencia hay entre embeddings y tokenización?</dt>
+      <dd>La tokenización trocea el texto en unidades discretas (tokens). Los embeddings convierten esas unidades en vectores numéricos continuos que capturan significado. Son dos pasos distintos del pipeline de un LLM. El <a href="/laboratorio/tokenizador/">tokenizador interactivo</a> muestra el primer paso; este explorador muestra el resultado del segundo.</dd>
+    </dl>
+  </div>
   </div>
 </LabLayout>
 
@@ -369,4 +393,15 @@ La receta necesita aceite de oliva</textarea>
 }
 .emb-explainer p { font-size: 14px; line-height: 1.7; color: #A0A0C0; }
 .emb-explainer a { color: #A78BFA; }
+
+.emb-reference { margin-top: 32px; max-width: 680px; }
+.emb-reference h2 { font-size: 16px; font-weight: 700; color: #E8E8F0; margin-bottom: 12px; }
+.emb-reference h3 { font-size: 13px; font-weight: 700; color: #A78BFA; margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; }
+.emb-reference p { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 12px; }
+.emb-reference ul { padding-left: 20px; }
+.emb-reference li { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 6px; }
+.emb-reference a { color: #A78BFA; }
+.emb-reference dl { display: flex; flex-direction: column; gap: 12px; }
+.emb-reference dt { font-size: 14px; font-weight: 600; color: #E8E8F0; }
+.emb-reference dd { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-left: 0; margin-top: 4px; }
 </style>

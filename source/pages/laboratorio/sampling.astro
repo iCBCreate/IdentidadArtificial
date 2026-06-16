@@ -47,6 +47,50 @@ const demo = LAB_DEMOS.find(d => d.slug === 'sampling')!
         Pulsa «Muestrear» varias veces con configuraciones distintas y compara la variedad de resultados.
       </p>
     </div>
+
+    <div class="smp-reference">
+      <h2>Temperatura, top-k y top-p explicados</h2>
+      <p>
+        Cuando un LLM genera texto, el último paso es elegir el siguiente token de una distribución de probabilidad. La <strong>temperatura</strong> controla la "agudeza" de esa distribución: temperatura 0 hace que el token más probable casi siempre gane; temperatura 2 aplana la distribución y da opciones a tokens poco probables.
+      </p>
+      <p>
+        <strong>Top-k</strong> limita la selección a los k tokens más probables antes de muestrear. <strong>Top-p</strong> (nucleus sampling) aplica un criterio diferente: mantiene los tokens que suman el p% de la probabilidad acumulada. En la práctica, top-p suele producir resultados más naturales que top-k porque adapta la amplitud del "núcleo" a cada situación.
+      </p>
+      <table class="smp-params-table">
+        <thead>
+          <tr>
+            <th>Parámetro</th>
+            <th>Rango típico</th>
+            <th>Efecto principal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Temperatura</td>
+            <td>0 – 2</td>
+            <td>Controla la diversidad global. 0 = determinista, &gt;1 = creativo/impredecible.</td>
+          </tr>
+          <tr>
+            <td>Top-k</td>
+            <td>1 – 100</td>
+            <td>Descarta todos los tokens fuera de los k más probables. k=1 es equivalente a temperatura 0.</td>
+          </tr>
+          <tr>
+            <td>Top-p</td>
+            <td>0.1 – 1.0</td>
+            <td>Mantiene los tokens que acumulan el p% de probabilidad. p=1 desactiva el filtro.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Preguntas frecuentes</h3>
+      <dl>
+        <dt>¿Temperatura 0 garantiza siempre la misma respuesta?</dt>
+        <dd>No completamente. La aritmética de punto flotante en GPUs puede producir pequeñas variaciones no deterministas dependiendo del hardware, el orden de operaciones paralelas y la versión del framework. En la práctica, temperatura 0 es muy repetible pero no estrictamente determinista.</dd>
+        <dt>¿Qué pasa si se aplican top-k y top-p juntos?</dt>
+        <dd>Se aplican en secuencia: primero top-k reduce el conjunto de candidatos, luego top-p lo recorta aún más según la probabilidad acumulada. El conjunto final es la intersección de ambos filtros. La mayoría de LLMs de producción usan los dos combinados.</dd>
+      </dl>
+      <p>Para entender cómo el tamaño del contexto y el coste de inferencia se relacionan con estos parámetros, consulta la <a href="/laboratorio/calculadora-contexto/">calculadora de contexto y costes</a>.</p>
+    </div>
   </div>
 </LabLayout>
 
@@ -239,4 +283,17 @@ const demo = LAB_DEMOS.find(d => d.slug === 'sampling')!
   margin-bottom: 10px;
 }
 .smp-explainer p { font-size: 14px; line-height: 1.7; color: #A0A0C0; }
+
+.smp-reference { margin-top: 32px; max-width: 680px; }
+.smp-reference h2 { font-size: 16px; font-weight: 700; color: #E8E8F0; margin-bottom: 12px; }
+.smp-reference h3 { font-size: 13px; font-weight: 700; color: #A78BFA; margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; }
+.smp-reference p { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 12px; }
+.smp-reference a { color: #A78BFA; }
+.smp-reference dl { display: flex; flex-direction: column; gap: 12px; }
+.smp-reference dt { font-size: 14px; font-weight: 600; color: #E8E8F0; }
+.smp-reference dd { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-left: 0; margin-top: 4px; }
+.smp-params-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+.smp-params-table th { text-align: left; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #A0A0C0; padding: 8px 10px; border-bottom: 1px solid #2A2A40; }
+.smp-params-table td { color: #A0A0C0; padding: 8px 10px; border-bottom: 1px solid #1F1F33; vertical-align: top; }
+.smp-params-table td:first-child { color: #E8E8F0; font-weight: 600; white-space: nowrap; }
 </style>

@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { getAccessToken, readEnv } from './lib/google-service-account.mjs'
 
 const ENV_PATH = '.dev.vars'
 const REPORT_PATH = process.env.GSC_REPORT_PATH ?? 'reports/search-console-2026-03-29_2026-04-25.json'
@@ -34,41 +35,6 @@ for (const [index, url] of urls.entries()) {
 }
 
 console.log(`Inspection report written: ${OUT_PATH}`)
-
-function readEnv(path) {
-  if (!existsSync(path)) return {}
-
-  return Object.fromEntries(
-    readFileSync(path, 'utf8')
-      .split('\n')
-      .map(line => line.trim())
-      .filter(line => line && !line.startsWith('#'))
-      .map(line => {
-        const index = line.indexOf('=')
-        return [line.slice(0, index), line.slice(index + 1)]
-      })
-  )
-}
-
-async function getAccessToken(values) {
-  const response = await fetchWithTimeout('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      client_id: values.GOOGLE_SEARCH_CONSOLE_CLIENT_ID,
-      client_secret: values.GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET,
-      refresh_token: values.GOOGLE_SEARCH_CONSOLE_REFRESH_TOKEN,
-      grant_type: 'refresh_token',
-    }),
-  })
-
-  const data = await response.json()
-  if (!response.ok) {
-    throw new Error(`Google OAuth token exchange failed: ${response.status} ${JSON.stringify(data)}`)
-  }
-
-  return data.access_token
-}
 
 async function inspectUrl({ accessToken, siteUrl, url }) {
   try {

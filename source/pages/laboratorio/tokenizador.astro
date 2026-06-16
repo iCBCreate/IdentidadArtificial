@@ -44,6 +44,9 @@ const demo = LAB_DEMOS.find(d => d.slug === 'tokenizador')!
         Nota: cada familia de modelos usa su propio tokenizador. Este es <code>o200k_base</code>;
         los modelos de Anthropic o Google darían recuentos parecidos pero no idénticos.
       </p>
+      <p>
+        En la práctica, el español y otros idiomas no occidentales suelen tokenizarse de forma menos eficiente que el inglés: una misma idea expresada en español puede consumir entre un 20% y un 40% más de tokens que en inglés. Esto tiene un impacto directo en el coste y en el espacio disponible en la ventana de contexto, especialmente en aplicaciones que procesan grandes volúmenes de texto. La <a href="/laboratorio/calculadora-contexto/">calculadora de contexto</a> permite comparar ese coste entre los principales modelos actuales.
+      </p>
     </div>
   </div>
 </LabLayout>

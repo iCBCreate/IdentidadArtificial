@@ -3,7 +3,7 @@ import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import cloudflare from '@astrojs/cloudflare'
-import { existsSync, readdirSync, statSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { basename, join } from 'node:path'
 
 const EXCLUDED_SITEMAP_PATHS = [
@@ -84,6 +84,8 @@ function buildSitemapLastmodByPath() {
   // Páginas .astro dentro de subdirectorios de pages (p. ej. /laboratorio/*)
   addNestedPageFiles(lastmodByPath, PAGE_DIR)
 
+  addCategoryLastmod(lastmodByPath, BLOG_DIR)
+
   return lastmodByPath
 }
 
@@ -125,5 +127,38 @@ function addDirectoryFiles(lastmodByPath, directory, extension, toPathname) {
     const modified = statSync(join(directory, file)).mtime
 
     lastmodByPath.set(pathname, modified)
+  }
+}
+
+function addCategoryLastmod(lastmodByPath, blogDir) {
+  if (!existsSync(blogDir)) return
+
+  const categoryMtime = new Map()
+
+  for (const file of readdirSync(blogDir)) {
+    if (!file.endsWith('.mdx')) continue
+    const filePath = join(blogDir, file)
+    const mtime = statSync(filePath).mtime
+
+    const content = readFileSync(filePath, 'utf8')
+    const match = content.match(/^category:\s*['"]?([^'"\n]+)['"]?/m)
+    if (!match) continue
+
+    const category = match[1].trim()
+    const slug = category
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{Mn}/gu, '')
+      .replace(/ /g, '-')
+    const pathname = `/categoria/${slug}/`
+
+    const existing = categoryMtime.get(pathname)
+    if (!existing || mtime > existing) {
+      categoryMtime.set(pathname, mtime)
+    }
+  }
+
+  for (const [pathname, mtime] of categoryMtime) {
+    lastmodByPath.set(pathname, mtime)
   }
 }

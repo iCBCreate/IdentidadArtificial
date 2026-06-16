@@ -64,6 +64,40 @@ const updated = PRICED_MODELS[0].updated
         <a href="/como-funciona-el-contexto-en-los-llm/">cómo funciona el contexto en los LLM</a>.
       </p>
     </div>
+
+    <div class="ctx-reference">
+      <h2>Referencia de modelos (precios actuales)</h2>
+      <p>La tabla siguiente muestra los datos de referencia sin necesidad de interacción. Los valores en la calculadora se actualizan dinámicamente al escribir.</p>
+      <table class="ctx-ref-table">
+        <thead>
+          <tr>
+            <th>Modelo</th>
+            <th>Empresa</th>
+            <th>Contexto</th>
+            <th>Entrada ($/M tok.)</th>
+            <th>Salida ($/M tok.)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {PRICED_MODELS.map(m => (
+            <tr>
+              <td>{m.name}</td>
+              <td>{m.company}</td>
+              <td>{m.contextWindow >= 1_000_000 ? `${m.contextWindow / 1_000_000}M` : `${m.contextWindow / 1000}K`}</td>
+              <td>${m.inputPerMTok.toFixed(2)}</td>
+              <td>${m.outputPerMTok.toFixed(2)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3>Cuándo importa la ventana de contexto</h3>
+      <ul>
+        <li><strong>Análisis de documentos largos</strong>: contratos, libros, bases de código completas. Un modelo con 200K tokens puede procesar ~150.000 palabras de una vez.</li>
+        <li><strong>Conversaciones extendidas</strong>: en sesiones largas, los mensajes antiguos empiezan a desaparecer del contexto cuando se llena la ventana.</li>
+        <li><strong>Procesamiento en batch</strong>: combinar múltiples documentos en un solo prompt para análisis comparativo.</li>
+        <li><strong>Agentes con memoria de herramientas</strong>: los resultados de cada tool call se acumulan en el contexto, que crece rápidamente en tareas largas.</li>
+      </ul>
+    </div>
   </div>
 </LabLayout>
 
@@ -284,4 +318,15 @@ const updated = PRICED_MODELS[0].updated
 }
 .ctx-explainer p { font-size: 14px; line-height: 1.7; color: #A0A0C0; }
 .ctx-explainer a { color: #A78BFA; }
+
+.ctx-reference { margin-top: 32px; max-width: 860px; }
+.ctx-reference h2 { font-size: 16px; font-weight: 700; color: #E8E8F0; margin-bottom: 8px; }
+.ctx-reference h3 { font-size: 13px; font-weight: 700; color: #A78BFA; margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; }
+.ctx-reference p { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 12px; }
+.ctx-reference ul { padding-left: 20px; }
+.ctx-reference li { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 6px; }
+.ctx-ref-table { width: 100%; border-collapse: collapse; font-size: 13px; background: #13131F; border: 1px solid #2A2A40; border-radius: 8px; margin-bottom: 16px; overflow: hidden; }
+.ctx-ref-table th { text-align: left; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #A0A0C0; padding: 10px 12px; border-bottom: 1px solid #2A2A40; }
+.ctx-ref-table td { padding: 9px 12px; border-bottom: 1px solid #1F1F33; color: #E8E8F0; font-size: 13px; }
+.ctx-ref-table tr:last-child td { border-bottom: none; }
 </style>

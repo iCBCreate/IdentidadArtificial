@@ -33,7 +33,7 @@ export const POST_INSIGHTS = {
       }
     ],
     "readingProfile": {
-      "minutes": 6,
+      "minutes": 10,
       "density": "media",
       "bestFor": "valorar riesgos y decisiones"
     }

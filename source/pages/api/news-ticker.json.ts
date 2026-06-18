@@ -23,7 +23,8 @@ export const GET: APIRoute = async () => {
   url.searchParams.set('apikey', key)
   url.searchParams.set('language', 'es')
   url.searchParams.set('category', 'technology')
-  url.searchParams.set('q', 'inteligencia artificial OR IA OR LLM OR modelo de lenguaje')
+  url.searchParams.set('removeduplicate', '1')
+  url.searchParams.set('q', 'inteligencia artificial OR "modelo de lenguaje" OR LLM OR GPT OR agente autónomo OR machine learning')
 
   try {
     const res = await fetch(url.toString())
@@ -33,11 +34,27 @@ export const GET: APIRoute = async () => {
     }
 
     const data = await res.json() as { results?: Record<string, unknown>[] }
-    const articles: Article[] = (data.results ?? []).slice(0, 12).map((a) => ({
+
+    const normalize = (t: string) =>
+      t.toLowerCase().normalize('NFD').replace(/\p{Mn}/gu, '').replace(/[^a-z0-9]/g, '')
+
+    const seen = new Set<string>()
+    const deduped: Record<string, unknown>[] = []
+
+    for (const a of (data.results ?? [])) {
+      const title = String(a.title ?? '')
+      if (!title) continue
+      const key = normalize(title).slice(0, 60)
+      if (seen.has(key)) continue
+      seen.add(key)
+      deduped.push(a)
+    }
+
+    const articles: Article[] = deduped.slice(0, 12).map((a) => ({
       title: String(a.title ?? ''),
       link: (a.link && /^https?:\/\//i.test(String(a.link))) ? String(a.link) : '',
       source: String(a.source_id ?? ''),
-    })).filter(a => a.title)
+    }))
 
     return new Response(JSON.stringify(articles), {
       headers: {

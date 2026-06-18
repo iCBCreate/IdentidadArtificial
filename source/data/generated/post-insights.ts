@@ -728,12 +728,12 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
-  "ia-videojuegos-mundo-gamer-desarrolladoras": {
-    "executiveSummary": "La IA transforma los videojuegos con NPCs que razonan, mundos procedurales y assets generativos. Impacto en jugadores y estudios de desarrollo. La inteligencia artificial lleva decadas dentro de los videojuegos.",
-    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+  "ia-desarrollo-videojuegos-debate": {
+    "executiveSummary": "La IA en videojuegos abre un debate sobre autoría, empleo, transparencia y control creativo. No basta con preguntar si usarla, sino quién captura su valor. La IA en el desarrollo de videojuegos ya no es una pregunta abstracta sobre productividad.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de ética centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
-      "La IA transforma los videojuegos con NPCs que razonan, mundos procedurales y assets generativos. Impacto en jugadores y estudios de desarrollo.",
-      "La diferencia con un chatbot generico es que el modelo recibe como contexto la ubicacion del jugador, la hora del dia en el juego, la faccion del personaje y eventos recientes del mundo.",
+      "La IA en videojuegos abre un debate sobre autoría, empleo, transparencia y control creativo. No basta con preguntar si usarla, sino quién captura su valor.",
+      "El problema aparece cuando la IA cruza a la capa que el jugador percibe como identidad del juego: arte final, voces, narrativa, animación, música, personajes o mundos generados durante la partida.",
       "Conceptos detectados por el pipeline: RAG, LLM, Agente, Ventana de contexto."
     ],
     "glossary": [
@@ -761,11 +761,11 @@ export const POST_INSIGHTS = {
     "faqs": [
       {
         "question": "Qué aporta este artículo sobre RAG?",
-        "answer": "La IA transforma los videojuegos con NPCs que razonan, mundos procedurales y assets generativos. Impacto en jugadores y estudios de desarrollo."
+        "answer": "La IA en videojuegos abre un debate sobre autoría, empleo, transparencia y control creativo. No basta con preguntar si usarla, sino quién captura su valor."
       },
       {
         "question": "Para quién es útil esta lectura?",
-        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+        "answer": "Para lectores que quieren entender ética con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
       },
       {
         "question": "Cómo se generó esta capa de lectura?",
@@ -773,9 +773,9 @@ export const POST_INSIGHTS = {
       }
     ],
     "readingProfile": {
-      "minutes": 11,
+      "minutes": 12,
       "density": "alta",
-      "bestFor": "orientarse en tendencias técnicas"
+      "bestFor": "valorar riesgos y decisiones"
     }
   },
   "nvidia-rtx-spark": {

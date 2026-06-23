@@ -8,10 +8,10 @@ Local `.claude/` guidance for this project. Root `CLAUDE.md` = global rules. The
 npm run dev           # Astro dev server
 npm run build         # build:data → OG → astro build (order matters)
 npm run test          # Node test runner
-npm run deploy        # Manual: build + wrangler deploy
+npm run deploy        # build + wrangler deploy (auto en CI al push a main vía .github/workflows/deploy.yml)
 ```
 
-**Deploy is manual.** No auto-deploy on push. Must run `npm run deploy` explicitly.
+**Deploy automático.** Push a `main` → `.github/workflows/deploy.yml` → build + wrangler deploy + indexnow. `npm run deploy` para deploy local.
 
 ## Key Paths
 

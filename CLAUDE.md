@@ -9,10 +9,10 @@ npm run dev           # dev server
 npm run build         # build:data → OG images → astro build (run in order)
 npm run test          # node --test tests/*.test.mjs
 npm run preview       # build + wrangler dev local
-npm run deploy        # build + wrangler deploy (manual — not automatic)
+npm run deploy        # build + wrangler deploy (también se ejecuta en CI automáticamente al push a main)
 ```
 
-**Deploy is manual.** Push to `main` does NOT auto-deploy. Must run `npm run deploy` explicitly after verifying build passes.
+**Deploy automático.** Push a `main` despliega vía `.github/workflows/deploy.yml` (build + wrangler deploy + indexnow). `npm run deploy` sigue disponible para deploy local.
 
 **Build order matters:** `build:data` generates TS files in `source/data/generated/` Astro imports. Skip = build breaks.
 

@@ -11,12 +11,20 @@
   },
   "packageRules": [
     {
+      "matchUpdateTypes": ["patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
       "groupName": "Astro core",
       "matchPackageNames": ["astro", "@astrojs/check", "@astrojs/mdx", "@astrojs/rss", "@astrojs/sitemap"]
     },
     {
       "groupName": "Cloudflare",
-      "matchPackageNames": ["wrangler", "@cloudflare/*", "@astrojs/cloudflare"]
+      "matchPackageNames": ["wrangler", "@cloudflare/*", "@astrojs/cloudflare"],
+      "prBodyNotes": ["⚠️ @cloudflare/vite-plugin >=1.39 requiere Node 23.4+ (import ESM registerHooks). Verificar antes de mergear que CI usa Node >=23.4 o pinear a 1.25.x."]
     },
     {
       "groupName": "Tailwind CSS",

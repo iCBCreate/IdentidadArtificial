@@ -728,6 +728,56 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "ia-videojuegos-mundo-gamer-desarrolladoras": {
+    "executiveSummary": "La IA transforma los videojuegos con NPCs que razonan, mundos procedurales y assets generativos. Impacto en jugadores y estudios de desarrollo. La inteligencia artificial lleva decadas dentro de los videojuegos.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "La IA transforma los videojuegos con NPCs que razonan, mundos procedurales y assets generativos. Impacto en jugadores y estudios de desarrollo.",
+      "La diferencia con un chatbot generico es que el modelo recibe como contexto la ubicacion del jugador, la hora del dia en el juego, la faccion del personaje y eventos recientes del mundo.",
+      "Conceptos detectados por el pipeline: RAG, LLM, Agente, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "RAG",
+        "definition": "Arquitectura que recupera contexto externo antes de pedir una respuesta al modelo."
+      },
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre RAG?",
+        "answer": "La IA transforma los videojuegos con NPCs que razonan, mundos procedurales y assets generativos. Impacto en jugadores y estudios de desarrollo."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 11,
+      "density": "alta",
+      "bestFor": "orientarse en tendencias técnicas"
+    }
+  },
   "nvidia-rtx-spark": {
     "executiveSummary": "NVIDIA RTX Spark integra 1 petaflop de IA, GPU Blackwell y CPU Grace para ejecutar LLMs de 120B parámetros en portátiles Windows. Durante décadas, ejecutar un modelo de lenguaje serio en un portátil significaba una de dos cosas: recortar el modelo hasta hacerlo casi irrelevante, o depender de una API remota con sus latencias, costes por token y política de privacidad de un tercero. NVIDIA y Microsoft anunciaron el 31 de mayo de 2026 una alternativa concreta: RTX Spark , un superchip diseñado específicamente para ejecutar agentes de IA /que-son-los-agentes-de-ia/ de forma local en portátiles Windows.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

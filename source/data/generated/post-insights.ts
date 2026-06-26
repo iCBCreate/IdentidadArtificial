@@ -732,6 +732,48 @@ export const POST_INSIGHTS = {
       "bestFor": "diseñar sistemas con IA"
     }
   },
+  "gpt-5-5-cyber-vs-mythos-fable-acceso-restringido": {
+    "executiveSummary": "OpenAI lanza GPT-5.5 Cyber el 22 de junio. Comparativa con Claude Mythos 5 en benchmarks de ciberseguridad y análisis de por qué Fable 5 tampoco está disponible globalmente. El 22 de junio de 2026, OpenAI lanzó la versión completa de GPT-5.5-Cyber , un modelo especializado en ciberseguridad que solo está disponible para equipos verificados bajo su programa Trusted Access for Cyber .",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "OpenAI lanza GPT-5.5 Cyber el 22 de junio. Comparativa con Claude Mythos 5 en benchmarks de ciberseguridad y análisis de por qué Fable 5 tampoco está disponible globalmente.",
+      "Es una variante de GPT-5.5 con dos diferencias concretas: salvaguardas más permisivas para tareas de seguridad verificadas y controles de identidad adicionales en la capa de acceso.",
+      "Conceptos detectados por el pipeline: LLM, Agente, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre LLM?",
+        "answer": "OpenAI lanza GPT-5.5 Cyber el 22 de junio. Comparativa con Claude Mythos 5 en benchmarks de ciberseguridad y análisis de por qué Fable 5 tampoco está disponible globalmente."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender modelos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 6,
+      "density": "media",
+      "bestFor": "comparar capacidades de modelos"
+    }
+  },
   "gpt-5-5-novedades-benchmarks-inteligencia-agentica": {
     "executiveSummary": "OpenAI lanza GPT-5.5 con un enfoque en la autonomía y capacidades de agente. Analizamos sus benchmarks en SWE-Bench Pro y Terminal-Bench 2.0. El 23 de abril de 2026 quedará marcado como el día en que la interacción con la Inteligencia Artificial cambió de paradigma.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

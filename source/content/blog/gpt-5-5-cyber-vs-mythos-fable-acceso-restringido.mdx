@@ -1,0 +1,84 @@
+---
+title: 'GPT-5.5 Cyber frente a Claude Mythos 5: los dos modelos de IA que no puedes usar'
+description: 'OpenAI lanza GPT-5.5 Cyber el 22 de junio. Comparativa con Claude Mythos 5 en benchmarks de ciberseguridad y análisis de por qué Fable 5 tampoco está disponible globalmente.'
+pubDate: 2026-06-26
+category: 'Modelos'
+tags: ['openai', 'gpt-5-5', 'anthropic', 'mythos', 'fable', 'ciberseguridad', 'acceso-restringido']
+generatedBy: 'claude-sonnet-4-6'
+generatedAt: '2026-06-26T12:00:00Z'
+promptBase: 'Crea un post sobre la salida de GPT-5.5 Cyber y compáralo con Claude Mythos 5 y Fable 5. Incluye benchmarks, ángulo de disponibilidad geográfica, y explica por qué los modelos de Anthropic no están disponibles en todo el mundo. Tono técnico, sin hype, datos concretos.'
+humanReviewed: false
+heroImage: '../../assets/post/gpt-5-5-cyber-openai-cyberagent.png'
+sourceQuality: 'Alta'
+confidenceLevel: 'Alta'
+claimsReviewed:
+  - 'GPT-5.5-Cyber lanzado el 22 de junio de 2026 bajo el programa Trusted Access for Cyber'
+  - 'GPT-5.5-Cyber: 85,6% en CyberGym; Claude Mythos 5: 83,8% en el mismo benchmark'
+  - 'GPT-5.5 y Mythos Preview son los únicos modelos que han completado la simulación TLO de extremo a extremo'
+  - 'Fable 5 fue suspendido el 12 de junio de 2026 por directiva federal de control de exportaciones'
+  - 'El acceso a Mythos 5 está restringido a socios de Project Glasswing e instituciones gubernamentales'
+---
+
+El 22 de junio de 2026, OpenAI lanzó la versión completa de **GPT-5.5-Cyber**, un modelo especializado en ciberseguridad que solo está disponible para equipos verificados bajo su programa *Trusted Access for Cyber*. La semana anterior, Anthropic había suspendido el acceso a **Claude Fable 5** y **Mythos 5** por orden del gobierno de EE.UU. El resultado es el mismo en ambos casos: los modelos más capaces en seguridad ofensiva y defensiva están, hoy, fuera del alcance del usuario común.
+
+## Qué es GPT-5.5-Cyber
+
+GPT-5.5-Cyber no es un modelo nuevo. Es una variante de GPT-5.5 con dos diferencias concretas: salvaguardas más permisivas para tareas de seguridad verificadas y controles de identidad adicionales en la capa de acceso. OpenAI lo describe como un *fine-tune* orientado a completar el ciclo completo de remediación: identificar componentes relevantes en una base de código, rastrear si el código vulnerable es alcanzable, validar problemas en entornos controlados, desarrollar parches y preparar evidencia para revisión humana.
+
+El lanzamiento incluye el programa **Daybreak Cyber Partner Program** y la iniciativa *Patch the Planet*, creada con Trail of Bits en colaboración con HackerOne, con más de 30 proyectos de código abierto comprometidos: cURL, Go, Python, Sigstore y pyca/cryptography, entre otros.
+
+Las alianzas de *Trusted Access for Cyber* cubren Australia, Canadá, Francia, Alemania, Japón, Corea del Sur e instituciones de la UE incluyendo ENISA. Los usuarios individuales que accedan a los modelos más permisivos deben habilitar *Advanced Account Security* desde el 1 de junio de 2026.
+
+## Los benchmarks frente a Claude Mythos 5
+
+El UK AI Safety Institute evaluó ambos modelos con una suite de 95 tareas de ciberseguridad en cuatro niveles de dificultad, cubriendo investigación de vulnerabilidades, ingeniería inversa, explotación web y criptografía. En tareas de nivel **Experto**, GPT-5.5 base alcanzó el 71,4% de tasa de éxito (±8,0%); Mythos Preview, el 68,6% (±8,7%).
+
+En los benchmarks más recientes, con el modelo especializado:
+
+| Benchmark | GPT-5.5-Cyber | Claude Mythos 5 | GPT-5.5 base |
+|---|---|---|---|
+| **CyberGym** | **85,6%** | 83,8% | 81,8% |
+| **ExploitGym** | **39,5%** | — | 25,95% |
+| **SEC-bench Pro** | **69,8%** | — | 63,1% |
+
+La diferencia en CyberGym es de menos de dos puntos porcentuales. En ExploitGym, donde se evalúa la generación y uso de exploits, la ventaja de GPT-5.5-Cyber es más pronunciada, pero no hay datos públicos comparables de Mythos 5 en esa métrica concreta.
+
+### La simulación *The Last Ones*
+
+El banco de pruebas más exigente es *The Last Ones* (TLO), una simulación de ataque corporativo de 32 pasos construida con SpecterOps. Modela la cadena completa de intrusión: reconocimiento, robo de credenciales, movimiento lateral y exfiltración de base de datos. Un experto humano necesita aproximadamente 20 horas para completarla.
+
+Mythos Preview fue el primer modelo en resolverla, en **3 de 10 intentos**. GPT-5.5 fue el segundo, en **2 de 10 intentos**. Ningún otro modelo publicado ha completado TLO de extremo a extremo.
+
+### El hallazgo diferencial de Mythos
+
+Los benchmarks no cuentan todo. El caso más llamativo de Mythos 5 en ciberseguridad fue el descubrimiento de una [vulnerabilidad de 27 años en OpenBSD](/claude-mythos-glasswing-10000-vulnerabilidades/), presente en código de producción desde aproximadamente 1998 y sin detectar por herramientas de testing automatizado durante décadas. Encontrar ese tipo de fallo en código que nadie estaba mirando con sospechas es cualitativamente distinto a resolver un CTF prediseñado.
+
+GPT-5.5-Cyber, por su parte, resolvió un desafío de ingeniería inversa en 10 minutos y 22 segundos por **$1,73 en costes de API**, frente a las 12 horas estimadas para un experto humano. Es la métrica que más importa para equipos de seguridad con presupuesto operativo real.
+
+## Por qué no puedes usar ninguno de los dos libremente
+
+Aquí está el patrón que conecta ambos lanzamientos: los modelos de IA con mayor capacidad ofensiva verificada están, por diseño o por imposición regulatoria, fuera del acceso general.
+
+**GPT-5.5-Cyber** está restringido por diseño. Requiere verificación de identidad, se distribuye solo a través del programa *Trusted Access for Cyber* y no está disponible para uso general ni en la API pública estándar. OpenAI justifica esto en que las mismas capacidades que hacen al modelo útil para defensores verificados —autonomía en detección y explotación de vulnerabilidades— representan un riesgo si se despliegan sin control de acceso.
+
+**Claude Mythos 5** está restringido por dos razones simultáneas. La primera es de diseño: [desde su lanzamiento el 9 de junio](/claude-fable-5-mythos-5-lanzamiento/), Mythos 5 solo estaba disponible para socios de Project Glasswing e investigadores seleccionados por el gobierno de EE.UU. La segunda razón llegó tres días después del lanzamiento: [una directiva federal de control de exportaciones](/anthropic-fable-mythos-suspension-gobierno-eeuu/) ordenó la suspensión inmediata del acceso tanto a Mythos 5 como a Fable 5, el modelo de uso general de Anthropic.
+
+### El caso Fable 5: un modelo de uso general bloqueado
+
+Fable 5 no era un modelo de ciberseguridad especializado. Era la versión pública de Mythos, con salvaguardas más conservadoras y disponible para todos los usuarios. No estaba diseñado para acceso restringido; era el equivalente Anthropic a GPT-5.5 estándar.
+
+La directiva federal que lo suspendió el 12 de junio no distinguió entre Fable 5 y Mythos 5. Tampoco estableció una fecha de revisión ni un mecanismo de apelación. Anthropic disputó la orden públicamente, argumentando que aplicar ese estándar de forma generalizada "pararía todos los nuevos despliegues de modelos" en la industria.
+
+El 23 de junio, una empresa de inteligencia artificial presentó una demanda contra el Departamento de Comercio de EE.UU. por la restricción. Microsoft retiró Fable 5 de su selector interno de modelos en Copilot por un conflicto distinto: los términos de retención de datos de 30 días de Anthropic son incompatibles con el estándar de retención cero de Microsoft.
+
+El resultado práctico: Fable 5, un modelo de uso general con contexto de 1M de tokens y $10/$50 por millón de tokens de entrada/salida, no está disponible globalmente, no por sus capacidades de ciberseguridad, sino por una decisión regulatoria que muchos en la industria ven como motivada políticamente.
+
+## La brecha de acceso como variable de diseño
+
+Lo que distingue el momento actual no es que existan modelos capaces de hacer daño —eso ya era cierto— sino que las evaluaciones independientes, como las del AISI, han demostrado que determinados modelos pueden completar operaciones ofensivas complejas de forma autónoma a un coste marginal. Eso convierte el control de acceso en una decisión de diseño de producto, no solo en un requisito de cumplimiento.
+
+OpenAI ha elegido una solución técnica: un modelo separado con verificación de identidad y controles de cuenta más estrictos. Anthropic había elegido una solución diferente: salvaguardas en inferencia que Fable 5 activa en menos del 5% de sesiones, sin imponer restricciones de acceso previas. El gobierno de EE.UU. ha impuesto una tercera solución: suspender el acceso y redefinir los términos después.
+
+Ninguna de las tres es estable a largo plazo. GPT-5.5-Cyber existe en un programa de acceso controlado que, por los precedentes de GPT-4 y GPT-5.5 base, se ampliará progresivamente. Fable 5 tiene una demanda activa en su contra y ninguna resolución pública a la vista. Mythos 5 sigue operativo pero solo a través de canales gubernamentales que la mayoría de organizaciones no tiene forma de acceder.
+
+Para entender el contexto técnico de por qué estos modelos son cualitativamente distintos a versiones anteriores en tareas ofensivas, [cómo funciona el contexto en los LLM](/como-funciona-el-contexto-en-los-llm/) y [qué son los agentes de IA](/que-son-los-agentes-de-ia/) cubren las bases de arquitectura relevantes.

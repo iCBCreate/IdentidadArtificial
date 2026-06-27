@@ -152,8 +152,9 @@
       return frag
     }
 
-    const wrap = document.getElementById('nt-wrap') as HTMLElement | null
+    const wrap = document.getElementById('nt-wrap')
     if (!wrap) return
+    const tickerWrap = wrap
 
     // First copy, then keep adding copies until there is at least one full
     // viewport of content beyond a single copy. This guarantees the wrap point
@@ -162,7 +163,7 @@
     el.appendChild(makeCopy())
     const copyWidth = el.scrollWidth
     let copies = 1
-    while (el.scrollWidth - copyWidth < wrap.clientWidth && copies < 20) {
+    while (el.scrollWidth - copyWidth < tickerWrap.clientWidth && copies < 20) {
       el.appendChild(makeCopy())
       copies++
     }
@@ -180,8 +181,8 @@
 
     function normalize() {
       if (copyWidth <= 0) return
-      if (wrap.scrollLeft >= copyWidth) wrap.scrollLeft -= copyWidth
-      else if (wrap.scrollLeft < 0) wrap.scrollLeft += copyWidth
+      if (tickerWrap.scrollLeft >= copyWidth) tickerWrap.scrollLeft -= copyWidth
+      else if (tickerWrap.scrollLeft < 0) tickerWrap.scrollLeft += copyWidth
     }
 
     function scheduleResume() {
@@ -192,8 +193,8 @@
     function frame(t: number) {
       if (lastT !== 0) {
         const dt = (t - lastT) / 1000
-        if (!reduced && !paused && !dragging && wrap.scrollWidth > wrap.clientWidth) {
-          wrap.scrollLeft += 60 * dt
+        if (!reduced && !paused && !dragging && tickerWrap.scrollWidth > tickerWrap.clientWidth) {
+          tickerWrap.scrollLeft += 60 * dt
           normalize()
         }
       }
@@ -202,41 +203,41 @@
     }
 
     // Mouse drag via Pointer Events. Touch uses native scroll (momentum).
-    wrap.addEventListener('pointerenter', () => { paused = true })
-    wrap.addEventListener('pointerleave', scheduleResume)
-    wrap.addEventListener('focus', () => { paused = true })
-    wrap.addEventListener('blur', scheduleResume)
+    tickerWrap.addEventListener('pointerenter', () => { paused = true })
+    tickerWrap.addEventListener('pointerleave', scheduleResume)
+    tickerWrap.addEventListener('focus', () => { paused = true })
+    tickerWrap.addEventListener('blur', scheduleResume)
 
-    wrap.addEventListener('pointerdown', (e: PointerEvent) => {
+    tickerWrap.addEventListener('pointerdown', (e: PointerEvent) => {
       if (e.pointerType !== 'mouse') return
       dragging = true
       moved = 0
       startX = e.clientX
-      startScroll = wrap.scrollLeft
-      wrap.setPointerCapture(e.pointerId)
-      wrap.classList.add('dragging')
+      startScroll = tickerWrap.scrollLeft
+      tickerWrap.setPointerCapture(e.pointerId)
+      tickerWrap.classList.add('dragging')
       paused = true
     })
 
-    wrap.addEventListener('pointermove', (e: PointerEvent) => {
+    tickerWrap.addEventListener('pointermove', (e: PointerEvent) => {
       if (!dragging) return
       const dx = e.clientX - startX
       moved = Math.max(moved, Math.abs(dx))
-      wrap.scrollLeft = startScroll - dx
+      tickerWrap.scrollLeft = startScroll - dx
       normalize()
     })
 
     const endDrag = () => {
       if (!dragging) return
       dragging = false
-      wrap.classList.remove('dragging')
+      tickerWrap.classList.remove('dragging')
       scheduleResume()
     }
-    wrap.addEventListener('pointerup', endDrag)
-    wrap.addEventListener('pointercancel', endDrag)
+    tickerWrap.addEventListener('pointerup', endDrag)
+    tickerWrap.addEventListener('pointercancel', endDrag)
 
     // After a drag, swallow the click so it doesn't navigate a link
-    wrap.addEventListener('click', (e: MouseEvent) => {
+    tickerWrap.addEventListener('click', (e: MouseEvent) => {
       if (moved > 5) {
         e.preventDefault()
         e.stopPropagation()
@@ -245,9 +246,9 @@
     }, true)
 
     // Touch: native scroll moves it; just manage pause state
-    wrap.addEventListener('touchstart', () => { paused = true }, { passive: true })
-    wrap.addEventListener('touchend', scheduleResume)
-    wrap.addEventListener('wheel', () => { paused = true; scheduleResume() }, { passive: true })
+    tickerWrap.addEventListener('touchstart', () => { paused = true }, { passive: true })
+    tickerWrap.addEventListener('touchend', scheduleResume)
+    tickerWrap.addEventListener('wheel', () => { paused = true; scheduleResume() }, { passive: true })
 
     requestAnimationFrame(frame)
   }

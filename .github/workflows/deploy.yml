@@ -25,19 +25,26 @@ jobs:
         run: |
           TOKEN="${{ secrets.CLOUDFLARE_API_TOKEN }}"
           echo "Token length: ${#TOKEN}"
-          if echo "$TOKEN" | grep -q '[[:space:]]'; then echo "WARNING: Token contains whitespace"; fi
-          if echo "$TOKEN" | grep -q '^"'; then echo "WARNING: Token starts with quote"; fi
-          if echo "$TOKEN" | grep -q '"$'; then echo "WARNING: Token ends with quote"; fi
-          # Test auth: GET /user/tokens/verify
-          RESP=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $TOKEN" "https://api.cloudflare.com/client/v4/user/tokens/verify")
-          echo "HTTP status from /user/tokens/verify: $RESP"
-          if [ "$RESP" != "200" ]; then echo "FAILURE: Token verification returned $RESP"; fi
-          # Show token permissions
-          echo "--- Token details ---"
-          curl -s -H "Authorization: Bearer $TOKEN" "https://api.cloudflare.com/client/v4/user/tokens/verify" | python3 -m json.tool 2>/dev/null | grep -E '"id"|"status"|"permission"|"read"|"edit"' || true
-          # Check account
           echo "--- Account check ---"
-          curl -s -H "Authorization: Bearer $TOKEN" "https://api.cloudflare.com/client/v4/accounts" | python3 -m json.tool 2>/dev/null | grep -E '"id"|"name"' || true
+          curl -s -H "Authorization: Bearer $TOKEN" "https://api.cloudflare.com/client/v4/accounts" | python3 -m json.tool 2>/dev/null || curl -s -H "Authorization: Bearer $TOKEN" "https://api.cloudflare.com/client/v4/accounts"
+          echo ""
+          echo "--- Token permissions ---"
+          curl -s -H "Authorization: Bearer $TOKEN" "https://api.cloudflare.com/client/v4/user/tokens/verify" | python3 -c "
+          import json, sys
+          data = json.load(sys.stdin)
+          result = data.get('result', {})
+          print('Token id:', result.get('id'))
+          print('Status:', result.get('status'))
+          for p in result.get('policies', []):
+              print(f'  Policy: {p.get(\"effect\")} {p.get(\"permission_groups\",[])} on {p.get(\"resources\",{})}')
+          for p in result.get('permission_groups', []):
+              print(f'  Perm: {p.get(\"name\",\"?\")} ({p.get(\"id\",\"?\")})')
+          " 2>/dev/null || echo "Failed to parse permissions"
+          echo ""
+          echo "--- CLOUDFLARE_ACCOUNT_ID ---"
+          echo "Length: $(echo -n '${{ secrets.CLOUDFLARE_ACCOUNT_ID }}' | wc -c)"
+          echo "First 4: $(echo '${{ secrets.CLOUDFLARE_ACCOUNT_ID }}' | cut -c1-4)"
+          echo "Last 4: $(echo '${{ secrets.CLOUDFLARE_ACCOUNT_ID }}' | rev | cut -c1-4 | rev)"
       - run: npx wrangler deploy --config dist/server/wrangler.json
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

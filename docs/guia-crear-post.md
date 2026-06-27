@@ -123,7 +123,15 @@ Si no se define `heroImage`, el fallback para og:image es la imagen Satori gener
 
 El alt text de la imagen se genera automáticamente a partir del `title`.
 
-Si usas una imagen de Pexels u otra fuente, añade el crédito en el primer párrafo del post.
+**Todas las imágenes deben tener crédito**, independientemente de si tienen derechos de autor. Añádelo como primera línea del body (antes del primer párrafo), en cursiva:
+
+| Tipo de imagen | Formato de crédito |
+|----------------|-------------------|
+| Pexels | `*Foto: Nombre Autor / [Pexels](https://www.pexels.com/photo/ID).*` |
+| Captura de pantalla | `*Captura de pantalla de [Marca](https://url-marca.com).*` |
+| IA generada | `*Imagen generada con IA.*` |
+| Diagrama / gráfico propio | `*Elaboración propia.*` |
+| Logotipo de tercero | `*Logotipo de [Marca](https://url-marca.com).*` |
 
 ---
 

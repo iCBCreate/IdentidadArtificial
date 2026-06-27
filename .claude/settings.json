@@ -1,3 +1,26 @@
 {
-  "hooks": {}
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import json,sys; d=json.load(sys.stdin); fp=d.get('tool_input',{}).get('file_path',''); print('⛔ Archivo generado — no editar manualmente. Usa: npm run build:data',file=sys.stderr) or sys.exit(2) if 'data/generated/' in fp else None\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /Users/ignaciocubelasfortes/Documents/Proyectos/IdentidadArtificial/.claude/hooks/validate-frontmatter.py"
+          }
+        ]
+      }
+    ]
+  }
 }

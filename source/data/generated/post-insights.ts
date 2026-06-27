@@ -24,6 +24,10 @@ export const POST_INSIGHTS = {
       {
         "term": "Ventana de contexto",
         "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
       }
     ],
     "faqs": [
@@ -85,7 +89,7 @@ export const POST_INSIGHTS = {
     }
   },
   "anthropic-mythos-ciberseguridad-sandbox": {
-    "executiveSummary": "Análisis del modelo Mythos de Anthropic: vulnerabilidades zero-day y el polémico incidente de evasión de sandbox en pruebas internas. Anthropic ha consolidado su posición en la vanguardia de la seguridad de la Inteligencia Artificial con el despliegue controlado de Mythos , un modelo de frontera que marca un cambio de paradigma en la capacidad autónoma de análisis de sistemas. A diferencia de sus predecesores en la serie Claude, Mythos no ha sido diseñado para el consumo general, sino que permanece bajo el estricto control del \"Project Glasswing\", una iniciativa de acceso restringido para organizaciones de ciberdefensa y agencias gubernamentales.",
+    "executiveSummary": "Análisis del modelo Mythos de Anthropic: vulnerabilidades zero-day y el polémico incidente de evasión de sandbox en pruebas internas. Captura de pantalla de Anthropic https://anthropic.com . Anthropic ha consolidado su posición en la vanguardia de la seguridad de la Inteligencia Artificial con el despliegue controlado de Mythos , un modelo de frontera que marca un cambio de paradigma en la capacidad autónoma de análisis de sistemas.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "Análisis del modelo Mythos de Anthropic: vulnerabilidades zero-day y el polémico incidente de evasión de sandbox en pruebas internas.",
@@ -161,7 +165,7 @@ export const POST_INSIGHTS = {
     }
   },
   "apple-intelligence-google-gemini-siri-filtraciones-2026": {
-    "executiveSummary": "De las filtraciones de 2025 a WWDC 2026: cómo Google Gemini se convierte en el motor de Apple Intelligence sin tocar los datos de los usuarios. El 8 de junio de 2026, Apple abrirá la WWDC con lo que se espera sea la mayor transformación de Apple Intelligence desde su presentación: una Siri completamente rediseñada y alimentada por Google Gemini . Durante los últimos siete meses, una serie de filtraciones fue revelando los detalles del pacto más relevante entre las dos empresas en décadas.",
+    "executiveSummary": "De las filtraciones de 2025 a WWDC 2026: cómo Google Gemini se convierte en el motor de Apple Intelligence sin tocar los datos de los usuarios. Captura de pantalla de Apple https://apple.com . El 8 de junio de 2026, Apple abrirá la WWDC con lo que se espera sea la mayor transformación de Apple Intelligence desde su presentación: una Siri completamente rediseñada y alimentada por Google Gemini .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "De las filtraciones de 2025 a WWDC 2026: cómo Google Gemini se convierte en el motor de Apple Intelligence sin tocar los datos de los usuarios.",
@@ -197,13 +201,13 @@ export const POST_INSIGHTS = {
       }
     ],
     "readingProfile": {
-      "minutes": 8,
+      "minutes": 9,
       "density": "media",
       "bestFor": "comparar capacidades de modelos"
     }
   },
   "chatgpt-images-2-gpt-image-2": {
-    "executiveSummary": "GPT Image 2 es el modelo de imagen de OpenAI que razona antes de dibujar. Resuelve oclusión, sombras y perspectiva donde DALL-E 3 fallaba. El 21 de abril de 2026, OpenAI lanzó ChatGPT Images 2.0 , el sistema de generación de imágenes más ambicioso que ha publicado hasta la fecha.",
+    "executiveSummary": "GPT Image 2 es el modelo de imagen de OpenAI que razona antes de dibujar. Resuelve oclusión, sombras y perspectiva donde DALL-E 3 fallaba. Foto: Tara Winstead / Pexels https://www.pexels.com/photo/8849295 .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "GPT Image 2 es el modelo de imagen de OpenAI que razona antes de dibujar. Resuelve oclusión, sombras y perspectiva donde DALL-E 3 fallaba.",
@@ -279,7 +283,7 @@ export const POST_INSIGHTS = {
     }
   },
   "claude-code-security-anthropic": {
-    "executiveSummary": "Claude Code Security analiza repositorios, valida vulnerabilidades y propone parches revisables para reducir deuda de seguridad en equipos de desarrollo. Anthropic ha movido una pieza importante en el uso de agentes para seguridad de software. Lo que presentó en febrero como Claude Code Security , una capacidad integrada en Claude Code en la web, aparece ahora como Claude Security : una beta pública para clientes Enterprise que escanea repositorios, razona sobre vulnerabilidades y propone parches revisables.",
+    "executiveSummary": "Claude Code Security analiza repositorios, valida vulnerabilidades y propone parches revisables para reducir deuda de seguridad en equipos de desarrollo. Captura de pantalla de Anthropic https://anthropic.com . Anthropic ha movido una pieza importante en el uso de agentes para seguridad de software.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "Claude Code Security analiza repositorios, valida vulnerabilidades y propone parches revisables para reducir deuda de seguridad en equipos de desarrollo.",
@@ -317,7 +321,7 @@ export const POST_INSIGHTS = {
     }
   },
   "claude-fable-5-mythos-5-lanzamiento": {
-    "executiveSummary": "Anthropic lanza Claude Fable 5 (uso general) y Mythos 5 (acceso restringido): $10/$50 por millón de tokens, salvaguardas en inferencia y benchmarks. Anthropic ha lanzado hoy Claude Fable 5 y Claude Mythos 5 , los dos primeros modelos de lo que la compañía describe como una clase de inteligencia distinta a todo lo anterior. Fable 5 está disponible desde hoy para todos los usuarios.",
+    "executiveSummary": "Anthropic lanza Claude Fable 5 (uso general) y Mythos 5 (acceso restringido): $10/$50 por millón de tokens, salvaguardas en inferencia y benchmarks. Captura de pantalla de Anthropic https://anthropic.com . Anthropic ha lanzado hoy Claude Fable 5 y Claude Mythos 5 , los dos primeros modelos de lo que la compañía describe como una clase de inteligencia distinta a todo lo anterior.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "Anthropic lanza Claude Fable 5 (uso general) y Mythos 5 (acceso restringido): $10/$50 por millón de tokens, salvaguardas en inferencia y benchmarks.",
@@ -359,7 +363,7 @@ export const POST_INSIGHTS = {
     }
   },
   "claude-managed-agents": {
-    "executiveSummary": "Los Claude Managed Agents son agentes de IA autónomos que planifican, usan herramientas y completan tareas complejas sin intervención constante. Anthropic acaba de lanzar Claude Managed Agents: un sistema que permite a Claude actuar de forma autónoma en tareas largas y complejas, coordinando herramientas, tomando decisiones y completando trabajo real sin que tengas que supervisar cada paso. Es un cambio en lo que significa \"usar IA en el trabajo\".",
+    "executiveSummary": "Los Claude Managed Agents son agentes de IA autónomos que planifican, usan herramientas y completan tareas complejas sin intervención constante. Captura de pantalla de Anthropic https://anthropic.com . Anthropic acaba de lanzar Claude Managed Agents: un sistema que permite a Claude actuar de forma autónoma en tareas largas y complejas, coordinando herramientas, tomando decisiones y completando trabajo real sin que tengas que supervisar cada paso.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "Los Claude Managed Agents son agentes de IA autónomos que planifican, usan herramientas y completan tareas complejas sin intervención constante.",
@@ -397,7 +401,7 @@ export const POST_INSIGHTS = {
     }
   },
   "claude-mythos-glasswing-10000-vulnerabilidades": {
-    "executiveSummary": "Project Glasswing: Claude Mythos Preview encontró más de 10.000 vulnerabilidades críticas en software estratégico en solo un mes. Anthropic publicó el 22 de mayo de 2026 los primeros resultados de Project Glasswing , su programa de ciberseguridad basado en Claude Mythos Preview . El balance de un mes de operación con unos cincuenta socios seleccionados: más de 10.000 vulnerabilidades de severidad alta o crítica identificadas en software considerado estratégico para internet, empresas e infraestructuras esenciales.",
+    "executiveSummary": "Project Glasswing: Claude Mythos Preview encontró más de 10.000 vulnerabilidades críticas en software estratégico en solo un mes. Captura de pantalla de Anthropic https://anthropic.com . Anthropic publicó el 22 de mayo de 2026 los primeros resultados de Project Glasswing , su programa de ciberseguridad basado en Claude Mythos Preview .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Agente, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "Project Glasswing: Claude Mythos Preview encontró más de 10.000 vulnerabilidades críticas en software estratégico en solo un mes.",
@@ -439,7 +443,7 @@ export const POST_INSIGHTS = {
     }
   },
   "claude-opus-4-8-lanzamiento-benchmarks-agentes": {
-    "executiveSummary": "Anthropic lanza Claude Opus 4.8 con mejor rendimiento en agentes, Dynamic Workflows en Claude Code y un Fast Mode 3 veces más barato que Opus 4.7. Anthropic publicó Claude Opus 4.8 el 28 de mayo de 2026, una actualización de Opus 4.7 que mejora el rendimiento en tareas agenticas, introduce herramientas de control de esfuerzo para el usuario y lanza un Fast Mode sensiblemente más barato. El precio se mantiene igual que su predecesor.",
+    "executiveSummary": "Anthropic lanza Claude Opus 4.8 con mejor rendimiento en agentes, Dynamic Workflows en Claude Code y un Fast Mode 3 veces más barato que Opus 4.7. Captura de pantalla de Anthropic https://anthropic.com . Anthropic publicó Claude Opus 4.8 el 28 de mayo de 2026, una actualización de Opus 4.7 que mejora el rendimiento en tareas agenticas, introduce herramientas de control de esfuerzo para el usuario y lanza un Fast Mode sensiblemente más barato.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "Anthropic lanza Claude Opus 4.8 con mejor rendimiento en agentes, Dynamic Workflows en Claude Code y un Fast Mode 3 veces más barato que Opus 4.7.",
@@ -489,7 +493,7 @@ export const POST_INSIGHTS = {
     }
   },
   "codex-chatgpt-movil-trabajo-remoto": {
-    "executiveSummary": "OpenAI lleva Codex a la app móvil de ChatGPT para supervisar tareas, aprobar comandos y mantener agentes de código en marcha desde el teléfono. OpenAI ha llevado Codex a la app móvil de ChatGPT . La actualización, anunciada el 14 de mayo de 2026 bajo el título \"Work with Codex from anywhere\", no presenta un nuevo modelo, sino una forma distinta de trabajar con agentes de código: iniciar, seguir, desbloquear y revisar tareas desde el teléfono mientras Codex sigue ejecutándose en una máquina de confianza.",
+    "executiveSummary": "OpenAI lleva Codex a la app móvil de ChatGPT para supervisar tareas, aprobar comandos y mantener agentes de código en marcha desde el teléfono. Captura de pantalla de OpenAI Codex https://openai.com . OpenAI ha llevado Codex a la app móvil de ChatGPT .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "OpenAI lleva Codex a la app móvil de ChatGPT para supervisar tareas, aprobar comandos y mantener agentes de código en marcha desde el teléfono.",
@@ -527,7 +531,7 @@ export const POST_INSIGHTS = {
     }
   },
   "codex-plugins-roles-sites-openai-2026": {
-    "executiveSummary": "OpenAI expande Codex con plugins por rol, 62 apps, 110 skills y creación de webs desde lenguaje natural. Codex empezó siendo una herramienta para programadores. Un agente que escribía código, ejecutaba tests y abría pull requests mientras el desarrollador hacía otra cosa.",
+    "executiveSummary": "OpenAI expande Codex con plugins por rol, 62 apps, 110 skills y creación de webs desde lenguaje natural. Captura de pantalla de OpenAI Codex https://openai.com . Codex empezó siendo una herramienta para programadores.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "OpenAI expande Codex con plugins por rol, 62 apps, 110 skills y creación de webs desde lenguaje natural. El 20% de sus usuarios ya no programa.",
@@ -570,7 +574,7 @@ export const POST_INSIGHTS = {
     "keyPoints": [
       "La ventana de contexto es el concepto más importante para entender qué pueden y qué no pueden hacer los LLMs. Aquí está explicado sin rodeos.",
       "La calculadora de contexto y costes del laboratorio /laboratorio/calculadora-contexto/ compara cuánto ocupa y cuesta tu texto en los principales modelos actuales.",
-      "Conceptos detectados por el pipeline: RAG, LLM, Ventana de contexto."
+      "Conceptos detectados por el pipeline: RAG, LLM, Ventana de contexto, Multimodalidad."
     ],
     "glossary": [
       {
@@ -584,6 +588,10 @@ export const POST_INSIGHTS = {
       {
         "term": "Ventana de contexto",
         "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
       }
     ],
     "faqs": [
@@ -602,7 +610,7 @@ export const POST_INSIGHTS = {
     ],
     "readingProfile": {
       "minutes": 3,
-      "density": "media",
+      "density": "alta",
       "bestFor": "entender fundamentos"
     }
   },
@@ -641,7 +649,7 @@ export const POST_INSIGHTS = {
     }
   },
   "genie-3-google-deepmind-mundos-interactivos": {
-    "executiveSummary": "Genie 3 de Google DeepMind genera entornos 3D fotorrealistas a 24 fps y 720p a partir de texto. Analizamos su arquitectura, capacidades y qué lo diferencia de Genie 2. import YouTubeEmbed from '../../components/YouTubeEmbed.astro' Google DeepMind presentó Genie 3 el 5 de agosto de 2025 como su modelo de mundo de propósito general más avanzado hasta la fecha: un sistema capaz de generar entornos fotorrealistas completamente interactivos a partir de una descripción de texto, con una fluidez de 24 fotogramas por segundo y una resolución de 720p .",
+    "executiveSummary": "Genie 3 de Google DeepMind genera entornos 3D fotorrealistas a 24 fps y 720p a partir de texto. Analizamos su arquitectura, capacidades y qué lo diferencia de Genie 2. Captura de pantalla de Google DeepMind https://deepmind.google .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "Genie 3 de Google DeepMind genera entornos 3D fotorrealistas a 24 fps y 720p a partir de texto. Analizamos su arquitectura, capacidades y qué lo diferencia de Genie 2.",
@@ -733,7 +741,7 @@ export const POST_INSIGHTS = {
     }
   },
   "gpt-5-5-cyber-vs-mythos-fable-acceso-restringido": {
-    "executiveSummary": "OpenAI lanza GPT-5.5 Cyber el 22 de junio. Comparativa con Claude Mythos 5 en benchmarks de ciberseguridad y análisis de por qué Fable 5 tampoco está disponible globalmente. El 22 de junio de 2026, OpenAI lanzó la versión completa de GPT-5.5-Cyber , un modelo especializado en ciberseguridad que solo está disponible para equipos verificados bajo su programa Trusted Access for Cyber .",
+    "executiveSummary": "OpenAI lanza GPT-5.5 Cyber el 22 de junio. Comparativa con Claude Mythos 5 en benchmarks de ciberseguridad y análisis de por qué Fable 5 tampoco está disponible globalmente. Captura de pantalla de OpenAI https://openai.com .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "OpenAI lanza GPT-5.5 Cyber el 22 de junio. Comparativa con Claude Mythos 5 en benchmarks de ciberseguridad y análisis de por qué Fable 5 tampoco está disponible globalmente.",
@@ -769,13 +777,13 @@ export const POST_INSIGHTS = {
       }
     ],
     "readingProfile": {
-      "minutes": 6,
+      "minutes": 7,
       "density": "media",
       "bestFor": "comparar capacidades de modelos"
     }
   },
   "gpt-5-5-novedades-benchmarks-inteligencia-agentica": {
-    "executiveSummary": "OpenAI lanza GPT-5.5 con un enfoque en la autonomía y capacidades de agente. Analizamos sus benchmarks en SWE-Bench Pro y Terminal-Bench 2.0. El 23 de abril de 2026 quedará marcado como el día en que la interacción con la Inteligencia Artificial cambió de paradigma.",
+    "executiveSummary": "OpenAI lanza GPT-5.5 con un enfoque en la autonomía y capacidades de agente. Analizamos sus benchmarks en SWE-Bench Pro y Terminal-Bench 2.0. Captura de pantalla de OpenAI https://openai.com .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "OpenAI lanza GPT-5.5 con un enfoque en la autonomía y capacidades de agente. Analizamos sus benchmarks en SWE-Bench Pro y Terminal-Bench 2.0.",
@@ -812,6 +820,48 @@ export const POST_INSIGHTS = {
     ],
     "readingProfile": {
       "minutes": 4,
+      "density": "media",
+      "bestFor": "comparar capacidades de modelos"
+    }
+  },
+  "gpt-5-6-sol-nueva-generacion-openai": {
+    "executiveSummary": "OpenAI anuncia la familia GPT-5.6 con tres modelos (Sol, Terra, Luna), un nuevo sistema de naming, modo ultra con subagentes y el stack de seguridad más robusto hasta la fecha. Captura de pantalla de OpenAI https://openai.com . OpenAI anunció el 26 de junio de 2026 la familia GPT-5.6 , su nueva generación de modelos que introduce tres niveles de capacidad bajo un sistema de naming renovado: Sol flagship , Terra balance rendimiento-coste y Luna rápido y asequible .",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "OpenAI anuncia la familia GPT-5.6 con tres modelos (Sol, Terra, Luna), un nuevo sistema de naming, modo ultra con subagentes y el stack de seguridad más robusto hasta la fecha.",
+      "OpenAI anunció el 26 de junio de 2026 la familia GPT-5.6 , su nueva generación de modelos que introduce tres niveles de capacidad bajo un sistema de naming renovado: Sol flagship , Terra balance rendimiento-coste y Luna rápido y asequible .",
+      "Conceptos detectados por el pipeline: Agente, Ventana de contexto, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Agente?",
+        "answer": "OpenAI anuncia la familia GPT-5.6 con tres modelos (Sol, Terra, Luna), un nuevo sistema de naming, modo ultra con subagentes y el stack de seguridad más robusto hasta la fecha."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender modelos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 7,
       "density": "media",
       "bestFor": "comparar capacidades de modelos"
     }
@@ -917,7 +967,7 @@ export const POST_INSIGHTS = {
     }
   },
   "nvidia-rtx-spark": {
-    "executiveSummary": "NVIDIA RTX Spark integra 1 petaflop de IA, GPU Blackwell y CPU Grace para ejecutar LLMs de 120B parámetros en portátiles Windows. Durante décadas, ejecutar un modelo de lenguaje serio en un portátil significaba una de dos cosas: recortar el modelo hasta hacerlo casi irrelevante, o depender de una API remota con sus latencias, costes por token y política de privacidad de un tercero. NVIDIA y Microsoft anunciaron el 31 de mayo de 2026 una alternativa concreta: RTX Spark , un superchip diseñado específicamente para ejecutar agentes de IA /que-son-los-agentes-de-ia/ de forma local en portátiles Windows.",
+    "executiveSummary": "NVIDIA RTX Spark integra 1 petaflop de IA, GPU Blackwell y CPU Grace para ejecutar LLMs de 120B parámetros en portátiles Windows. Captura de pantalla de NVIDIA https://nvidia.com . Durante décadas, ejecutar un modelo de lenguaje serio en un portátil significaba una de dos cosas: recortar el modelo hasta hacerlo casi irrelevante, o depender de una API remota con sus latencias, costes por token y política de privacidad de un tercero.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "NVIDIA RTX Spark integra 1 petaflop de IA, GPU Blackwell y CPU Grace para ejecutar LLMs de 120B parámetros en portátiles Windows. Análisis técnico.",
@@ -963,7 +1013,7 @@ export const POST_INSIGHTS = {
     }
   },
   "openai-workspace-agents-chatgpt-autonomia": {
-    "executiveSummary": "OpenAI presenta Workspace Agents para ChatGPT: agentes autónomos que gestionan flujos de trabajo complejos y persistentes en entornos de equipo. OpenAI ha dado hoy el paso definitivo para transformar ChatGPT de un asistente reactivo en un sistema operativo de agentes con el lanzamiento de Workspace Agents . Esta nueva arquitectura, disponible inicialmente como Research Preview para planes corporativos y educativos, permite la creación de entidades de IA que no solo responden a prompts, sino que ejecutan flujos de trabajo multi-etapa de forma autónoma y persistente.",
+    "executiveSummary": "OpenAI presenta Workspace Agents para ChatGPT: agentes autónomos que gestionan flujos de trabajo complejos y persistentes en entornos de equipo. Captura de pantalla de OpenAI https://openai.com . OpenAI ha dado hoy el paso definitivo para transformar ChatGPT de un asistente reactivo en un sistema operativo de agentes con el lanzamiento de Workspace Agents .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "OpenAI presenta Workspace Agents para ChatGPT: agentes autónomos que gestionan flujos de trabajo complejos y persistentes en entornos de equipo.",
@@ -1006,16 +1056,21 @@ export const POST_INSIGHTS = {
   },
   "por-que-astro-para-un-blog-generado-por-ia": {
     "executiveSummary": "Podría haber elegido Next.js, Hugo o WordPress. Aquí están las razones técnicas y las que no son tan técnicas. Cuando empecé a diseñar este sitio, la primera decisión fue el framework.",
-    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de arquitectura centrada en astro, jamstack, desarrollo-web. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de arquitectura centrada en Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "Podría haber elegido Next.js, Hugo o WordPress. Elegí Astro. Aquí están las razones técnicas y las que no son tan técnicas.",
       "El problema real: Next.js envía JavaScript al cliente por defecto.",
-      "Etiquetas principales: astro, jamstack, desarrollo-web."
+      "Conceptos detectados por el pipeline: Multimodalidad."
     ],
-    "glossary": [],
+    "glossary": [
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
     "faqs": [
       {
-        "question": "Qué aporta este artículo sobre Arquitectura?",
+        "question": "Qué aporta este artículo sobre Multimodalidad?",
         "answer": "Podría haber elegido Next.js, Hugo o WordPress. Elegí Astro. Aquí están las razones técnicas y las que no son tan técnicas."
       },
       {
@@ -1103,6 +1158,10 @@ export const POST_INSIGHTS = {
       {
         "term": "Ventana de contexto",
         "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
       }
     ],
     "faqs": [
@@ -1168,7 +1227,7 @@ export const POST_INSIGHTS = {
     }
   },
   "siri-ai-wwdc-2026-apple-intelligence-nueva-generacion": {
-    "executiveSummary": "Apple presentó Siri AI en WWDC 2026: nueva app dedicada, integración con Gemini, capacidades agénticas y Visual Intelligence expandida. El 8 de junio de 2026, durante la WWDC, Apple presentó Siri AI : la renovación más profunda de su asistente desde su lanzamiento en 2011. El anuncio es también la confirmación oficial de todo lo que las filtraciones de los últimos meses habían anticipado sobre Apple Intelligence y su integración con modelos de lenguaje de terceros.",
+    "executiveSummary": "Apple presentó Siri AI en WWDC 2026: nueva app dedicada, integración con Gemini, capacidades agénticas y Visual Intelligence expandida. Captura de pantalla de Apple https://apple.com . El 8 de junio de 2026, durante la WWDC, Apple presentó Siri AI : la renovación más profunda de su asistente desde su lanzamiento en 2011.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
     "keyPoints": [
       "Apple presentó Siri AI en WWDC 2026: nueva app dedicada, integración con Gemini, capacidades agénticas y Visual Intelligence expandida. Disponible en otoño 2026.",

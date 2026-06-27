@@ -21,6 +21,17 @@ jobs:
       - run: npm test
       - run: npx astro check
       - run: npm run build
+      - name: Validate Cloudflare API token
+        run: |
+          TOKEN="${{ secrets.CLOUDFLARE_API_TOKEN }}"
+          echo "Token length: ${#TOKEN}"
+          if echo "$TOKEN" | grep -q '[[:space:]]'; then echo "WARNING: Token contains whitespace"; fi
+          if echo "$TOKEN" | grep -q '^"'; then echo "WARNING: Token starts with quote"; fi
+          if echo "$TOKEN" | grep -q '"$'; then echo "WARNING: Token ends with quote"; fi
+          # Test auth: GET /user/tokens/verify
+          RESP=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $TOKEN" "https://api.cloudflare.com/client/v4/user/tokens/verify")
+          echo "HTTP status from /user/tokens/verify: $RESP"
+          if [ "$RESP" != "200" ]; then echo "FAILURE: Token verification returned $RESP"; fi
       - run: npx wrangler deploy --config dist/server/wrangler.json
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

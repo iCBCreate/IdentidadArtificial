@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import PostCard from '../components/PostCard.astro'
 import Pagination from '../components/Pagination.astro'
+import HeroPills from '../components/HeroPills.astro'
 import { SITE } from '../config'
 import {
   ARCHIVE_PAGE_SIZE,
@@ -17,9 +18,9 @@ const totalPages = getTotalPages(allPosts.length, ARCHIVE_PAGE_SIZE)
 const posts = getPageItems(allPosts, 1, ARCHIVE_PAGE_SIZE)
 const categories = getPostCategories(allPosts)
 
-const pills = [
-  ['modelos', 'conceptos', 'arquitectura', 'herramientas', 'inteligencia artificial', 'tendencias', 'ética'],
-  ['Claude', 'GPT-4o', 'Gemini', 'RAG', 'agentes', 'contexto', 'tokens', 'embeddings', 'fine-tuning'],
+const words = [
+  'modelos', 'conceptos', 'arquitectura', 'herramientas', 'inteligencia artificial', 'tendencias', 'ética',
+  'Claude', 'GPT-4o', 'Gemini', 'RAG', 'agentes', 'contexto', 'tokens', 'embeddings', 'fine-tuning',
 ]
 
 const archiveSchema = {
@@ -60,31 +61,19 @@ const archiveSchema = {
   image="/og/archivo.png"
   jsonLd={archiveSchema}
 >
-  <section class="archivo-hero">
-    <div class="pills-bg" aria-hidden="true">
-      {pills.map((row, i) => (
-        <div class={`pill-row pill-row-${i % 2 === 0 ? 'left' : 'right'}`}>
-          {[...row, ...row, ...row, ...row].map(pill => (
-            <span class="pill">{pill}</span>
-          ))}
-        </div>
+  <HeroPills words={words}>
+    <span class="archivo-eyebrow">Todo el corpus</span>
+    <h1 class="archivo-title">Artículos de IA</h1>
+    <p class="archivo-count">
+      <span class="count-num">{allPosts.length}</span>
+      {allPosts.length === 1 ? 'artículo publicado' : 'artículos publicados'}
+    </p>
+    <div class="cats-row">
+      {categories.map(cat => (
+        <span class="cat-pill">{cat}</span>
       ))}
     </div>
-    <div class="pills-overlay"></div>
-    <div class="archivo-hero-content">
-      <span class="archivo-eyebrow">Todo el corpus</span>
-      <h1 class="archivo-title">Artículos de IA</h1>
-      <p class="archivo-count">
-        <span class="count-num">{allPosts.length}</span>
-        {allPosts.length === 1 ? 'artículo publicado' : 'artículos publicados'}
-      </p>
-      <div class="cats-row">
-        {categories.map(cat => (
-          <span class="cat-pill">{cat}</span>
-        ))}
-      </div>
-    </div>
-  </section>
+  </HeroPills>
 
   <div class="archivo-body">
     <h2 class="section-label" aria-label="Listado completo de artículos sobre inteligencia artificial">Todos los artículos</h2>
@@ -118,71 +107,7 @@ const archiveSchema = {
 </BaseLayout>
 
 <style>
-/* ── Hero ── */
-.archivo-hero {
-  position: relative;
-  overflow: hidden;
-  min-height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.pills-bg {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 20px 0;
-  pointer-events: none;
-  user-select: none;
-}
-
-.pill-row {
-  display: flex;
-  gap: 10px;
-  white-space: nowrap;
-  width: max-content;
-}
-.pill-row-left  { animation: scrollLeft  30s linear infinite; }
-.pill-row-right { animation: scrollRight 24s linear infinite; }
-
-@keyframes scrollLeft  { from { transform: translateX(0); }          to { transform: translateX(-25%); } }
-@keyframes scrollRight { from { transform: translateX(-25%); }       to { transform: translateX(0); } }
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 12px;
-  border-radius: 20px;
-  border: 1px solid rgba(167, 139, 250, 0.18);
-  background: rgba(109, 40, 217, 0.07);
-  color: rgba(160, 160, 192, 0.5);
-  font-size: 11px;
-  font-weight: 500;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.pills-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 70% 90% at 50% 50%,
-    rgba(28, 28, 44, 0.96) 0%,
-    rgba(28, 28, 44, 0.70) 55%,
-    transparent 100%
-  );
-  pointer-events: none;
-}
-
-.archivo-hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 40px 24px;
-}
+/* ── Hero content ── */
 
 .archivo-eyebrow {
   display: inline-block;

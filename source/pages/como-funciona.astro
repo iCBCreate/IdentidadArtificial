@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
+import HeroPills from '../components/HeroPills.astro'
 import { SITE } from '../config'
 
-const pills = [
-  ['Astro 6', 'static output', 'Cloudflare Workers', 'MDX', 'tutoriales', 'Tailwind v4', 'Sharp', 'AVIF srcset', 'NewsData.io'],
-  ['JSON-LD', 'sitemap XML', 'Open Graph', 'robots.txt', 'llms.txt', 'llms-full.txt', 'RSS feed', 'GEO', 'IndexNow'],
-  ['Satori', 'OG images', 'knowledge map', 'post insights', 'editorial radar', 'frontmatter Zod'],
-  ['View Transitions', 'Speculation Rules', 'fetchpriority', 'font-size-adjust', 'text-wrap: balance', 'CLS 0'],
+const words = [
+  'Astro 6', 'static output', 'Cloudflare Workers', 'MDX', 'tutoriales', 'Tailwind v4', 'Sharp', 'AVIF srcset', 'NewsData.io',
+  'JSON-LD', 'sitemap XML', 'Open Graph', 'robots.txt', 'llms.txt', 'llms-full.txt', 'RSS feed', 'GEO', 'IndexNow',
+  'Satori', 'OG images', 'knowledge map', 'post insights', 'editorial radar', 'frontmatter Zod',
+  'View Transitions', 'Speculation Rules', 'fetchpriority', 'font-size-adjust', 'text-wrap: balance', 'CLS 0',
 ]
 
 const stack = [
@@ -110,27 +111,15 @@ const techArticleSchema = {
   jsonLd={techArticleSchema}
 >
   <!-- Mini hero -->
-  <section class="cf-hero">
-    <div class="pills-bg" aria-hidden="true">
-      {pills.map((row, i) => (
-        <div class={`pill-row pill-row-${i % 2 === 0 ? 'left' : 'right'}`}>
-          {[...row, ...row, ...row].map(pill => (
-            <span class="pill">{pill}</span>
-          ))}
-        </div>
-      ))}
-    </div>
-    <div class="pills-overlay"></div>
-    <div class="cf-hero-content">
-      <span class="cf-eyebrow">Transparencia radical</span>
-      <h1 class="cf-title">
-        Cómo funciona: <span class="accent">stack, pipeline y IA</span>
-      </h1>
-      <p class="cf-subtitle">
-        Stack, pipeline de publicación, IA build-time,<br />SEO/GEO e infraestructura de despliegue.
-      </p>
-    </div>
-  </section>
+  <HeroPills words={words}>
+    <span class="cf-eyebrow">Transparencia radical</span>
+    <h1 class="cf-title">
+      Cómo funciona: <span class="accent">stack, pipeline y IA</span>
+    </h1>
+    <p class="cf-subtitle">
+      Stack, pipeline de publicación, IA build-time,<br />SEO/GEO e infraestructura de despliegue.
+    </p>
+  </HeroPills>
 
   <div class="cf-body">
 
@@ -344,72 +333,7 @@ correctionNote: 'Texto si el tutorial corrige una versión anterior.'  # opciona
 </BaseLayout>
 
 <style>
-/* ── Hero ── */
-.cf-hero {
-  position: relative;
-  overflow: hidden;
-  min-height: 240px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.pills-bg {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px 0;
-  pointer-events: none;
-  user-select: none;
-}
-
-.pill-row {
-  display: flex;
-  gap: 10px;
-  white-space: nowrap;
-  width: max-content;
-}
-.pill-row-left  { animation: scrollLeft  22s linear infinite; }
-.pill-row-right { animation: scrollRight 28s linear infinite; }
-.pill-row:nth-child(3) { animation-duration: 18s; }
-
-@keyframes scrollLeft  { from { transform: translateX(0); }          to { transform: translateX(-33.333%); } }
-@keyframes scrollRight { from { transform: translateX(-33.333%); }   to { transform: translateX(0); } }
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 12px;
-  border-radius: 20px;
-  border: 1px solid rgba(167, 139, 250, 0.18);
-  background: rgba(109, 40, 217, 0.07);
-  color: rgba(160, 160, 192, 0.5);
-  font-size: 11px;
-  font-weight: 500;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.pills-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 60% 80% at 50% 50%,
-    rgba(28, 28, 44, 0.95) 0%,
-    rgba(28, 28, 44, 0.65) 55%,
-    transparent 100%
-  );
-  pointer-events: none;
-}
-
-.cf-hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 44px 24px;
-}
+/* ── Hero content ── */
 
 .cf-eyebrow {
   display: inline-block;

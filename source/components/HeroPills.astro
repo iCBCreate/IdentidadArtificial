@@ -1,0 +1,128 @@
+---
+interface Props {
+  /** Lista plana de términos temáticos de la sección. Se reparte en filas. */
+  words: string[]
+}
+
+const { words } = Astro.props
+
+// Nº de filas fijo en TODAS las secciones → misma densidad y altura visual
+// independientemente de cuántos términos reciba cada página. Esto es lo que
+// elimina la incoherencia entre secciones.
+const ROWS = 13
+
+// Construye ROWS filas rotando el pool un offset distinto por fila, para que no
+// se alineen formando columnas. En el markup cada fila se triplica: al trasladar
+// translateX(-33.333%) se desplaza exactamente una copia → loop sin costura.
+const rows = words.length === 0
+  ? []
+  : Array.from({ length: ROWS }, (_, i) => {
+      const offset = (i * 5) % words.length
+      return [...words.slice(offset), ...words.slice(0, offset)]
+    })
+---
+
+<section class="hero-shell">
+  <div class="pills-bg" aria-hidden="true">
+    {rows.map((row, i) => (
+      <div class:list={['pill-row', i % 2 === 0 ? 'pill-row-left' : 'pill-row-right']}>
+        {[...row, ...row, ...row].map((word) => (
+          <span class="pill">{word}</span>
+        ))}
+      </div>
+    ))}
+  </div>
+  <div class="pills-overlay"></div>
+  <div class="hero-content">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .hero-shell {
+    /* Tunables — única fuente de verdad para las 4 secciones */
+    --pill-gap: 0.625rem;     /* separación horizontal entre pills */
+    --speed-left: 22s;
+    --speed-right: 28s;
+    --overlay-rgb: 28 28 44;  /* = #1C1C2C, el fondo real del body */
+
+    position: relative;
+    overflow: hidden;
+    /* Llena el viewport menos el header sticky (h-14 = 3.5rem). svh evita el
+       salto cuando aparece/desaparece la barra de URL en móvil y nunca desborda. */
+    min-height: calc(100svh - 3.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pills-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-block: 1.25rem;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .pill-row {
+    display: flex;
+    gap: var(--pill-gap);
+    width: max-content;
+    white-space: nowrap;
+  }
+
+  .pill-row-left  { animation: pillScrollLeft  var(--speed-left)  linear infinite; }
+  .pill-row-right { animation: pillScrollRight var(--speed-right) linear infinite; }
+
+  /* Variación orgánica, idéntica en las 4 secciones */
+  .pill-row:nth-child(3n) { animation-duration: 18s; }
+  .pill-row:nth-child(4n) { animation-duration: 34s; }
+
+  @keyframes pillScrollLeft  { from { transform: translateX(0); }        to { transform: translateX(-33.333%); } }
+  @keyframes pillScrollRight { from { transform: translateX(-33.333%); } to { transform: translateX(0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pill-row { animation: none; }
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(167, 139, 250, 0.18);
+    background: rgba(109, 40, 217, 0.07);
+    color: rgba(160, 160, 192, 0.5);
+    font-size: 0.6875rem;  /* 11px */
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* Oscurece el centro (legibilidad del título) y deja ver las pills en los
+     bordes. Se funde al MISMO color con alpha 0 para evitar la "zona muerta"
+     gris que produce desvanecer a transparent. */
+  .pills-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 65% 55% at 50% 50%,
+      rgb(var(--overlay-rgb) / 0.95) 0%,
+      rgb(var(--overlay-rgb) / 0.6) 45%,
+      rgb(var(--overlay-rgb) / 0) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 40rem;
+    margin-inline: auto;
+    padding: clamp(2.5rem, 6vw, 4rem) 1.5rem;
+    text-align: center;
+  }
+</style>

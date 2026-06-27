@@ -28,6 +28,8 @@ export const AI_MODELS: AIModel[] = [
   { name: 'o3',         company: 'OpenAI',    date: 'Dic 2024', dateValue: toDateValue(2024, 12), color: '#10A37F', description: 'Razonamiento profundo de siguiente nivel. Récord en benchmarks matemáticos, científicos y de programación.' },
   { name: 'GPT-4.1',    company: 'OpenAI',    date: 'Abr 2025', dateValue: toDateValue(2025,  4), color: '#10A37F', description: 'Mejora enfocada en seguimiento de instrucciones y tareas de agente largas. Optimizado para producción.' },
   { name: 'GPT-5',      company: 'OpenAI',    date: 'May 2025', dateValue: toDateValue(2025,  5), color: '#10A37F', description: 'Unifica velocidad de GPT-4o y razonamiento de o3. El modelo más capaz de OpenAI hasta la fecha.' },
+  { name: 'GPT-5.5',    company: 'OpenAI',    date: 'Abr 2026', dateValue: toDateValue(2026,  4), color: '#10A37F', description: 'Agente autónomo nativo: planifica, verifica y rectifica sin prompts especiales. Terminal-Bench 2.0: 82,7%.' },
+  { name: 'GPT-5.6 Sol', company: 'OpenAI',   date: 'Jun 2026', dateValue: toDateValue(2026,  6), color: '#10A37F', description: 'Modo ultra: orquesta subagentes en paralelo. Nuevo sistema de naming Sol/Terra/Luna para la familia 5.6.' },
 
   // Claude (Anthropic)
   { name: 'Claude 1',        company: 'Claude', date: 'Mar 2023', dateValue: toDateValue(2023,  3), color: '#CC785C', description: 'Primera respuesta de Anthropic a GPT. Enfocado en seguridad y reducir alucinaciones.' },
@@ -38,6 +40,7 @@ export const AI_MODELS: AIModel[] = [
   { name: 'Claude Sonnet 4',   company: 'Claude', date: 'May 2025', dateValue: toDateValue(2025,  5), color: '#CC785C', description: 'Generación 4 de Claude. Razonamiento y codificación de frontera. Motor de Claude Code y agentes autónomos.' },
   { name: 'Claude Opus 4',     company: 'Claude', date: 'May 2025', dateValue: toDateValue(2025,  5), color: '#CC785C', description: 'El modelo más potente de Anthropic. Diseñado para tareas de agente complejas y razonamiento de máxima profundidad.' },
   { name: 'Claude Opus 4.8',   company: 'Claude', date: 'May 2026', dateValue: toDateValue(2026,  5), color: '#CC785C', description: 'Mejoras en codificación, razonamiento y agentes autónomos. 4× menos propenso a ignorar defectos en código. Modo rápido 2.5× más veloz y 3× más económico.' },
+  { name: 'Claude Fable 5',   company: 'Claude', date: 'Jun 2026', dateValue: toDateValue(2026,  6), color: '#CC785C', description: 'Primera clase de inteligencia distinta de Anthropic. Salvaguardas integradas en inferencia. Primero en FrontierCode entre modelos de frontera.' },
 
   // Gemini (Google)
   { name: 'Gemini 1.0',      company: 'Gemini', date: 'Dic 2023', dateValue: toDateValue(2023, 12), color: '#8AB4F8', description: 'Primer modelo nativo multimodal de Google. Integrado en todo el ecosistema Google.' },
@@ -52,16 +55,21 @@ export const AI_MODELS: AIModel[] = [
   { name: 'Llama 3',    company: 'Meta',      date: 'Abr 2024', dateValue: toDateValue(2024,  4), color: '#0668E1', description: 'El modelo open source más descargado de la historia. Igualó a GPT-3.5 y se ejecuta en local.' },
   { name: 'Llama 3.1',  company: 'Meta',      date: 'Jul 2024', dateValue: toDateValue(2024,  7), color: '#0668E1', description: 'Versión 405B competidora directa de GPT-4. Open source con contexto de 128k tokens.' },
   { name: 'Llama 4',    company: 'Meta',      date: 'Abr 2025', dateValue: toDateValue(2025,  4), color: '#0668E1', description: 'Arquitectura Mixture of Experts (MoE). Multimodal nativo. Lidera los rankings open source.' },
+  { name: 'Muse Spark', company: 'Meta',      date: 'Abr 2026', dateValue: toDateValue(2026,  4), color: '#0668E1', description: 'Primer modelo de Meta Superintelligence Labs. Multimodal nativo con razonamiento por orquestación de varios agentes en paralelo.' },
 
   // DeepSeek
   { name: 'DeepSeek V2',  company: 'DeepSeek', date: 'May 2024', dateValue: toDateValue(2024,  5), color: '#5B8DEF', description: 'Modelo chino open source. Igualó a GPT-4 con una fracción del coste de entrenamiento.' },
   { name: 'DeepSeek V3',  company: 'DeepSeek', date: 'Dic 2024', dateValue: toDateValue(2024, 12), color: '#5B8DEF', description: 'Rendimiento de frontera a coste mínimo. Cuestionó la ventaja tecnológica occidental.' },
   { name: 'DeepSeek R1',  company: 'DeepSeek', date: 'Ene 2025', dateValue: toDateValue(2025,  1), color: '#5B8DEF', description: 'Razonamiento open source rival de o1. Su lanzamiento sacudió la industria y hundió bolsas tecnológicas.' },
+  { name: 'DeepSeek V3.2', company: 'DeepSeek', date: 'Dic 2025', dateValue: toDateValue(2025, 12), color: '#5B8DEF', description: 'Open source bajo licencia MIT. Razonamiento en tool-use nativo y nueva arquitectura de atención dispersa.' },
+  { name: 'DeepSeek V4',  company: 'DeepSeek', date: 'Abr 2026', dateValue: toDateValue(2026,  4), color: '#5B8DEF', description: '1,6 billones de parámetros MoE con ventana de 1M tokens. Primer modelo frontera optimizado para chips domésticos chinos.' },
 
   // Grok (xAI)
   { name: 'Grok 1',  company: 'Grok', date: 'Nov 2023', dateValue: toDateValue(2023, 11), color: '#9BA3AF', description: 'Modelo de xAI integrado en X (Twitter). Acceso único a datos en tiempo real de la red social.' },
   { name: 'Grok 2',  company: 'Grok', date: 'Ago 2024', dateValue: toDateValue(2024,  8), color: '#9BA3AF', description: 'Competidor serio de GPT-4o. Generación de imágenes con el modelo Aurora integrado.' },
   { name: 'Grok 3',  company: 'Grok', date: 'Feb 2025', dateValue: toDateValue(2025,  2), color: '#9BA3AF', description: '10× más cómputo que Grok 2. Modo DeepSearch para razonamiento profundo paso a paso.' },
+  { name: 'Grok 4',  company: 'Grok', date: 'Jul 2025', dateValue: toDateValue(2025,  7), color: '#9BA3AF', description: 'Primer modelo en superar el 50% en Humanity\'s Last Exam. Tool-use nativo y búsqueda en tiempo real en X.' },
+  { name: 'Grok 4.1', company: 'Grok', date: 'Nov 2025', dateValue: toDateValue(2025, 11), color: '#9BA3AF', description: 'Menor tasa de alucinaciones y mayor inteligencia emocional. Modo thinking y ventana de contexto de 2M tokens.' },
 ]
 
 export const COMPANIES = [...new Set(AI_MODELS.map(m => m.company))]

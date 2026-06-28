@@ -1,0 +1,96 @@
+---
+title: 'Airbus y la IA en aterrizajes autónomos: ocho años de hoja de ruta'
+description: 'De ATTOL en 2018 a la Vision Landing Application de 2026: cómo Airbus construye aterrizajes autónomos con IA y visión computacional sin depender del ILS.'
+pubDate: 2026-06-28
+category: 'Inteligencia Artificial'
+tags:
+  - airbus
+  - aviacion
+  - vision-computacional
+  - autonomia
+  - aterrizaje
+generatedBy: 'claude-sonnet-4-6'
+generatedAt: '2026-06-28T12:00:00Z'
+promptBase: 'Crea un post sobre la implementación de IA por parte de Airbus en aterrizajes autónomos. Incluye ATTOL, DragonFly, Optimate y Vision Landing Application de VivaTech 2026. Tono técnico, sin hype, con datos verificables. Usa imagen Pexels de Eurowings aterrizando.'
+humanReviewed: false
+heroImage: '../../assets/post/pexels-wolfgang-weiser-33719684.jpg'
+sourceQuality: 'Alta'
+confidenceLevel: 'Alta'
+claimsReviewed:
+  - 'ATTOL realizó más de 500 vuelos de prueba, de los cuales 6 fueron de vuelo autónomo real'
+  - 'DragonFly se lanzó en noviembre de 2020 con socios como Collins Aerospace, Honeywell y Thales'
+  - 'Vision Landing Application mostrada en VivaTech 2026 opera sin infraestructura ILS'
+---
+
+*Foto: Wolfgang Weiser / [Pexels](https://www.pexels.com/photo/33719684).*
+
+En junio de 2026, Airbus presentó en el foro VivaTech de París una tecnología que lleva ocho años en desarrollo: un sistema de **aterrizaje autónomo basado en inteligencia artificial y visión computacional** capaz de guiar una aproximación sin depender de la infraestructura de radio que hoy cubre la mayoría de los aeropuertos. La demostración es el punto visible de una hoja de ruta que arrancó en 2018 y que todavía no ha llegado a ningún avión comercial en servicio.
+
+## ATTOL: demostrar que era posible
+
+El 1 de junio de 2018, Airbus lanzó formalmente el proyecto **ATTOL** (*Autonomous Taxi, Take-Off and Landing*) con un objetivo explícitamente limitado: verificar la viabilidad física de que una aeronave navegara en un entorno aeroportuario usando únicamente reconocimiento de imágenes, sin señales externas de tierra.
+
+El banco de pruebas fue un A350 equipado con cámaras que alimentaban algoritmos de visión computacional entrenados para identificar la línea central de la pista, las marcas de umbral y la geometría general del aeródromo. El programa completó **más de 500 vuelos de prueba en total**: aproximadamente 450 para capturar material de vídeo y afinar los modelos de reconocimiento, y seis vuelos donde el sistema ejecutó las maniobras de forma completamente autónoma, sin que el piloto interviniera en los controles.
+
+Los resultados respondieron la pregunta inicial: sí, era físicamente posible que un avión aterrizara guiado solo por lo que sus cámaras veían. Eso no resolvía si era operacionalmente relevante, certificable o robusto frente a condiciones adversas. ATTOL no aspiraba a responder esas preguntas. Las dejó para la siguiente fase.
+
+## DragonFly: de la prueba al mundo real
+
+Con la viabilidad física establecida, en **noviembre de 2020** Airbus UpNext —la filial de innovación del grupo— lanzó el demostrador **DragonFly**, cuyo nombre hace referencia a la libélula: un insecto capaz de procesar visión en prácticamente 360 grados e identificar referencias espaciales con una precisión que ningún otro insecto iguala.
+
+El objetivo de DragonFly era diferente al de ATTOL: no demostrar que el sistema funcionaba en condiciones controladas, sino verificar que seguía funcionando en condiciones del mundo real. Eso implicó probar el sistema con condiciones meteorológicas adversas, alineaciones tardías con la pista cuando la aeronave llegaba descentrada, y aeródromos sin ningún equipamiento ILS.
+
+Las tres capacidades principales que DragonFly sometió a prueba fueron: desvío de emergencia automatizado durante la fase de crucero, aterrizaje automático en la aproximación final, y asistencia de rodaje en tierra. Para desarrollarlas, Airbus contó con socios industriales con experiencia en sistemas de vuelo: **Collins Aerospace, Honeywell, Thales, Onera y Cobham**, entre otros.
+
+En paralelo, el proyecto **Auto'Mate** aplicaba tecnologías casi idénticas a un problema distinto: el reabastecimiento en vuelo entre aeronaves militares. Las similitudes técnicas eran deliberadas: ambos programas apostaban por el mismo conjunto de sensores —cámaras, LiDAR, posicionamiento satelital de alta precisión— combinados con algoritmos de IA para interpretar el entorno espacial.
+
+## Por qué visión computacional y no radio
+
+El sistema de aterrizaje por instrumentos convencional —el **ILS** (*Instrument Landing System*)— existe desde la década de 1940. Funciona mediante dos emisores de radio en tierra: uno que guía la alineación lateral respecto a la pista (localizador) y otro que establece el ángulo de descenso (senda de planeo). La aeronave recibe esas señales, las interpreta y las sigue. Es una tecnología madura, certificada y fiable, pero tiene una limitación estructural: requiere infraestructura física instalada en cada aeropuerto concreto.
+
+El ILS solo está presente en una fracción de los aeródromos del mundo. Los aeropuertos internacionales de gran tráfico lo tienen en múltiples categorías. Los aeródromos regionales, las pistas remotas y una parte significativa de la infraestructura aeroportuaria en países en desarrollo no tienen ILS, o tienen versiones de categoría inferior que no permiten aterrizajes en visibilidad muy reducida.
+
+La apuesta de Airbus con ATTOL y sus proyectos sucesivos es diferente: usar cámaras instaladas a bordo de la propia aeronave para analizar las características visuales de la pista en tiempo real. El sistema identifica marcas de umbral, líneas centrales y otros elementos visuales para construir una fuente de posicionamiento independiente. La infraestructura de tierra deja de ser un requisito.
+
+Esto tiene implicaciones prácticas concretas: permitiría realizar **aproximaciones automatizadas de precisión en aeropuertos que hoy no las tienen**, lo que afecta directamente a la seguridad en condiciones de visibilidad reducida en regiones sin cobertura ILS.
+
+## El problema de certificar IA en sistemas críticos
+
+El motivo por el que esta tecnología lleva ocho años en desarrollo sin haber llegado a un avión comercial en servicio tiene una explicación técnica precisa: **los marcos de certificación aeronáutica no fueron diseñados para sistemas de IA basados en visión computacional**.
+
+Los estándares vigentes —DO-178C para software y DO-254 para hardware— parten de un supuesto fundamental: el software es determinista. Ante las mismas entradas, produce siempre la misma salida. Eso permite testarlo de forma exhaustiva, documentar cada rama del código y demostrar formalmente que el sistema se comportará de una manera concreta ante cualquier condición posible.
+
+Los sistemas de visión computacional basados en redes neuronales no son deterministas en ese sentido. Su rendimiento depende de conjuntos de datos de entrenamiento de gran tamaño, y su comportamiento ante situaciones no representadas en esos datos es estadístico, no garantizable por enumeración de casos. La EASA y la FAA están desarrollando nuevos marcos de certificación para IA en aviación —el llamado AI roadmap de EASA va por su segunda iteración—, pero los estándares todavía no están consolidados.
+
+Este problema no es exclusivo de la aviación. Es el mismo obstáculo que aparece cuando se analizan los [límites actuales de los agentes de IA autónomos](/agentes-autonomos-2026-arquitectura-y-limites/): un sistema que toma decisiones en entornos abiertos con consecuencias físicas irreversibles necesita garantías que los modelos estadísticos actuales no pueden ofrecer de la misma forma que el software determinista. Para entender en detalle qué es un sistema de este tipo, [qué son los agentes de IA y cómo razonan](/que-son-los-agentes-de-ia/) proporciona el marco conceptual base.
+
+## Optimate: integrar la hoja de ruta
+
+En 2023, Airbus UpNext lanzó **Optimate**, un demostrador que sintetizó las capacidades desarrolladas en ATTOL, DragonFly y Auto'Mate en un perfil de misión único y unificado. La descripción interna del proyecto era "una cabina de A350 sobre ruedas": un laboratorio móvil capaz de simular la gestión completa de un vuelo de puerta a puerta (*gate-to-gate*) sobre un vehículo terrestre antes de pasar a pruebas en aeronave real.
+
+Optimate fue exhibido físicamente en VivaTech 2024 e integró funcionalidades como modelos avanzados de protección de trayectoria, funciones anticolisión automáticas y un asistente de vuelo digital capaz de interpretar los permisos del control de tráfico aéreo (ATC) y optimizar las comunicaciones de rodaje en tierra.
+
+El objetivo final del programa es ejecutar ese perfil completo de misión *gate-to-gate* sobre un A350 de prueba real —no un simulador ni un vehículo terrestre—, lo que Airbus describe como el último paso antes de las decisiones de industrialización y certificación.
+
+## Vision Landing Application: el estado en 2026
+
+En junio de 2026, en VivaTech París, Airbus presentó la **Vision Landing Application**, que es el resultado más articulado y comunicable de toda esa trayectoria de investigación.
+
+El sistema analiza las características de la pista en tiempo real mediante cámaras embarcadas y genera una fuente adicional de posicionamiento para guiar aproximaciones automatizadas. Su caso de uso principal son aeródromos sin infraestructura terrestre avanzada, donde el ILS convencional no está disponible y las aumentaciones satelitales —SBAS y GBAS— tampoco tienen cobertura operativa.
+
+Airbus fue explícito sobre el estado de la tecnología: sigue en **fase de investigación**. No hay un programa de certificación activo ni una fecha de entrada en servicio. La presentación en VivaTech fue una demostración de capacidad técnica, no un anuncio de producto. Esa distinción importa para leer correctamente los titulares que genera.
+
+## Lo que cambia si la certificación avanza
+
+El aterrizaje automático no es nuevo. Los sistemas de autoland por ILS llevan décadas en los aviones comerciales, y la mayoría de los aterrizajes en condiciones de visibilidad muy reducida ya se ejecutan de forma automática. Lo que distingue la línea de trabajo de Airbus es diferente: aterrizajes automáticos **independientes de la infraestructura de tierra**, guiados únicamente por lo que el avión puede ver desde sus cámaras.
+
+Si los marcos de certificación evolucionan y la tecnología llega a aviones en servicio, el impacto más inmediato no se producirá en los grandes aeropuertos intercontinentales —que ya tienen ILS de categoría III y autoland operativo— sino en los miles de aeródromos regionales y pistas remotas donde hoy la visibilidad reducida convierte el aterrizaje en una maniobra de riesgo elevado o directamente impracticable.
+
+La hoja de ruta de ocho años —ATTOL (2018) → DragonFly (2020) → Auto'Mate → Optimate (2023) → Vision Landing Application (2026)— tiene una lógica interna coherente: primero demostrar viabilidad física, luego relevancia operacional en condiciones reales, luego integración en un perfil completo, finalmente demostración pública. Ninguno de esos pasos ha producido todavía un sistema en servicio. Lo que sí han producido son tecnologías validadas en condiciones reales, un ecosistema industrial consolidado y argumentos técnicos sólidos para presentar a los reguladores.
+
+Sources:
+- [Computer vision automated landing and embedded AI for tomorrow's cockpits — Airbus](https://www.airbus.com/en/newsroom/stories/2026-06-computer-vision-automated-landing-and-embedded-ai-for-tomorrows-cockpits)
+- [Airbus presents AI system for autonomous landings — Aviacionline](https://www.aviacionline.com/espanol/fabricantes-mro/airbus-presenta-sistema-de-inteligencia-artificial-para-aterrizajes-autonomos_a6a2f7f65506cc3dbc5b28ad2)
+- [Airbus demonstrates AI-powered Vision Landing Application — Military Aerospace](https://www.militaryaerospace.com/commercial-aerospace/news/55385306/airbus-demonstrates-ai-powered-vision-landing-application-for-future-flight-operations)
+- [Dragonfly-inspired autonomous flight technologies tested by Airbus — IMechE](https://www.imeche.org/news/news-article/dragonfly-inspired-autonomous-flight-technologies-tested-by-airbus)
+- [Airbus validates computer vision-based technologies — Airbus A-Cubed](https://acubed.airbus.com/blog/wayfinder/airbus-validates-computer-vision-based-technologies-to-increase-safety-through-automation/)

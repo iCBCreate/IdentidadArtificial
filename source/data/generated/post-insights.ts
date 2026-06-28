@@ -50,6 +50,44 @@ export const POST_INSIGHTS = {
       "bestFor": "diseñar sistemas con IA"
     }
   },
+  "airbus-ia-aterrizaje-autonomo": {
+    "executiveSummary": "De ATTOL en 2018 a la Vision Landing Application de 2026: cómo Airbus construye aterrizajes autónomos con IA y visión computacional sin depender del ILS. Foto: Wolfgang Weiser / Pexels https://www.pexels.com/photo/33719684 . En junio de 2026, Airbus presentó en el foro VivaTech de París una tecnología que lleva ocho años en desarrollo: un sistema de aterrizaje autónomo basado en inteligencia artificial y visión computacional capaz de guiar una aproximación sin depender de la infraestructura de radio que hoy cubre la mayoría de los aeropuertos.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en Agente, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "De ATTOL en 2018 a la Vision Landing Application de 2026: cómo Airbus construye aterrizajes autónomos con IA y visión computacional sin depender del ILS.",
+      "Las tres capacidades principales que DragonFly sometió a prueba fueron: desvío de emergencia automatizado durante la fase de crucero, aterrizaje automático en la aproximación final, y asistencia de rodaje en tierra.",
+      "Conceptos detectados por el pipeline: Agente, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Agente?",
+        "answer": "De ATTOL en 2018 a la Vision Landing Application de 2026: cómo Airbus construye aterrizajes autónomos con IA y visión computacional sin depender del ILS."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 8,
+      "density": "media",
+      "bestFor": "orientarse en tendencias técnicas"
+    }
+  },
   "anthropic-fable-mythos-suspension-gobierno-eeuu": {
     "executiveSummary": "El 12 de junio de 2026, una directiva federal ordenó suspender Fable 5 y Mythos 5 citando seguridad nacional. Anthropic disputa la orden y advierte de un precedente destructivo. El 12 de junio de 2026, el gobierno de Estados Unidos emitió una directiva de control de exportaciones ordenando la suspensión inmediata del acceso a Fable 5 y Mythos 5 , los dos modelos de frontera de Anthropic lanzados tres días antes.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de ética centrada en LLM, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

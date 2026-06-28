@@ -21,15 +21,6 @@ jobs:
       - run: npm test
       - run: npx astro check
       - run: npm run build
-      - name: Validate Cloudflare API token
-        run: |
-          TOKEN="${{ secrets.CLOUDFLARE_API_TOKEN }}"
-          echo "Token length: ${#TOKEN}"
-          echo "--- Full token verify response ---"
-          curl -s -H "Authorization: Bearer $TOKEN" "https://api.cloudflare.com/client/v4/user/tokens/verify"
-          echo ""
-          echo "--- CLOUDFLARE_ACCOUNT_ID ---"
-          echo "Length: $(echo -n '${{ secrets.CLOUDFLARE_ACCOUNT_ID }}' | wc -c)"
       - run: npx wrangler deploy --config dist/server/wrangler.json
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

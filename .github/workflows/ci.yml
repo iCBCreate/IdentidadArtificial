@@ -1,7 +1,5 @@
 name: CI
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -19,6 +17,6 @@ jobs:
           node-version: '22.12'
           cache: 'npm'
       - run: npm ci
-      - run: npm run build:data
+      - run: npm run build
       - run: npm test
       - run: npx astro check

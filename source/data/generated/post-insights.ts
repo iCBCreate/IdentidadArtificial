@@ -126,6 +126,44 @@ export const POST_INSIGHTS = {
       "bestFor": "valorar riesgos y decisiones"
     }
   },
+  "anthropic-fable-mythos-vuelta-gobierno-eeuu": {
+    "executiveSummary": "autoriza Mythos 5 para socios de ciberseguridad pero mantiene bloqueado Fable 5 para el público general tras 18 días de cierre. Captura de pantalla de Anthropic https://anthropic.com . El gobierno de Estados Unidos autorizó el 27 de junio de 2026 que Anthropic redistribuya Claude Mythos 5 a un grupo reducido de socios seleccionados, poniendo fin a dieciocho días de bloqueo total.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "El gobierno de EE.UU. autoriza Mythos 5 para socios de ciberseguridad pero mantiene bloqueado Fable 5 para el público general tras 18 días de cierre.",
+      "El texto clave: \"Anthropic ha colaborado con el Gobierno estadounidense para abordar los riesgos asociados con los modelos en cuestión.",
+      "Conceptos detectados por el pipeline: LLM, Ventana de contexto."
+    ],
+    "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre LLM?",
+        "answer": "El gobierno de EE.UU. autoriza Mythos 5 para socios de ciberseguridad pero mantiene bloqueado Fable 5 para el público general tras 18 días de cierre."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender modelos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 8,
+      "density": "media",
+      "bestFor": "comparar capacidades de modelos"
+    }
+  },
   "anthropic-mythos-ciberseguridad-sandbox": {
     "executiveSummary": "Análisis del modelo Mythos de Anthropic: vulnerabilidades zero-day y el polémico incidente de evasión de sandbox en pruebas internas. Captura de pantalla de Anthropic https://anthropic.com . Anthropic ha consolidado su posición en la vanguardia de la seguridad de la Inteligencia Artificial con el despliegue controlado de Mythos , un modelo de frontera que marca un cambio de paradigma en la capacidad autónoma de análisis de sistemas.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

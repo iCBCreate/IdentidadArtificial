@@ -22,6 +22,9 @@ claimsReviewed:
   - 'La carta de Lutnick no incluye autorización para Fable 5'
   - 'El bloqueo fue ordenado por el gobierno de EE.UU. a principios de junio por seguridad nacional'
   - 'Anthropic sigue negociando para restablecer Fable para el público general'
+  - 'El jailbreak que motivó la orden es descrito por Anthropic como estrecho y no universal'
+  - 'Anthropic argumenta que suspender por cualquier jailbreak estrecho detendría todos los nuevos despliegues de modelos'
+reviewNotes: 'Consolidado en julio 2026: absorbe el análisis de precedente regulatorio (jailbreak que motivó la orden, argumentos de Anthropic y comparativa UE/EE.UU. — AI Act art. 51 vs EAR) del post retirado /anthropic-fable-mythos-suspension-gobierno-eeuu/, ahora redirigido (301) a esta URL para consolidar señales y evitar canibalización.'
 ---
 *Captura de pantalla de [Anthropic](https://anthropic.com).*
 
@@ -69,6 +72,12 @@ El episodio pone de relieve lo que falta. El control de exportaciones aplicado a
 Bloquear el acceso de usuarios extranjeros requiere que Anthropic implemente controles geográficos que son estructuralmente permeables. Un usuario en Europa puede acceder a través de una VPN. Un empleado de Anthropic con pasaporte no estadounidense no puede acceder aunque trabaje físicamente en San Francisco, pero cualquier usuario con VPN y cuenta de pago sí puede.
 
 La inconsistencia no es un fallo de implementación. Es la consecuencia de aplicar un marco regulatorio que no fue diseñado para este tipo de tecnología. Andrew Bailey, gobernador del Banco de Inglaterra, ya había solicitado reunirse con Anthropic para entender las implicaciones de Mythos para la estabilidad financiera. La presión internacional para acceder a estas herramientas con fines defensivos choca con las restricciones de exportación unilaterales de EE.UU., dejando a aliados estratégicos en la misma categoría de acceso que a adversarios.
+
+## El precedente que preocupa a toda la industria
+
+El argumento técnico que activó el bloqueo giró en torno a un **jailbreak estrecho** identificado en Fable 5: una vía específica —no un bypass general— que permitía pedir al modelo revisar código con capacidades ofensivas. Anthropic lo describió como "estrecho y no universal", y reconoció que "la resistencia perfecta al jailbreak no es posible para ningún proveedor de modelos". Ese matiz es el centro de su defensa: si la existencia de cualquier exploit puntual basta para suspender un modelo, el criterio "esencialmente detendría todos los nuevos despliegues de modelos", porque ningún sistema de frontera es inmune a exploits específicos. La pregunta relevante, argumenta la empresa, no es si existe un jailbreak, sino cuán accesible es y qué daño real puede causar. A eso suma un problema de paridad: las capacidades señaladas como peligrosas están disponibles en otros modelos comerciales, y aplicar el criterio solo a Fable 5 trata a Anthropic de forma asimétrica frente a sus competidores.
+
+El contraste con Europa ilustra el vacío. El AI Act europeo, en su artículo 51 sobre modelos de propósito general de riesgo sistémico, también regula capacidades ofensivas documentadas, pero lo hace con **obligaciones de evaluación y transparencia previas al despliegue**: el proveedor debe demostrar que realizó evaluaciones adversariales antes de lanzar, y si lo documenta, el modelo puede operar. El instrumento estadounidense es de lógica opuesta. El EAR —Export Administration Regulations— se diseñó para hardware y tecnologías duales con soporte físico (chips, sensores, equipos), y su aplicación a un servicio de inferencia vía API abre un problema de jurisdicción que la directiva no resuelve: qué constituye "exportación" cuando el acceso es remoto desde cualquier país con conexión. Sin un estándar técnico previo que defina cuándo un modelo es "suficientemente seguro", cada suspensión queda sujeta a criterios ad hoc que no pueden anticiparse ni cumplirse de forma sistemática.
 
 ## Qué significa para los desarrolladores
 

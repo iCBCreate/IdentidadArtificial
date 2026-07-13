@@ -24,14 +24,9 @@ const GONE_PATHS = new Set([
   '/post-sitemap.xml',
   '/post_tag-sitemap.xml',
   '/page-sitemap.xml',
-  // Paginación fuera de rango (18 posts / PAGE_SIZE 6 = 3 páginas máx)
-  '/pagina/4/',
-  '/pagina/5/',
-  '/pagina/6/',
   // Tags de WordPress sin contenido en el sitio actual
   '/tag/programacion/',
   '/tag/microsoft/',
-  '/tag/anthropyc/',
   '/tag/perplexity/',
   // Tags sin página — aparecían como "rastreada: sin indexar" en GSC
   '/tag/reflexion/',
@@ -44,6 +39,16 @@ const GONE_PATHS = new Set([
   '/tag/ia/',
   // Categorías de WordPress
   '/category/actualidad-tecnologica/',
+  // Legacy WordPress detectados en GSC (2026-07) — confirmados 404, se pasan a 410
+  '/tag/openclaw/',
+  '/tag/deepmind/',
+  '/tag/claude-code/',
+  '/tag/inversion/',
+  '/tag/gpt-image-2/',
+  '/comet-navegador-perplexity-analisis/',
+  '/novedades-gemini-3-google/',
+  '/ultimas-filtraciones-openai-agii/',
+  '/chatgpt-5-novedades-2025/',
 ])
 
 // Prefijos que nunca existirán en este sitio
@@ -59,7 +64,6 @@ const GONE_HTML = `<!doctype html>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex,nofollow">
     <title>410 Gone - Identidad Artificial</title>
   </head>
   <body>
@@ -90,7 +94,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
       status: 410,
       headers: {
         'content-type': 'text/html; charset=utf-8',
-        'x-robots-tag': 'noindex, nofollow',
         'cache-control': 'public, max-age=3600',
       },
     })

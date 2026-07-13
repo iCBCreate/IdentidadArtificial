@@ -2,3 +2,9 @@
 /tag/anthropyc/ /archivo/ 301
 /category/uncategorized/ /archivo/ 301
 /sitemap.xml /sitemap-index.xml 301
+
+# Consolidación de post casi-duplicado (canibalización) — jul 2026
+/anthropic-fable-mythos-suspension-gobierno-eeuu/ /anthropic-fable-mythos-vuelta-gobierno-eeuu/ 301
+
+# Recuperación de ruta legacy /blog/ (el post vive en la raíz)
+/blog/nvidia-rtx-spark/ /nvidia-rtx-spark/ 301

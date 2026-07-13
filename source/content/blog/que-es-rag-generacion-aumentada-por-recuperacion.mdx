@@ -17,6 +17,8 @@ A pesar de la asombrosa capacidad de los Modelos de Lenguaje Extensos (LLM) para
 
 La **Generación Aumentada por Recuperación** (RAG, por sus siglas en inglés) ha surgido como la solución arquitectónica más robusta para este problema. En lugar de intentar meter todo el conocimiento del mundo dentro de los pesos del modelo mediante un costoso re-entrenamiento o fine-tuning, RAG le otorga al LLM una "biblioteca" de consulta externa a la que puede acceder en tiempo real antes de responder.
 
+Ese mismo principio —separar el razonamiento del conocimiento— explica también por qué [ChatGPT, Claude, Perplexity y Google AI Overviews no obtienen información de la web de la misma forma](/tutoriales/que-indexan-realmente-los-llms/): cada plataforma implementa su propia versión de recuperación externa, con fuentes y frecuencias de actualización distintas.
+
 ## El problema del conocimiento estático y las alucinaciones
 
 Para entender por qué RAG es revolucionario, primero debemos entender el concepto de **conocimiento paramétrico**. Cuando un LLM se entrena, la información se comprime en sus parámetros (los billones de conexiones numéricas en su red neuronal). Este conocimiento es difícil de actualizar; para que el modelo aprenda algo nuevo, habría que entrenarlo de nuevo, lo cual consume semanas y millones de dólares.

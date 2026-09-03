@@ -1,7 +1,9 @@
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const DIST = 'dist/client'
+const BLOG_DIR = 'source/content/blog'
+const SITE_URL = 'https://identidadartificial.com'
 const errors = []
 
 // robots.txt existe y es texto plano
@@ -18,6 +20,19 @@ if (!existsSync(robotsPath)) {
 // sitemap-index.xml existe
 if (!existsSync(join(DIST, 'sitemap-index.xml'))) {
   errors.push('MISSING: dist/client/sitemap-index.xml')
+}
+
+// Cada post que tiene una ruta generada debe aparecer en algún sitemap.
+const sitemapUrls = readSitemapUrls()
+for (const file of readdirSync(BLOG_DIR)) {
+  if (!file.endsWith('.mdx')) continue
+
+  const slug = file.replace(/\.mdx$/, '')
+  const generatedRoute = join(DIST, slug, 'index.html')
+  const expectedUrl = `${SITE_URL}/${slug}/`
+  if (existsSync(generatedRoute) && !sitemapUrls.has(expectedUrl)) {
+    errors.push(`MISSING SITEMAP URL: ${expectedUrl}`)
+  }
 }
 
 // /sitemap.xml cubierto por redirect
@@ -53,3 +68,25 @@ if (errors.length > 0) {
 }
 
 console.log('✓ Build validation passed')
+
+function readSitemapUrls() {
+  const urls = new Set()
+  const sitemapIndex = join(DIST, 'sitemap-index.xml')
+  if (!existsSync(sitemapIndex)) return urls
+
+  const indexXml = readFileSync(sitemapIndex, 'utf8')
+  const sitemapFiles = [...indexXml.matchAll(/<loc>([^<]+)<\/loc>/g)]
+    .map(match => match[1].trim().split('/').pop())
+    .filter(Boolean)
+
+  for (const sitemapFile of sitemapFiles) {
+    const path = join(DIST, sitemapFile)
+    if (!existsSync(path)) continue
+    const xml = readFileSync(path, 'utf8')
+    for (const match of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+      urls.add(match[1].trim())
+    }
+  }
+
+  return urls
+}

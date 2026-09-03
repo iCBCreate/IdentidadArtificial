@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 import cloudflare from '@astrojs/cloudflare'
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { basename, join } from 'node:path'
+import { parse as parseYaml } from 'yaml'
 
 const EXCLUDED_SITEMAP_PATHS = [
   '/pagina/',
@@ -31,7 +32,8 @@ export default defineConfig({
   site: 'https://identidadartificial.com',
   srcDir: './source',
   trailingSlash: 'always',
-  output: 'static',
+  output: 'server',
+  session: false,
   integrations: [
     mdx(),
     sitemap({
@@ -85,6 +87,7 @@ function buildSitemapLastmodByPath() {
   addNestedPageFiles(lastmodByPath, PAGE_DIR)
 
   addCategoryLastmod(lastmodByPath, BLOG_DIR)
+  addTagLastmod(lastmodByPath, BLOG_DIR)
 
   return lastmodByPath
 }
@@ -159,6 +162,40 @@ function addCategoryLastmod(lastmodByPath, blogDir) {
   }
 
   for (const [pathname, mtime] of categoryMtime) {
+    lastmodByPath.set(pathname, mtime)
+  }
+}
+
+function addTagLastmod(lastmodByPath, blogDir) {
+  if (!existsSync(blogDir)) return
+
+  const tagMtime = new Map()
+
+  for (const file of readdirSync(blogDir)) {
+    if (!file.endsWith('.mdx')) continue
+
+    const filePath = join(blogDir, file)
+    const content = readFileSync(filePath, 'utf8')
+    const frontmatter = content.match(/^---\n([\s\S]*?)\n---/)
+    if (!frontmatter) continue
+
+    const tags = parseYaml(frontmatter[1])?.tags
+    if (!Array.isArray(tags)) continue
+
+    const mtime = statSync(filePath).mtime
+    for (const tag of tags) {
+      if (typeof tag !== 'string') continue
+
+      const slug = tag.trim().toLowerCase().replace(/ /g, '-')
+      const pathname = `/tag/${slug}/`
+      const existing = tagMtime.get(pathname)
+      if (!existing || mtime > existing) {
+        tagMtime.set(pathname, mtime)
+      }
+    }
+  }
+
+  for (const [pathname, mtime] of tagMtime) {
     lastmodByPath.set(pathname, mtime)
   }
 }

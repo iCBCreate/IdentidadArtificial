@@ -4,6 +4,8 @@ import PostCard from '../../components/PostCard.astro'
 import { SITE } from '../../config'
 import { getSortedPosts, calcReadingTime } from '../../lib/posts'
 
+export const prerender = true
+
 export async function getStaticPaths() {
   const allPosts = await getSortedPosts()
 

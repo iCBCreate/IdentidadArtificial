@@ -244,6 +244,48 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "caida-simultanea-chatgpt-claude-grok-2026": {
+    "executiveSummary": "ChatGPT, Claude y Grok fallaron a la vez el 3 de septiembre de 2026. Analizamos la posible causa común y separamos hechos de hipótesis. Hoy, 3 de septiembre de 2026, varios de los principales servicios de inteligencia artificial dejaron de responder con normalidad durante una ventana de tiempo coincidente.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en RAG, Agente, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "ChatGPT, Claude y Grok fallaron a la vez el 3 de septiembre de 2026. Analizamos la posible causa común y separamos hechos de hipótesis.",
+      "Hoy, 3 de septiembre de 2026, varios de los principales servicios de inteligencia artificial dejaron de responder con normalidad durante una ventana de tiempo coincidente.",
+      "Conceptos detectados por el pipeline: RAG, Agente, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "RAG",
+        "definition": "Arquitectura que recupera contexto externo antes de pedir una respuesta al modelo."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre RAG?",
+        "answer": "ChatGPT, Claude y Grok fallaron a la vez el 3 de septiembre de 2026. Analizamos la posible causa común y separamos hechos de hipótesis."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 9,
+      "density": "media",
+      "bestFor": "orientarse en tendencias técnicas"
+    }
+  },
   "chatgpt-images-2-gpt-image-2": {
     "executiveSummary": "GPT Image 2 es el modelo de imagen de OpenAI que razona antes de dibujar. Resuelve oclusión, sombras y perspectiva donde DALL-E 3 fallaba. Foto: Tara Winstead / Pexels https://www.pexels.com/photo/8849295 .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

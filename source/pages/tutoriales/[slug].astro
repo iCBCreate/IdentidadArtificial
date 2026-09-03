@@ -4,6 +4,8 @@ import { getImage } from 'astro:assets'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { SITE } from '../../config'
 
+export const prerender = true
+
 export async function getStaticPaths() {
   const tutoriales = await getCollection('tutoriales')
   return tutoriales.map(tutorial => ({

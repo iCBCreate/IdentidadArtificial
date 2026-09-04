@@ -88,44 +88,6 @@ export const POST_INSIGHTS = {
       "bestFor": "orientarse en tendencias técnicas"
     }
   },
-  "anthropic-fable-mythos-suspension-gobierno-eeuu": {
-    "executiveSummary": "El 12 de junio de 2026, una directiva federal ordenó suspender Fable 5 y Mythos 5 citando seguridad nacional. Anthropic disputa la orden y advierte de un precedente destructivo. El 12 de junio de 2026, el gobierno de Estados Unidos emitió una directiva de control de exportaciones ordenando la suspensión inmediata del acceso a Fable 5 y Mythos 5 , los dos modelos de frontera de Anthropic lanzados tres días antes.",
-    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de ética centrada en LLM, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
-    "keyPoints": [
-      "El 12 de junio de 2026, una directiva federal ordenó suspender Fable 5 y Mythos 5 citando seguridad nacional. Anthropic disputa la orden y advierte de un precedente destructivo.",
-      "Según la descripción de Anthropic, el exploit permite solicitar al modelo que revise código con capacidades ofensivas.",
-      "Conceptos detectados por el pipeline: LLM, Ventana de contexto."
-    ],
-    "glossary": [
-      {
-        "term": "LLM",
-        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
-      },
-      {
-        "term": "Ventana de contexto",
-        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
-      }
-    ],
-    "faqs": [
-      {
-        "question": "Qué aporta este artículo sobre LLM?",
-        "answer": "El 12 de junio de 2026, una directiva federal ordenó suspender Fable 5 y Mythos 5 citando seguridad nacional. Anthropic disputa la orden y advierte de un precedente destructivo."
-      },
-      {
-        "question": "Para quién es útil esta lectura?",
-        "answer": "Para lectores que quieren entender ética con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
-      },
-      {
-        "question": "Cómo se generó esta capa de lectura?",
-        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
-      }
-    ],
-    "readingProfile": {
-      "minutes": 10,
-      "density": "media",
-      "bestFor": "valorar riesgos y decisiones"
-    }
-  },
   "anthropic-fable-mythos-vuelta-gobierno-eeuu": {
     "executiveSummary": "autoriza Mythos 5 para socios de ciberseguridad pero mantiene bloqueado Fable 5 para el público general tras 18 días de cierre. Captura de pantalla de Anthropic https://anthropic.com . El gobierno de Estados Unidos autorizó el 27 de junio de 2026 que Anthropic redistribuya Claude Mythos 5 a un grupo reducido de socios seleccionados, poniendo fin a dieciocho días de bloqueo total.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
@@ -159,7 +121,7 @@ export const POST_INSIGHTS = {
       }
     ],
     "readingProfile": {
-      "minutes": 8,
+      "minutes": 10,
       "density": "media",
       "bestFor": "comparar capacidades de modelos"
     }
@@ -433,7 +395,7 @@ export const POST_INSIGHTS = {
       }
     ],
     "readingProfile": {
-      "minutes": 5,
+      "minutes": 6,
       "density": "media",
       "bestFor": "comparar capacidades de modelos"
     }

@@ -7,3 +7,7 @@ directory = "dist/client"
 
 [vars]
 GOOGLE_SEARCH_CONSOLE_SITE_URL = "sc-domain:identidadartificial.com"
+
+[[kv_namespaces]]
+binding = "SESSION"
+id = "1a7995d39de249d3b93835baad53778c"

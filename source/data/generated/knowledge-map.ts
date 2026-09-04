@@ -137,43 +137,6 @@ export const KNOWLEDGE_MAP = {
       "label": "Rendimiento"
     },
     {
-      "id": "post:anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "type": "post",
-      "label": "El gobierno de EE.UU. suspende el acceso a Fable 5 y Mythos 5 por control de exportaciones",
-      "slug": "anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "category": "Ética"
-    },
-    {
-      "id": "category:etica",
-      "type": "category",
-      "label": "Ética"
-    },
-    {
-      "id": "tag:anthropic",
-      "type": "tag",
-      "label": "anthropic"
-    },
-    {
-      "id": "tag:fable",
-      "type": "tag",
-      "label": "fable"
-    },
-    {
-      "id": "tag:mythos",
-      "type": "tag",
-      "label": "mythos"
-    },
-    {
-      "id": "tag:regulacion",
-      "type": "tag",
-      "label": "regulacion"
-    },
-    {
-      "id": "tag:control-exportaciones",
-      "type": "tag",
-      "label": "control-exportaciones"
-    },
-    {
       "id": "post:anthropic-fable-mythos-vuelta-gobierno-eeuu",
       "type": "post",
       "label": "Mythos 5 vuelve parcialmente: EE.UU. autoriza el acceso mientras Fable sigue bloqueado",
@@ -184,6 +147,26 @@ export const KNOWLEDGE_MAP = {
       "id": "category:modelos",
       "type": "category",
       "label": "Modelos"
+    },
+    {
+      "id": "tag:anthropic",
+      "type": "tag",
+      "label": "anthropic"
+    },
+    {
+      "id": "tag:mythos",
+      "type": "tag",
+      "label": "mythos"
+    },
+    {
+      "id": "tag:fable",
+      "type": "tag",
+      "label": "fable"
+    },
+    {
+      "id": "tag:regulacion",
+      "type": "tag",
+      "label": "regulacion"
     },
     {
       "id": "tag:ciberseguridad",
@@ -618,6 +601,11 @@ export const KNOWLEDGE_MAP = {
       "category": "Ética"
     },
     {
+      "id": "category:etica",
+      "type": "category",
+      "label": "Ética"
+    },
+    {
       "id": "tag:videojuegos",
       "type": "tag",
       "label": "videojuegos"
@@ -995,66 +983,6 @@ export const KNOWLEDGE_MAP = {
     {
       "source": "post:airbus-ia-aterrizaje-autonomo",
       "target": "concept:rendimiento",
-      "weight": 3,
-      "relation": "semantic"
-    },
-    {
-      "source": "post:anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "target": "category:etica",
-      "weight": 2,
-      "relation": "category"
-    },
-    {
-      "source": "post:anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "target": "tag:anthropic",
-      "weight": 2,
-      "relation": "tag"
-    },
-    {
-      "source": "post:anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "target": "tag:fable",
-      "weight": 2,
-      "relation": "tag"
-    },
-    {
-      "source": "post:anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "target": "tag:mythos",
-      "weight": 2,
-      "relation": "tag"
-    },
-    {
-      "source": "post:anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "target": "tag:regulacion",
-      "weight": 2,
-      "relation": "tag"
-    },
-    {
-      "source": "post:anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "target": "tag:control-exportaciones",
-      "weight": 2,
-      "relation": "tag"
-    },
-    {
-      "source": "post:anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "target": "company:anthropic",
-      "weight": 3,
-      "relation": "semantic"
-    },
-    {
-      "source": "post:anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "target": "concept:llm",
-      "weight": 3,
-      "relation": "semantic"
-    },
-    {
-      "source": "post:anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "target": "concept:contexto",
-      "weight": 3,
-      "relation": "semantic"
-    },
-    {
-      "source": "post:anthropic-fable-mythos-suspension-gobierno-eeuu",
-      "target": "concept:seguridad-ia",
       "weight": 3,
       "relation": "semantic"
     },
@@ -3584,26 +3512,6 @@ export const KNOWLEDGE_MAP = {
         "score": 14
       }
     ],
-    "anthropic-fable-mythos-suspension-gobierno-eeuu": [
-      {
-        "slug": "anthropic-fable-mythos-vuelta-gobierno-eeuu",
-        "title": "Mythos 5 vuelve parcialmente: EE.UU. autoriza el acceso mientras Fable sigue bloqueado",
-        "reason": "Comparten etiquetas: anthropic, fable.",
-        "score": 20
-      },
-      {
-        "slug": "claude-fable-5-mythos-5-lanzamiento",
-        "title": "Claude Fable 5 y Mythos 5: el salto de Anthropic a frontera",
-        "reason": "Comparten etiquetas: anthropic, fable.",
-        "score": 17
-      },
-      {
-        "slug": "gpt-5-5-cyber-vs-mythos-fable-acceso-restringido",
-        "title": "GPT-5.5 Cyber frente a Claude Mythos 5: los dos modelos de IA que no puedes usar",
-        "reason": "Comparten etiquetas: anthropic, fable.",
-        "score": 17
-      }
-    ],
     "anthropic-fable-mythos-vuelta-gobierno-eeuu": [
       {
         "slug": "gpt-5-5-cyber-vs-mythos-fable-acceso-restringido",
@@ -3612,16 +3520,16 @@ export const KNOWLEDGE_MAP = {
         "score": 23
       },
       {
-        "slug": "anthropic-fable-mythos-suspension-gobierno-eeuu",
-        "title": "El gobierno de EE.UU. suspende el acceso a Fable 5 y Mythos 5 por control de exportaciones",
-        "reason": "Comparten etiquetas: anthropic, mythos.",
-        "score": 20
-      },
-      {
         "slug": "claude-fable-5-mythos-5-lanzamiento",
         "title": "Claude Fable 5 y Mythos 5: el salto de Anthropic a frontera",
         "reason": "Comparten etiquetas: anthropic, mythos.",
         "score": 20
+      },
+      {
+        "slug": "claude-mythos-glasswing-10000-vulnerabilidades",
+        "title": "Claude Mythos y Glasswing: 10.000 CVEs en un mes",
+        "reason": "Comparten etiquetas: anthropic, mythos.",
+        "score": 18
       }
     ],
     "anthropic-mythos-ciberseguridad-sandbox": [

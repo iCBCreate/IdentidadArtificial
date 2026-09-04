@@ -942,6 +942,48 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "gpt-6-astra-novedades-frente-gpt-5-6": {
+    "executiveSummary": "GPT-6 Astra mejora el uso del ordenador, la programación y las tareas profesionales. Explicamos qué cambia frente a GPT-5.6 Sol con ejemplos sencillos y claros. GPT-6 Astra no destaca solo porque obtenga puntuaciones más altas que GPT-5.6 Sol.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "GPT-6 Astra mejora el uso del ordenador, la programación y las tareas profesionales. Explicamos qué cambia frente a GPT-5.6 Sol con ejemplos sencillos y claros.",
+      "La diferencia importante es práctica: puede completar con mayor fiabilidad trabajos largos que exigen mirar una pantalla, utilizar varias aplicaciones, tomar decisiones y comprobar el resultado.",
+      "Conceptos detectados por el pipeline: Agente, Ventana de contexto, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Agente?",
+        "answer": "GPT-6 Astra mejora el uso del ordenador, la programación y las tareas profesionales. Explicamos qué cambia frente a GPT-5.6 Sol con ejemplos sencillos y claros."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender modelos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 10,
+      "density": "media",
+      "bestFor": "comparar capacidades de modelos"
+    }
+  },
   "ia-desarrollo-videojuegos-debate": {
     "executiveSummary": "La IA en videojuegos abre un debate sobre autoría, empleo, transparencia y control creativo. No basta con preguntar si usarla, sino quién captura su valor. La IA en el desarrollo de videojuegos ya no es una pregunta abstracta sobre productividad.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de ética centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
@@ -1162,6 +1204,52 @@ export const POST_INSIGHTS = {
       "minutes": 2,
       "density": "ligera",
       "bestFor": "diseñar sistemas con IA"
+    }
+  },
+  "prompt-engineering-vs-loop-engineering": {
+    "executiveSummary": "De escribir instrucciones únicas a diseñar sistemas de feedback autónomo: cómo el loop engineering está reemplazando al prompt engineering como la habilidad central para construir con LLMs en 2026. Imagen: Archivo del blog — imagen placeholder de agentes autónomos Durante años, la habilidad más cotizada en el ecosistema de inteligencia artificial fue saber escribir buenos prompts. Cursos, certificaciones, roles completos — todo giraba alrededor de una premisa: si encuentras las palabras exactas, el modelo produce resultados mágicos.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de conceptos centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "De escribir instrucciones únicas a diseñar sistemas de feedback autónomo: cómo el loop engineering está reemplazando al prompt engineering como la habilidad central para construir con LLMs en 2026.",
+      "El término \"loop engineering\" fue empujado a la corriente principal por figuras como Peter Steinberger creador de OpenClaw , Addy Osmani Director en Google Cloud y Boris Cherny líder de Claude Code en Anthropic .",
+      "Conceptos detectados por el pipeline: LLM, Agente, Ventana de contexto, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre LLM?",
+        "answer": "De escribir instrucciones únicas a diseñar sistemas de feedback autónomo: cómo el loop engineering está reemplazando al prompt engineering como la habilidad central para construir con LLMs en 2026."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender conceptos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 9,
+      "density": "alta",
+      "bestFor": "entender fundamentos"
     }
   },
   "que-es-rag-generacion-aumentada-por-recuperacion": {

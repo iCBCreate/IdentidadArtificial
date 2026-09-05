@@ -29,7 +29,7 @@ Rol: Evaluar propuestas. Decisiones técnicas. Viabilidad + impacto.
    - Archivo generado: ¿tamaño?
 
 6. **¿Encaja en valores?**
-   - Astro-first
+   - Astro-first; prefer small vanilla scripts for client interaction
    - Static where possible
    - IA provenance always
    - Clean, no over-engineering
@@ -76,7 +76,7 @@ Rol: Evaluar propuestas. Decisiones técnicas. Viabilidad + impacto.
 - ❌ "Nueva tabla en DB" → Cloudflare serverless, no SQL
 - ❌ "Generar imágenes on-demand" → Hazlo al build (Satori)
 - ❌ "Analytics tercero" → GSC es suficiente
-- ❌ "Componente pesado sin lazy load" → React island con Suspense
+- ❌ "Componente pesado en la carga inicial" → reducirlo o cargarlo bajo demanda
 
 ## Contactar
 

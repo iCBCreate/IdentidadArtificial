@@ -1,7 +1,7 @@
 # Identidad Artificial — Diseño de la web
 **Fecha:** 2026-04-21
 **Versión:** 1.0
-**Basado en:** SRS_IdentidadArtificial_v1.pdf
+**Basado en:** [`SRS_IdentidadArtificial_v1.pdf`](../../SRS_IdentidadArtificial_v1.pdf)
 
 ---
 

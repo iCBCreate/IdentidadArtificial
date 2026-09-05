@@ -6,7 +6,7 @@
 
 **Por qué:**
 - Velocidad: sin latencia en runtime
-- Caché: static output servido desde edge
+- Caché: páginas prerenderizadas y assets servidos desde el edge
 - Simplicidad: no dependencia de servicios externos en request path
 - Costo: una ejecución de scripts vs. miles de API calls
 
@@ -16,16 +16,17 @@
 - Post insights: análisis offline
 - API dinámica solo: Google Search Console (reporte de performance)
 
-## Static Astro + Cloudflare Workers Hybrid
+## Astro Server Output + Prerender Explícito
 
-**Decisión:** `output: 'static'` con adapter Cloudflare para API dinámica.
+**Decisión:** `output: 'server'` con adaptador Cloudflare. Las páginas de contenido declaran `prerender = true` y las API de runtime, `prerender = false`.
 
 **Por qué:**
-- Static = fast, cheap, edge caching
-- Workers = serverless para endpoints dinámicos
-- Hybrid = best of both
+- El Worker permite middleware y endpoints dinámicos.
+- El prerender mantiene el contenido editorial como HTML generado en build.
+- `session: false` evita una dependencia de sesión que el proyecto no utiliza.
+- El binding `ASSETS` sirve el cliente generado por Astro.
 
-**Trade-off:** Middleware + prerender: false en archivo específico. Requiere wrangler config correcto.
+**Trade-off:** Cada ruta nueva debe decidir explícitamente si se ejecuta en runtime o se prerenderiza. El despliegue usa el `wrangler.json` generado en `dist/server/`.
 
 ## Esquema Zod para Provenance IA
 
@@ -92,13 +93,13 @@
 - Static friendly: aplica a edge
 - Flexibility: cambiar headers sin rebuild
 
-## Componentes Astro + React Mix
+## Componentes Astro
 
-**Decisión:** Astro para estructura, React para interactividad.
+**Decisión:** Usar componentes Astro y JavaScript pequeño y localizado para la interacción del cliente.
 
 **Por qué:**
-- Astro = meta, layouts, static content
-- React = pocos JS islands (knowledge graph, filters)
-- Performance: React solo donde necesario
+- Astro cubre metadatos, layouts, contenido y herramientas interactivas existentes.
+- Evitar añadir un framework de cliente sin una necesidad demostrada.
+- Cargar bajo demanda cualquier herramienta costosa.
 
-**Trade-off:** Build más complejo. Vale la pena.
+**Trade-off:** El estado complejo requiere diseñar de forma explícita el script de cliente.

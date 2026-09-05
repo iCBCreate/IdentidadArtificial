@@ -14,7 +14,7 @@ Lee esta guía completa antes de generar cualquier contenido. El incumplimiento 
 
 ## Stack técnico
 
-- Astro 6 + MDX
+- Astro 7 + MDX
 - Contenido en `source/content/blog/`
 - Imágenes en `source/assets/post/`
 - Schema validado con Zod en `source/content.config.ts`

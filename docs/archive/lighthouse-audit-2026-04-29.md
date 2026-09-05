@@ -1,4 +1,6 @@
 # Lighthouse Audit — IdentidadArtificial.com
+
+> **Documento histórico (29 de abril de 2026).** Conserva la medición y las correcciones observadas entonces. Ya no certifica el rendimiento ni la accesibilidad del estado actual; ejecuta una auditoría nueva para obtener resultados vigentes.
 **Fecha:** 29 de abril de 2026  
 **Herramienta:** Lighthouse 12.x  
 **Build:** producción local (`astro build`) sobre Chromium (Playwright)  

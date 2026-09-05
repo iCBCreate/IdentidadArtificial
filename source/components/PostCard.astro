@@ -28,23 +28,21 @@ const catConfig = CATEGORY_CONFIG[category]
 
 <article class={`mona-card${featured ? ' mona-card--featured' : ''}`}>
   <a href={`/${slug}/`} class="mona-card-img-link" tabindex="-1" aria-hidden="true">
-    <div class="mona-card-img" style={!heroImage ? `background: ${catConfig.gradient}` : ''}>
+    <div class={`mona-card-img${heroImage ? ' mona-card-img--image' : ''}`} style={!heroImage ? `background: ${catConfig.gradient}` : ''}>
       {heroImage
         ? <Image
             src={heroImage}
             alt={title}
             loading={priority ? "eager" : "lazy"}
             fetchpriority={priority ? "high" : undefined}
-            widths={[320, 400, 500, 600, 720, 800]}
+            widths={[320, 400, 500, 600, 720, 800, 1000, 1440]}
             sizes={featured
-              ? "(max-width: 640px) calc(100vw - 48px), 650px"
-              : "(max-width: 640px) calc(100vw - 48px), 325px"
+              ? "(max-width: 767px) calc(100vw - 42px), (max-width: 900px) calc(100vw - 66px), (max-width: 1152px) calc(66.667vw - 52.667px), 716px"
+              : "(max-width: 600px) calc(100vw - 42px), (max-width: 767px) calc(50vw - 34px), (max-width: 900px) calc(50vw - 46px), (max-width: 1152px) calc(33.333vw - 39.333px), 345px"
             }
             width={800}
-            height={310}
             quality={30}
             format="avif"
-            class=""
           />
         : <div class="cat-icon" set:html={catConfig.icon} />
       }
@@ -105,6 +103,15 @@ const catConfig = CATEGORY_CONFIG[category]
   object-fit: cover;
   object-position: center;
   display: block;
+}
+
+@media (max-width: 600px) {
+  .mona-card .mona-card-img { height: auto; }
+  .mona-card-img :global(img) {
+    position: static;
+    height: auto;
+  }
+  .mona-card-img:not(.mona-card-img--image) { min-height: 140px; }
 }
 
 .cat-icon {

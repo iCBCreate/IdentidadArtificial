@@ -14,7 +14,7 @@ Lee esta guía completa antes de generar cualquier tutorial. El incumplimiento d
 
 ## Stack técnico
 
-- Astro 6 + MDX
+- Astro 7 + MDX
 - Contenido en `source/content/tutoriales/`
 - Imágenes en `source/assets/post/`
 - Schema validado con Zod en `source/content.config.ts`

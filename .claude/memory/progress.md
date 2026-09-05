@@ -1,41 +1,20 @@
 # Progreso
 
-**Última actualización:** 15 mayo 2026, 10:30 PM
+**Última actualización:** 5 de septiembre de 2026
 
-## ✅ Hecho
+## Estado vigente
 
-- Core Astro 6 setup con Cloudflare Workers
-- 11 posts publicados (MDX + OG images)
-- Esquema Zod para validación frontmatter
-- Build pipeline: `build:data` → OG → `astro build`
-- Middleware: 410 Gone para 7 URLs retiradas
-- Google Search Console API integrada
-- AI showcase features: knowledge map, post insights, editorial radar
-- Componentes Astro: GenerationDossier, PostInsights, SemanticConnections, KnowledgeGraph, EditorialRadar
-- Páginas públicas: `/mapa-ia/`, `/radar/`, post Claude Code Security
-- Build limpio: 0 errores, astro check pasa
+- Migración configurada para Astro 7 con adaptador Cloudflare.
+- Salida server, contenido prerenderizado explícitamente, sesiones desactivadas y binding `ASSETS`.
+- Contenido MDX validado con Zod y procedencia de IA obligatoria.
+- Pipeline de build: datos generados, WASM requerido, imágenes OG, build de Astro y validación del artefacto.
+- Herramientas locales de memoria editorial y scripts de Search Console disponibles mediante comandos de `package.json`.
 
-## 🚀 En curso
+## Trabajo en curso
 
-- Nada atascado (branch main limpio)
+- Integración y validación de la limpieza posterior a la migración Astro 7.
+- Rediseño UX/SEO según `docs/plan-rediseno-ux-seo-2026-09-05.md`.
 
-## 📋 Por hacer
+## Cómo verificar
 
-- Expandir componentes de showcase con más datos IA
-- Mejorar SEO: breadcrumbs, structured data
-- Analytics: dashboard de métricas más detallado
-- Performance: lazy load en componentes pesados
-- Más posts (temáticas + invitados)
-
-## 🔧 Deuda técnica
-
-Ninguna crítica. Build, tests, seguridad: OK.
-
-## 📊 Estadísticas
-
-- 11 posts publicados
-- 11 OG images generadas
-- 6 componentes Astro IA-powered
-- 2 páginas públicas nuevas
-- 7 URLs retiradas (410 Gone)
-- 0 errores build
+No registres aquí resultados de tests, auditorías o builds como permanentes. Ejecuta `npm test`, `npm run build` y las comprobaciones específicas de la tarea sobre el commit que se vaya a revisar.

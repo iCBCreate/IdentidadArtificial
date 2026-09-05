@@ -18,7 +18,7 @@ Público principal: personas que quieren comprender y utilizar la IA, incluidas 
 | Alta | Abrir menú móvil y ampliar ventana mantiene el contenido con `inert` | Recuperar interacción y foco al cerrar o cambiar de tamaño |
 | Alta | 63 destinos de etiquetas rotos: 56 respuestas 404 y 7 respuestas 410 | No emitir enlaces internos a etiquetas inexistentes o retiradas |
 | Alta | `/tag/gemini/` en sitemap responde 200 mostrando «410 Gone» | Archivo Gemini válido, con canonical y contenido |
-| Alta | Dependencias instaladas distintas del lockfile: Astro 7.2.2 frente a 6.4.8 | Entorno reproducible con `npm ci` y comprobación del build de despliegue |
+| Resuelto en la migración Astro 7 | El diagnóstico inicial encontró Astro 7.2.2 instalado frente a 6.4.8 en el lockfile | `package.json` y lockfile se alinearon con Astro 7.2.2; mantener `npm ci` y la comprobación del build de despliegue |
 | Media | Portada con 1.209 etiquetas decorativas y unos 238 kB de HTML sin comprimir | Eliminar repetición masiva y reducir el HTML de portada al menos un 30% |
 | Media | Título y botones dependen de animaciones de opacidad | Contenido principal visible desde el primer render |
 | Media | Navegación se comprime y parte textos a 768 px | Menú compacto por debajo de 1024 px |

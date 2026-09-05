@@ -2,7 +2,9 @@
 
 **Fecha del análisis:** 2026-06-01  
 **Dominio:** https://identidadartificial.com  
-**Stack:** Astro 6 · Cloudflare Workers · Output estático
+**Estado documental:** Histórico. Esta auditoría conserva la evidencia observada el 1 de junio de 2026 y ya no define el estado operativo actual.
+**Stack analizado entonces:** Astro 6 · Cloudflare Workers · Output estático
+**Estado actual de arquitectura:** consulta [`README.md`](README.md) y [`CLAUDE.md`](CLAUDE.md). El proyecto usa Astro 7, salida server y prerender explícito.
 
 ---
 
@@ -184,7 +186,7 @@ Sin errores de validación conocidos. Rich Results habilitados en 13+ posts (GSC
 
 | Criterio | Estado |
 |----------|--------|
-| Output mode | ✅ `output: 'static'` en astro.config |
+| Output mode en la fecha del análisis | ✅ `output: 'static'` en astro.config |
 | Contenido visible sin JS | ✅ HTML puro en respuesta inicial |
 | Canonical en HTML inicial | ✅ No depende de JS |
 | Meta robots en HTML inicial | ✅ |
@@ -251,4 +253,4 @@ La notificación se ejecuta mediante `scripts/submit-indexnow.mjs` después del 
 | /tag/chatgpt/ en GSC como 404 | ⚠️ Caché | URL ya devuelve 410, GSC tardará en actualizarse |
 | Categorías "unknown to Google" | ⚠️ Pendiente | En sitemap; re-enviar sitemap en GSC |
 
-**Conclusión migración:** El sitio está limpio para re-enviar a Google. Re-enviar el sitemap en GSC y solicitar re-inspección de las URLs con errores para acelerar la limpieza del índice.
+**Conclusión histórica de la migración:** En la fecha del análisis se recomendó re-enviar el sitemap en GSC y solicitar re-inspección. Verifica el estado actual con los comandos documentados antes de actuar.

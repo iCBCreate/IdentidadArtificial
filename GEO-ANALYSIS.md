@@ -3,7 +3,9 @@
 **Fecha del análisis:** 2026-06-01  
 **Dominio:** https://identidadartificial.com  
 **Autor:** Ignacio Cubelas  
-**Stack:** Astro 6 · Cloudflare Workers · Output estático
+**Estado documental:** Histórico. Las puntuaciones, recuentos y observaciones corresponden al 1 de junio de 2026 y no deben tratarse como medición actual.
+**Stack analizado entonces:** Astro 6 · Cloudflare Workers · Output estático
+**Estado actual de arquitectura:** consulta [`README.md`](README.md) y [`CLAUDE.md`](CLAUDE.md). El proyecto usa Astro 7, salida server y prerender explícito.
 
 ---
 
@@ -136,7 +138,7 @@ Presente en algunos posts (ej: claude-managed-agents), ausente en otros. Verific
 
 | Criterio | Estado |
 |----------|--------|
-| Output mode | ✅ `static` — todo el contenido pre-renderizado en build |
+| Output mode en la fecha del análisis | ✅ `static` — todo el contenido se pre-renderizaba en build |
 | JavaScript requerido para leer contenido | ✅ No — HTML puro en la respuesta inicial |
 | Excepción dinámica | `/api/search-console/report.json.ts` (`prerender: false`) — no es contenido público |
 | View Transitions API | ✅ Progressive enhancement — no bloquea contenido a crawlers |

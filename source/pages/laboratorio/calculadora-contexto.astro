@@ -21,7 +21,7 @@ const updated = PRICED_MODELS[0].updated
     <div class="ctx-inputs">
       <div class="ctx-input-block">
         <label class="ctx-label" for="ctx-text">Texto de entrada</label>
-        <textarea id="ctx-text" class="ctx-textarea" rows="5" placeholder="Pega aquí tu prompt, documento o conversación…" spellcheck="false"></textarea>
+        <textarea id="ctx-text" class="ctx-textarea" rows="5" maxlength="50000" placeholder="Pega aquí tu prompt, documento o conversación…" spellcheck="false"></textarea>
         <label class="ctx-precise">
           <input type="checkbox" id="ctx-precise-toggle" />
           Usar o200k_base como referencia (descarga ~800 KB)
@@ -107,6 +107,7 @@ const updated = PRICED_MODELS[0].updated
 <script>
   import { PRICED_MODELS, COMPANY_COLORS } from '../../data/model-pricing'
   import { estimateTokensFromText, computeCostTable, formatUSD } from '../../lib/lab/cost'
+  import { debounce, INPUT_DEBOUNCE_MS } from '../../lib/lab/text-processing'
 
   const textInput = document.getElementById('ctx-text') as HTMLTextAreaElement
   const preciseToggle = document.getElementById('ctx-precise-toggle') as HTMLInputElement
@@ -189,7 +190,7 @@ const updated = PRICED_MODELS[0].updated
       else { method.textContent = 'Modo manual: solo se usa el número de tokens introducido.'; render() }
     })
   })
-  textInput.addEventListener('input', updateText)
+  textInput.addEventListener('input', debounce(() => { void updateText() }, INPUT_DEBOUNCE_MS))
   preciseToggle.addEventListener('change', updateText)
   inputTokens.addEventListener('input', () => { if (mode === 'manual') render() })
   outputTokens.addEventListener('input', render)

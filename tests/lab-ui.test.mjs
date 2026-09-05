@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import vm from 'node:vm'
 import ts from 'typescript'
 import { computeCostTable, estimateTokensFromText, formatUSD } from '../source/lib/lab/cost.ts'
+import { debounce, getTokenRenderLimit, INPUT_DEBOUNCE_MS, MAX_RENDERED_TOKENS } from '../source/lib/lab/text-processing.ts'
 
 class Element {
   constructor(value = '') { this.value = value; this.textContent = ''; this.hidden = false; this.disabled = false; this.readOnly = false; this.checked = false; this.children = []; this.listeners = {}; this.style = {}; this.dataset = {}; this.classList = { add() {}, remove() {} }; }
@@ -23,7 +24,7 @@ function app(file, additions = {}) {
   code = code.replace(/import\s+[\s\S]*?\sfrom\s+'[^']+'\s*/g, '').replace(/import\('gpt-tokenizer\/encoding\/o200k_base'\)/g, 'loadTokenizer()').replace(/import\('@huggingface\/transformers'\)/g, 'loadTransformers()')
   get('ctx-output-tokens').value = '1000'
   get('ctx-input-tokens').value = '0'
-  const ctx = vm.createContext({ document, console: { error() {} }, setTimeout, clearTimeout, ...additions })
+  const ctx = vm.createContext({ document, console: { error() {} }, setTimeout, clearTimeout, debounce, getTokenRenderLimit, INPUT_DEBOUNCE_MS, MAX_RENDERED_TOKENS, ...additions })
   vm.runInContext(ts.transpile(code, { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext }), ctx)
   return { get, modes }
 }
@@ -33,6 +34,7 @@ test('tokenizer retries a failed download and tokenizes the latest text', async 
   const ui = app('tokenizador', { loadTokenizer: async () => { if (++calls === 1) throw Error('offline'); return { encode: t => [...t].map((_, i) => i), decode: () => 'x' } } })
   ui.get('tok-input').value = 'original'
   await ui.get('tok-input').fire('input')
+  await new Promise(resolve => setTimeout(resolve, INPUT_DEBOUNCE_MS + 20))
   assert.equal(ui.get('tok-retry').hidden, false)
   assert.equal(ui.get('tok-input').value, 'original')
   ui.get('tok-input').value = 'nuevo'
@@ -54,6 +56,7 @@ test('calculator manual mode wins over a pending text count and includes output 
   ui.get('ctx-precise-toggle').checked = true
   ui.get('ctx-text').value = 'texto pendiente'
   const update = ui.get('ctx-text').fire('input')
+  await new Promise(resolve => setTimeout(resolve, INPUT_DEBOUNCE_MS + 20))
   await ui.modes[1].fire('change')
   ui.get('ctx-input-tokens').value = '80'
   ui.get('ctx-output-tokens').value = '30'

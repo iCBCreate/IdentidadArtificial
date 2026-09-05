@@ -10,6 +10,7 @@ import {
 } from '../source/lib/lab/sampling.ts'
 import { cosineSimilarity, projectTo2D } from '../source/lib/lab/projection.ts'
 import { estimateTokensFromText, computeCost, formatUSD } from '../source/lib/lab/cost.ts'
+import { debounce, getTokenRenderLimit } from '../source/lib/lab/text-processing.ts'
 import { PRICED_MODELS } from '../source/data/model-pricing.ts'
 
 const sum = (probs: { prob: number }[]) => probs.reduce((a, b) => a + b.prob, 0)
@@ -141,4 +142,19 @@ test('formatUSD adapta decimales', () => {
   assert.equal(formatUSD(0.00005), '<$0.0001')
   assert.equal(formatUSD(0.0042), '$0.0042')
   assert.equal(formatUSD(15), '$15.00')
+})
+
+test('getTokenRenderLimit conserva el recuento y limita el DOM visible', () => {
+  const result = getTokenRenderLimit([1, 2, 3, 4], 2)
+  assert.deepEqual(result.visible, [1, 2])
+  assert.equal(result.hiddenCount, 2)
+})
+
+test('debounce ejecuta solo la última entrada tras una pausa', async () => {
+  const received: string[] = []
+  const update = debounce((value: string) => received.push(value), 10)
+  update('primero')
+  update('último')
+  await new Promise(resolve => setTimeout(resolve, 25))
+  assert.deepEqual(received, ['último'])
 })

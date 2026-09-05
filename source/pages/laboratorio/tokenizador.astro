@@ -20,6 +20,7 @@ const demo = LAB_DEMOS.find(d => d.slug === 'tokenizador')!
       id="tok-input"
       class="tok-input"
       rows="5"
+      maxlength="50000"
       placeholder="Escribe aquí… por ejemplo: El esternocleidomastoideo es un músculo del cuello."
       spellcheck="false"
     ></textarea>
@@ -54,6 +55,8 @@ const demo = LAB_DEMOS.find(d => d.slug === 'tokenizador')!
 </LabLayout>
 
 <script>
+  import { debounce, getTokenRenderLimit, INPUT_DEBOUNCE_MS } from '../../lib/lab/text-processing'
+
   const input = document.getElementById('tok-input') as HTMLTextAreaElement
   const output = document.getElementById('tok-output') as HTMLDivElement
   const tokCount = document.getElementById('tok-count') as HTMLSpanElement
@@ -93,8 +96,9 @@ const demo = LAB_DEMOS.find(d => d.slug === 'tokenizador')!
     tokCount.textContent = String(ids.length)
     ratio.textContent = ids.length > 0 ? (text.length / ids.length).toFixed(1) : '—'
 
+    const { visible, hiddenCount } = getTokenRenderLimit(ids)
     const frag = document.createDocumentFragment()
-    ids.forEach((id, i) => {
+    visible.forEach((id, i) => {
       const span = document.createElement('span')
       span.className = 'tok'
       const color = PALETTE[i % PALETTE.length]
@@ -105,6 +109,9 @@ const demo = LAB_DEMOS.find(d => d.slug === 'tokenizador')!
       frag.appendChild(span)
     })
     output.replaceChildren(frag)
+    status.textContent = hiddenCount
+      ? `Mostrando los primeros ${visible.length.toLocaleString('es-ES')} de ${ids.length.toLocaleString('es-ES')} tokens.`
+      : ''
   }
 
   const retry = document.getElementById('tok-retry') as HTMLButtonElement
@@ -123,7 +130,7 @@ const demo = LAB_DEMOS.find(d => d.slug === 'tokenizador')!
       loading = false
     }
   }
-  input.addEventListener('input', update)
+  input.addEventListener('input', debounce(update, INPUT_DEBOUNCE_MS))
   retry.addEventListener('click', update)
   document.getElementById('tok-example')!.addEventListener('click', () => { input.value = 'La inteligencia artificial aprende patrones. ¿Cómo divide esta frase?'; update() })
   document.getElementById('tok-clear')!.addEventListener('click', () => { input.value = ''; render(); status.textContent = 'Escribe un texto o prueba el ejemplo.'; retry.hidden = true; input.focus() })

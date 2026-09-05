@@ -1,4 +1,5 @@
 ---
+import PageBreadcrumbs from '../components/PageBreadcrumbs.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 ---
 
@@ -6,11 +7,13 @@ import BaseLayout from '../layouts/BaseLayout.astro'
   title="Aviso Legal"
   description="Información legal sobre el titular del sitio, propiedad intelectual, protección de datos y condiciones de uso de Identidad Artificial."
 >
-  <article class="max-w-3xl mx-auto px-6 py-12">
+  <article class="page-shell document-page">
+    <PageBreadcrumbs title="Aviso legal" />
     <h1 class="text-3xl sm:text-4xl font-bold mb-2 text-[#E8E8F0]">Aviso Legal</h1>
-    <p class="text-sm text-[#606080] mb-10">Última actualización: abril de 2026</p>
+    <p class="text-sm text-[#C8C8E0] mb-10">Última actualización: abril de 2026</p>
 
-    <div class="prose prose-lg max-w-none
+<nav class="document-toc" aria-label="En esta página"><a href="#apartado-1">1. Información general</a><a href="#apartado-2">2. Propiedad intelectual</a><a href="#apartado-3">3. Responsabilidad sobre los contenidos</a><a href="#apartado-4">4. Protección de datos personales</a><a href="#apartado-5">5. Cookies</a><a href="#apartado-6">6. Ley aplicable y jurisdicción</a></nav>
+    <div class="prose prose-lg max-w-none reading-content
       prose-headings:font-bold prose-headings:text-[#E8E8F0]
       prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4
       prose-p:text-[#C8C8E0] prose-p:leading-relaxed
@@ -18,7 +21,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
       prose-strong:text-[#E8E8F0]
       prose-a:text-[#A78BFA] prose-a:no-underline hover:prose-a:underline">
 
-      <h2>1. Información general</h2>
+      <h2 id="apartado-1">1. Información general</h2>
       <p>
         En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la
         Sociedad de la Información y Comercio Electrónico (LSSI-CE), se facilitan los siguientes
@@ -36,7 +39,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         y herramientas relacionadas.
       </p>
 
-      <h2>2. Propiedad intelectual</h2>
+      <h2 id="apartado-2">2. Propiedad intelectual</h2>
       <p>
         Todos los contenidos de este sitio web —incluyendo textos, imágenes, logotipos, gráficos,
         diseño y código fuente— son propiedad de Ignacio Cubelas Fortes o están debidamente
@@ -53,7 +56,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         legislación vigente en materia de propiedad intelectual.
       </p>
 
-      <h2>3. Responsabilidad sobre los contenidos</h2>
+      <h2 id="apartado-3">3. Responsabilidad sobre los contenidos</h2>
       <p>
         El titular no se hace responsable del uso indebido que los usuarios puedan hacer de los
         contenidos publicados en este sitio, ni de los daños que pudieran derivarse de dicho uso.
@@ -63,7 +66,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         responsabiliza del contenido, disponibilidad o políticas de privacidad de dichos sitios.
       </p>
 
-      <h2>4. Protección de datos personales</h2>
+      <h2 id="apartado-4">4. Protección de datos personales</h2>
       <p>
         Este sitio web no recopila datos personales de sus visitantes a través de formularios ni
         sistemas de registro. No existe ningún tratamiento de datos personales identificables.
@@ -75,14 +78,14 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         3/2018 de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).
       </p>
 
-      <h2>5. Cookies</h2>
+      <h2 id="apartado-5">5. Cookies</h2>
       <p>
         Este sitio web no utiliza cookies propias ni de terceros con fines analíticos o
         publicitarios. Únicamente pueden generarse cookies técnicas estrictamente necesarias
         para el funcionamiento básico del sitio, derivadas de la infraestructura de Cloudflare.
       </p>
 
-      <h2>6. Ley aplicable y jurisdicción</h2>
+      <h2 id="apartado-6">6. Ley aplicable y jurisdicción</h2>
       <p>
         Las relaciones entre el titular y los usuarios de este sitio se rigen por la legislación
         española vigente. Para la resolución de cualquier controversia que pudiera surgir, las

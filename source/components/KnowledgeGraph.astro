@@ -40,9 +40,19 @@ const visibleLinks = links
   .filter(link => link.from && link.to)
 ---
 
-<section class="graph-shell">
+<section class="graph-explorer" data-links={JSON.stringify(links)}>
+  <div class="graph-filters">
+    <label for="graph-filter">Selecciona un concepto, empresa o categoría</label>
+    <select id="graph-filter"><option value="">Todos los artículos</option>{conceptNodes.map(node => <option value={node.id}>{node.label}</option>)}</select>
+    <button class="button-secondary" type="button" id="graph-clear">Limpiar selección</button>
+  </div>
+  <h2>Artículos relacionados</h2>
+  <p id="graph-count" role="status">{postNodes.length} artículos</p>
+  <ul class="graph-post-list">{postNodes.map(node => <li data-post-id={node.id}><a href={`/${node.slug}/`}>{node.label}</a></li>)}</ul>
+  <details class="graph-shell"><summary>Explorar las conexiones en el grafo</summary>
+  <p>La posición es ilustrativa: la distancia entre nodos no mide la similitud. Selecciona un concepto para filtrar también la lista.</p>
   <div class="graph-canvas" aria-label="Grafo semántico de artículos y conceptos">
-    <svg viewBox="0 0 100 100" role="img">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
       {visibleLinks.map(link => (
         <line
           x1={link.from?.x}
@@ -57,17 +67,9 @@ const visibleLinks = links
 
     {displayNodes.map(node => {
       const pos = placed.get(node.id)
-      return pos && (
-        <a
-          href={node.slug ? `/${node.slug}/` : undefined}
-          class={`node node-${node.type}`}
-          style={`left:${pos.x}%;top:${pos.y}%`}
-          data-type={node.type}
-          title={node.label}
-        >
-          <span>{node.label}</span>
-        </a>
-      )
+      return pos && (node.type === 'post' ?
+        <a href={`/${node.slug}/`} class={`node node-${node.type}`} style={`left:${pos.x}%;top:${pos.y}%`} data-node-id={node.id} title={node.label}><span>{node.label}</span></a>
+        : <button type="button" class={`node node-${node.type}`} style={`left:${pos.x}%;top:${pos.y}%`} data-concept-id={node.id} aria-pressed="false" title={node.label}><span>{node.label}</span></button>)
     })}
   </div>
 
@@ -77,16 +79,52 @@ const visibleLinks = links
     <span><i class="company"></i>Empresas</span>
     <span><i class="category"></i>Categorías</span>
   </div>
+</details>
 </section>
 
+<script>
+  const explorer = document.querySelector<HTMLElement>('.graph-explorer')!
+  const links = JSON.parse(explorer.dataset.links || '[]') as { source: string; target: string }[]
+  const filter = document.getElementById('graph-filter') as HTMLSelectElement
+  function selectConcept(id: string) {
+    filter.value = id
+    const related = new Set(links.flatMap(link => link.source === id ? [link.target] : link.target === id ? [link.source] : []))
+    let count = 0
+    explorer.querySelectorAll<HTMLElement>('[data-post-id]').forEach(item => {
+      item.hidden = !!id && !related.has(item.dataset.postId!)
+      if (!item.hidden) count++
+    })
+    explorer.querySelectorAll<HTMLElement>('[data-node-id]').forEach(item => {
+      item.hidden = !!id && !related.has(item.dataset.nodeId!)
+    })
+    explorer.querySelectorAll<HTMLButtonElement>('[data-concept-id]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.conceptId === id)))
+    document.getElementById('graph-count')!.textContent = `${count} artículos${id ? ' relacionados con ' + filter.selectedOptions[0].text : ''}`
+  }
+  filter.addEventListener('change', () => selectConcept(filter.value))
+  document.getElementById('graph-clear')!.addEventListener('click', () => selectConcept(''))
+  explorer.querySelectorAll<HTMLButtonElement>('[data-concept-id]').forEach(button => button.addEventListener('click', () => selectConcept(button.dataset.conceptId!)))
+</script>
 <style>
+.graph-filters { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 24px; }
+.graph-filters label { width: 100%; }
+.graph-filters select { max-width: 100%; min-height: 44px; background: #24243A; color: #E8E8F0; padding: 8px; border: 1px solid #C8C8E0; border-radius: 8px; }
+.graph-post-list { padding-left: 24px; margin: 16px 0 32px; }
+.graph-post-list li { margin: 12px 0; }
+.graph-post-list a { color: #A78BFA; }
+.graph-explorer [hidden] { display: none !important; }
+.graph-shell summary { cursor: pointer; padding: 16px; font-weight: 700; }
+.graph-shell p { padding: 0 16px 16px; }
+.node[aria-pressed="true"] { border: 3px solid #E8E8F0; z-index: 5; }
+.node:focus-visible { outline: 3px solid #A78BFA; outline-offset: 4px; z-index: 6; }
+
 .graph-shell {
   border: 1px solid #2A2A40;
   border-radius: 8px;
   background: #13131F;
-  overflow: hidden;
+  overflow-x: auto;
 }
 .graph-canvas {
+  min-width: 850px;
   position: relative;
   min-height: 620px;
   background:
@@ -127,7 +165,7 @@ svg {
 }
 .node-post {
   width: 118px;
-  min-height: 38px;
+  min-height: 44px;
   padding: 8px 12px;
   border-color: rgba(167, 139, 250, .55);
   font-size: 11px;
@@ -135,7 +173,7 @@ svg {
 }
 .node-concept, .node-company, .node-category {
   min-width: 86px;
-  height: 30px;
+  min-height: 44px;
   padding: 0 10px;
   font-size: 11px;
 }
@@ -152,7 +190,7 @@ svg {
   flex-wrap: wrap;
   border-top: 1px solid #2A2A40;
   padding: 14px 18px;
-  color: #A0A0C0;
+  color: #C8C8E0;
   font-size: 12px;
 }
 .legend span {

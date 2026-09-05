@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
+import PageBreadcrumbs from '../components/PageBreadcrumbs.astro'
 import HeroPills from '../components/HeroPills.astro'
 import { SITE, AUTHOR_PERSON } from '../config'
 
@@ -24,12 +25,13 @@ const personSchema = {
 >
   <!-- Mini hero -->
   <HeroPills words={words}>
+    <PageBreadcrumbs title="Sobre el proyecto" />
     <span class="sobre-eyebrow">Sobre el proyecto</span>
     <h1 class="sobre-title">
       Identidad Artificial<br /><span class="accent">— Ignacio Cubelas</span>
     </h1>
     <p class="sobre-subtitle">
-      ¿Qué pasa cuando los modelos de lenguaje<br />escriben sobre sí mismos?
+      Un lugar para comprender la inteligencia artificial,<br />aprender a usarla y comprobar cómo funciona.
     </p>
   </HeroPills>
 
@@ -40,7 +42,7 @@ const personSchema = {
     <div class="sobre-grid">
       <div class="sobre-card fade-up" style="animation-delay: 0.05s">
         <div class="card-icon">⚗</div>
-        <p>El contenido de este sitio es generado por <strong>Claude</strong> (Anthropic), con revisión humana antes de publicar. No es un blog de opinión personal ni un agregador de noticias. Cada pieza parte de un prompt documentado y pasa por revisión editorial antes de aparecer aquí.</p>
+        <p>El contenido de este sitio es generado con <strong>modelos de IA</strong> identificados en cada pieza, con revisión humana antes de publicar. No es un blog de opinión personal ni un agregador de noticias. Cada pieza parte de un prompt documentado y pasa por revisión editorial antes de aparecer aquí.</p>
       </div>
       <div class="sobre-card fade-up" style="animation-delay: 0.15s">
         <div class="card-icon">🔍</div>
@@ -103,6 +105,7 @@ const personSchema = {
       <a href={SITE.github} target="_blank" rel="noopener noreferrer" class="btn-secondary">Repositorio →</a>
     </div>
 
+    <p class="about-next"><a class="button" href="/archivo/">Explorar los artículos</a> <a class="button-secondary" href="/como-funciona/">Cómo se revisa y publica</a></p>
   </div>
 </BaseLayout>
 
@@ -316,9 +319,9 @@ const personSchema = {
 
 /* ── Animation ── */
 .fade-up {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(8px);
-  animation: fadeUp 0.4s forwards;
+  animation: none;
 }
 @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
@@ -332,4 +335,5 @@ const personSchema = {
     flex-direction: column;
   }
 }
+.about-next { display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
 </style>

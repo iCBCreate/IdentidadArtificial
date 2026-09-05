@@ -16,19 +16,18 @@ const demo = LAB_DEMOS.find(d => d.slug === 'embeddings')!
   <div class="emb-app">
     <div class="emb-load" id="emb-load">
       <p class="emb-load-text">
-        El modelo pesa <strong>~115 MB</strong> y se descarga una sola vez (queda cacheado en el navegador).
-        No se envía ningún dato: la inferencia ocurre en tu dispositivo.
+        El modelo requiere una descarga de <strong>~115 MB</strong> desde Hugging Face y su red de distribución. El proveedor recibe los datos de conexión de esa descarga; tus frases se procesan localmente. El navegador puede conservar el modelo en caché o eliminarlo y necesitar otra descarga.
       </p>
       <button class="emb-load-btn" id="emb-load-btn" type="button">⬇ Cargar modelo (~115 MB)</button>
       <div class="emb-progress" id="emb-progress" hidden>
         <div class="emb-progress-track"><div class="emb-progress-fill" id="emb-progress-fill"></div></div>
-        <span class="emb-progress-label" id="emb-progress-label">Preparando…</span>
+        <span class="emb-progress-label" id="emb-progress-label" role="status">Preparando…</span>
       </div>
     </div>
 
-    <div class="emb-main" id="emb-main" hidden>
+    <div class="emb-main" id="emb-main">
       <div class="emb-sentences">
-        <label class="emb-label" for="emb-input">Frases (una por línea)</label>
+        <label class="emb-label" for="emb-input">Frases (de 2 a 12, una por línea)</label>
         <textarea id="emb-input" class="emb-textarea" rows="10" spellcheck="false">El gato duerme en el sofá
 Mi perro juega en el parque
 Los animales domésticos necesitan cariño
@@ -38,8 +37,8 @@ El banco central subió los tipos de interés
 La paella valenciana lleva arroz
 Me encanta cocinar tortilla de patatas
 La receta necesita aceite de oliva</textarea>
-        <button class="emb-run" id="emb-run" type="button">Calcular embeddings</button>
-        <span class="emb-status" id="emb-status"></span>
+        <button class="emb-run" id="emb-run" type="button" disabled>Calcular embeddings</button>
+        <span class="emb-status" id="emb-status" role="status">Carga el modelo para calcular. Puedes preparar tus frases mientras tanto.</span>
       </div>
 
       <div class="emb-results">
@@ -58,19 +57,20 @@ La receta necesita aceite de oliva</textarea>
       <p>
         Cada frase se convierte en un vector de 384 dimensiones; aquí se proyecta a 2D con PCA para
         poder dibujarlo. Las frases sobre mascotas, finanzas y cocina deberían formar tres grupos.
-        La matriz muestra la similitud coseno entre cada par: 1 = mismo significado, 0 = sin relación.
+        La matriz muestra la similitud coseno entre cada par: 1 = vectores alineados, 0 = vectores ortogonales. Es una aproximación dependiente del modelo, no una garantía de significado.
         Esta es la técnica que usa <a href="/que-es-rag-generacion-aumentada-por-recuperacion/">RAG</a>
         para recuperar los documentos relevantes a una pregunta.
       </p>
     </div>
 
+  <p>La proyección 2D pierde información: utiliza la matriz para comparar pares, sin interpretar la distancia del dibujo como una medida exacta.</p>
   <div class="emb-reference">
     <h2>Cómo funciona la similitud semántica</h2>
     <p>
       El modelo <strong>multilingual-e5-small</strong> (cuantizado a 8 bits, ~115 MB) convierte cada frase en un vector de 384 dimensiones. Frases con significado parecido producen vectores cercanos en ese espacio de alta dimensión. Para visualizarlos en 2D se aplica PCA (Análisis de Componentes Principales), que proyecta las 384 dimensiones sobre los dos ejes de mayor varianza.
     </p>
     <p>
-      La <strong>similitud coseno</strong> mide el ángulo entre dos vectores: 1 significa vectores idénticos (mismo significado), 0 significa sin relación. Los modelos de embeddings multilingüe están entrenados para que el español y el inglés con el mismo significado produzcan vectores parecidos.
+      La <strong>similitud coseno</strong> mide el ángulo entre dos vectores: 1 indica vectores alineados y 0 indica ortogonalidad. La puntuación no demuestra equivalencia de significado. Los modelos de embeddings multilingüe están entrenados para que el español y el inglés con el mismo significado produzcan vectores parecidos.
     </p>
     <h3>Casos de uso comunes de embeddings</h3>
     <ul>
@@ -145,9 +145,11 @@ La receta necesita aceite de oliva</textarea>
       }
       loadBox.hidden = true
       main.hidden = false
-      runEmbeddings()
+      runBtn.disabled = false
+      status.textContent = "Modelo listo. Pulsa Calcular embeddings."
     } catch (err) {
-      progressLabel.textContent = 'Error descargando el modelo. Comprueba tu conexión y recarga la página.'
+      progressLabel.textContent = 'No se pudo descargar el modelo. Tu texto se conserva; puedes reintentar.'
+      loadBtn.textContent = 'Reintentar descarga (~115 MB)'
       console.error(err)
       loadBtn.disabled = false
     }
@@ -155,20 +157,24 @@ La receta necesita aceite de oliva</textarea>
 
   async function runEmbeddings() {
     if (!embedder) return
-    const sentences = input.value.split('\n').map(s => s.trim()).filter(Boolean).slice(0, 12)
+    const sentences = input.value.split('\n').map(s => s.trim()).filter(Boolean)
+    if (sentences.length > 12) { status.textContent = 'Introduce como máximo 12 frases; no se ha descartado ninguna.'; return }
     if (sentences.length < 2) {
       status.textContent = 'Escribe al menos 2 frases.'
       return
     }
     runBtn.disabled = true
     status.textContent = 'Calculando…'
+    const submittedText = input.value
     try {
       const vectors = await embedder(sentences)
+      if (input.value !== submittedText) { status.textContent = 'El texto ha cambiado. Pulsa Calcular para actualizar los resultados.'; return }
       renderScatter(sentences, vectors)
       renderMatrix(sentences, vectors)
-      status.textContent = ''
+      status.textContent = `Resultado para ${sentences.length} frases.`
     } catch (err) {
-      status.textContent = 'Error calculando embeddings.'
+      status.textContent = 'No se pudo calcular. Tu texto se conserva; pulsa Reintentar cálculo.'
+      runBtn.textContent = 'Reintentar cálculo'
       console.error(err)
     } finally {
       runBtn.disabled = false
@@ -222,7 +228,8 @@ La receta necesita aceite de oliva</textarea>
     header.appendChild(document.createElement('th'))
     sentences.forEach((_, i) => {
       const th = document.createElement('th')
-      th.textContent = String(i + 1)
+      th.scope = "col"
+      th.textContent = `${i + 1}. ${sentences[i]}`
       header.appendChild(th)
     })
     matrix.appendChild(header)
@@ -230,7 +237,8 @@ La receta necesita aceite de oliva</textarea>
     sentences.forEach((s, i) => {
       const tr = document.createElement('tr')
       const th = document.createElement('th')
-      th.textContent = `${i + 1}. ${s.length > 24 ? s.slice(0, 24) + '…' : s}`
+      th.scope = 'row'
+      th.textContent = `${i + 1}. ${s}`
       th.title = s
       tr.appendChild(th)
       sentences.forEach((_, j) => {
@@ -258,7 +266,7 @@ La receta necesita aceite de oliva</textarea>
   padding: 24px;
   max-width: 560px;
 }
-.emb-load-text { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 16px; }
+.emb-load-text { font-size: 14px; line-height: 1.7; color: #C8C8E0; margin-bottom: 16px; }
 .emb-load-text strong { color: #E8E8F0; }
 
 .emb-load-btn {
@@ -273,7 +281,7 @@ La receta necesita aceite de oliva</textarea>
   transition: background 0.15s;
 }
 .emb-load-btn:hover { background: #C4B5FD; }
-.emb-load-btn:disabled { background: #3A3A54; color: #9A9ABF; cursor: wait; }
+.emb-load-btn:disabled { background: #3A3A54; color: #C8C8E0; cursor: wait; }
 
 .emb-progress { margin-top: 16px; }
 .emb-progress-track {
@@ -290,11 +298,11 @@ La receta necesita aceite de oliva</textarea>
   border-radius: 4px;
   transition: width 0.2s ease;
 }
-.emb-progress-label { font-size: 12px; color: #A0A0C0; }
+.emb-progress-label { font-size: 12px; color: #C8C8E0; }
 
 .emb-main {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
   gap: 24px;
 }
 @media (max-width: 720px) {
@@ -307,7 +315,7 @@ La receta necesita aceite de oliva</textarea>
   font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: #A0A0C0;
+  color: #C8C8E0;
   margin-bottom: 8px;
 }
 
@@ -337,7 +345,7 @@ La receta necesita aceite de oliva</textarea>
   transition: background 0.15s;
 }
 .emb-run:hover { background: #C4B5FD; }
-.emb-run:disabled { background: #3A3A54; color: #9A9ABF; cursor: wait; }
+.emb-run:disabled { background: #3A3A54; color: #C8C8E0; cursor: wait; }
 .emb-status { display: block; font-size: 12px; color: #FBBF24; margin-top: 8px; }
 
 .emb-h2 {
@@ -357,7 +365,7 @@ La receta necesita aceite de oliva</textarea>
   border-radius: 8px;
   margin-bottom: 24px;
 }
-.emb-scatter :global(.emb-point-label) { fill: #A0A0C0; font-size: 10px; }
+.emb-scatter :global(.emb-point-label) { fill: #C8C8E0; font-size: 10px; }
 
 .emb-matrix-wrap { overflow-x: auto; }
 .emb-matrix {
@@ -366,7 +374,7 @@ La receta necesita aceite de oliva</textarea>
   font-variant-numeric: tabular-nums;
 }
 .emb-matrix :global(th) {
-  color: #A0A0C0;
+  color: #C8C8E0;
   font-weight: 600;
   text-align: left;
   padding: 4px 8px;
@@ -391,17 +399,17 @@ La receta necesita aceite de oliva</textarea>
   color: #A78BFA;
   margin-bottom: 10px;
 }
-.emb-explainer p { font-size: 14px; line-height: 1.7; color: #A0A0C0; }
+.emb-explainer p { font-size: 14px; line-height: 1.7; color: #C8C8E0; }
 .emb-explainer a { color: #A78BFA; }
 
 .emb-reference { margin-top: 32px; max-width: 680px; }
 .emb-reference h2 { font-size: 16px; font-weight: 700; color: #E8E8F0; margin-bottom: 12px; }
 .emb-reference h3 { font-size: 13px; font-weight: 700; color: #A78BFA; margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; }
-.emb-reference p { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 12px; }
+.emb-reference p { font-size: 14px; line-height: 1.7; color: #C8C8E0; margin-bottom: 12px; }
 .emb-reference ul { padding-left: 20px; }
-.emb-reference li { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 6px; }
+.emb-reference li { font-size: 14px; line-height: 1.7; color: #C8C8E0; margin-bottom: 6px; }
 .emb-reference a { color: #A78BFA; }
 .emb-reference dl { display: flex; flex-direction: column; gap: 12px; }
 .emb-reference dt { font-size: 14px; font-weight: 600; color: #E8E8F0; }
-.emb-reference dd { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-left: 0; margin-top: 4px; }
+.emb-reference dd { font-size: 14px; line-height: 1.7; color: #C8C8E0; margin-left: 0; margin-top: 4px; }
 </style>

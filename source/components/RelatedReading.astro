@@ -1,0 +1,9 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { selectRelated } from '../lib/archive-search.mjs'
+interface Props { slug: string; category: string; posts: CollectionEntry<'blog'>[]; semantic?: readonly {slug: string}[] }
+const {slug,category,posts,semantic = []} = Astro.props
+const related = selectRelated(slug,category,posts,[...semantic])
+---
+{related.length > 0 && <section class="related"><h2>Continúa leyendo</h2><ul>{related.map(post => <li><a href={`/${post.id}/`}>{post.data.title}</a><p>{post.data.description}</p></li>)}</ul></section>}
+<style>.related{margin-top:48px;border-top:1px solid #44445e;padding-top:24px}h2{font-size:24px;margin-bottom:16px}ul{list-style:none;padding:0;display:grid;gap:24px}a{color:var(--color-link);font-weight:600}p{margin-top:8px;color:var(--color-muted);font-size:16px;line-height:1.6}</style>

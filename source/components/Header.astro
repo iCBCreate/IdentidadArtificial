@@ -1,125 +1,73 @@
 ---
-const navLinks = [
-  { href: '/', label: 'Inicio' },
-  { href: '/sobre/', label: 'Sobre' },
-  { href: '/como-funciona/', label: 'Cómo funciona' },
+const currentPath = Astro.url.pathname
+const links = [
+  { href: '/archivo/', label: 'Artículos' },
   { href: '/tutoriales/', label: 'Tutoriales' },
   { href: '/laboratorio/', label: 'Laboratorio' },
-  { href: '/mapa-ia/', label: 'Mapa IA' },
-  { href: '/radar/', label: 'Radar' },
-  { href: '/archivo/', label: 'Archivo' },
 ]
-
-const currentPath = Astro.url.pathname
-
-function isActivePath(href: string): boolean {
-  return href === '/' ? currentPath === href : currentPath.startsWith(href)
-}
+const explore = [{ href: '/mapa-ia/', label: 'Mapa IA' }, { href: '/radar/', label: 'Radar editorial' }]
+const active = (href: string) => currentPath.startsWith(href)
 ---
-
-<header class="border-b border-[#2A2A40] bg-[#13131F]/90 backdrop-blur-sm sticky top-0 z-50">
-  <nav class="max-w-5xl mx-auto px-6 py-0 flex items-center justify-between h-14">
-    <a href="/" class="font-extrabold text-base text-[#E8E8F0] hover:text-[#A78BFA] transition-colors tracking-tight">
-      Identidad <span class="text-[#A78BFA]">Artificial</span>
-    </a>
-
-    <!-- Desktop nav -->
-    <ul class="hidden sm:flex items-center gap-6">
-      {navLinks.map((link, i) => (
-        <>
-          {i === 4 && (
-            <li role="separator" aria-hidden="true" class="w-px h-4 bg-[#2A2A40] flex-shrink-0"></li>
-          )}
-          <li>
-            <a
-              href={link.href}
-              class={`text-sm transition-colors ${
-                isActivePath(link.href)
-                  ? 'text-[#E8E8F0] font-semibold'
-                  : 'text-[#A0A0C0] hover:text-[#E8E8F0]'
-              }`}
-            >
-              {link.label}
-            </a>
-          </li>
-        </>
-      ))}
+<header class="site-header">
+  <nav class="page-shell nav-shell" aria-label="Navegación principal">
+    <a href="/" class="brand" aria-label="Identidad Artificial · Inicio">Identidad <span>Artificial</span><span class="brand-dot" aria-hidden="true">.</span></a>
+    <ul class="desktop-nav">
+      {links.map(link => <li><a href={link.href} aria-current={active(link.href) ? 'page' : undefined}>{link.label}</a></li>)}
+      <li class="explore-item">
+        <details id="explore-menu">
+          <summary>Explorar <span aria-hidden="true">⌄</span></summary>
+          <ul class="explore-links">{explore.map(link => <li><a href={link.href} aria-current={active(link.href) ? 'page' : undefined}>{link.label}</a></li>)}</ul>
+        </details>
+      </li>
+      <li><a href="/sobre/" aria-current={active('/sobre/') ? 'page' : undefined}>Sobre</a></li>
     </ul>
-
-    <!-- Hamburger button (mobile) -->
-    <button
-      id="menu-btn"
-      class="sm:hidden flex flex-col gap-[5px] p-2 -mr-2"
-      aria-label="Abrir menú"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
-      <span class="menu-line block w-5 h-[2px] bg-[#A0A0C0] rounded transition-all duration-250"></span>
-      <span class="menu-line block w-5 h-[2px] bg-[#A0A0C0] rounded transition-all duration-250"></span>
-      <span class="menu-line block w-5 h-[2px] bg-[#A0A0C0] rounded transition-all duration-250"></span>
-    </button>
+    <details class="mobile-nav" id="mobile-menu">
+      <summary id="menu-btn">Menú <span aria-hidden="true">☰</span></summary>
+      <div class="mobile-links">
+        {links.map(link => <a href={link.href} aria-current={active(link.href) ? 'page' : undefined}>{link.label}</a>)}
+        <p>Explorar</p>
+        {explore.map(link => <a href={link.href} aria-current={active(link.href) ? 'page' : undefined}>{link.label}</a>)}
+        <a href="/sobre/" aria-current={active('/sobre/') ? 'page' : undefined}>Sobre el proyecto</a>
+      </div>
+    </details>
   </nav>
-
-  <!-- Mobile menu -->
-  <div
-    id="mobile-menu"
-    class="sm:hidden hidden border-t border-[#2A2A40] bg-[#1C1C2E]"
-  >
-    <ul class="max-w-5xl mx-auto px-6 py-2">
-      {navLinks.map(link => (
-        <li>
-          <a
-            href={link.href}
-            class={`block py-3 text-sm border-b border-[#2A2A40] last:border-0 transition-colors ${
-              isActivePath(link.href)
-                ? 'text-[#A78BFA] font-semibold border-l-2 border-l-[#A78BFA] pl-2 -ml-2'
-                : 'text-[#A0A0C0] hover:text-[#E8E8F0]'
-            }`}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
 </header>
-
 <script>
-  const btn = document.getElementById('menu-btn')
-  const menu = document.getElementById('mobile-menu')
-  const lines = btn?.querySelectorAll('.menu-line')
-
-  function setMenuOpen(open: boolean) {
-    if (!btn || !menu) return
-    menu?.classList.toggle('hidden', !open)
-    btn.setAttribute('aria-expanded', String(open))
-
-    // Use inert to prevent keyboard/pointer interaction with background content
-    const mainEl = document.querySelector('main')
-    const footerEl = document.querySelector('footer')
-    if (mainEl) mainEl.toggleAttribute('inert', open)
-    if (footerEl) footerEl.toggleAttribute('inert', open)
-
-    if (lines) {
-      if (open) {
-        (lines[0] as HTMLElement).style.transform = 'rotate(45deg) translate(5px, 5px)'
-        ;(lines[1] as HTMLElement).style.opacity = '0'
-        ;(lines[2] as HTMLElement).style.transform = 'rotate(-45deg) translate(5px, -5px)'
-      } else {
-        ;(lines[0] as HTMLElement).style.transform = ''
-        ;(lines[1] as HTMLElement).style.opacity = ''
-        ;(lines[2] as HTMLElement).style.transform = ''
-      }
-    }
+  const mobile = document.querySelector<HTMLDetailsElement>('#mobile-menu')
+  const explore = document.querySelector<HTMLDetailsElement>('#explore-menu')
+  const desktop = window.matchMedia('(min-width: 1024px)')
+  const sync = () => {
+    if (mobile && desktop.matches) mobile.open = false
+    if (explore && !desktop.matches) explore.open = false
   }
-
-  btn?.addEventListener('click', () => {
-    setMenuOpen(menu?.classList.contains('hidden') ?? true)
-  })
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      setMenuOpen(false)
+  desktop.addEventListener('change', sync)
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return
+    for (const menu of [mobile, explore]) {
+      if (!menu?.open) continue
+      menu.open = false
+      menu.querySelector('summary')?.focus()
     }
   })
+  document.addEventListener('click', event => {
+    if (explore?.open && !explore.contains(event.target as Node)) explore.open = false
+  })
+  sync()
 </script>
+<style>
+.site-header { position: sticky; top: 0; z-index: 50; background: #1C1C2C; border-bottom: 1px solid #39394F; }
+.nav-shell { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.brand { color: #E8E8F0; text-decoration: none; font-size: 18px; font-weight: 800; letter-spacing: -.65px; white-space: nowrap; }
+.brand span { color: #A78BFA; }.brand .brand-dot { color: #E8E8F0; }
+.desktop-nav { display: none; gap: 24px; align-items: center; list-style: none; margin: 0; padding: 0; }
+.desktop-nav a, summary { min-height: 44px; display: flex; align-items: center; gap: 12px; color: #C8C8E0; text-decoration: none; font-size: 14px; cursor: pointer; }
+.desktop-nav a:hover, .mobile-links a:hover { color: #A78BFA; }
+a[aria-current] { color: #E8E8F0; font-weight: 700; text-decoration: underline; text-underline-offset: 7px; text-decoration-color: #A78BFA; }
+summary { list-style: none; }summary::-webkit-details-marker { display: none; }
+.explore-item { position: relative; }.explore-links { position: absolute; top: 52px; right: 0; width: 210px; background: #24243A; padding: 12px 20px; border: 1px solid #50506A; border-radius: 8px; list-style: none; }
+.mobile-nav { margin-left: auto; }.mobile-nav[open] { width: 100%; margin: -12px 0 0; }.mobile-nav[open] summary { justify-content: flex-end; }
+.mobile-links { padding: 8px 0 24px; display: grid; grid-template-columns: 1fr; }.mobile-links a { min-height: 44px; padding: 8px 0; color: #E8E8F0; text-decoration: none; border-bottom: 1px solid #39394F; }
+.mobile-links p { color: #C8C8E0; font-size: 12px; text-transform: uppercase; letter-spacing: .12em; margin-top: 20px; }
+@media(min-width:1024px) { .desktop-nav { display: flex; }.mobile-nav { display: none; } }
+@media(max-width:360px) { .brand { font-size:16px; }.nav-shell { gap:12px; } }
+</style>

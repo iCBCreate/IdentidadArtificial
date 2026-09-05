@@ -1,9 +1,7 @@
 ---
+import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import HeroSection from '../components/HeroSection.astro'
-import AITimeline from '../components/AITimeline.astro'
-import NewsTicker from '../components/NewsTicker.astro'
-import AIShowcase from '../components/AIShowcase.astro'
 import PostCard from '../components/PostCard.astro'
 import Pagination from '../components/Pagination.astro'
 import { SITE, AUTHOR_PERSON } from '../config'
@@ -18,6 +16,13 @@ import {
 const allPosts = await getSortedPosts()
 const posts = getPageItems(allPosts, 1, HOME_PAGE_SIZE)
 const totalPages = getTotalPages(allPosts.length, HOME_PAGE_SIZE)
+const tutorials = (await getCollection('tutoriales')).sort((a,b) => b.data.pubDate.valueOf()-a.data.pubDate.valueOf()).slice(0, 3)
+const experiments = [
+  { slug: 'tokenizador', title: 'De palabras a tokens', description: 'Mira cómo se divide tu texto antes de llegar al modelo.', label: 'Contar tokens' },
+  { slug: 'sampling', title: 'Una pregunta, muchas respuestas', description: 'Descubre qué cambia al ajustar la temperatura.', label: 'Probar la generación' },
+  { slug: 'calculadora-contexto', title: '¿Cuánto cabe? ¿Cuánto cuesta?', description: 'Compara tu texto entre modelos con una estimación de coste.', label: 'Comparar contexto' },
+  { slug: 'embeddings', title: 'Textos que se parecen', description: 'Explora el significado con un modelo que cargas tú.', label: 'Comparar significados' },
+]
 
 const homepageJsonLd = [
   {
@@ -27,11 +32,7 @@ const homepageJsonLd = [
     url: SITE.url,
     description: SITE.description,
     inLanguage: 'es',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${SITE.url}/archivo/?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
-    },
+
   },
   {
     '@context': 'https://schema.org',
@@ -64,16 +65,10 @@ const homepageJsonLd = [
 <BaseLayout title={SITE.name} description={SITE.description} image="/og/index.png" jsonLd={homepageJsonLd}>
   <HeroSection />
 
-  <NewsTicker />
-
-  <AITimeline />
-
-  <AIShowcase />
-
-  <div class="max-w-5xl mx-auto px-6 py-10">
-    <h2 id="entradas" class="text-xs font-semibold text-[#A0A0C0] uppercase tracking-widest mb-6 pb-3 border-b border-[#2A2A40]">
-      Últimas entradas
-    </h2>
+  <section class="page-shell home-section" aria-labelledby="entradas">
+    <div class="section-heading"><h2 id="entradas">
+      Para entender lo que viene
+    </h2><a href="/archivo/">Todos los artículos →</a></div>
 
     <div class="cards-grid">
       {posts.map((post, i) => (
@@ -100,32 +95,37 @@ const homepageJsonLd = [
         paginaUrl="/pagina/"
       />
     )}
-  </div>
+  </section>
+  <section class="page-shell home-section" aria-labelledby="aprender">
+    <div class="section-heading"><div><p class="eyebrow">Paso a paso</p><h2 id="aprender">Aprende algo que puedas usar.</h2></div><a href="/tutoriales/">Todos los tutoriales →</a></div>
+    <div class="learning-grid">
+      {tutorials.map((tutorial, i) => <article class="learning-card"><span class="card-number" aria-hidden="true">0{i + 1}</span><p class="card-meta">{tutorial.data.herramienta} · {tutorial.data.tiempoEstimado}</p><h3><a href={`/tutoriales/${tutorial.id}/`}>{tutorial.data.title}</a></h3><p>{tutorial.data.description}</p><a class="text-action" href={`/tutoriales/${tutorial.id}/`}>Seguir la guía →</a></article>)}
+    </div>
+  </section>
+  <section class="lab-band" aria-labelledby="experimentar"><div class="page-shell">
+    <div class="section-heading"><div><p class="eyebrow">Aprender haciendo</p><h2 id="experimentar">No te quedes con la teoría.</h2></div><a href="/laboratorio/">Entrar al laboratorio →</a></div>
+    <div class="experiment-grid">{experiments.map(item => <article><h3>{item.title}</h3><p>{item.description}</p><a class="text-action" href={`/laboratorio/${item.slug}/`}>{item.label} →</a></article>)}</div>
+  </div></section>
+  <section class="page-shell home-section exploration" aria-label="Seguir explorando">
+    <a href="/mapa-ia/"><span class="eyebrow">Conecta ideas</span><h2>El mapa de la IA <span aria-hidden="true">↗</span></h2><p>Encuentra la relación entre conceptos, empresas y artículos.</p></a>
+    <a href="/radar/"><span class="eyebrow">La siguiente pregunta</span><h2>Radar editorial <span aria-hidden="true">↗</span></h2><p>Los temas que queremos seguir explorando y las lecturas que los explican.</p></a>
+  </section>
 </BaseLayout>
 
 <style>
-.cards-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1px;
-  background: #2A2A40;
-  border: 1px solid #2A2A40;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 8px;
-}
-
-/* primera card ocupa 2 columnas */
-.cards-grid > :first-child {
-  grid-column: span 2;
-}
-
-@media (max-width: 640px) {
-  .cards-grid {
-    grid-template-columns: 1fr;
-  }
-  .cards-grid > :first-child {
-    grid-column: span 1;
-  }
-}
+.home-section { padding-block: 16px 48px; }
+.section-heading { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:12px; margin-bottom:24px; border-top:1px solid #39394F; padding-top:24px; }
+.section-heading h2 { font-size:clamp(22px,3vw,30px); font-weight:750; line-height:1.25; letter-spacing:-.7px; }.section-heading a { color:#A78BFA; font-size:14px; min-height:44px; display:inline-flex; align-items:center; text-decoration:none; }
+.section-heading .eyebrow { margin-bottom:8px; }
+.cards-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; margin-bottom:32px; }.cards-grid > :first-child { grid-column:span 2; }
+.learning-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.learning-card { padding:24px; border:1px solid #50506A; border-radius:8px; position:relative; }.card-number { color:#A78BFA; font-size:30px; font-weight:750; }.card-meta { color:#C8C8E0; font-size:12px; margin:16px 0 12px; }
+h3 { font-size:20px; font-weight:700; line-height:1.4; }h3 a { color:#E8E8F0; text-decoration:none; }h3 a:hover { color:#A78BFA; }
+.learning-card > p:not(.card-meta), .experiment-grid p, .exploration p { color:#C8C8E0; font-size:15px; margin-top:12px; }
+.text-action { display:inline-flex; align-items:center; min-height:44px; color:#A78BFA; margin-top:16px; font-size:14px; text-decoration:none; }.text-action:hover { text-decoration:underline; }
+.lab-band { padding-block:32px 48px; background:#24243A; margin-block:8px 32px; }.lab-band .section-heading { border-top:0; padding-top:0; }
+.experiment-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px; }.experiment-grid article { border-top:2px solid #A78BFA; padding-top:20px; }
+.exploration { display:grid; grid-template-columns:1fr 1fr; gap:32px; }.exploration>a { text-decoration:none; border-bottom:1px solid #50506A; padding-block:16px 24px; }.exploration h2 { font-size:24px; color:#E8E8F0; margin-top:12px; font-weight:700; }.exploration h2 span { color:#A78BFA; }
+@media(max-width:900px) { .cards-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.learning-grid { grid-template-columns:1fr; }.experiment-grid { grid-template-columns:1fr 1fr; } }
+@media(max-width:600px) { .cards-grid,.experiment-grid,.exploration { grid-template-columns:1fr; }.cards-grid>:first-child { grid-column:auto; }.home-section { padding-bottom:32px; } }
 </style>

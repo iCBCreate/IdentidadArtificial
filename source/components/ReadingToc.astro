@@ -1,0 +1,12 @@
+---
+import type { MarkdownHeading } from 'astro'
+interface Props { headings: MarkdownHeading[] }
+const headings = Astro.props.headings.filter(heading => heading.depth === 2 || heading.depth === 3)
+---
+{headings.length > 0 && <aside class="reading-toc">
+  <details class="compact-toc"><summary>En esta lectura</summary><nav aria-label="Índice de lectura"><ol>{headings.map(h => <li class:list={{sub: h.depth === 3}}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></nav></details>
+  <nav class="wide-toc" aria-label="Índice de lectura"><strong>En esta lectura</strong><ol>{headings.map(h => <li class:list={{sub: h.depth === 3}}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></nav>
+</aside>}
+<style>
+.reading-toc{min-width:0;margin-bottom:32px;font-size:14px;color:var(--color-muted)}summary{cursor:pointer;min-height:44px;padding:12px 0;font-weight:600;color:var(--color-text)}ol{list-style:none;padding:0;margin:8px 0}li{margin:0}.sub{padding-left:16px}a{display:block;padding:8px 0;color:var(--color-link);line-height:1.5;overflow-wrap:anywhere}.wide-toc{display:none}@media(min-width:1200px){.compact-toc{display:none}.wide-toc{display:block;position:sticky;top:100px;max-height:calc(100vh - 120px);overflow:auto}.reading-toc{grid-column:2;grid-row:1}}
+</style>

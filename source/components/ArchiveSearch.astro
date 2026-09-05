@@ -1,0 +1,43 @@
+<section class="archive-search" aria-label="Buscar artículos">
+  <form action="/archivo/" method="get" role="search"><label for="archive-query">Buscar por título, descripción o tema</label><div class="search-row"><input id="archive-query" name="q" type="search" autocomplete="off" placeholder="Por ejemplo: contexto o agentes" /><button class="button" type="submit">Buscar</button><a class="button-secondary" href="/archivo/" data-clear>Limpiar</a></div></form>
+  <p role="status" aria-live="polite" data-search-status></p>
+  <div data-search-results hidden></div>
+  <noscript><p>La búsqueda necesita JavaScript. Puedes recorrer todos los artículos mediante categorías y paginación.</p></noscript>
+</section>
+<script>
+import { searchArticles } from '../lib/archive-search.mjs'
+const form = document.querySelector<HTMLFormElement>('.archive-search form')!
+const input = document.querySelector<HTMLInputElement>('#archive-query')!
+const status = document.querySelector<HTMLElement>('[data-search-status]')!
+const results = document.querySelector<HTMLElement>('[data-search-results]')!
+const listing = document.querySelector<HTMLElement>('[data-static-archive]')!
+let indexPromise: Promise<any[]> | undefined
+let version = 0
+async function update() {
+  const turn = ++version
+  const query = new URL(location.href).searchParams.get('q')?.trim() ?? ''
+  input.value = query
+  results.replaceChildren(); results.hidden = !query; listing.hidden = !!query
+  if (!query) { status.textContent = ''; return }
+  status.textContent = 'Buscando artículos…'
+  try {
+    indexPromise ??= fetch('/archivo/indice.json').then(response => { if (!response.ok) throw new Error('index'); return response.json() }).catch(error => { indexPromise = undefined; throw error })
+    const matches = searchArticles(await indexPromise, query)
+    if (turn !== version) return
+    status.textContent = matches.length ? `${matches.length} artículos encontrados` : 'No hay coincidencias. Prueba con menos palabras o con otro tema.'
+    const list = document.createElement('ul')
+    for (const match of matches) {
+      const item = document.createElement('li'), title = document.createElement('h2'), link = document.createElement('a'), description = document.createElement('p'), date = document.createElement('time')
+      link.href = match.url; link.textContent = match.title; title.append(link); description.textContent = match.description; date.dateTime = match.pubDate; date.textContent = new Date(match.pubDate).toLocaleDateString('es-ES'); item.append(title,description,date); list.append(item)
+    }
+    results.append(list)
+  } catch { if (turn === version) { status.textContent = 'No se pudo cargar la búsqueda. Pulsa Buscar para reintentar; el archivo sigue disponible.'; listing.hidden = false } }
+}
+form.addEventListener('submit', event => { event.preventDefault(); const url = new URL('/archivo/', location.origin); if(input.value.trim()) url.searchParams.set('q',input.value.trim()); history.pushState(null,'',url); update() })
+document.querySelector('[data-clear]')!.addEventListener('click', event => { event.preventDefault(); history.pushState(null,'','/archivo/'); update() })
+window.addEventListener('popstate', update)
+update()
+</script>
+<style>
+.archive-search{margin:24px 0}label{display:block;margin-bottom:8px;font-weight:600}.search-row{display:flex;flex-wrap:wrap;gap:12px}input{min-width:0;flex:1 1 280px;padding:12px;border:1px solid #666680;border-radius:8px;background:var(--color-surface);color:var(--color-text)}[role=status]{margin:16px 0;color:var(--color-muted)}[data-search-results] :global(ul){list-style:none;padding:0}[data-search-results] :global(li){padding:24px 0;border-bottom:1px solid #44445e}[data-search-results] :global(h2){font-size:22px}[data-search-results] :global(a){color:var(--color-link)}[data-search-results] :global(p){margin:8px 0;color:var(--color-muted)}[data-search-results] :global(time){font-size:14px;color:var(--color-muted)}
+</style>

@@ -9,51 +9,52 @@ const updated = PRICED_MODELS[0].updated
 
 <LabLayout
   title="Calculadora de contexto y costes LLM"
-  description="Compara cuánto cuesta tu texto en 10 LLMs actuales (Claude, GPT, Gemini, DeepSeek, Llama) y qué porcentaje de la ventana de contexto ocupa. Sin enviar datos."
+  description="Compara cuánto cuesta tu texto entre los modelos incluidos (Claude, GPT, Gemini, DeepSeek, Llama) y qué porcentaje de la ventana de contexto ocupa. Sin enviar datos."
   image="/og/laboratorio-calculadora.png"
   jsonLd={webAppSchema(demo)}
   heading="Contexto y costes"
-  subtitle="Pega un texto (o escribe un número de tokens directamente) y compara qué costaría procesarlo en los principales modelos y cuánta ventana de contexto consume. Los precios son por millón de tokens, según tarifas públicas."
+  subtitle="Pega un texto (o escribe un número de tokens directamente) y compara qué costaría procesarlo en los principales modelos y cuánta ventana de contexto consume. La tabla calcula el coste de esta consulta en USD. Las tarifas de referencia se muestran debajo."
 >
   <div class="ctx-app">
+    <fieldset class="lab-actions"><legend>Cómo introducir la entrada</legend><label><input type="radio" name="ctx-mode" value="text" checked /> Texto</label><label><input type="radio" name="ctx-mode" value="manual" /> Número de tokens</label></fieldset>
     <div class="ctx-inputs">
       <div class="ctx-input-block">
         <label class="ctx-label" for="ctx-text">Texto de entrada</label>
         <textarea id="ctx-text" class="ctx-textarea" rows="5" placeholder="Pega aquí tu prompt, documento o conversación…" spellcheck="false"></textarea>
         <label class="ctx-precise">
           <input type="checkbox" id="ctx-precise-toggle" />
-          Recuento preciso con tokenizador real (descarga ~800 KB)
+          Usar o200k_base como referencia (descarga ~800 KB)
         </label>
       </div>
       <div class="ctx-numbers">
         <div class="ctx-number">
           <label class="ctx-label" for="ctx-input-tokens">Tokens de entrada</label>
-          <input type="number" id="ctx-input-tokens" min="0" step="100" value="0" />
+          <input type="number" id="ctx-input-tokens" min="0" step="1" value="0" readonly />
         </div>
         <div class="ctx-number">
-          <label class="ctx-label" for="ctx-output-tokens">Tokens de salida</label>
-          <input type="number" id="ctx-output-tokens" min="0" step="100" value="1000" />
+          <label class="ctx-label" for="ctx-output-tokens">Salida prevista (tokens)</label>
+          <input type="number" id="ctx-output-tokens" min="0" step="1" value="1000" />
         </div>
-        <p class="ctx-method" id="ctx-method">Estimación: caracteres ÷ 4</p>
+        <p class="ctx-method" id="ctx-method" role="status">Estimación: caracteres ÷ 4</p>
       </div>
     </div>
 
     <div class="ctx-table-wrap">
-      <table class="ctx-table">
+      <table class="ctx-table"><caption>Coste estimado de esta consulta (USD)</caption>
         <thead>
           <tr>
             <th>Modelo</th>
             <th>Contexto</th>
-            <th>Entrada</th>
-            <th>Salida</th>
-            <th>Total</th>
-            <th class="ctx-th-window">% ventana</th>
+            <th>Coste entrada</th>
+            <th>Coste salida</th>
+            <th>Coste total</th>
+            <th class="ctx-th-window">% ventana (entrada + salida)</th>
           </tr>
         </thead>
         <tbody id="ctx-tbody"></tbody>
       </table>
     </div>
-    <p class="ctx-updated">Precios actualizados: {updated} · USD por millón de tokens · la estimación chars/4 es orientativa: cada modelo tokeniza distinto.</p>
+    <p class="ctx-updated">Precios actualizados: {updated} · Costes anteriores en USD por consulta · la estimación chars/4 es orientativa: cada modelo tokeniza distinto.</p>
 
     <div class="ctx-explainer">
       <h2>Para entender la tabla</h2>
@@ -66,9 +67,9 @@ const updated = PRICED_MODELS[0].updated
     </div>
 
     <div class="ctx-reference">
-      <h2>Referencia de modelos (precios actuales)</h2>
+      <h2>Tarifas de referencia por millón de tokens</h2>
       <p>La tabla siguiente muestra los datos de referencia sin necesidad de interacción. Los valores en la calculadora se actualizan dinámicamente al escribir.</p>
-      <table class="ctx-ref-table">
+      <div class="ctx-table-wrap"><table class="ctx-ref-table">
         <thead>
           <tr>
             <th>Modelo</th>
@@ -89,7 +90,8 @@ const updated = PRICED_MODELS[0].updated
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></div>
+      <p>Fuentes para consultar las tarifas vigentes: <a href="https://openai.com/api/pricing/">OpenAI</a>, <a href="https://www.anthropic.com/pricing">Anthropic</a>, <a href="https://ai.google.dev/gemini-api/docs/pricing">Google</a> y <a href="https://api-docs.deepseek.com/quick_start/pricing">DeepSeek</a>. Las cifras son la referencia guardada en la fecha indicada, sin descuentos, caché ni condiciones especiales.</p>
       <h3>Cuándo importa la ventana de contexto</h3>
       <ul>
         <li><strong>Análisis de documentos largos</strong>: contratos, libros, bases de código completas. Un modelo con 200K tokens puede procesar ~150.000 palabras de una vez.</li>
@@ -112,9 +114,11 @@ const updated = PRICED_MODELS[0].updated
   const method = document.getElementById('ctx-method') as HTMLParagraphElement
   const tbody = document.getElementById('ctx-tbody') as HTMLTableSectionElement
 
+  let mode = 'text'
+  let requestVersion = 0
   let encode: ((text: string) => number[]) | null = null
 
-  async function tokensFromText(text: string): Promise<number> {
+  async function tokensFromText(text: string): Promise<{ count: number; method: string }> {
     if (preciseToggle.checked) {
       if (!encode) {
         method.textContent = 'Cargando tokenizador…'
@@ -122,20 +126,12 @@ const updated = PRICED_MODELS[0].updated
           const mod = await import('gpt-tokenizer/encoding/o200k_base')
           encode = mod.encode
         } catch {
-          method.textContent = 'Error cargando el tokenizador — usando estimación chars/4'
-          preciseToggle.checked = false
-          return estimateTokensFromText(text)
+          return { count: estimateTokensFromText(text), method: 'Descarga fallida: estimación caracteres ÷ 4. Desmarca y vuelve a marcar o200k_base para reintentar.' }
         }
       }
-      method.textContent = 'Recuento real con o200k_base'
-      return text.length === 0 ? 0 : encode(text).length
+      return { count: text.length === 0 ? 0 : encode(text).length, method: 'Referencia o200k_base; otros modelos pueden contar distinto.' }
     }
-    method.textContent = 'Estimación: caracteres ÷ 4'
-    return estimateTokensFromText(text)
-  }
-
-  function fmtTokens(n: number): string {
-    return n.toLocaleString('es-ES')
+    return { count: estimateTokensFromText(text), method: 'Estimación: caracteres ÷ 4' }
   }
 
   function fmtWindow(n: number): string {
@@ -146,7 +142,11 @@ const updated = PRICED_MODELS[0].updated
   function render() {
     const inTok = Math.max(0, parseInt(inputTokens.value, 10) || 0)
     const outTok = Math.max(0, parseInt(outputTokens.value, 10) || 0)
-    const rows = computeCostTable(PRICED_MODELS, inTok, outTok)
+    const rows = computeCostTable(PRICED_MODELS, inTok, outTok).map(row => ({
+      ...row,
+      contextPct: ((inTok + outTok) / row.model.contextWindow) * 100,
+      fitsInContext: inTok + outTok <= row.model.contextWindow,
+    }))
 
     tbody.replaceChildren(...rows.map(row => {
       const tr = document.createElement('tr')
@@ -168,25 +168,29 @@ const updated = PRICED_MODELS[0].updated
     }))
   }
 
-  let debounce: ReturnType<typeof setTimeout> | undefined
-  textInput.addEventListener('input', () => {
-    clearTimeout(debounce)
-    debounce = setTimeout(async () => {
-      inputTokens.value = String(await tokensFromText(textInput.value))
-      render()
-    }, 150)
-  })
-
-  preciseToggle.addEventListener('change', async () => {
-    if (textInput.value.length > 0) {
-      inputTokens.value = String(await tokensFromText(textInput.value))
-    } else {
-      await tokensFromText('')
-    }
+  async function updateText() {
+    const version = ++requestVersion
+    if (mode !== 'text') return
+    const value = textInput.value
+    const result = await tokensFromText(value)
+    if (version !== requestVersion || mode !== 'text' || textInput.value !== value) return
+    inputTokens.value = String(result.count)
+    method.textContent = result.method
     render()
+  }
+  document.querySelectorAll<HTMLInputElement>('input[name="ctx-mode"]').forEach(control => {
+    control.addEventListener('change', () => {
+      mode = control.value; requestVersion++
+      inputTokens.readOnly = mode === 'text'
+      textInput.disabled = mode === 'manual'
+      preciseToggle.disabled = mode === 'manual'
+      if (mode === 'text') updateText()
+      else { method.textContent = 'Modo manual: solo se usa el número de tokens introducido.'; render() }
+    })
   })
-
-  inputTokens.addEventListener('input', render)
+  textInput.addEventListener('input', updateText)
+  preciseToggle.addEventListener('change', updateText)
+  inputTokens.addEventListener('input', () => { if (mode === 'manual') render() })
   outputTokens.addEventListener('input', render)
 
   render()
@@ -211,7 +215,7 @@ const updated = PRICED_MODELS[0].updated
   font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: #A0A0C0;
+  color: #C8C8E0;
   margin-bottom: 8px;
 }
 
@@ -233,7 +237,7 @@ const updated = PRICED_MODELS[0].updated
   align-items: center;
   gap: 8px;
   font-size: 12px;
-  color: #A0A0C0;
+  color: #C8C8E0;
   margin-top: 8px;
   cursor: pointer;
 }
@@ -252,7 +256,7 @@ const updated = PRICED_MODELS[0].updated
   padding: 10px 12px;
 }
 .ctx-number input:focus { outline: none; border-color: #A78BFA; }
-.ctx-method { font-size: 11px; color: #9A9ABF; }
+.ctx-method { font-size: 11px; color: #C8C8E0; }
 
 .ctx-table-wrap { overflow-x: auto; }
 .ctx-table {
@@ -269,7 +273,7 @@ const updated = PRICED_MODELS[0].updated
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: #A0A0C0;
+  color: #C8C8E0;
   padding: 10px 12px;
   border-bottom: 1px solid #2A2A40;
 }
@@ -281,7 +285,7 @@ const updated = PRICED_MODELS[0].updated
   white-space: nowrap;
 }
 .ctx-table :global(tr:last-child td) { border-bottom: none; }
-.ctx-table :global(td.num) { font-variant-numeric: tabular-nums; color: #A0A0C0; }
+.ctx-table :global(td.num) { font-variant-numeric: tabular-nums; color: #C8C8E0; }
 .ctx-table :global(td.total) { color: #E8E8F0; font-weight: 700; }
 .ctx-table :global(.ctx-dot) {
   display: inline-block;
@@ -302,10 +306,10 @@ const updated = PRICED_MODELS[0].updated
   margin-right: 8px;
 }
 .ctx-table :global(.ctx-bar-fill) { height: 100%; border-radius: 3px; transition: width 0.25s ease; }
-.ctx-table :global(.ctx-pct) { font-size: 11px; color: #A0A0C0; font-variant-numeric: tabular-nums; }
+.ctx-table :global(.ctx-pct) { font-size: 11px; color: #C8C8E0; font-variant-numeric: tabular-nums; }
 .ctx-table :global(.ctx-pct.overflow) { color: #F87171; font-weight: 700; }
 
-.ctx-updated { font-size: 11px; color: #9A9ABF; margin-top: 10px; }
+.ctx-updated { font-size: 11px; color: #C8C8E0; margin-top: 10px; }
 
 .ctx-explainer { margin-top: 32px; max-width: 680px; }
 .ctx-explainer h2 {
@@ -316,17 +320,17 @@ const updated = PRICED_MODELS[0].updated
   color: #A78BFA;
   margin-bottom: 10px;
 }
-.ctx-explainer p { font-size: 14px; line-height: 1.7; color: #A0A0C0; }
+.ctx-explainer p { font-size: 14px; line-height: 1.7; color: #C8C8E0; }
 .ctx-explainer a { color: #A78BFA; }
 
 .ctx-reference { margin-top: 32px; max-width: 860px; }
 .ctx-reference h2 { font-size: 16px; font-weight: 700; color: #E8E8F0; margin-bottom: 8px; }
 .ctx-reference h3 { font-size: 13px; font-weight: 700; color: #A78BFA; margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; }
-.ctx-reference p { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 12px; }
+.ctx-reference p { font-size: 14px; line-height: 1.7; color: #C8C8E0; margin-bottom: 12px; }
 .ctx-reference ul { padding-left: 20px; }
-.ctx-reference li { font-size: 14px; line-height: 1.7; color: #A0A0C0; margin-bottom: 6px; }
+.ctx-reference li { font-size: 14px; line-height: 1.7; color: #C8C8E0; margin-bottom: 6px; }
 .ctx-ref-table { width: 100%; border-collapse: collapse; font-size: 13px; background: #13131F; border: 1px solid #2A2A40; border-radius: 8px; margin-bottom: 16px; overflow: hidden; }
-.ctx-ref-table th { text-align: left; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #A0A0C0; padding: 10px 12px; border-bottom: 1px solid #2A2A40; }
+.ctx-ref-table th { text-align: left; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #C8C8E0; padding: 10px 12px; border-bottom: 1px solid #2A2A40; }
 .ctx-ref-table td { padding: 9px 12px; border-bottom: 1px solid #1F1F33; color: #E8E8F0; font-size: 13px; }
 .ctx-ref-table tr:last-child td { border-bottom: none; }
 </style>

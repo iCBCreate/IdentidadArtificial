@@ -1,28 +1,24 @@
 ---
 import { SITE } from '../config'
+const groups = [
+  { title: 'Leer y aprender', links: [['/archivo/', 'Artículos'], ['/tutoriales/', 'Tutoriales'], ['/laboratorio/', 'Laboratorio'], ['/rss.xml', 'Suscribirse por RSS']] },
+  { title: 'Explorar', links: [['/mapa-ia/', 'Mapa IA'], ['/radar/', 'Radar editorial'], ['/sobre/', 'Sobre el proyecto'], ['/como-funciona/', 'Cómo funciona']] },
+  { title: 'Información', links: [['/aviso-legal/', 'Aviso legal'], ['/politica-de-privacidad/', 'Privacidad'], [SITE.github, 'GitHub'], [SITE.linkedin, 'LinkedIn']] },
+]
 ---
-
-<footer class="border-t border-[#2A2A40] bg-[#1C1C2C] mt-16">
-  <div class="max-w-3xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-    <p class="text-sm text-[#A0A0C0]">
-      © {new Date().getFullYear()} {SITE.author}
-    </p>
-    <nav aria-label="Legal y redes sociales" class="flex items-center gap-6 flex-wrap justify-center sm:justify-end">
-      <a href="/aviso-legal/" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
-        Aviso legal
-      </a>
-      <a href="/politica-de-privacidad/" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
-        Privacidad
-      </a>
-      <a href="/rss.xml" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
-        RSS
-      </a>
-      <a href={SITE.github} target="_blank" rel="noopener noreferrer" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
-        GitHub
-      </a>
-      <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" class="text-sm text-[#A0A0C0] hover:text-[#A78BFA] transition-colors">
-        LinkedIn
-      </a>
-    </nav>
+<footer class="site-footer">
+  <div class="page-shell footer-grid">
+    <div><a class="footer-brand" href="/">Identidad Artificial.</a><p>Entender la IA.<br />Ponerla en práctica.</p><small>© {new Date().getFullYear()} {SITE.author}</small></div>
+    {groups.map(group => <nav aria-label={group.title}><h2>{group.title}</h2><ul>{group.links.map(([href, label]) => <li><a href={href} rel={href.startsWith('https') ? 'noopener noreferrer' : undefined}>{label}</a></li>)}</ul></nav>)}
   </div>
 </footer>
+<style>
+.site-footer { margin-top: 64px; padding: 48px 0; border-top: 1px solid #39394F; background: #171724; }
+.footer-grid { display: grid; gap: 32px; grid-template-columns: 1.4fr 1fr 1fr 1fr; }
+.footer-brand { color: #E8E8F0; font-weight: 800; text-decoration: none; }
+p, small { color: #C8C8E0; font-size: 14px; }p { margin: 16px 0 24px; }
+h2 { color: #E8E8F0; font-size: 13px; font-weight: 700; margin-bottom: 12px; }ul { list-style: none; padding: 0; margin: 0; }
+li a { color: #C8C8E0; font-size: 14px; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }li a:hover { color: #A78BFA; text-decoration: underline; }
+@media(max-width:900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px) { .footer-grid { grid-template-columns: 1fr; gap: 24px; } }
+</style>

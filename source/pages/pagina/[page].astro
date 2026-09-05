@@ -1,9 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
-import HeroSection from '../../components/HeroSection.astro'
 import PostCard from '../../components/PostCard.astro'
 import Pagination from '../../components/Pagination.astro'
-import { SITE } from '../../config'
 import {
   HOME_PAGE_SIZE,
   calcReadingTime,
@@ -31,56 +29,4 @@ export async function getStaticPaths() {
 const { page, totalPages, allPosts } = Astro.props
 const posts = getPageItems(allPosts, page, HOME_PAGE_SIZE)
 ---
-
-<BaseLayout title={`${SITE.name} — Página ${page}`} description={SITE.description} robots="noindex, follow">
-  <HeroSection />
-
-  <div class="max-w-5xl mx-auto px-6 py-10">
-    <h2 class="text-xs font-semibold text-[#A0A0C0] uppercase tracking-widest mb-6 pb-3 border-b border-[#2A2A40]">
-      Últimas entradas
-    </h2>
-
-    <div class="cards-grid">
-      {posts.map((post, i) => (
-        <PostCard
-          title={post.data.title}
-          description={post.data.description}
-          pubDate={post.data.pubDate}
-          category={post.data.category}
-          slug={post.id}
-          heroImage={post.data.heroImage}
-          readingTime={calcReadingTime(post.body ?? '')}
-          featured={i === 0}
-          priority={i === 0}
-        />
-      ))}
-    </div>
-
-    <Pagination
-      currentPage={page}
-      totalPages={totalPages}
-      totalPosts={allPosts.length}
-      baseUrl="/"
-      paginaUrl="/pagina/"
-    />
-  </div>
-</BaseLayout>
-
-<style>
-.cards-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1px;
-  background: #2A2A40;
-  border: 1px solid #2A2A40;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 8px;
-}
-.cards-grid > :first-child { grid-column: span 2; }
-
-@media (max-width: 640px) {
-  .cards-grid { grid-template-columns: 1fr; }
-  .cards-grid > :first-child { grid-column: span 1; }
-}
-</style>
+<BaseLayout title={`Artículos · Página ${page}`} description={`Artículos de IA, página ${page} de ${totalPages}.`} robots="noindex, follow"><section class="page-shell"><nav aria-label="Ruta de navegación"><a href="/">Inicio</a><a href="/archivo/">Artículos</a><span aria-current="page">Página {page}</span></nav><header class="page-heading"><h1>Artículos · Página {page}</h1><p>Página {page} de {totalPages}</p></header><div class="cards-grid">{posts.map(post => <PostCard {...post.data} slug={post.id} readingTime={calcReadingTime(post.body ?? '')} />)}</div><Pagination currentPage={page} totalPages={totalPages} totalPosts={allPosts.length} baseUrl="/" paginaUrl="/pagina/" /></section></BaseLayout><style>.cards-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:24px 0 32px}.page-shell{padding-top:32px;padding-bottom:64px}nav{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0;color:var(--color-muted)}nav a{color:var(--color-link);padding:8px 0}h2{font-size:24px;margin:32px 0 16px}.intro{max-width:68ch;color:var(--color-muted);line-height:1.7}.start{padding:24px 0;border-bottom:1px solid #44445e}.start a{color:var(--color-link)}@media(max-width:900px){.cards-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.cards-grid{grid-template-columns:1fr}}</style>

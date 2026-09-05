@@ -1,4 +1,5 @@
 ---
+import PageBreadcrumbs from '../components/PageBreadcrumbs.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 ---
 
@@ -6,11 +7,13 @@ import BaseLayout from '../layouts/BaseLayout.astro'
   title="Política de Privacidad"
   description="Política de privacidad de Identidad Artificial. Información sobre el tratamiento de datos personales conforme al RGPD y la LOPDGDD."
 >
-  <article class="max-w-3xl mx-auto px-6 py-12">
+  <article class="page-shell document-page">
+    <PageBreadcrumbs title="Privacidad" />
     <h1 class="text-3xl sm:text-4xl font-bold mb-2 text-[#E8E8F0]">Política de Privacidad</h1>
-    <p class="text-sm text-[#606080] mb-10">Última actualización: abril de 2026</p>
+    <p class="text-sm text-[#C8C8E0] mb-10">Última actualización: abril de 2026</p>
 
-    <div class="prose prose-lg max-w-none
+<nav class="document-toc" aria-label="En esta página"><a href="#apartado-1">1. Responsable del tratamiento</a><a href="#apartado-2">2. Datos que recogemos</a><a href="#apartado-3">3. Base legal del tratamiento</a><a href="#apartado-4">4. Finalidad del tratamiento</a><a href="#apartado-5">5. Conservación de los datos</a><a href="#apartado-6">6. Derechos del usuario</a><a href="#apartado-7">7. Cookies</a><a href="#apartado-8">8. Servicios de terceros</a><a href="#apartado-9">9. Seguridad</a><a href="#apartado-10">10. Modificaciones</a></nav>
+    <div class="prose prose-lg max-w-none reading-content
       prose-headings:font-bold prose-headings:text-[#E8E8F0]
       prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4
       prose-p:text-[#C8C8E0] prose-p:leading-relaxed
@@ -18,7 +21,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
       prose-strong:text-[#E8E8F0]
       prose-a:text-[#A78BFA] prose-a:no-underline hover:prose-a:underline">
 
-      <h2>1. Responsable del tratamiento</h2>
+      <h2 id="apartado-1">1. Responsable del tratamiento</h2>
       <p>
         El responsable del tratamiento de los datos personales recabados a través de este sitio es:
       </p>
@@ -28,7 +31,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         <li><strong>Sitio web:</strong> https://identidadartificial.com</li>
       </ul>
 
-      <h2>2. Datos que recogemos</h2>
+      <h2 id="apartado-2">2. Datos que recogemos</h2>
       <p>
         Este sitio web <strong>no dispone de formularios de registro, suscripción ni comentarios</strong>,
         por lo que no recoge datos personales de forma activa.
@@ -39,26 +42,26 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         (nombre y dirección de correo) se utilizarán exclusivamente para atender la consulta.
       </p>
 
-      <h2>3. Base legal del tratamiento</h2>
+      <h2 id="apartado-3">3. Base legal del tratamiento</h2>
       <p>
         La base legal para el tratamiento de los datos de contacto es el consentimiento
         expreso del usuario al dirigirse voluntariamente al titular, de conformidad con el
         artículo 6.1.a) del Reglamento (UE) 2016/679 (RGPD).
       </p>
 
-      <h2>4. Finalidad del tratamiento</h2>
+      <h2 id="apartado-4">4. Finalidad del tratamiento</h2>
       <p>
         Los datos recabados se utilizan exclusivamente para responder a las consultas recibidas.
         No se ceden a terceros, ni se utilizan con fines comerciales o publicitarios.
       </p>
 
-      <h2>5. Conservación de los datos</h2>
+      <h2 id="apartado-5">5. Conservación de los datos</h2>
       <p>
         Los datos de contacto se conservan durante el tiempo necesario para atender la consulta
         y, en su caso, durante los plazos legalmente exigidos.
       </p>
 
-      <h2>6. Derechos del usuario</h2>
+      <h2 id="apartado-6">6. Derechos del usuario</h2>
       <p>
         De conformidad con el RGPD y la LOPDGDD, el usuario tiene derecho a:
       </p>
@@ -80,14 +83,14 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">www.aepd.es</a>.
       </p>
 
-      <h2>7. Cookies</h2>
+      <h2 id="apartado-7">7. Cookies</h2>
       <p>
         Este sitio no utiliza cookies propias de análisis ni publicitarias. Pueden generarse
         cookies técnicas de la infraestructura de Cloudflare, necesarias para el correcto
         funcionamiento y la seguridad del sitio.
       </p>
 
-      <h2>8. Servicios de terceros</h2>
+      <h2 id="apartado-8">8. Servicios de terceros</h2>
       <p>
         Este sitio está alojado en <strong>Cloudflare</strong>, cuya política de privacidad
         está disponible en
@@ -100,14 +103,14 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         terceros enlazados desde este sitio.
       </p>
 
-      <h2>9. Seguridad</h2>
+      <h2 id="apartado-9">9. Seguridad</h2>
       <p>
         Se aplican medidas técnicas y organizativas razonables para proteger los datos frente
         a accesos no autorizados, pérdida o destrucción. Sin embargo, ningún sistema de
         transmisión por internet puede garantizar una seguridad absoluta.
       </p>
 
-      <h2>10. Modificaciones</h2>
+      <h2 id="apartado-10">10. Modificaciones</h2>
       <p>
         Esta política puede actualizarse para adaptarse a cambios normativos o en el
         funcionamiento del sitio. La fecha de última actualización se indica al inicio

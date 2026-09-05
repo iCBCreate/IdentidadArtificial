@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
+import AITimeline from '../components/AITimeline.astro'
 import KnowledgeGraph from '../components/KnowledgeGraph.astro'
 import { KNOWLEDGE_MAP } from '../data/generated/knowledge-map'
 import { SITE } from '../config'
@@ -39,36 +40,26 @@ const datasetSchema = {
   jsonLd={datasetSchema}
 >
   <section class="page-hero">
-    <p class="page-eyebrow">Base de conocimiento</p>
-    <h1>Mapa semántico de IA</h1>
-    <p class="page-subtitle">
-      Artículos, conceptos, empresas y categorías conectados por el pipeline del sitio.
-      No usa IA en vivo: los datos se derivan durante el build.
-    </p>
+    <nav aria-label="Ruta de navegación"><a href="/">Inicio</a> / <span aria-current="page">Mapa IA</span></nav>
+    <p class="page-eyebrow">Explorar</p>
+    <h1>Mapa IA</h1>
+    <p class="page-subtitle">Encuentra artículos sobre un concepto o una empresa y descubre cómo se relacionan con otros temas.</p>
   </section>
-
   <div class="page-body">
-    <section class="graph-meta">
-      <h2>Qué muestra este grafo</h2>
-      <p>
-        El grafo conecta <strong>{postCount} artículos</strong> con <strong>{conceptCount} conceptos</strong>,
-        <strong>{companyCount} empresas</strong> y sus categorías mediante <strong>{linkCount} relaciones</strong>
-        extraídas automáticamente por el pipeline de build. Cada nodo es un elemento del corpus;
-        cada arista representa una co-ocurrencia de tags, categoría compartida o mención explícita.
-        Los datos se regeneran en cada deploy sin llamadas a APIs externas.
-        Más detalles en <a href="/como-funciona/">cómo funciona el sitio</a>.
-      </p>
-    </section>
-
     <KnowledgeGraph nodes={KNOWLEDGE_MAP.nodes} links={KNOWLEDGE_MAP.links} />
+    <section class="timeline-section" aria-label="Cronología de modelos"><h2>Cronología de modelos</h2><AITimeline /></section>
+    <section class="graph-meta">
+      <h2>Cómo se construye este mapa</h2>
+      <p>Conecta {postCount} artículos con {conceptCount} conceptos y {companyCount} empresas mediante {linkCount} relaciones del contenido publicado. Las conexiones proceden de etiquetas, categorías y menciones; se regeneran al publicar el sitio. La posición gráfica es ilustrativa y no representa una medida científica. <a href="/como-funciona/">Consulta la metodología editorial</a>.</p>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
 .page-hero {
-  max-width: 64rem;
+  max-width: 1152px;
   margin: 0 auto;
-  padding: 56px 24px 26px;
+  padding: 32px 20px 24px;
 }
 
 .page-eyebrow {
@@ -82,16 +73,16 @@ const datasetSchema = {
 
 h1 {
   color: #E8E8F0;
-  font-size: clamp(34px, 6vw, 58px);
+  font-size: clamp(30px, 5vw, 48px);
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.15;
   margin-top: 10px;
 }
 
 .page-subtitle {
   display: block;
   max-width: 680px;
-  color: #A0A0C0;
+  color: #C8C8E0;
   font-size: 16px;
   line-height: 1.7;
   margin-top: 16px;
@@ -100,7 +91,7 @@ h1 {
 .page-body {
   max-width: 72rem;
   margin: 0 auto;
-  padding: 16px 24px 48px;
+  padding: 16px 20px 48px;
 }
 
 .graph-meta {
@@ -113,7 +104,7 @@ h1 {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #A0A0C0;
+  color: #C8C8E0;
   padding-bottom: 12px;
   border-bottom: 1px solid #2A2A40;
   margin-bottom: 16px;
@@ -140,4 +131,7 @@ h1 {
 .graph-meta a:hover {
   border-bottom-color: #60A5FA;
 }
+.timeline-section { margin: 48px 0; overflow-x: auto; }
+nav { color: #C8C8E0; margin-bottom: 24px; }
+nav a { color: #A78BFA; }
 </style>

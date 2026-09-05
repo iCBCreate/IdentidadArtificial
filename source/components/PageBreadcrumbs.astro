@@ -1,0 +1,8 @@
+---
+interface Props { title: string }
+const { title } = Astro.props
+---
+<nav class="page-breadcrumbs" aria-label="Ruta de navegación"><a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">{title}</span></nav>
+<style>
+.page-breadcrumbs { display:flex; flex-wrap:wrap; align-items:center; gap:8px; color:#C8C8E0; font-size:13px; margin-bottom:24px; }.page-breadcrumbs a { min-height:44px; display:inline-flex; align-items:center; color:#A78BFA; }.page-breadcrumbs [aria-current] { overflow-wrap:anywhere; }
+</style>

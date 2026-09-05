@@ -1,4 +1,6 @@
 ---
+import { getCollection } from 'astro:content'
+const publishedSlugs = new Set((await getCollection('blog')).map(post => post.id))
 interface Props {
   radar: {
     generatedAt: string
@@ -31,18 +33,18 @@ const { radar } = Astro.props
     {radar.topics.map(topic => (
       <article>
         <div class="topic-head">
-          <span class={`priority priority-${topic.priority.toLowerCase()}`}>{topic.priority}</span>
+          <span class={`priority priority-${topic.priority.toLowerCase()}`}>Prioridad {topic.priority.toLowerCase()}</span>
           <h2>{topic.topic}</h2>
         </div>
         <p>{topic.intent}</p>
-        <p class="reason">{topic.reason}</p>
+        <p class="reason"><strong>Por qué explorarlo:</strong> {topic.reason}</p>
         <div class="tags">
           {topic.tags.map(tag => <span>{tag}</span>)}
         </div>
         {topic.relatedPosts.length > 0 && (
           <div class="related">
-            <strong>Señales relacionadas</strong>
-            {topic.relatedPosts.map(post => <a href={`/${post.slug}/`}>{post.title}</a>)}
+            <strong>Lecturas ya publicadas</strong>
+            {topic.relatedPosts.filter(post => publishedSlugs.has(post.slug)).map(post => <a href={`/${post.slug}/`}>{post.title}</a>)}
           </div>
         )}
       </article>
@@ -69,7 +71,7 @@ const { radar } = Astro.props
 }
 .signals span {
   display: block;
-  color: #A0A0C0;
+  color: #C8C8E0;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: .1em;
@@ -93,6 +95,7 @@ article {
 .topic-head {
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 12px;
 }
@@ -104,10 +107,10 @@ h2 {
 }
 p {
   color: #C8C8E0;
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.7;
 }
-.reason { color: #A0A0C0; margin-top: 8px; }
+.reason { color: #C8C8E0; margin-top: 8px; }
 .priority {
   border-radius: 999px;
   border: 1px solid #2A2A40;
@@ -139,10 +142,10 @@ p {
 }
 .related strong, .related a {
   display: block;
-  font-size: 12px;
+  font-size: 16px;
 }
 .related strong {
-  color: #A0A0C0;
+  color: #C8C8E0;
   text-transform: uppercase;
   letter-spacing: .1em;
   margin-bottom: 8px;

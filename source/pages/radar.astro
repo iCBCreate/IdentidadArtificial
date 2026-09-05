@@ -9,7 +9,7 @@ const topicCount = EDITORIAL_RADAR.topics.length
 const collectionSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Radar Editorial — Huecos de contenido IA',
+  name: 'Radar editorial — Temas por explorar',
   description: 'Análisis automático de huecos de contenido sobre inteligencia artificial generativa. Temas detectados por el pipeline editorial de Identidad Artificial a partir del corpus publicado.',
   url: `${SITE.url}/radar/`,
   inLanguage: 'es',
@@ -39,23 +39,24 @@ const collectionSchema = {
 ---
 
 <BaseLayout
-  title="Radar Editorial — Huecos de contenido IA"
+  title="Radar editorial — Temas por explorar"
   description="Análisis automático de huecos de contenido sobre IA generativa. El pipeline detecta temas sin cobertura en el corpus publicado y los prioriza por señales editoriales."
   image="/og/radar.png"
   jsonLd={collectionSchema}
 >
   <section class="page-hero">
-    <p class="page-eyebrow">Sistema editorial</p>
-    <h1>Radar Editorial IA</h1>
+    <nav aria-label="Ruta de navegación"><a href="/">Inicio</a> / <span aria-current="page">Radar editorial</span></nav>
+    <p class="page-eyebrow">Radar editorial</p>
+    <h1>Temas por explorar</h1>
     <p class="page-subtitle">
-      Temas que el pipeline sugiere vigilar a partir del contenido publicado,
-      las etiquetas existentes y los huecos técnicos del proyecto.
+      Propuestas para futuros artículos a partir de lo que ya hemos publicado. No son noticias en directo ni un calendario de publicación comprometido.
     </p>
   </section>
 
   <div class="page-body">
+    <EditorialRadar radar={EDITORIAL_RADAR} />
     <section class="radar-meta">
-      <h2>Qué muestra este radar</h2>
+      <h2>Cómo se eligen las propuestas</h2>
       <p>
         El radar analiza el corpus de <a href="/">{SITE.name}</a> en cada build y detecta
         <strong>{topicCount} huecos de contenido</strong> — temas con señales en los artículos
@@ -66,15 +67,15 @@ const collectionSchema = {
       </p>
     </section>
 
-    <EditorialRadar radar={EDITORIAL_RADAR} />
+
   </div>
 </BaseLayout>
 
 <style>
 .page-hero {
-  max-width: 64rem;
+  max-width: 1152px;
   margin: 0 auto;
-  padding: 56px 24px 26px;
+  padding: 32px 20px 24px;
 }
 
 .page-eyebrow {
@@ -88,25 +89,25 @@ const collectionSchema = {
 
 h1 {
   color: #E8E8F0;
-  font-size: clamp(34px, 6vw, 58px);
+  font-size: clamp(30px, 5vw, 48px);
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.15;
   margin-top: 10px;
 }
 
 .page-subtitle {
   display: block;
   max-width: 680px;
-  color: #A0A0C0;
+  color: #C8C8E0;
   font-size: 16px;
   line-height: 1.7;
   margin-top: 16px;
 }
 
 .page-body {
-  max-width: 64rem;
+  max-width: 1152px;
   margin: 0 auto;
-  padding: 16px 24px 48px;
+  padding: 16px 20px 48px;
 }
 
 .radar-meta {
@@ -119,7 +120,7 @@ h1 {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #A0A0C0;
+  color: #C8C8E0;
   padding-bottom: 12px;
   border-bottom: 1px solid #2A2A40;
   margin-bottom: 16px;
@@ -146,4 +147,7 @@ h1 {
 .radar-meta a:hover {
   border-bottom-color: #34D399;
 }
+nav { margin-bottom: 24px; color: #C8C8E0; }
+nav a { color: #A78BFA; }
+.radar-meta { margin-top: 48px; }
 </style>

@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+<BaseLayout title="Página no encontrada" description="Encuentra artículos, tutoriales y experimentos de inteligencia artificial." robots="noindex,follow">
+  <section class="page-shell error-page">
+    <p class="eyebrow">Error 404</p><h1 class="page-heading">Esta página no está aquí.</h1>
+    <p>Puede que el enlace haya cambiado. Puedes continuar por cualquiera de estas secciones.</p>
+    <div class="error-actions"><a class="button" href="/archivo/">Buscar un artículo</a><a class="button-secondary" href="/tutoriales/">Ver tutoriales</a><a class="button-secondary" href="/">Volver al inicio</a></div>
+  </section>
+</BaseLayout>
+<style>.error-page { padding-block:80px; }.error-page p { max-width:60ch; color:#C8C8E0; }.error-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }</style>

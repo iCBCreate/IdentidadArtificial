@@ -89,3 +89,37 @@ export const CATEGORY_CONFIG: Record<BlogCategory, CategoryConfig> = {
     </svg>`,
   },
 }
+
+/** Curated entry points; slugs must belong to their category. */
+export const CATEGORY_EDITORIAL: Record<BlogCategory, { title: string; introduction: string; featuredSlugs: string[] }> = {
+  Modelos: {
+    title: 'Modelos de IA',
+    introduction: 'Entiende qué cambia con cada modelo y para qué tareas resulta útil. Comparamos capacidades, pruebas y límites para que puedas interpretar los anuncios con contexto.',
+    featuredSlugs: ['gpt-6-astra-novedades-frente-gpt-5-6', 'gpt-5-6-sol-nueva-generacion-openai'],
+  },
+  'Inteligencia Artificial': {
+    title: 'La IA en la práctica',
+    introduction: 'Descubre cómo se aplica la inteligencia artificial y qué efectos tiene fuera de las demostraciones. Empieza por los agentes y continúa con casos concretos de uso.',
+    featuredSlugs: ['que-son-los-agentes-de-ia', 'airbus-ia-aterrizaje-autonomo'],
+  },
+  Conceptos: {
+    title: 'Conceptos para comprender la IA',
+    introduction: 'Aclara las ideas que aparecen al usar un asistente: contexto, instrucciones y ciclos de trabajo. Estas lecturas explican cómo influyen en las respuestas y sus límites.',
+    featuredSlugs: ['como-funciona-el-contexto-en-los-llm', 'prompt-engineering-vs-loop-engineering'],
+  },
+  Arquitectura: {
+    title: 'Cómo se construyen los sistemas de IA',
+    introduction: 'Explora las piezas que conectan modelos, documentos y herramientas. Las guías parten de su utilidad y avanzan hacia decisiones técnicas y límites de funcionamiento.',
+    featuredSlugs: ['que-es-rag-generacion-aumentada-por-recuperacion', 'agentes-autonomos-2026-arquitectura-y-limites'],
+  },
+  Herramientas: {
+    title: 'Herramientas para trabajar con IA',
+    introduction: 'Conoce aplicaciones y funciones que puedes incorporar a tu trabajo. Cada análisis explica qué permiten hacer, cómo encajan en una tarea y qué debes comprobar antes de depender de ellas.',
+    featuredSlugs: ['codex-plugins-roles-sites-openai-2026', 'claude-code-security-anthropic'],
+  },
+  Ética: {
+    title: 'Ética y decisiones sobre IA',
+    introduction: 'Examina cómo el uso de IA afecta a creadores, equipos y usuarios. Estas lecturas ponen sobre la mesa los argumentos y las decisiones que acompañan a la tecnología.',
+    featuredSlugs: ['ia-desarrollo-videojuegos-debate'],
+  },
+}

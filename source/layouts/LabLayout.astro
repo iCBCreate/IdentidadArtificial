@@ -36,7 +36,7 @@ const allJsonLd = [breadcrumbSchema, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonL
 
 <BaseLayout title={title} description={description} image={image} jsonLd={allJsonLd}>
   <section class="page-hero">
-    <nav class="lab-breadcrumb" aria-label="Breadcrumb">
+    <nav class="lab-breadcrumb" aria-label="Ruta de navegación">
       <a href="/" aria-label="Inicio">⌂</a>
       <span class="sep">›</span>
       {isIndex
@@ -53,7 +53,7 @@ const allJsonLd = [breadcrumbSchema, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonL
     <p class="page-subtitle">{subtitle}</p>
     <p class="lab-disclaimer">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      100% en tu navegador: nada de lo que escribas sale de tu dispositivo.
+      El texto se procesa en tu navegador. Algunas herramientas descargan recursos externos.
     </p>
   </section>
 
@@ -64,9 +64,9 @@ const allJsonLd = [breadcrumbSchema, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonL
 
 <style>
 .page-hero {
-  max-width: 64rem;
+  max-width: 1152px;
   margin: 0 auto;
-  padding: 40px 24px 26px;
+  padding: 40px 32px 26px;
 }
 
 .lab-breadcrumb {
@@ -74,10 +74,10 @@ const allJsonLd = [breadcrumbSchema, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonL
   align-items: center;
   gap: 8px;
   font-size: 12px;
-  color: #A0A0C0;
+  color: #C8C8E0;
   margin-bottom: 24px;
 }
-.lab-breadcrumb a { color: #A0A0C0; text-decoration: none; transition: color 0.15s; }
+.lab-breadcrumb a { color: #C8C8E0; text-decoration: none; transition: color 0.15s; }
 .lab-breadcrumb a:hover { color: #A78BFA; }
 .lab-breadcrumb .sep { color: #3A3A54; }
 .lab-breadcrumb .current { color: #E8E8F0; }
@@ -93,16 +93,16 @@ const allJsonLd = [breadcrumbSchema, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonL
 
 h1 {
   color: #E8E8F0;
-  font-size: clamp(34px, 6vw, 58px);
+  font-size: clamp(30px, 5vw, 48px);
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.15;
   margin-top: 10px;
 }
 
 .page-subtitle {
   display: block;
   max-width: 680px;
-  color: #A0A0C0;
+  color: #C8C8E0;
   font-size: 16px;
   line-height: 1.7;
   margin-top: 16px;
@@ -122,8 +122,19 @@ h1 {
 }
 
 .page-body {
-  max-width: 64rem;
+  max-width: 1152px;
   margin: 0 auto;
-  padding: 16px 24px 48px;
+  padding: 16px 32px 48px;
 }
+
+.page-body :global(button), .page-body :global(input:not([type="checkbox"])), .page-body :global(select) { min-height: 44px; }
+.page-body :global(:focus-visible) { outline: 3px solid #A78BFA; outline-offset: 3px; }
+.page-body :global([hidden]) { display: none !important; }
+.page-body :global(p), .page-body :global(li), .page-body :global(dd) { font-size: 17px; line-height: 1.7; }
+.page-body :global(textarea) { font-size: 17px; }
+.page-body :global(.lab-actions) { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+.page-body :global(button:disabled) { opacity: .65; cursor: not-allowed; }
+.lab-disclaimer { border-radius: 8px; }
+@media(max-width: 640px) { .page-hero { padding: 32px 20px 16px; } .page-body { padding: 16px 20px 48px; } }
+@media(prefers-reduced-motion: reduce) { .page-body :global(*) { animation: none !important; transition: none !important; } }
 </style>

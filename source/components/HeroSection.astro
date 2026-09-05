@@ -1,103 +1,11 @@
----
-import HeroPills from './HeroPills.astro'
-
-const words = [
-  'Claude Managed Agents', 'Modelos', 'agentes', 'automatización', 'productividad', 'Claude', 'Anthropic',
-  'contexto en LLM', 'conceptos', 'tokens', 'ventana de contexto', 'llm', 'modelos de lenguaje',
-  'Astro', 'arquitectura', 'jamstack', 'desarrollo web', 'blog generado por IA', 'static site',
-  'agentes de IA', 'inteligencia artificial', 'herramientas', 'revisión humana', 'transparencia',
-  'Claude Code', 'generative ai', 'cómo funciona', 'fine-tuning', 'rag', 'embeddings', 'reasoning',
-]
----
-
-<HeroPills words={words}>
-  <h1 class="hero-title">
-    <span class="word accent-word">Identidad</span>{' '}
-    <span class="word">Artificial</span>{' '}
-    <span class="word dim-word">—</span>{' '}
-    <span class="word">IA desde dentro</span>
-    <span class="sr-only"> — Blog de Inteligencia Artificial en Español</span>
-  </h1>
-  <p class="hero-subtitle">
-    <span class="hero-hl">Artículos técnicos</span> sobre inteligencia artificial —<br />
-    por <a href="/sobre/" class="hero-author">Ignacio Cubelas</a>, con revisión experta en cada pieza.
-  </p>
-  <div class="hero-cta">
-    <a href="#entradas" class="btn-primary">Últimas entradas</a>
-    <a href="/como-funciona/" class="btn-secondary">Cómo funciona →</a>
-  </div>
-</HeroPills>
-
+<section class="home-intro page-shell">
+  <p class="eyebrow">Inteligencia artificial, con perspectiva</p>
+  <h1>Entiende la IA.<br /><span>Haz algo con ella.</span></h1>
+  <p class="intro-copy">Análisis, guías y experimentos para pasar de la curiosidad a la práctica.<br class="desktop-break" /> Por <a href="/sobre/">Ignacio Cubelas</a>, con revisión humana y fuentes a la vista.</p>
+</section>
 <style>
-.hero-title {
-  font-size: clamp(28px, 5vw, 42px);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -1.5px;
-  color: #E8E8F0;
-  margin-bottom: 16px;
-}
-
-.word {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeUp 0.4s forwards;
-}
-.word:nth-child(1) { animation-delay: 0.1s; }
-.word:nth-child(2) { animation-delay: 0.2s; }
-.word:nth-child(3) { animation-delay: 0.3s; }
-.word:nth-child(4) { animation-delay: 0.4s; }
-
-.accent-word { color: #A78BFA; }
-.dim-word    { color: #4A4A6A; }
-
-.hero-subtitle {
-  font-size: 15px;
-  color: #A0A0C0;
-  line-height: 1.65;
-  margin-bottom: 28px;
-  opacity: 0;
-  animation: fadeUp 0.5s 0.6s forwards;
-}
-.hero-hl { color: #C4B5FD; }
-.hero-author { color: #C4B5FD; text-decoration: underline; text-underline-offset: 3px; transition: color 0.15s; }
-.hero-author:hover { color: #E8E8F0; }
-
-.hero-cta {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: fadeUp 0.5s 0.8s forwards;
-}
-
-.btn-primary {
-  background: #6D28D9;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 10px 22px;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background 0.15s;
-}
-.btn-primary:hover { background: #7C3AED; }
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid #2E2E48;
-  color: #A0A0C0;
-  font-size: 13px;
-  padding: 10px 22px;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: border-color 0.15s, color 0.15s;
-}
-.btn-secondary:hover { border-color: #6D28D9; color: #E8E8F0; }
-
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
+.home-intro { padding-block: 48px 40px; }
+h1 { font-size: clamp(34px, 5vw, 56px); line-height: 1.08; font-weight: 800; letter-spacing: -2px; margin: 12px 0 20px; max-width: 850px; }h1 span { color: #A78BFA; }
+.intro-copy { color: #C8C8E0; font-size: 17px; line-height: 1.7; max-width: 760px; }.intro-copy a { color: #E8E8F0; text-underline-offset: 4px; }
+@media(max-width:640px) { .home-intro { padding-block:32px; }h1 { letter-spacing:-1px; }.desktop-break { display:none; } }
 </style>

@@ -8,10 +8,10 @@ Blog técnico en español sobre IA generativa. El contenido lo generan modelos d
 
 ## Stack
 
-- **Astro 6** — output estático con JavaScript mínimo para interacción
+- **Astro 7** — renderizado en Cloudflare Workers con prerender de contenido y JavaScript mínimo para interacción
 - **Tailwind CSS v4** — estilos inlinados en build
 - **MDX** — posts con frontmatter validado con Zod
-- **Cloudflare Workers + Assets** — despliegue manual con wrangler
+- **Cloudflare Workers + Assets** — Worker server-side, assets estáticos y despliegue manual con wrangler
 - **Sharp** — optimización de imágenes hero en build time (AVIF quality 30 + srcset); JPEG quality 75 para `og:image`
 - **Satori + @resvg/resvg-js** — imágenes Open Graph de texto generadas en prebuild (fallback cuando no hay `heroImage`)
 
@@ -33,9 +33,9 @@ source/
   assets/post/         ← imágenes hero de los posts
   content/blog/        ← posts .mdx
   content/tutoriales/  ← tutoriales paso a paso .mdx
-  components/          ← Header, Footer, PostCard, TransparencyBlock…
+  components/          ← componentes Astro de interfaz y herramientas
   data/generated/      ← artefactos IA generados en build-time
-  layouts/             ← BaseLayout, PostLayout, GoneLayout
+  layouts/             ← BaseLayout y PostLayout
   middleware.ts        ← 301 www→non-www + 410 Gone para URLs retiradas, posts eliminados y tags sin página
   pages/               ← rutas del sitio
 scripts/
@@ -51,6 +51,7 @@ scripts/
 docs/
   guia-crear-post.md     ← instrucciones para generar posts
   guia-crear-tutorial.md ← instrucciones para generar tutoriales
+  archive/               ← planes, especificaciones y auditorías históricas; no son guía operativa
 public/
   fonts/             ← Inter TTF para satori
   _headers           ← cabeceras de seguridad para Cloudflare
@@ -94,24 +95,11 @@ El sitio implementa SEO técnico clásico y GEO (Generative Engine Optimization)
 
 **llms.txt:** lista artículos individuales con descripciones. Declara permisos RSL 1.0 (indexing, training, citation required). Charset UTF-8 explícito vía `_headers`.
 
-**llms-full.txt:** endpoint dinámico en `/source/pages/llms-full.txt.js` — genera el corpus completo con texto íntegro de cada post en runtime.
+**llms-full.txt:** `source/pages/llms-full.txt.js` genera el corpus completo durante el build y lo publica como `/llms-full.txt`.
 
 **Sitemap:** `lastmod` real de cada archivo fuente, excluye páginas legales y paginación, detecta subdirectorios (`tutoriales/index.astro`) vía `addSubdirectoryIndexFiles`.
 
-## Ticker de noticias IA en tiempo real
-
-El home incluye un ticker estilo Wall Street entre el hero y el timeline de modelos. Muestra titulares reales de IA en español obtenidos de NewsData.io.
-
-**Arquitectura:**
-- `source/pages/api/news-ticker.json.ts` — endpoint CF Worker con `prerender = false`. Llama a NewsData.io (`language=es`, `category=technology`), cachea la respuesta 30 minutos en el edge.
-- `source/components/NewsTicker.astro` — marquee CSS continuo (`translateX 0 → -50%` con contenido duplicado para loop seamless). JS en cliente fetcha `/api/news-ticker.json` y rellena el track. Fallback estático si la API falla. Respeta `prefers-reduced-motion`.
-
-**Secret requerido en producción:**
-```bash
-npx wrangler secret put NEWSDATA_API_KEY
-```
-
-Para desarrollo local, añadir `NEWSDATA_API_KEY=<key>` a `.dev.vars`.
+**Cabeceras:** `_headers` protege los assets estáticos y `source/middleware.ts` aplica las cabeceras de seguridad a las respuestas HTML y API del Worker.
 
 ## Métricas privadas
 

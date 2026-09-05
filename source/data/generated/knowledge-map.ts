@@ -255,6 +255,33 @@ export const KNOWLEDGE_MAP = {
       "label": "apple-intelligence"
     },
     {
+      "id": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "type": "post",
+      "label": "La caída simultánea de ChatGPT, Claude y Grok: qué sabemos",
+      "slug": "caida-simultanea-chatgpt-claude-grok-2026",
+      "category": "Inteligencia Artificial"
+    },
+    {
+      "id": "tag:chatgpt",
+      "type": "tag",
+      "label": "chatgpt"
+    },
+    {
+      "id": "tag:grok",
+      "type": "tag",
+      "label": "grok"
+    },
+    {
+      "id": "tag:infraestructura",
+      "type": "tag",
+      "label": "infraestructura"
+    },
+    {
+      "id": "tag:fiabilidad",
+      "type": "tag",
+      "label": "fiabilidad"
+    },
+    {
       "id": "post:chatgpt-images-2-gpt-image-2",
       "type": "post",
       "label": "GPT Image 2: el modelo que razona antes de dibujar",
@@ -292,11 +319,6 @@ export const KNOWLEDGE_MAP = {
       "label": "ChatGPT al billón de usuarios y Anthropic supera a OpenAI",
       "slug": "chatgpt-mil-millones-usuarios-anthropic-valoracion-paradoja",
       "category": "Inteligencia Artificial"
-    },
-    {
-      "id": "tag:chatgpt",
-      "type": "tag",
-      "label": "chatgpt"
     },
     {
       "id": "tag:valoracion",
@@ -1307,6 +1329,96 @@ export const KNOWLEDGE_MAP = {
     {
       "source": "post:apple-intelligence-google-gemini-siri-filtraciones-2026",
       "target": "company:openai",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "category:inteligencia-artificial",
+      "weight": 2,
+      "relation": "category"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "tag:chatgpt",
+      "weight": 2,
+      "relation": "tag"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "tag:claude",
+      "weight": 2,
+      "relation": "tag"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "tag:grok",
+      "weight": 2,
+      "relation": "tag"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "tag:infraestructura",
+      "weight": 2,
+      "relation": "tag"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "tag:fiabilidad",
+      "weight": 2,
+      "relation": "tag"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "concept:rag",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "concept:agentes",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "concept:automatizacion",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "concept:razonamiento",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "concept:multimodal",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "concept:seguridad-ia",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "company:openai",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "company:anthropic",
+      "weight": 3,
+      "relation": "semantic"
+    },
+    {
+      "source": "post:caida-simultanea-chatgpt-claude-grok-2026",
+      "target": "company:google",
       "weight": 3,
       "relation": "semantic"
     },
@@ -3592,6 +3704,26 @@ export const KNOWLEDGE_MAP = {
         "score": 16
       }
     ],
+    "caida-simultanea-chatgpt-claude-grok-2026": [
+      {
+        "slug": "anthropic-series-h-compute-claude",
+        "title": "Anthropic Series H: Claude, compute y escala enterprise",
+        "reason": "Comparten etiquetas: claude.",
+        "score": 20
+      },
+      {
+        "slug": "claude-opus-4-8-lanzamiento-benchmarks-agentes",
+        "title": "Claude Opus 4.8: agentes, honestidad y Fast Mode",
+        "reason": "Comparten etiquetas: claude.",
+        "score": 19
+      },
+      {
+        "slug": "agentes-autonomos-2026-arquitectura-y-limites",
+        "title": "Agentes de IA autónomos en 2026: arquitectura, madurez y límites actuales",
+        "reason": "Conectan por conceptos: RAG, Agentes.",
+        "score": 18
+      }
+    ],
     "chatgpt-images-2-gpt-image-2": [
       {
         "slug": "gpt-5-6-sol-nueva-generacion-openai",
@@ -3626,9 +3758,9 @@ export const KNOWLEDGE_MAP = {
         "score": 20
       },
       {
-        "slug": "gpt-5-5-cyber-vs-mythos-fable-acceso-restringido",
-        "title": "GPT-5.5 Cyber frente a Claude Mythos 5: los dos modelos de IA que no puedes usar",
-        "reason": "Comparten etiquetas: openai, anthropic.",
+        "slug": "caida-simultanea-chatgpt-claude-grok-2026",
+        "title": "La caída simultánea de ChatGPT, Claude y Grok: qué sabemos",
+        "reason": "Comparten etiquetas: chatgpt.",
         "score": 18
       }
     ],
@@ -4026,8 +4158,8 @@ export const KNOWLEDGE_MAP = {
         "score": 7
       },
       {
-        "slug": "claude-mythos-glasswing-10000-vulnerabilidades",
-        "title": "Claude Mythos y Glasswing: 10.000 CVEs en un mes",
+        "slug": "caida-simultanea-chatgpt-claude-grok-2026",
+        "title": "La caída simultánea de ChatGPT, Claude y Grok: qué sabemos",
         "reason": "Conectan por conceptos: Multimodal, Seguridad IA.",
         "score": 6
       }

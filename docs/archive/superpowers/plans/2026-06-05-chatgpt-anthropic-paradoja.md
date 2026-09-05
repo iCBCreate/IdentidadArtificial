@@ -8,7 +8,7 @@
 
 **Tech Stack:** Astro 6, MDX, Cloudflare Workers, wrangler, GSC CLI (`npm run gsc:submit-sitemap`)
 
-**Spec:** `docs/superpowers/specs/2026-06-05-chatgpt-anthropic-paradoja-design.md`
+**Spec:** [`2026-06-05-chatgpt-anthropic-paradoja-design.md`](../specs/2026-06-05-chatgpt-anthropic-paradoja-design.md)
 
 ---
 

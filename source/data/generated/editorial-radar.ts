@@ -4,7 +4,7 @@ export const EDITORIAL_RADAR = {
   "signals": [
     {
       "label": "Cobertura actual",
-      "value": "33 artículos publicados"
+      "value": "34 artículos publicados"
     },
     {
       "label": "Categorías activas",
@@ -12,7 +12,7 @@ export const EDITORIAL_RADAR = {
     },
     {
       "label": "Etiquetas únicas",
-      "value": "91"
+      "value": "94"
     },
     {
       "label": "Modo de generación",

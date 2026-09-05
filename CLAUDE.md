@@ -9,7 +9,7 @@ npm run dev           # dev server
 npm run build         # build:data → OG images → astro build (run in order)
 npm run test          # node --test tests/*.test.mjs
 npm run preview       # build + wrangler dev local
-npm run deploy        # build + wrangler deploy (también se ejecuta en CI automáticamente al push a main)
+npm run deploy        # build + wrangler deploy usando dist/server/wrangler.json
 ```
 
 **Deploy automático.** Push a `main` despliega vía `.github/workflows/deploy.yml` (build + wrangler deploy + indexnow). `npm run deploy` sigue disponible para deploy local.
@@ -18,16 +18,17 @@ npm run deploy        # build + wrangler deploy (también se ejecuta en CI autom
 
 ## Architecture
 
-Astro 6 static site on Cloudflare Workers. Source root `source/` (not `src/`), set via `srcDir: './source'` in `astro.config.mjs`.
+Astro 7 server output on Cloudflare Workers. Source root `source/` (not `src/`), set via `srcDir: './source'` in `astro.config.mjs`.
 
 **Content pipeline:**
 1. `scripts/generate-*.mjs` → writes `source/data/generated/*.ts` (knowledge map, post insights, editorial radar)
 2. `scripts/generate-og.mjs` → generates OG images from frontmatter via Satori + resvg
-3. `astro build` → static output + Cloudflare Worker adapter
+3. `astro build` → Cloudflare Worker bundle + prerendered routes
+4. `scripts/validate-build.mjs` → validates the generated deployment artifact
 
-**Hybrid static + Workers:** `output: 'static'` but needs `@astrojs/cloudflare` adapter: `source/pages/api/search-console/report.json.ts` has `prerender = false` → Workers function. Rest = static assets.
+**Server output with explicit prerendering:** `output: 'server'`, `session: false` and the Cloudflare adapter. Content pages declare `prerender = true`; runtime APIs declare `prerender = false`. Wrangler exposes generated client files through the `ASSETS` binding.
 
-**Middleware** (`source/middleware.ts`): returns HTTP 410 for retired URLs. All 410s go through middleware — no static GoneLayout pages.
+**Middleware** (`source/middleware.ts`): handles canonical redirects, retired URLs and response headers. Check the implementation before documenting a specific runtime status.
 
 **Content schema** (`source/content.config.ts`): all posts require AI provenance fields — `generatedBy`, `generatedAt`, `promptBase`, `humanReviewed`. Validated with Zod. Invalid frontmatter = build fails.
 
@@ -41,7 +42,7 @@ Posts in `source/content/blog/` as `.mdx`. Guide: `docs/guia-crear-post.md`.
 - `humanReviewed`: lowercase boolean → `true` or `false`
 - `tags`: kebab-case lowercase → `['llm', 'openai']`
 - `category`: exact match from enum → `'Modelos'` not `'modelos'`
-- `heroImage`: relative path from MDX → `'../../assets/post/filename.png'`
+- `heroImage`: relative path from MDX → `'../../assets/post/filename.jpg'`
 
 **Valid categories:** `Modelos`, `Inteligencia Artificial`, `Conceptos`, `Arquitectura`, `Herramientas`, `Ética`, `Tendencias`
 

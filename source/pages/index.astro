@@ -1,4 +1,5 @@
 ---
+export const prerender = true
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import HeroSection from '../components/HeroSection.astro'
@@ -117,7 +118,7 @@ const homepageJsonLd = [
 .section-heading { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:12px; margin-bottom:24px; border-top:1px solid #39394F; padding-top:24px; }
 .section-heading h2 { font-size:clamp(22px,3vw,30px); font-weight:750; line-height:1.25; letter-spacing:-.7px; }.section-heading a { color:#A78BFA; font-size:14px; min-height:44px; display:inline-flex; align-items:center; text-decoration:none; }
 .section-heading .eyebrow { margin-bottom:8px; }
-.cards-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; margin-bottom:32px; }.cards-grid > :first-child { grid-column:span 2; }
+.cards-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; margin-bottom:32px; }.cards-grid > :global(.mona-card--featured) { grid-column:span 2; }
 .learning-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
 .learning-card { padding:24px; border:1px solid #50506A; border-radius:8px; position:relative; }.card-number { color:#A78BFA; font-size:30px; font-weight:750; }.card-meta { color:#C8C8E0; font-size:12px; margin:16px 0 12px; }
 h3 { font-size:20px; font-weight:700; line-height:1.4; }h3 a { color:#E8E8F0; text-decoration:none; }h3 a:hover { color:#A78BFA; }
@@ -127,5 +128,5 @@ h3 { font-size:20px; font-weight:700; line-height:1.4; }h3 a { color:#E8E8F0; te
 .experiment-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px; }.experiment-grid article { border-top:2px solid #A78BFA; padding-top:20px; }
 .exploration { display:grid; grid-template-columns:1fr 1fr; gap:32px; }.exploration>a { text-decoration:none; border-bottom:1px solid #50506A; padding-block:16px 24px; }.exploration h2 { font-size:24px; color:#E8E8F0; margin-top:12px; font-weight:700; }.exploration h2 span { color:#A78BFA; }
 @media(max-width:900px) { .cards-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.learning-grid { grid-template-columns:1fr; }.experiment-grid { grid-template-columns:1fr 1fr; } }
-@media(max-width:600px) { .cards-grid,.experiment-grid,.exploration { grid-template-columns:1fr; }.cards-grid>:first-child { grid-column:auto; }.home-section { padding-bottom:32px; } }
+@media(max-width:600px) { .cards-grid,.experiment-grid,.exploration { grid-template-columns:1fr; }.cards-grid > :global(.mona-card--featured) { grid-column:auto; }.home-section { padding-bottom:32px; } }
 </style>

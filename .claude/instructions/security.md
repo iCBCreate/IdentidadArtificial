@@ -27,11 +27,11 @@ Content schema enforces AI provenance:
 
 Invalid frontmatter = build fails. Non-negotiable.
 
-## Static Build + Workers Hybrid
+## Astro Server Output + Workers
 
-- Static assets: served from edge
-- Dynamic endpoint (`/api/search-console/report.json`): Workers function
-- Middleware: 410 Gone for retired URLs (no sensitive info in 410s)
+- `output: 'server'` with content routes explicitly prerendered
+- Static assets are served through the Cloudflare `ASSETS` binding
+- Runtime endpoints validate input and authentication in the Worker
 
 Never put secrets in static files or URLs.
 
@@ -45,17 +45,15 @@ All requests validated. No cross-origin data leaks.
 
 ## Metrics Dashboard
 
-- Bearer token stored in `sessionStorage` (memory only, not persistent)
-- Cleared on tab close
-- No token in URL or local storage
-
-Metrics endpoint requires valid token. Validate on every request.
+- Never persist the bearer token in browser storage or place it in a URL
+- Keep it only in the live page state for the current request flow
+- Validate authentication on every request to the metrics endpoint
 
 ## Dependency Security
 
 - `npm audit` before every build
 - No `npm install` without reviewing `package-lock.json` diff
-- Locked versions in `package.json` (no `^` or `~`)
+- Review version ranges and the lockfile together
 
 Vulnerabilities block deploy. Fix first.
 
@@ -65,7 +63,7 @@ Retired posts serve 410 via middleware. No data leaked, no redirects to new URLs
 
 ## Audit Trail
 
-All AWS / Cloudflare operations logged. Check:
+For operational evidence, check the available provider logs:
 - Wrangler deploy logs
 - Cloudflare Workers analytics
 - Search Console API calls

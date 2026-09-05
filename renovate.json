@@ -36,7 +36,7 @@
     },
     {
       "groupName": "Fuentes y render",
-      "matchPackageNames": ["@fontsource-variable/inter", "@fontsource/jetbrains-mono", "@resvg/resvg-js", "satori", "wawoff2"]
+      "matchPackageNames": ["@fontsource-variable/inter", "@fontsource/jetbrains-mono", "@resvg/resvg-js", "satori"]
     },
     {
       "groupName": "Tooling",

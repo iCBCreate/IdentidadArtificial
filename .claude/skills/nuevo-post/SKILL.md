@@ -28,7 +28,7 @@ generatedBy: 'claude-sonnet-4-6'
 generatedAt: 'YYYY-MM-DDTHH:MM:SSZ'   # CON comillas, ISO 8601
 promptBase: 'Prompt o consigna original.'
 humanReviewed: false         # boolean lowercase, sin comillas
-heroImage: '../../assets/post/nombre-imagen.png'
+heroImage: '../../assets/post/nombre-imagen.jpg'
 sourceQuality: 'Alta'        # opcional: Alta | Media | Baja
 confidenceLevel: 'Alta'      # opcional: Alta | Media | Baja
 ---
@@ -50,7 +50,7 @@ confidenceLevel: 'Alta'      # opcional: Alta | Media | Baja
 - Fecha en formato "DD de mes de YYYY" en el texto si se menciona
 
 ### 5. Imagen hero
-- Guardar en `source/assets/post/nombre-descriptivo.png` o `.jpg`
+- Guardar en `source/assets/post/nombre-descriptivo.jpg`
 - Ratio 1200×630px (1.91:1)
 - Si es de Pexels: nombrar `pexels-autor-id.jpg`
 
@@ -67,4 +67,4 @@ npm run build:data   # regenerar knowledge map, insights y radar
 | generatedAt | `generatedAt: 2026-06-27T10:00:00Z` | `generatedAt: '2026-06-27T10:00:00Z'` |
 | humanReviewed | `humanReviewed: False` | `humanReviewed: false` |
 | category | `category: modelos` | `category: Modelos` |
-| heroImage | `heroImage: assets/post/img.png` | `heroImage: ../../assets/post/img.png` |
+| heroImage | `heroImage: assets/post/img.jpg` | `heroImage: ../../assets/post/img.jpg` |

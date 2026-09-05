@@ -1,5 +1,7 @@
 # Plan de remediación — Indexación Google Search Console
 
+> **Plan histórico (13 de julio de 2026).** Sus datos de GSC, verificaciones HTTP, arquitectura `output: 'static'`, agentes y tareas pertenecen a ese momento. No lo ejecutes como guía actual sin volver a verificar el código, producción y Search Console.
+
 **Fecha:** 2026-07-13
 **Propiedad:** `sc-domain:identidadartificial.com`
 **Fuente de datos:** export CSV de GSC (6 incidencias) + URL Inspection API (124 URLs, `reports/indexing-inspection-2026-07-13.json`) + verificación HTTP en vivo.
@@ -59,7 +61,7 @@ Confirmar muertas y añadir a `GONE_PATHS`: `/tag/openclaw/`, `/tag/deepmind/`, 
 - ⚠️ **Canibalización:** coexisten `anthropic-fable-mythos-suspension-*` y `anthropic-fable-mythos-vuelta-*` (mismo tema, EEUU/Fable/Mythos). Diferenciar o serie con interlink.
 
 ### F. Sin acción (sano)
-Bucket "Página con redirección" (4): http→https, www→non-www, `/sobre-el-proyecto/`→`/sobre/`. Canonicalización correcta. `/api/news-ticker.json`, `/rss.xml`: recursos no-página; opcional `X-Robots-Tag: noindex`.
+Bucket "Página con redirección" (4): http→https, www→non-www, `/sobre-el-proyecto/`→`/sobre/`. Canonicalización correcta. `/rss.xml` es un recurso no-página; opcional `X-Robots-Tag: noindex`.
 
 ---
 
@@ -93,7 +95,7 @@ Bucket "Página con redirección" (4): http→https, www→non-www, `/sobre-el-p
 |---|---|---|---|
 | T3.1 **Decisión**: noindex tags con <N posts vs consolidar vs enriquecer | **Opus 4.8** | Plan | seo, brainstorming |
 | T3.2 Implementar en `source/pages/tag/[tag].astro` (noindex condicional / canonical) | Sonnet 5 | cavecrew-builder | seo |
-| T3.3 (opcional) `X-Robots-Tag: noindex` en `/api/news-ticker.json` | Haiku 4.5 | cavecrew-builder | workers-best-practices |
+| T3.3 (opcional) `X-Robots-Tag: noindex` en recursos no-página como `/rss.xml` | Haiku 4.5 | cavecrew-builder | workers-best-practices |
 
 ### FASE 4 — Empujar indexación de contenido vivo
 | Tarea | Modelo | Agente | Skill |

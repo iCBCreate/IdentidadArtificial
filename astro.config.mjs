@@ -21,7 +21,8 @@ export default defineConfig({
   site: 'https://identidadartificial.com',
   srcDir: './source',
   trailingSlash: 'always',
-  output: 'static',
+  output: 'server',
+  session: false,
   integrations: [
     mdx({ gfm: true }),
     sitemap({

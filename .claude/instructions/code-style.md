@@ -2,7 +2,7 @@
 
 ## JavaScript/TypeScript
 
-- **Format:** Astro, Node, React
+- **Format:** Astro and Node
 - **Spacing:** 2-space indent
 - **Semicolons:** Yes
 - **Quotes:** Single `'` for strings, backticks for templates
@@ -29,13 +29,6 @@
 - Props typed with interfaces
 - No JSX in blog posts (use Markdown)
 - Import content via `getCollection()` in layouts
-
-## React (if embedded)
-
-- Functional components only
-- Hooks for state
-- Props typed (TypeScript)
-- No prop drilling — use Context if needed
 
 ## Generated Files
 

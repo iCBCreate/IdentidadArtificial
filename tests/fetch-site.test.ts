@@ -1,7 +1,7 @@
 // tests/fetch-site.test.ts
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { validateUrl } from '../source/pages/api/fetch-site.ts'
+import { MAX_RESPONSE_BYTES, readLimitedResponse, validateUrl } from '../source/pages/api/fetch-site.ts'
 
 test('validateUrl rechaza null', () => {
   assert.equal(validateUrl(null), null)
@@ -46,6 +46,11 @@ test('validateUrl rechaza IP decimal (se normaliza a 127.0.0.1)', () => {
   assert.equal(validateUrl('https://2130706433/'), null)
 })
 
+test('validateUrl rechaza IP hexadecimal y octal', () => {
+  assert.equal(validateUrl('https://0x7f000001/'), null)
+  assert.equal(validateUrl('https://017700000001/'), null)
+})
+
 test('validateUrl rechaza rango CGNAT 100.64.0.0/10', () => {
   assert.equal(validateUrl('https://100.64.0.1/'), null)
 })
@@ -64,4 +69,17 @@ test('validateUrl acepta IP pública', () => {
 
 test('validateUrl acepta 100.x fuera de CGNAT', () => {
   assert.ok(validateUrl('https://100.128.0.1/') instanceof URL)
+})
+
+test('readLimitedResponse rechaza cuerpos que superan el límite', async () => {
+  const response = new Response('x'.repeat(MAX_RESPONSE_BYTES + 1))
+  await assert.rejects(
+    readLimitedResponse(response, MAX_RESPONSE_BYTES),
+    (error: unknown) => error instanceof Error && error.name === 'ResponseTooLargeError',
+  )
+})
+
+test('readLimitedResponse conserva cuerpos dentro del límite', async () => {
+  const response = await readLimitedResponse(new Response('contenido válido'), MAX_RESPONSE_BYTES)
+  assert.equal(await response.text(), 'contenido válido')
 })

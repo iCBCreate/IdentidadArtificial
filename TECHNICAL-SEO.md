@@ -18,7 +18,7 @@
 | Core Web Vitals | ✅ pass | 17/20 (estimado, sin datos CrUX) |
 | Structured Data | ✅ pass | 20/20 |
 | JS Rendering | ✅ pass | 20/20 |
-| IndexNow | ❌ fail | 0/10 |
+| IndexNow | ✅ implementado | Notificación tras despliegue |
 
 ---
 
@@ -56,7 +56,7 @@ Sitemap: https://identidadartificial.com/sitemap-index.xml
 - ✅ 37 URLs indexadas (18 posts + 3 tutoriales + 6 categorías + 14 tags + páginas estáticas)
 - ✅ `lastmod` real de cada archivo fuente (no fecha de build)
 - ✅ Excluye: paginación, legales, posts retirados, `/metricas/`
-- ⚠️ Páginas de categoría sin `lastmod` (solo los posts lo tienen)
+- ✅ Páginas de categoría y etiquetas con `lastmod` basado en el artículo más reciente
 
 ### Profundidad de rastreo
 - Homepage → Post: 1 clic ✅
@@ -197,36 +197,12 @@ Sitio 100% server-side rendered en build. Sin issues de JS SEO.
 
 ## 9. IndexNow Protocol
 
-| Estado | ❌ No implementado |
+| Estado | ✅ Implementado |
 |--------|--------------------|
 
-IndexNow permite notificar a Bing, Yandex y Naver inmediatamente cuando se publica o actualiza contenido. Actualmente no está implementado.
+IndexNow permite notificar a Bing, Yandex y Naver inmediatamente cuando se publica o actualiza contenido. El proyecto lo implementa mediante `scripts/submit-indexnow.mjs`, que deriva las URLs del sitemap desplegado.
 
-**Implementación recomendada:**
-
-1. Generar clave en https://www.bing.com/indexnow
-2. Crear `public/{clave}.txt` con el valor de la clave
-3. Añadir a `scripts/deploy-notify.mjs` (o en el script de deploy):
-
-```javascript
-// Notificar a IndexNow tras deploy
-const INDEXNOW_KEY = process.env.INDEXNOW_KEY
-const urls = [
-  'https://identidadartificial.com/',
-  // ... URLs modificadas en este deploy
-]
-await fetch('https://api.indexnow.org/indexnow', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    host: 'identidadartificial.com',
-    key: INDEXNOW_KEY,
-    urlList: urls
-  })
-})
-```
-
-**Esfuerzo:** Bajo (1-2 horas) | **Impacto:** Indexación más rápida en Bing/Copilot
+La notificación se ejecuta mediante `scripts/submit-indexnow.mjs` después del despliegue y deriva las URLs del sitemap público, manteniéndolas sincronizadas con el contenido publicado.
 
 ---
 
@@ -245,9 +221,9 @@ await fetch('https://api.indexnow.org/indexnow', {
 
 ## Issues Media Prioridad (este mes)
 
-1. **IndexNow** — Implementar para Bing/Copilot. Bajo esfuerzo, beneficio para el ~30% de búsquedas que pasan por Bing.
+1. **Refrescar Search Console** — Los informes locales son de julio de 2026; actualizar reportes antes de solicitar nuevas indexaciones.
 
-2. **Categorías sin lastmod en sitemap** — Los posts tienen `lastmod` real. Las páginas `/categoria/{slug}/` no lo tienen. Añadir `lastmod` al serializer del sitemap basándose en el post más reciente de cada categoría.
+2. **Rendimiento del build** — Revisar los chunks superiores a 500 KB y las imágenes fuente grandes.
 
 3. **`Person.description` en schema** — Añadir descripción textual del autor en `PostLayout.astro`. Ver GEO-ANALYSIS.md para el texto recomendado.
 

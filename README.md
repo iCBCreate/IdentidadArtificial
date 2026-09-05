@@ -8,10 +8,10 @@ Blog técnico en español sobre IA generativa. El contenido lo generan modelos d
 
 ## Stack
 
-- **Astro 6** — output estático con JavaScript mínimo para interacción
+- **Astro 7** — renderizado en Cloudflare Workers con prerender de contenido y JavaScript mínimo para interacción
 - **Tailwind CSS v4** — estilos inlinados en build
 - **MDX** — posts con frontmatter validado con Zod
-- **Cloudflare Workers + Assets** — despliegue manual con wrangler
+- **Cloudflare Workers + Assets** — Worker server-side, assets estáticos y despliegue manual con wrangler
 - **Sharp** — optimización de imágenes hero en build time (AVIF quality 30 + srcset); JPEG quality 75 para `og:image`
 - **Satori + @resvg/resvg-js** — imágenes Open Graph de texto generadas en prebuild (fallback cuando no hay `heroImage`)
 
@@ -97,6 +97,8 @@ El sitio implementa SEO técnico clásico y GEO (Generative Engine Optimization)
 **llms-full.txt:** endpoint dinámico en `/source/pages/llms-full.txt.js` — genera el corpus completo con texto íntegro de cada post en runtime.
 
 **Sitemap:** `lastmod` real de cada archivo fuente, excluye páginas legales y paginación, detecta subdirectorios (`tutoriales/index.astro`) vía `addSubdirectoryIndexFiles`.
+
+**Cabeceras:** `_headers` protege los assets estáticos y `source/middleware.ts` aplica las cabeceras de seguridad a las respuestas HTML y API del Worker.
 
 ## Ticker de noticias IA en tiempo real
 

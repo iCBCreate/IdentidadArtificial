@@ -1,23 +1,6 @@
 import { defineMiddleware } from 'astro:middleware'
-import { isRetiredPath } from './lib/content-policy.mjs'
-
-// Páginas retiradas del sitio actual
-const GONE_HTML = `<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contenido retirado - Identidad Artificial</title>
-    <meta name="robots" content="noindex, follow">
-  </head>
-  <body>
-    <main>
-      <h1>Este contenido se ha retirado</h1>
-      <p>Esta página ya no existe en Identidad Artificial.</p>
-      <p><a href="/archivo/">Explorar los artículos</a></p>
-    </main>
-  </body>
-</html>`
+import { getEligibleTags, getRetiredResponse } from './lib/content-policy.mjs'
+import { getSortedPosts } from './lib/posts'
 
 const GLOBAL_CSP = "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
 
@@ -31,6 +14,13 @@ const SECURITY_HEADERS = {
   'permissions-policy': 'camera=(), microphone=(), geolocation=(), payment=()',
 }
 
+let eligibleTagsPromise: Promise<Set<string>> | undefined
+
+function getActiveEligibleTags() {
+  eligibleTagsPromise ??= getSortedPosts().then(getEligibleTags)
+  return eligibleTagsPromise
+}
+
 export const onRequest = defineMiddleware(async (context, next) => {
   const url = new URL(context.request.url)
 
@@ -41,15 +31,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const pathname = url.pathname
 
-  if (isRetiredPath(pathname)) {
-    return new Response(GONE_HTML, {
-      status: 410,
-      headers: {
-        'content-type': 'text/html; charset=utf-8',
-        'cache-control': 'public, max-age=3600',
-      },
-    })
-  }
+  const retiredResponse = getRetiredResponse(
+    pathname,
+    pathname.startsWith('/tag/') ? await getActiveEligibleTags() : undefined,
+  )
+  if (retiredResponse) return retiredResponse
 
   const response = await next()
   const headers = new Headers(response.headers)

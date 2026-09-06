@@ -21,7 +21,7 @@ export async function getStaticPaths() {
     }
   }
 
-  // Only generate pages for tags with 2+ posts to avoid thin content
+  // Only generate strategic tag pages; eligibility keeps existing two-post exceptions.
   return [...tagMap.entries()]
     .filter(([tag]) => eligible.has(tag))
     .map(([tag, posts]) => ({

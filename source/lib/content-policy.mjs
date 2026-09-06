@@ -56,6 +56,42 @@ export const RETIRED_PREFIXES = [
   '/category/',
 ]
 
+// Estas etiquetas se reactivan automáticamente al alcanzar el umbral editorial.
+export const CONDITIONAL_TAXONOMY_TAGS = new Set([
+  'apple',
+  'arquitectura',
+  'automatizacion',
+  'autonomia',
+  'benchmarks',
+  'codex',
+  'desarrollo',
+  'gemini',
+  'gpt-5-5',
+  'gpt-6-astra',
+  'ia-generativa',
+  'seguridad-ia',
+  'videojuegos',
+])
+
+const MINIMUM_STRATEGIC_TAG_POSTS = 3
+const PRESERVED_TWO_POST_TAGS = new Set(['apple-intelligence', 'astro', 'siri'])
+
+const GONE_HTML = `<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contenido retirado - Identidad Artificial</title>
+    <meta name="robots" content="noindex, follow">
+  </head>
+  <body>
+    <main>
+      <h1>Este contenido se ha retirado</h1>
+      <p>Esta página ya no existe en Identidad Artificial.</p>
+      <p><a href="/archivo/">Explorar los artículos</a></p>
+    </main>
+  </body>
+</html>`
 
 export function normalizePath(pathname) {
   const path = pathname.split(/[?#]/)[0]
@@ -65,6 +101,25 @@ export function normalizePath(pathname) {
 export function isRetiredPath(pathname) {
   const path = normalizePath(pathname.replace(/\/feed\/?$/, '/'))
   return RETIRED_PATHS.has(path) || RETIRED_PREFIXES.some(prefix => path.startsWith(prefix))
+}
+
+function isInactiveTaxonomyPath(pathname, eligibleTags) {
+  if (!eligibleTags) return false
+  const path = normalizePath(pathname)
+  const match = path.match(/^\/tag\/([^/]+)\/$/)
+  return Boolean(match && CONDITIONAL_TAXONOMY_TAGS.has(match[1]) && !eligibleTags?.has(match[1]))
+}
+
+export function getRetiredResponse(pathname, eligibleTags) {
+  if (!isRetiredPath(pathname) && !isInactiveTaxonomyPath(pathname, eligibleTags)) return null
+  return new Response(GONE_HTML, {
+    status: 410,
+    headers: {
+      'content-type': 'text/html; charset=utf-8',
+      'cache-control': 'public, max-age=3600',
+      'x-robots-tag': 'noindex, follow',
+    },
+  })
 }
 
 export function getEligibleTags(posts) {
@@ -77,7 +132,12 @@ export function getEligibleTags(posts) {
       idsByTag.set(tag, ids)
     }
   }
-  return new Set([...idsByTag].filter(([tag, ids]) => ids.size >= 2 && !isRetiredPath(`/tag/${tag}/`)).map(([tag]) => tag))
+  return new Set([...idsByTag]
+    .filter(([tag, ids]) => (
+      ids.size >= MINIMUM_STRATEGIC_TAG_POSTS ||
+      (ids.size === 2 && PRESERVED_TWO_POST_TAGS.has(tag))
+    ) && !isRetiredPath(`/tag/${tag}/`))
+    .map(([tag]) => tag))
 }
 
 export function getModifiedDate(data) {
@@ -86,9 +146,9 @@ export function getModifiedDate(data) {
   return date
 }
 
-export function isSitemapPath(pathname) {
+export function isSitemapPath(pathname, eligibleTags) {
   const path = normalizePath(pathname)
-  return !isRetiredPath(path) && !['/pagina/', '/archivo/pagina/'].some(prefix => path.startsWith(prefix)) &&
+  return !isRetiredPath(path) && !isInactiveTaxonomyPath(path, eligibleTags) && !['/pagina/', '/archivo/pagina/'].some(prefix => path.startsWith(prefix)) &&
     !['/metricas/', '/aviso-legal/', '/politica-de-privacidad/', '/404/', '/410/'].includes(path)
 }
 

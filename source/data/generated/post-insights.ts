@@ -946,6 +946,48 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "gpt-6-astra-no-cot-razonamiento-un-forward-pass": {
+    "executiveSummary": "GPT-6 Astra pasa de 3,6 a 30,9 minutos de horizonte matemático sin CoT. Investigamos qué mide el salto y qué sigue sin explicación. import { Image } from 'astro:assets' import noCotFigure from '../../assets/post/gpt-6-astra-no-cot-time-horizon.png' Imagen generada con IA.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de conceptos centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "GPT-6 Astra pasa de 3,6 a 30,9 minutos de horizonte matemático sin CoT. Investigamos qué mide el salto y qué sigue sin explicación.",
+      "Es una estimación de la cantidad de trabajo humano que representan los problemas que el modelo resuelve con una probabilidad de éxito del 50%.",
+      "Conceptos detectados por el pipeline: Agente, Ventana de contexto, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Agente?",
+        "answer": "GPT-6 Astra pasa de 3,6 a 30,9 minutos de horizonte matemático sin CoT. Investigamos qué mide el salto y qué sigue sin explicación."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender conceptos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 12,
+      "density": "media",
+      "bestFor": "entender fundamentos"
+    }
+  },
   "gpt-6-astra-novedades-frente-gpt-5-6": {
     "executiveSummary": "GPT-6 Astra mejora el uso del ordenador, la programación y las tareas profesionales. Explicamos qué cambia frente a GPT-5.6 Sol con ejemplos sencillos y claros. GPT-6 Astra no destaca solo porque obtenga puntuaciones más altas que GPT-5.6 Sol.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

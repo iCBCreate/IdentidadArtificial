@@ -5,10 +5,6 @@ compatibility_flags = ["nodejs_compat"]
 [assets]
 directory = "./dist/client"
 binding = "ASSETS"
-# Las etiquetas retiradas no son archivos estáticos: deben llegar a Astro para
-# devolver 410 + noindex. Las etiquetas activas se siguen resolviendo desde
-# `ASSETS` dentro del handler de Astro.
-run_worker_first = ["/tag/*"]
 
 [vars]
 GOOGLE_SEARCH_CONSOLE_SITE_URL = "sc-domain:identidadartificial.com"

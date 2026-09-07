@@ -202,6 +202,52 @@ export const POST_INSIGHTS = {
       "bestFor": "orientarse en tendencias técnicas"
     }
   },
+  "apple-intelligence-capa-ecosistema-evento-septiembre-2026": {
+    "executiveSummary": "Antes del evento de Apple del 9 de septiembre, analizamos qué está confirmado sobre Siri AI, iOS 27, hardware, Apple Intelligence y el bloqueo de la UE. El evento de Apple del 9 de septiembre de 2026 está confirmado, pero Apple no ha dicho qué productos presentará. Lo más interesante no depende ya de un rumor de iPhone: en junio la compañía enseñó iOS 27 y Siri AI como una arquitectura capaz de usar contexto personal, leer lo que aparece en pantalla y activar acciones de apps.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en RAG, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Antes del evento de Apple del 9 de septiembre, analizamos qué está confirmado sobre Siri AI, iOS 27, hardware, Apple Intelligence y el bloqueo de la UE.",
+      "Ming-Chi Kuo ya apuntó en diciembre de 2025 a un plegable en 2026, aunque advirtió de problemas de producción.",
+      "Conceptos detectados por el pipeline: RAG, Agente, Ventana de contexto, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "RAG",
+        "definition": "Arquitectura que recupera contexto externo antes de pedir una respuesta al modelo."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre RAG?",
+        "answer": "Antes del evento de Apple del 9 de septiembre, analizamos qué está confirmado sobre Siri AI, iOS 27, hardware, Apple Intelligence y el bloqueo de la UE."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 11,
+      "density": "alta",
+      "bestFor": "orientarse en tendencias técnicas"
+    }
+  },
   "apple-intelligence-google-gemini-siri-filtraciones-2026": {
     "executiveSummary": "De las filtraciones de 2025 a WWDC 2026: cómo Google Gemini se convierte en el motor de Apple Intelligence sin tocar los datos de los usuarios. Captura de pantalla de Apple https://apple.com . El 8 de junio de 2026, Apple abrirá la WWDC con lo que se espera sea la mayor transformación de Apple Intelligence desde su presentación: una Siri completamente rediseñada y alimentada por Google Gemini .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

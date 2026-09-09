@@ -1176,6 +1176,48 @@ export const POST_INSIGHTS = {
       "bestFor": "orientarse en tendencias técnicas"
     }
   },
+  "navier-stokes-openai-solucion-ia": {
+    "executiveSummary": "OpenAI publica una prueba y una formalización Lean sobre Navier-Stokes. Explicamos qué afirma, qué demuestra y qué falta por validar. OpenAI afirma haber encontrado una demostración de que las ecuaciones de Navier-Stokes pueden desarrollar una singularidad en tiempo finito en tres dimensiones.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "OpenAI publica una prueba y una formalización Lean sobre Navier-Stokes. Explicamos qué afirma, qué demuestra y qué falta por validar.",
+      "Es una afirmación extraordinaria sobre uno de los Problemas del Milenio; por eso conviene leerla con dos ideas a la vez: el material técnico es público y concreto, pero la aceptación matemática independiente no se resuelve con un anuncio.",
+      "Conceptos detectados por el pipeline: Agente, Ventana de contexto, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Agente?",
+        "answer": "OpenAI publica una prueba y una formalización Lean sobre Navier-Stokes. Explicamos qué afirma, qué demuestra y qué falta por validar."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 9,
+      "density": "media",
+      "bestFor": "orientarse en tendencias técnicas"
+    }
+  },
   "nvidia-rtx-spark": {
     "executiveSummary": "NVIDIA RTX Spark integra 1 petaflop de IA, GPU Blackwell y CPU Grace para ejecutar LLMs de 120B parámetros en portátiles Windows. Captura de pantalla de NVIDIA https://nvidia.com . Durante décadas, ejecutar un modelo de lenguaje serio en un portátil significaba una de dos cosas: recortar el modelo hasta hacerlo casi irrelevante, o depender de una API remota con sus latencias, costes por token y política de privacidad de un tercero.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

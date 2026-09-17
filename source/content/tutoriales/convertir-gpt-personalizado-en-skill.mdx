@@ -1,0 +1,216 @@
+---
+title: 'Cómo convertir tu GPT personalizado en una Skill reutilizable'
+description: 'Aprende a transformar las instrucciones y el método de tu GPT personalizado en una Skill que puedas reutilizar en conversaciones y proyectos.'
+pubDate: 2026-09-17
+herramienta: 'General'
+dificultad: 'Intermedio'
+learningOutcome: 'Extraer el método de trabajo de un GPT personalizado y organizarlo como una Skill con instrucciones, referencias, ejemplos y pruebas.'
+prerequisites: ["Un GPT personalizado que ya hayas probado y quieras reutilizar.", "Una herramienta compatible con Skills o instrucciones de proyecto.", "Un editor de texto para crear los archivos de la Skill."]
+tiempoEstimado: '15 minutos'
+generatedBy: 'gpt-5'
+generatedAt: '2026-09-17T20:00:00Z'
+promptBase: 'Crear un tutorial práctico en español para convertir un GPT personalizado elegido por el lector en una Skill reutilizable en conversaciones y proyectos, con una plantilla neutra, límites claros y validación paso a paso.'
+humanReviewed: false
+heroImage: '../../assets/post/convert-gpt-to-skill-hero.png'
+---
+
+*Imagen generada con IA.*
+
+Un GPT personalizado puede resolver muy bien una tarea, pero normalmente vive dentro de una configuración concreta. Una Skill permite extraer su método de trabajo y llevarlo a las conversaciones y proyectos que admitan ese formato. En este tutorial aprenderás a convertir **tu propio GPT**, sea cual sea su función, en un conjunto de instrucciones reutilizable y fácil de mantener.
+
+La conversión no es un botón automático. No copias el modelo, la interfaz ni toda la memoria del GPT: identificas qué instrucciones hacen que funcione, qué información necesita y qué resultado debe producir.
+
+## Qué vas a convertir
+
+Antes de crear archivos, separa las piezas que suelen mezclarse dentro de un GPT personalizado:
+
+| Parte del GPT | Equivalente habitual en una Skill | Qué debes revisar |
+|---|---|---|
+| Instrucciones | `SKILL.md` | Rol, pasos, formato de salida y límites |
+| Documentos de conocimiento | `references/` | Qué documentos son estables y cuáles deben actualizarse |
+| Ejemplos de conversaciones | `examples/` | Entradas y salidas que muestran el comportamiento esperado |
+| Acciones externas | `scripts/` o integraciones | Qué depende de una API, una cuenta o un permiso |
+| Nombre y descripción | Metadatos de la Skill | Cuándo debe activarse y cuándo no |
+
+Esta separación es importante porque una Skill no sustituye automáticamente a las conexiones, acciones o archivos privados del GPT. Si el GPT consulta una base de datos o llama a una API, tendrás que reconstruir esa parte en el entorno de destino o dejarla documentada como requisito.
+
+## Paso 1: elige un GPT que ya funcione
+
+No empieces con un GPT experimental. Elige uno que hayas utilizado varias veces y cuyo resultado puedas reconocer como bueno.
+
+Puede ser un asistente para:
+
+- revisar textos;
+- resumir documentos;
+- analizar datos;
+- preparar publicaciones;
+- revisar código;
+- investigar un tema siguiendo unas fuentes concretas.
+
+El criterio no es que el GPT sea complejo. Es que tenga un **método repetible**. Si cada conversación acaba de una forma completamente distinta, todavía necesitas aclarar el flujo antes de convertirlo en una Skill.
+
+Abre la configuración del GPT y copia sus instrucciones a un documento temporal. No copies todavía todo lo demás. El objetivo de este primer paso es ver qué comportamiento estás intentando conservar.
+
+## Paso 2: separa el método del contexto
+
+Lee las instrucciones y marca cada frase con una de estas cuatro etiquetas:
+
+1. **Rol:** quién debe ser el asistente y para qué sirve.
+2. **Proceso:** qué pasos debe seguir para completar la tarea.
+3. **Salida:** cómo debe presentar el resultado.
+4. **Límites:** qué no debe hacer, cuándo debe pedir datos y cuándo debe reconocer incertidumbre.
+
+Después, separa el contexto que puede cambiar. Una guía editorial, una política interna o un catálogo no deberían quedar mezclados con las instrucciones principales si van a actualizarse con frecuencia. Guárdalos como referencias independientes.
+
+Una buena prueba es esta: si mañana cambias el documento de referencia, ¿tendrías que reescribir el comportamiento de la Skill? Si la respuesta es no, ese documento pertenece a `references/`, no al núcleo de `SKILL.md`.
+
+## Paso 3: define el contrato de la Skill
+
+Una Skill funciona mejor cuando deja claro qué recibe y qué devuelve. Escribe este contrato en lenguaje normal antes de redactar instrucciones detalladas:
+
+```text
+Entrada: un texto que necesita revisión.
+Proceso: detectar problemas, clasificarlos y proponer cambios.
+Salida: una lista de hallazgos con explicación breve y una versión corregida.
+Límite: no inventar datos que no aparezcan en el texto original.
+```
+
+Si tu GPT hace varias tareas, empieza por la más frecuente. Una Skill demasiado amplia suele terminar siendo una colección de recomendaciones vagas. Siempre puedes crear una segunda Skill cuando exista otro flujo con entradas o resultados diferentes.
+
+## Paso 4: crea la estructura de archivos
+
+La estructura mínima puede ser un único `SKILL.md`:
+
+```text
+mi-skill/
+└── SKILL.md
+```
+
+Cuando el GPT depende de documentos o ejemplos, amplíala:
+
+```text
+mi-skill/
+├── SKILL.md
+├── references/
+│   └── criterios.md
+└── examples/
+    └── caso-basico.md
+```
+
+No crees carpetas por adelantado para aparentar complejidad. Añádelas cuando exista un archivo concreto que necesites consultar. Si incluyes scripts, documenta qué hacen, qué permisos necesitan y qué datos envían fuera de tu equipo.
+
+## Paso 5: escribe `SKILL.md`
+
+Usa este esquema como punto de partida. Sustituye los textos entre corchetes por información de tu propio GPT:
+
+```markdown
+---
+name: nombre-descriptivo-de-la-skill
+description: Qué tarea resuelve y en qué situaciones debe usarse.
+---
+
+# Nombre de la Skill
+
+## Propósito
+
+Explica en dos o tres frases qué problema resuelve.
+
+## Cuándo usarla
+
+- Tipo de petición 1
+- Tipo de petición 2
+
+## Cuándo no usarla
+
+- Petición fuera de su alcance
+- Caso que necesita una herramienta o permiso distinto
+
+## Flujo de trabajo
+
+1. Comprueba que la entrada contiene los datos necesarios.
+2. Sigue el proceso principal en este orden.
+3. Verifica el resultado antes de entregarlo.
+
+## Formato de salida
+
+Describe los apartados, el nivel de detalle y el formato esperado.
+
+## Límites y seguridad
+
+Indica qué no debe inventar, qué datos debe tratar como privados y cuándo debe pedir confirmación.
+```
+
+La descripción merece especial atención. Debe explicar **cuándo activar la Skill**, no solo repetir su nombre. Una descripción como "ayuda con textos" es demasiado amplia. "Revisa borradores en español y devuelve problemas concretos de claridad, estructura y tono" permite distinguir mejor esta Skill de otras.
+
+## Paso 6: traslada referencias y ejemplos
+
+Si tu GPT utilizaba archivos de conocimiento, no los pegues todos dentro de `SKILL.md`. Colócalos en `references/` y explica en la Skill cuándo consultarlos.
+
+```markdown
+## Referencias
+
+Cuando la petición dependa de criterios editoriales, consulta
+`references/criterios.md`. Si la referencia no contiene la respuesta,
+indica la incertidumbre en lugar de completar el dato por tu cuenta.
+```
+
+Los ejemplos cumplen otra función: enseñan la forma de responder. Incluye al menos un caso normal y, si es posible, uno incompleto o ambiguo. Un ejemplo útil muestra la entrada, el proceso relevante y la salida esperada; no necesita ser una conversación interminable.
+
+Elimina antes cualquier dato personal, contraseña, token, documento privado o información que no quieras distribuir junto con la Skill.
+
+## Paso 7: úsala en conversaciones y proyectos
+
+Instala o carga la Skill siguiendo el procedimiento de la herramienta que utilices. Algunas herramientas permiten invocarla desde una conversación; otras permiten asociarla a un proyecto para que esté disponible junto con sus archivos e instrucciones.
+
+La ventaja práctica es que el método deja de estar encerrado en el GPT original. Puedes iniciar una conversación nueva, aportar el contexto de esa tarea y pedir que se aplique la Skill. En un proyecto, puedes combinarla con sus documentos, convenciones y objetivos.
+
+La disponibilidad exacta no es universal. Si tu herramienta no admite Skills, puedes conservar el mismo contenido como instrucciones de proyecto o como plantilla de prompt, pero no debes asumir que una carpeta `SKILL.md` se activará por sí sola.
+
+Una Skill tampoco convierte automáticamente un GPT en un agente con acceso a herramientas. Si el GPT original tenía una acción externa, necesitarás una integración equivalente y sus permisos correspondientes.
+
+## Paso 8: comprueba que la conversión funciona
+
+Prueba la Skill con tres tipos de petición:
+
+1. **Caso habitual:** la entrada contiene toda la información necesaria.
+2. **Caso incompleto:** falta un dato y la Skill debería pedirlo.
+3. **Caso fuera de alcance:** la petición se parece a la tarea, pero no pertenece a ella.
+
+Compara las respuestas con las del GPT original. No busques que sean idénticas palabra por palabra. Comprueba que mantienen el mismo criterio, formato, nivel de precisión y límites.
+
+Si falla, corrige una sola cosa cada vez. Primero revisa la descripción y el flujo; después el formato de salida; por último, las referencias y los ejemplos. Añadir más texto sin diagnosticar el problema suele hacer que la Skill sea más difícil de seguir.
+
+## Qué no conviene trasladar
+
+Hay cuatro errores frecuentes:
+
+- **Copiar todas las instrucciones sin ordenarlas.** El asistente no sabe qué regla tiene prioridad.
+- **Convertir el conocimiento cambiante en instrucciones permanentes.** Una referencia desactualizada puede contaminar todas las respuestas.
+- **Prometer acciones que no existen.** Una Skill puede describir una integración, pero no crear por sí sola las credenciales ni los permisos.
+- **Hacerla universal.** Cuanto más amplio es el propósito, menos consistente suele ser el resultado.
+
+Recuerda también que un GPT y una Skill tienen ciclos de vida diferentes. El GPT puede ser una experiencia completa para otras personas. La Skill es una pieza de trabajo que quieres reutilizar, mantener y combinar con otros contextos.
+
+## Mantenimiento
+
+Cuando la Skill ya funcione, guárdala junto con una pequeña lista de pruebas. Cada modificación importante debería responder a una de estas preguntas:
+
+- ¿Qué comportamiento estoy corrigiendo?
+- ¿Qué ejemplo demuestra que la corrección funciona?
+- ¿Qué referencia ha cambiado?
+- ¿Sigue siendo correcto el ámbito de activación?
+
+Pon una versión en los cambios importantes y evita modificar a la vez las instrucciones, las referencias y los ejemplos sin volver a probar los tres casos anteriores.
+
+## Conclusión
+
+Convertir un GPT personalizado en una Skill consiste en extraer su método, no en copiar ciegamente su configuración. Cuando separas proceso, contexto, referencias y límites, obtienes una herramienta más fácil de activar en conversaciones, incorporar a proyectos y mejorar con el tiempo.
+
+El mejor candidato es el GPT que ya utilizas y que resuelve una tarea concreta de forma repetible. Empieza con un solo flujo, prueba sus límites y amplíalo solo cuando tengas evidencia de que la primera versión funciona.
+
+Para comparar cuándo conviene crear un GPT y cuándo una Skill, consulta [GPT personalizado frente a Skill: cuál elegir](/tutoriales/gpt-personalizado-vs-skill-cual-elegir/). Si tu Skill va a trabajar con herramientas externas, [qué son los agentes de IA](/que-son-los-agentes-de-ia/) explica la diferencia entre seguir instrucciones y actuar sobre un entorno.
+
+## Fuentes
+
+- [Skills — OpenAI Codex](https://developers.openai.com/codex/skills/)
+- [Building effective agents — Anthropic](https://www.anthropic.com/research/building-effective-agents)

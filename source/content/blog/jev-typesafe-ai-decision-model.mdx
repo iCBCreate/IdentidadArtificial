@@ -1,0 +1,201 @@
+---
+title: 'Jev, el modelo de TypeSafe AI que quiere decidir sin generar texto'
+description: 'Jev propone separar la generación de lenguaje de las decisiones de los agentes. Así funciona su modelo, sus límites y lo que aún debe demostrar.'
+pubDate: 2026-09-21
+category: 'Arquitectura'
+tags:
+  - jev
+  - typesafe-ai
+  - agentes-de-ia
+  - modelos-decision
+  - automatizacion
+generatedBy: 'gpt-5'
+generatedAt: '2026-09-21T21:00:00Z'
+promptBase: 'Escribir un artículo completo y crítico sobre Jev, de TypeSafe AI, explicando su propuesta de separar la generación de lenguaje de la toma de decisiones en agentes y sistemas de IA.'
+humanReviewed: false
+heroImage: '../../assets/post/jev-typesafe-ai-decision-model.png'
+sourceQuality: 'Alta'
+confidenceLevel: 'Media'
+claimsReviewed:
+  - 'Jev 1.13.0 es el modelo documentado actualmente por TypeSafe AI.'
+  - 'Choice, Score y Noul son los tres tipos de pregunta publicados en la API.'
+  - 'Las cifras de velocidad, coste y workflow evals proceden de mediciones de TypeSafe AI.'
+---
+
+*Imagen generada con IA.*
+
+¿Por qué utilizamos un modelo generativo cada vez que una máquina simplemente necesita tomar una decisión? Un agente puede necesitar escribir una respuesta al usuario, pero también debe decidir qué herramienta llamar, qué cola recibiría un ticket o si conviene escalar un caso a una persona. Esas operaciones no siempre requieren producir una secuencia de texto.
+
+Los modelos como GPT, Claude o Gemini están diseñados principalmente para generar tokens. Pueden devolver JSON y seguir un esquema, pero el programa sigue pidiendo a un sistema generativo que redacte una salida para después convertirla en una estructura utilizable. **Jev**, el primer modelo público de TypeSafe AI, parte de una idea distinta: separar la generación de lenguaje de la toma de decisiones dentro de los agentes.
+
+La propuesta no es sustituir a los LLM. Es reservarles las tareas en las que escribir, resumir o razonar abiertamente aporta valor, y utilizar otro tipo de modelo cuando el software solo necesita un juicio acotado.
+
+## Qué es Jev
+
+TypeSafe AI presentó Jev el 15 de septiembre de 2026, después de dos años de desarrollo en privado. La compañía fue fundada por Diogo Almeida, que anteriormente trabajó en Google Brain y en OpenAI, y por un equipo con experiencia en investigación y sistemas de producción de IA. Jev está disponible en acceso temprano a través de la plataforma de TypeSafe.
+
+TypeSafe llama **System One Model** a una nueva clase de modelos construidos para tomar decisiones rápidas y estructuradas que el software pueda usar directamente. El nombre alude a la distinción de Daniel Kahneman entre un pensamiento rápido y automático y otro más lento y deliberado, aunque aquí se trata de una categoría técnica definida por la compañía, no de un estándar de la industria.
+
+En la documentación actual, el modelo recibe un `state`: puede ser una cadena de texto, un objeto JSON o un array de valores textuales. Sobre ese estado se formulan una o varias preguntas tipadas. La respuesta no es un párrafo, sino un valor estructurado acompañado, según el tipo de pregunta, de probabilidades y confianza.
+
+Un ejemplo conceptual sería este:
+
+```text
+Estado: "Cliente reclama una factura duplicada de 600 €."
+
+Pregunta: ¿Qué departamento debe gestionar el caso?
+Opciones: ventas | soporte | facturación
+
+Respuesta: facturación
+Probabilidades: facturación 0,96 | soporte 0,03 | ventas 0,01
+```
+
+El ejemplo no pretende ser una medición de Jev, sino mostrar el contrato de salida. El modelo no tiene que inventar una explicación sobre la factura: entrega una opción que el programa puede convertir en un `switch`, una regla de routing o una llamada a una herramienta. Por eso Jev no pretende ser un chatbot. No está diseñado para resumir, conversar, escribir código o generar una respuesta libre.
+
+Para entender por qué importa esta diferencia, conviene recordar [cómo funciona el contexto en los LLM](/como-funciona-el-contexto-en-los-llm/): un modelo generativo produce una secuencia condicionando cada token por los anteriores. Jev intenta que la decisión sea la unidad principal de la interfaz.
+
+## Jev frente a un LLM
+
+La comparación útil no es qué modelo es "más inteligente" en abstracto, sino qué operación debe resolver cada uno. Un LLM es una herramienta generalista y Jev es una interfaz de decisiones restringidas.
+
+| Característica | LLM | Jev |
+| --- | --- | --- |
+| Genera texto | Sí | No como objetivo principal |
+| Decisiones estructuradas | Posibles, normalmente con parsing o structured output | Es la especialidad |
+| Conversación | Sí | No |
+| Creatividad | Alta | No es su función |
+| Routing | Posible | Caso de uso principal |
+| Salida libre | Sí | Restringida a las opciones o niveles definidos |
+| Coste por microdecisión | Puede ser desproporcionado | Potencialmente menor, según la carga y el proveedor |
+
+Con un LLM, una aplicación puede pedir: "clasifica este mensaje entre ventas, soporte y facturación y devuelve JSON". Con Jev, las opciones forman parte de la pregunta y la API devuelve la opción elegida junto con la distribución de probabilidades. La diferencia no es solo que el JSON tenga un formato más cómodo: el espacio de respuestas está acotado desde el principio.
+
+Eso también implica un intercambio. Un LLM puede responder algo que no estaba previsto, descubrir una categoría nueva o explicar por qué ha tomado una decisión. Jev gana control y velocidad a cambio de perder libertad. Si la lista de opciones está mal diseñada, el modelo no puede arreglar el diseño inventando una cuarta vía útil.
+
+## El problema de utilizar un LLM para todo
+
+Muchos agentes siguen un patrón parecido a este:
+
+```text
+usuario
+  ↓
+LLM decide qué hacer
+  ↓
+LLM selecciona una herramienta
+  ↓
+LLM evalúa el resultado
+  ↓
+LLM decide el siguiente paso
+  ↓
+LLM genera la respuesta
+```
+
+El patrón funciona, pero cada llamada generativa añade latencia, coste, variabilidad y una superficie adicional para errores de formato. Si el agente solo debe decidir entre tres herramientas, pedirle que redacte una respuesta completa para después extraer el nombre de una herramienta es una forma indirecta de expresar el problema.
+
+La tesis de TypeSafe es que un sistema de automatización necesita más que un modelo que impresione a una persona. Necesita salidas que pueda validar, observar, probar y combinar con código. En una arquitectura híbrida, un LLM puede interpretar una solicitud compleja o redactar la respuesta final, mientras Jev clasifica el estado, puntúa señales y decide si una acción queda por encima del umbral para ejecutarse.
+
+Esta separación encaja con el [bucle de un agente de IA](/que-son-los-agentes-de-ia/), donde no todos los pasos tienen la misma naturaleza. Generar lenguaje y elegir una rama del workflow son operaciones diferentes aunque a menudo se resuelvan con el mismo modelo.
+
+## El concepto de "fuzzy if"
+
+La idea se entiende mejor con una regla tradicional:
+
+```python
+if importe > 1000:
+    revisar()
+```
+
+El programa funciona bien cuando la condición es medible. Pero hay reglas que resultan difíciles de escribir con umbrales rígidos:
+
+```python
+if cliente_parece_enfadado:
+    escalar()
+```
+
+¿Qué palabras indican enfado? ¿Cuánta frustración basta? ¿Una amenaza de cancelar pesa más que un mensaje escrito en mayúsculas? Un LLM puede responder a la pregunta, pero su salida libre obliga a interpretar el resultado. Jev propone convertir ese criterio difuso en una probabilidad que el código pueda gobernar:
+
+```text
+P(cliente_enfadado) = 0,92
+
+if probabilidad > 0,90:
+    escalar()
+elif probabilidad > 0,60:
+    pedir_revision()
+else:
+    continuar()
+```
+
+La decisión final sigue siendo del software. El modelo aporta una estimación lingüística y el equipo define los umbrales de actuación. Esa distinción es importante en operaciones sensibles: una confianza suficiente para mostrar una pantalla no tiene por qué bastar para aprobar un reembolso o cerrar una alerta de seguridad.
+
+## Los tres tipos de decisión de Jev
+
+La API de TypeSafe expone tres primitivas. Todas reciben el mismo estado, pueden combinarse en una petición y se evalúan de forma independiente y paralela.
+
+### Choice: elegir entre opciones
+
+`Choice` sirve cuando la respuesta pertenece a un conjunto cerrado sin un orden natural. Es la opción adecuada para escoger una herramienta, clasificar un documento o decidir qué departamento debe recibir un ticket.
+
+Por ejemplo, una aplicación podría definir `ventas`, `soporte`, `facturación` y `otro`. Jev devuelve la opción con mayor probabilidad, la distribución completa y un valor de `confidence`. La documentación permite hasta 255 opciones por pregunta. Añadir `otro` o `ninguna de las anteriores` es importante cuando la taxonomía no cubre todos los casos.
+
+### Score: puntuar en una escala
+
+`Score` sirve cuando existe un espectro con niveles que se pueden describir. Puede utilizarse para valorar la gravedad de un bug, la prioridad de un lead o el nivel de frustración de un cliente.
+
+Los niveles no deberían ser únicamente números. Es mejor definir, por ejemplo, "cosmético, sin impacto funcional", "función degradada, con solución alternativa" y "bloqueante, sin solución alternativa". TypeSafe documenta un máximo de 10 niveles. La salida es una puntuación ponderada por probabilidades, por lo que puede quedar entre dos niveles; también incluye la distribución y la confianza.
+
+### Noul: estimar una condición binaria
+
+`Noul` responde a una pregunta de sí o no y devuelve la probabilidad de que la respuesta sea afirmativa, de 0 a 1. Puede servir para preguntar si un mensaje solicita un reembolso, si contiene datos personales o si debe escalarse a un agente humano.
+
+Un `noul` de 0,92 no significa que el texto tenga un "92 % de enfado". Significa que, según la pregunta formulada, la probabilidad estimada de que la condición sea verdadera es 0,92. Si el problema es medir intensidad, hay que definir un `Score` con niveles claros.
+
+## Alucinaciones: qué significa realmente que Jev no alucine
+
+TypeSafe afirma que Jev no puede alucinar y que sus salidas son type-safe. La primera afirmación necesita una precisión esencial. Si las únicas opciones son `ventas`, `soporte` y `facturación`, el modelo no puede devolver literalmente una cuarta cadena como "departamento jurídico interplanetario". Ese tipo de error generativo queda evitado porque la salida válida está definida de antemano.
+
+Pero una salida válida no implica una decisión correcta. Jev aún podría escoger `ventas` cuando el caso correspondía a `facturación`, o asignar una probabilidad demasiado alta a una opción equivocada. La propia documentación explica que la confianza describe la distribución de la respuesta y no constituye una garantía para cada caso individual.
+
+Hay que distinguir tres problemas:
+
+- **Error de formato:** el programa no puede interpretar la salida. El contrato tipado de Jev reduce este riesgo.
+- **Alucinación generativa:** el modelo inventa texto, una opción o un argumento que no estaba permitido. El espacio cerrado de Jev evita esta clase concreta.
+- **Error de clasificación o juicio:** el modelo elige una opción disponible, pero no la correcta. Jev no elimina este riesgo.
+
+Por eso la arquitectura necesita datos de evaluación propios, límites conservadores y una ruta de revisión humana. La probabilidad es útil cuando se calibra en conjunto: una predicción de 0,8 debería acertar aproximadamente ocho de cada diez veces dentro de un grupo comparable, no necesariamente en el siguiente caso.
+
+## Qué se sabe de su rendimiento y qué no
+
+La documentación de TypeSafe identifica actualmente el modelo versionado como **Jev 1.13.0**. El alias `jev-latest` apunta a esa versión y puede cambiar cuando aparezca una nueva. Su contexto publicado es de 64.000 tokens por petición, con un límite de 32.000 para el `state` más la pregunta más larga. Jev acepta texto y estructuras JSON, pero no imágenes, audio ni vídeo; el inglés es el idioma principal de entrenamiento y la compañía recomienda probar de forma específica otros idiomas.
+
+El precio publicado es de 0,042 dólares por millón de tokens de entrada, o 42 dólares por cada mil millones. Los tokens de salida son gratuitos. TypeSafe también publica límites de 250.000 tokens por segundo y 1.200 peticiones por minuto, aunque advierte que pueden cambiar mientras ajusta la capacidad del servicio.
+
+La compañía comunica una latencia de extremo a extremo de entre 70 y 500 milisegundos para TypeSafe. En su demostración de la página principal muestra una llamada de 0,114 segundos y 0,000081 dólares frente a 8,566 segundos y 0,013880 dólares para un conjunto de LLMs. Son cifras de una demostración de TypeSafe, no una prueba independiente ni una garantía para cualquier red, región, tamaño de estado o workflow.
+
+La arquitectura publicada también tiene límites de detalle. TypeSafe habla de una arquitectura nueva, un muestreador paralelo y un entrenamiento llamado **Reinforcement Learning for Calibrated Decisions (RLCD)**. La idea de la compañía es entrenar para devolver decisiones y probabilidades calibradas, en lugar de optimizar principalmente respuestas que las personas prefieren leer. No se ha publicado en esas páginas una descripción suficiente para reconstruir la arquitectura, sus pesos o su entrenamiento, así que no conviene rellenar esos huecos con especulación.
+
+Lo mismo ocurre con los benchmarks. TypeSafe dice que Jev consigue niveles comparables de inteligencia en tareas System One y publica evaluaciones de cuatro workflows: incidentes de seguridad, observabilidad de trazas de agentes, procesamiento de facturas y atención al cliente. Sus etiquetas de referencia son el promedio de respuestas de GPT-6 Astra y Claude Fable 5.1, y la propia compañía reconoce que el diseño del harness y la elección de modelos pueden introducir sesgos. Las cifras de 193,6 veces más rápido y 444,6 veces más barato deben leerse como resultados internos de esos workflows, no como una victoria general sobre todos los LLM.
+
+## Dónde puede encajar Jev
+
+El caso más claro es un sistema híbrido. El LLM interpreta una solicitud compleja y genera una respuesta natural; Jev puede clasificar la intención, seleccionar el siguiente handler, puntuar la urgencia, verificar una condición o decidir si el resultado necesita revisión. El código conecta esas salidas con herramientas, bases de datos y políticas.
+
+Ese diseño se parece más a convertir un modelo en una pieza de infraestructura que a añadir otro chatbot. Puede ser valioso en routing de tickets, moderación, guardrails, priorización, evaluación de trazas y workflows con muchas decisiones pequeñas. También puede reducir llamadas grandes cuando el trabajo repetitivo consiste en juzgar el mismo tipo de estado miles de veces.
+
+Sin embargo, Jev no sustituye la lógica determinista, las validaciones de negocio ni la supervisión. Un workflow bien diseñado debe hacer en código las sumas, comparaciones de fechas, permisos y reglas que no necesitan interpretación lingüística. La IA debería ocuparse solo de los juicios que el software no puede expresar de forma fiable con reglas.
+
+## La importancia real de la propuesta
+
+Lo interesante de Jev no es que sea "un LLM más rápido". Es que cuestiona una decisión de diseño muy extendida: usar un generador de texto como interfaz universal entre la inteligencia y el software. TypeSafe propone otra división del trabajo: **el lenguaje para comunicarse con personas; las decisiones tipadas para coordinar máquinas**.
+
+La hipótesis es razonable, pero todavía es una hipótesis de producto y arquitectura en una fase temprana. Habrá que comprobar su calibración en dominios distintos, en español y con datos reales; medir el coste completo de diseñar y mantener los workflows; y comparar sus errores con alternativas más pequeñas, clasificadores tradicionales y LLM con structured outputs.
+
+Jev puede ser importante aunque no reemplace a GPT, Claude o Gemini. Si funciona como promete, su aportación sería hacer explícito que un agente no solo necesita saber hablar: también necesita saber cuándo elegir, puntuar, detenerse y pedir ayuda.
+
+## Fuentes
+
+- [Introducing System One Models & Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev), TypeSafe AI.
+- [Introduction](https://docs.typesafe.ai/introduction), documentación oficial de TypeSafe AI.
+- [Models](https://docs.typesafe.ai/models), documentación oficial de TypeSafe AI.
+- [Primitives (Questions)](https://docs.typesafe.ai/primitives), documentación oficial de TypeSafe AI.
+- [Confidence](https://docs.typesafe.ai/confidence), documentación oficial de TypeSafe AI.
+- [Workflow evals](https://evals.typesafe.ai/), evaluaciones publicadas por TypeSafe AI.

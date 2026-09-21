@@ -1176,6 +1176,52 @@ export const POST_INSIGHTS = {
       "bestFor": "orientarse en tendencias técnicas"
     }
   },
+  "jev-typesafe-ai-decision-model": {
+    "executiveSummary": "Jev propone separar la generación de lenguaje de las decisiones de los agentes. Así funciona su modelo, sus límites y lo que aún debe demostrar. ¿Por qué utilizamos un modelo generativo cada vez que una máquina simplemente necesita tomar una decisión?",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de arquitectura centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Jev propone separar la generación de lenguaje de las decisiones de los agentes. Así funciona su modelo, sus límites y lo que aún debe demostrar.",
+      "Los modelos como GPT, Claude o Gemini están diseñados principalmente para generar tokens.",
+      "Conceptos detectados por el pipeline: LLM, Agente, Ventana de contexto, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre LLM?",
+        "answer": "Jev propone separar la generación de lenguaje de las decisiones de los agentes. Así funciona su modelo, sus límites y lo que aún debe demostrar."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender arquitectura con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 12,
+      "density": "alta",
+      "bestFor": "diseñar sistemas con IA"
+    }
+  },
   "navier-stokes-openai-solucion-ia": {
     "executiveSummary": "OpenAI publica una prueba y una formalización Lean sobre Navier-Stokes. Explicamos qué afirma, qué demuestra y qué falta por validar. OpenAI afirma haber encontrado una demostración de que las ecuaciones de Navier-Stokes pueden desarrollar una singularidad en tiempo finito en tres dimensiones.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

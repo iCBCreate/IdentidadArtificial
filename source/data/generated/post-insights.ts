@@ -1076,6 +1076,48 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "gpt-6-sol-luna-claude-opus-5-5-coste-frontera": {
+    "executiveSummary": "GPT-6 Sol y Luna reducen precios mientras Claude Opus 5.5 mejora eficiencia. Comparamos anuncios, benchmarks y el debate sobre frenar modelos frontera. El 22 de septiembre, Anthropic presentó Claude Opus 5.5 y OpenAI amplió la familia GPT-6 con GPT-6 Sol y GPT-6 Luna .",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de modelos centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "GPT-6 Sol y Luna reducen precios mientras Claude Opus 5.5 mejora eficiencia. Comparamos anuncios, benchmarks y el debate sobre frenar modelos frontera.",
+      "La competencia, cada vez más, se mide como capacidad × coste × velocidad .",
+      "Conceptos detectados por el pipeline: Agente, Ventana de contexto, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Agente?",
+        "answer": "GPT-6 Sol y Luna reducen precios mientras Claude Opus 5.5 mejora eficiencia. Comparamos anuncios, benchmarks y el debate sobre frenar modelos frontera."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender modelos con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 8,
+      "density": "media",
+      "bestFor": "comparar capacidades de modelos"
+    }
+  },
   "ia-desarrollo-videojuegos-debate": {
     "executiveSummary": "La IA en videojuegos abre un debate sobre autoría, empleo, transparencia y control creativo. No basta con preguntar si usarla, sino quién captura su valor. La IA en el desarrollo de videojuegos ya no es una pregunta abstracta sobre productividad.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de ética centrada en RAG, LLM, Agente. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

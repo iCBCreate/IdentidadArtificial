@@ -1352,6 +1352,48 @@ export const POST_INSIGHTS = {
       "bestFor": "evaluar flujos de trabajo prácticos"
     }
   },
+  "openai-devday-2026-novedades-planes-cuentas": {
+    "executiveSummary": "Las 25 novedades de OpenAI DevDay 2026 explicadas: dots, GPT-6.1 Sol, Codex, Space y plugins. Qué llega a Free, Plus, Pro, Business, Enterprise y a la API. OpenAI DevDay 2026 , celebrado el 29 de septiembre, amplía ChatGPT con agentes que trabajan de forma continua, documentos compartidos y nuevas herramientas para desarrollar aplicaciones.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Las 25 novedades de OpenAI DevDay 2026 explicadas: dots, GPT-6.1 Sol, Codex, Space y plugins. Qué llega a Free, Plus, Pro, Business, Enterprise y a la API.",
+      "Sus permisos y facturación se gestionan aparte: que un modelo esté incluido en Plus no convierte su uso mediante una clave API en uso incluido en la suscripción.",
+      "Conceptos detectados por el pipeline: Agente, Ventana de contexto, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Agente?",
+        "answer": "Las 25 novedades de OpenAI DevDay 2026 explicadas: dots, GPT-6.1 Sol, Codex, Space y plugins. Qué llega a Free, Plus, Pro, Business, Enterprise y a la API."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender herramientas con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 15,
+      "density": "media",
+      "bestFor": "evaluar flujos de trabajo prácticos"
+    }
+  },
   "openai-workspace-agents-chatgpt-autonomia": {
     "executiveSummary": "OpenAI presenta Workspace Agents para ChatGPT: agentes autónomos que gestionan flujos de trabajo complejos y persistentes en entornos de equipo. Captura de pantalla de OpenAI https://openai.com . OpenAI ha dado hoy el paso definitivo para transformar ChatGPT de un asistente reactivo en un sistema operativo de agentes con el lanzamiento de Workspace Agents .",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

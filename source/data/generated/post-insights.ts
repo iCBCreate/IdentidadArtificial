@@ -1029,7 +1029,7 @@ export const POST_INSIGHTS = {
       }
     ],
     "readingProfile": {
-      "minutes": 12,
+      "minutes": 13,
       "density": "media",
       "bestFor": "entender fundamentos"
     }

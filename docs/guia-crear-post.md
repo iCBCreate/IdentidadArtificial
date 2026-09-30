@@ -331,7 +331,7 @@ Google presentó **Gemini 2.5 Pro** el 10 de mayo de 2026 con una capacidad que 
 3. Ejecuta `npm run build` para verificar que no hay errores de validación
    - Este comando ejecuta automáticamente: `build:data` (genera TS con datos) → `generate-og` (crea OG images desde frontmatter) → `astro build` (valida y compila)
    - Si falla, el error indicará qué está mal en el frontmatter o el MDX
-4. Haz commit y push a `main`; el workflow de GitHub Actions ejecuta automáticamente el build, el despliegue a Cloudflare y `npm run indexnow`.
+4. Haz commit en una rama y abre un pull request para revisión. Tras aprobarlo, fusiónalo en `main`; el workflow de GitHub Actions ejecuta el build, el despliegue a Cloudflare y `npm run indexnow`.
 5. Si el despliegue se hace fuera de CI, verifica primero que la URL pública devuelve `200` y que el post aparece en `sitemap-index.xml`; después ejecuta `npm run indexnow`.
 
-**El orden importa:** primero build (y que pase), luego commit+push, después despliegue y, solo cuando la versión pública exista, envío a IndexNow. Si `npm run build` falla, corrige antes de continuar.
+**El orden importa:** primero build (y que pase), luego commit y revisión del pull request, después fusión en `main` y despliegue. Envía las URLs a IndexNow solo cuando la versión pública exista. Si `npm run build` falla, corrige antes de continuar.

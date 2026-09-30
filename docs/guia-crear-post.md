@@ -6,9 +6,9 @@ Lee esta guía completa antes de generar cualquier contenido. El incumplimiento 
 
 ## Contexto del blog
 
-**Identidad Artificial** es un blog técnico en español sobre IA generativa. El tono es técnico pero accesible: explica conceptos reales con rigor, sin hype ni sensacionalismo. Los posts cubren modelos, agentes, arquitectura, conceptos fundamentales y herramientas.
+**Identidad Artificial** es un medio divulgativo en español sobre inteligencia artificial, dirigido principalmente a personas no técnicas. No presupongas que el lector conoce términos como LLM, prompt o API.
 
-**Audiencia:** desarrolladores, diseñadores y profesionales con interés en IA. Saben qué es un LLM, un prompt o una API, pero no son necesariamente investigadores.
+**Sigue la línea editorial:** consulta [Línea editorial de Identidad Artificial](./linea-editorial.md) antes de redactar. La prioridad es que el lector entienda qué ha ocurrido, por qué importa y cómo puede afectarle.
 
 ---
 
@@ -49,7 +49,7 @@ generatedBy: 'nombre-del-modelo-usado'
 generatedAt: '2026-05-01T10:00:00Z'
 promptBase: 'El prompt exacto o descripción del encargo que originó este post.'
 humanReviewed: true
-heroImage: '../../assets/post/nombre-imagen.png'   # opcional
+heroImage: '../../assets/post/nombre-imagen.png'
 correctionNote: 'Texto si el post corrige una versión anterior errónea.'  # opcional
 reviewNotes: 'Notas sobre la revisión realizada.'  # opcional
 sourceQuality: 'Alta'  # opcional: Alta | Media | Baja
@@ -104,6 +104,20 @@ Una sola imagen fuente genera dos versiones automáticamente durante el build:
 
 Si no se define `heroImage`, el fallback para og:image es la imagen Satori generada por `generate-og.mjs` (`/og/{slug}.png`), que muestra el título sobre fondo oscuro con la marca del blog. Esa imagen es genérica — **siempre es mejor tener heroImage**.
 
+### Requisito editorial: portada con texto
+
+La `heroImage` de un post debe ser una portada editorial identificable a primera vista. **No basta con una ilustración abstracta o una imagen genérica**: debe incluir texto legible relacionado con el título del artículo.
+
+Reglas obligatorias:
+
+- Genera una imagen nueva y específica para el post; no reutilices la hero de otro artículo salvo que el usuario lo pida expresamente.
+- Incluye el nombre del tema o modelo y un titular breve. Usa el título real del post como referencia, pero adapta su longitud para que sea legible en móvil y en las cards.
+- El texto debe ser exacto, estar dentro de márgenes seguros y tener contraste suficiente. Revisa visualmente ortografía, mayúsculas, acentos y guiones.
+- No añadas texto inventado, logos, marcas de agua ni pseudo-texto ilegible.
+- Si la imagen se genera con IA, conserva `*Imagen generada con IA.*` como primera línea del body.
+
+Para una portada generada con IA, la petición debe especificar como mínimo: uso editorial, **1200×630 px (1,91:1)**, composición, texto literal, jerarquía tipográfica, contraste y elementos que deben evitarse. Después de generarla, inspecciona la imagen antes de actualizar `heroImage`.
+
 ### Pasos
 
 1. **Guarda la imagen** en `source/assets/post/nombre-descriptivo.png` (acepta `.png` o `.jpg`)
@@ -112,12 +126,12 @@ Si no se define `heroImage`, el fallback para og:image es la imagen Satori gener
    ```yaml
    heroImage: '../../assets/post/ai-reasoning-model-screen.png'
    ```
-4. **No pongas `<Image />` ni `<img>` en el cuerpo del MDX** — el layout ya renderiza la heroImage automáticamente en el header.
+4. **No pongas `<Image />` ni `<img>` en el cuerpo del MDX** para repetir la heroImage. Excepción: puedes usar `<Image />` para una figura o captura imprescindible para explicar el artículo, con `alt` descriptivo y fuente/crédito.
 
 ### Requisitos de la imagen fuente
 
 - **Formato:** PNG o JPG
-- **Ratio recomendado:** 1200×630 px (ratio 1.91:1) — coincide exactamente con og:image estándar y evita recortes en RRSS
+- **Ratio obligatorio para nuevas portadas:** 1200×630 px (ratio 1,91:1) — coincide exactamente con og:image estándar y evita recortes en RRSS y en las tarjetas
 - **Fondo:** preferiblemente oscuro o con contraste claro; fondos blancos funcionan en og:image pero quedan mal en las cards de la home (diseño oscuro)
 - **Peso:** sin límite estricto — Astro comprime agresivamente a AVIF durante el build
 
@@ -135,40 +149,30 @@ El alt text de la imagen se genera automáticamente a partir del `title`.
 
 ---
 
+## Investigación y calidad editorial
+
+Antes de redactar, convierte el encargo en una pregunta concreta y prepara una lista breve de afirmaciones que el artículo tendrá que sostener. Para cada afirmación importante, comprueba la fuente, la fecha, la cifra exacta, el alcance de la evidencia y el nivel de confianza.
+
+Prioriza fuentes primarias: documentación oficial, papers originales, repositorios de los autores, datos publicados por el proveedor y organismos evaluadores. Usa fuentes secundarias para encontrar pistas, pero verifica en la fuente original cualquier cifra, fecha, causalidad o afirmación técnica relevante.
+
+Separa siempre estas tres capas: **hecho medido** (lo que muestran directamente los datos), **interpretación** (lo que los autores creen que significa) e **hipótesis o pregunta abierta** (lo que todavía no está demostrado).
+
+No presentes correlación como causalidad. No inventes detalles de arquitectura, entrenamiento, hardware, disponibilidad, precios o rendimiento. Si una fuente reconoce una limitación, inclúyela junto a la afirmación que limita. Cuando el tema sea actual, comprueba la fecha y la versión concreta del producto o benchmark.
+
+---
+
 ## Estructura del contenido
 
 ### Longitud
-- **Mínimo 1200 palabras, óptimo 1400-1800 palabras**
-- Posts bajo 1000 palabras han quedado marcados como "rastreada: sin indexar" en Search Console — señal directa de contenido insuficiente para Google
-- Más largo no es mejor: el objetivo es cobertura temática completa, no relleno
+No existe un mínimo ni un objetivo fijo de palabras. Escribe lo necesario para explicar la noticia con claridad y rigor; elimina lo que no ayude a comprenderla. La extensión no sustituye una explicación suficiente ni demuestra por sí sola calidad o indexabilidad.
 
 ### Estructura recomendada
 
-```
-Párrafo de apertura — contexto y por qué importa (NO empieces con "En este post...")
-
-## Sección principal 1
-
-## Sección principal 2
-
-## Sección principal 3
-
-(Opcional) ## Lo que sigue siendo difícil / Limitaciones
-
-## Por qué es relevante ahora / Conclusión breve
-
-Sources:
-- [Título fuente](URL)
-```
+Prioriza este orden, adaptándolo a cada historia: qué ha pasado → qué significa → ejemplo cotidiano → por qué importa → cómo funciona (si hace falta) → limitaciones e incertidumbres → contexto imprescindible → qué conviene observar ahora. La entradilla tiene un máximo de dos frases. No fuerces secciones que no aporten; incluye las limitaciones cuando existan y termina con una idea concreta, no con una repetición.
 
 ### Estilo y tono
 
-- **Técnico pero accesible.** Explica el concepto, no solo lo nombres.
-- **Sin hype.** Frases como "revolucionará el mundo" o "cambiará todo para siempre" están prohibidas.
-- **Concreto.** Usa ejemplos reales, casos de uso específicos, comparaciones con versiones anteriores.
-- **En español.** Todo el contenido en español. Los nombres de modelos, APIs y términos técnicos se dejan en inglés.
-- **Sin emojis.**
-- **Sin comillas tipográficas** — usa `"comillas"` estándar o negritas para énfasis.
+Aplica los criterios de la [línea editorial](./linea-editorial.md): explica antes de nombrar, prioriza consecuencias, usa ejemplos cotidianos y desarrolla una idea por párrafo. Define las siglas y términos técnicos la primera vez que sean necesarios. Distingue hechos, declaraciones empresariales, resultados preliminares e hipótesis. Conserva el rigor y evita hype, lenguaje académico, tono corporativo, párrafos densos y datos que no ayuden a comprender.
 
 ### Markdown permitido en MDX
 
@@ -207,7 +211,7 @@ Usa siempre `##` para secciones principales y `###` para subsecciones. No saltes
 
 ### Enlazado interno
 
-Cada post debe enlazar a 3-5 posts relacionados del blog con anchor text descriptivo. El anchor text debe describir el destino, no ser genérico.
+Enlaza a otros posts cuando ayuden a entender el tema o aporten contexto. Usa un anchor text descriptivo; no añadas enlaces solo para alcanzar una cantidad.
 
 - **Correcto:** `Para entender cómo funciona el bucle de un agente, [qué son los agentes de IA](/que-son-los-agentes-de-ia/) explica la mecánica base.`
 - **Incorrecto:** `Para más información [haz clic aquí](/que-son-los-agentes-de-ia/).`
@@ -216,7 +220,7 @@ Los links van dentro del texto del post, no en una sección aparte al final.
 
 ### Afirmaciones citables
 
-Incluye al menos 2-3 afirmaciones concretas con datos específicos que un sistema de IA pueda extraer directamente. Evita vagas generalidades.
+Sustenta las afirmaciones centrales con fuentes consultadas y datos concretos cuando ayuden a explicar la noticia. No añadas cifras ni afirmaciones solo para hacer el artículo más citable.
 
 - **Citable:** "Claude Managed Agents expone la infraestructura de agentes a través de la API y desde Claude.ai en planes Team y Enterprise."
 - **No citable:** "Esta tecnología está disponible para usuarios de pago."
@@ -232,7 +236,7 @@ Para secciones que responden a una pregunta concreta, pon la respuesta en las pr
 Al final del post, añade las fuentes reales consultadas:
 
 ```markdown
-Sources:
+## Fuentes
 - [Título del artículo](https://url-real.com)
 - [Otro artículo](https://otra-url.com)
 ```
@@ -273,13 +277,22 @@ Antes de guardar el archivo, comprueba:
 - [ ] Fuentes reales al final del post
 - [ ] `heroImage` definida (obligatorio — sin ella no hay og:image para RRSS)
 - [ ] Imagen guardada en `source/assets/post/` antes de referenciarla
+- [ ] La portada es nueva y específica para este post, salvo autorización expresa para reutilizarla
+- [ ] La portada contiene texto editorial legible y exacto relacionado con el título
+- [ ] El texto de la portada se ha revisado visualmente en desktop y móvil o con una previsualización equivalente
 - [ ] Ruta de `heroImage` empieza por `../../assets/post/`
-- [ ] Imagen en ratio 1200×630 px o similar (16:9 / 1.91:1) para que no se recorte en RRSS
-- [ ] Sin `<Image />` ni `<img>` en el cuerpo del MDX
-- [ ] Mínimo 1200 palabras
+- [ ] Imagen nueva en 1200×630 px (1,91:1), comprobada antes de referenciarla
+- [ ] Sin `<Image />` ni `<img>` para repetir la heroImage; cualquier figura adicional usa `<Image />`, tiene `alt` descriptivo y crédito
+- [ ] La extensión responde a lo que necesita la historia; no hay relleno para alcanzar un mínimo
 - [ ] Keyword principal en el primer párrafo (primeras 100 palabras)
-- [ ] 3-5 links internos con anchor text descriptivo
-- [ ] Al menos 2-3 afirmaciones concretas con datos específicos
+- [ ] Los enlaces internos aportan contexto y usan anchor text descriptivo
+- [ ] Hay ejemplos cotidianos cuando ayudan a entender ideas abstractas
+- [ ] Los términos técnicos necesarios se explican antes de usarse como conocidos
+- [ ] Las afirmaciones importantes tienen fuente primaria enlazada
+- [ ] Se han separado hechos medidos, interpretaciones e hipótesis
+- [ ] Las cifras incluyen unidad, versión, configuración o alcance cuando sea necesario
+- [ ] Las limitaciones relevantes aparecen junto a las conclusiones
+- [ ] El artículo supera la revisión final de `docs/linea-editorial.md`
 
 ---
 
@@ -305,7 +318,7 @@ Google presentó **Gemini 2.5 Pro** el 10 de mayo de 2026 con una capacidad que 
 
 ...
 
-Sources:
+## Fuentes
 - [Introducing Gemini 2.5 Pro — Google DeepMind](https://deepmind.google/...)
 ```
 
@@ -318,7 +331,7 @@ Sources:
 3. Ejecuta `npm run build` para verificar que no hay errores de validación
    - Este comando ejecuta automáticamente: `build:data` (genera TS con datos) → `generate-og` (crea OG images desde frontmatter) → `astro build` (valida y compila)
    - Si falla, el error indicará qué está mal en el frontmatter o el MDX
-4. Haz commit y push a GitHub
-5. **Ejecuta `npm run deploy` desde la terminal** para publicar en Cloudflare — el deploy no es automático, hay que lanzarlo manualmente
+4. Haz commit en una rama y abre un pull request para revisión. Tras aprobarlo, fusiónalo en `main`; el workflow de GitHub Actions ejecuta el build, el despliegue a Cloudflare y `npm run indexnow`.
+5. Si el despliegue se hace fuera de CI, verifica primero que la URL pública devuelve `200` y que el post aparece en `sitemap-index.xml`; después ejecuta `npm run indexnow`.
 
-**El orden importa:** primero build (y que pase), luego commit+push, luego deploy. Si `npm run build` falla, corrige antes de continuar.
+**El orden importa:** primero build (y que pase), luego commit y revisión del pull request, después fusión en `main` y despliegue. Envía las URLs a IndexNow solo cuando la versión pública exista. Si `npm run build` falla, corrige antes de continuar.

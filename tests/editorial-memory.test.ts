@@ -151,9 +151,9 @@ test('qdrant helpers create collections and upsert expected payload with fake cl
       calls.push(`upsert:${collection}:${JSON.stringify(payload)}`)
       return { operation_id: 1, status: 'completed' }
     },
-    async search(collection: string, payload: unknown) {
-      calls.push(`search:${collection}:${JSON.stringify(payload)}`)
-      return [{ id: 'chunk-1', score: 0.9, payload: toPayload(sampleChunk()) }]
+    async query(collection: string, payload: unknown) {
+      calls.push(`query:${collection}:${JSON.stringify(payload)}`)
+      return { points: [{ id: 'chunk-1', score: 0.9, payload: toPayload(sampleChunk()) }] }
     },
   } as never
 
@@ -216,3 +216,18 @@ function sampleChunk(): EditorialChunk {
     contentHash: 'abc123',
   }
 }
+
+
+test('searchEmbeddings preserves empty query results and sends the vector to Qdrant query', async () => {
+  let request: unknown
+  const client = {
+    async query(collection: string, payload: unknown) {
+      assert.equal(collection, 'editorial_memory')
+      request = payload
+      return { points: [] }
+    },
+  } as never
+  const results = await searchEmbeddings({ url: 'http://localhost:6333', collection: 'editorial_memory', client }, [0.1, 0.2], 3)
+  assert.deepEqual(request, { query: [0.1, 0.2], limit: 3, with_payload: true, with_vector: false })
+  assert.deepEqual(results, [])
+})

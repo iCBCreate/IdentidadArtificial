@@ -117,14 +117,21 @@ La receta necesita aceite de oliva</textarea>
     progress.hidden = false
     try {
       const { pipeline, env } = await import('@huggingface/transformers')
+      // Use normal same-origin imports and HTTP caching; the library's WASM
+      // cache creates blob script URLs that our existing CSP intentionally blocks.
+      env.useWasmCache = false
       // Servir el runtime WASM desde el propio dominio: la CSP bloquea cdn.jsdelivr.net
       // (por defecto onnxruntime-web lo descarga de ahí). Copiado en build por scripts/copy-ort-wasm.mjs.
-      if (env.backends.onnx.wasm) env.backends.onnx.wasm.wasmPaths = '/vendor/ort/'
+      if (env.backends.onnx.wasm) env.backends.onnx.wasm.wasmPaths = {
+        mjs: '/vendor/ort/ort-wasm-simd-threaded.mjs',
+        wasm: '/vendor/ort/ort-wasm-simd-threaded.wasm',
+      }
       const fileProgress = new Map<string, { loaded: number; total: number }>()
       // q8: 118 MB. La variante q4 de este modelo pesa 398 MB (la capa de embeddings
       // del vocabulario multilingüe no se cuantiza), así que q8 es la opción ligera real.
       const extractor = await pipeline('feature-extraction', 'Xenova/multilingual-e5-small', {
         dtype: 'q8',
+        device: 'wasm',
         progress_callback: (info: { status?: string; file?: string; loaded?: number; total?: number }) => {
           if (info.status === 'progress' && info.file && info.total) {
             fileProgress.set(info.file, { loaded: info.loaded ?? 0, total: info.total })

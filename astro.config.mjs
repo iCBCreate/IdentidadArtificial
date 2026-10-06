@@ -3,6 +3,7 @@ import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import cloudflare from '@astrojs/cloudflare'
+import { defaultClientConditions } from 'vite'
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { basename, join } from 'node:path'
 import matter from 'gray-matter'
@@ -54,6 +55,11 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
   vite: {
+    // ONNX is served explicitly from /vendor/ort/. Avoid emitting its unused
+    // bundled asyncify WASM, which exceeds Workers' 25 MiB asset limit.
+    resolve: {
+      conditions: ['onnxruntime-web-use-extern-wasm', ...defaultClientConditions],
+    },
     plugins: [tailwindcss()]
   }
 })

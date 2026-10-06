@@ -44,7 +44,7 @@
   # - frame-src: permite iframes de YouTube (nocookie) para vídeos embebidos en posts
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
 
-# Runtime WASM de onnxruntime-web (22 MB) — cachear fuerte, cambia solo con npm update
+# Runtime WASM CPU de onnxruntime-web (~14 MB) — cachear fuerte, cambia solo con npm update
 /vendor/ort/*
   Cache-Control: public, max-age=604800
 

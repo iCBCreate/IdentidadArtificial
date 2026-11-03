@@ -80,3 +80,20 @@ test('embeddings only downloads after explicit click and preserves input after f
   assert.equal(ui.get('emb-load-btn').disabled, false)
   assert.match(ui.get('emb-load-btn').textContent, /Reintentar/)
 })
+
+test('embeddings initializes with direct WASM imports under the existing script CSP', async () => {
+  const runtime = { useWasmCache: true, backends: { onnx: { wasm: {} } } }
+  const ui = app('embeddings', {
+    loadTransformers: async () => ({
+      env: runtime,
+      pipeline: async () => {
+        if (runtime.useWasmCache) throw Error('blob module imports blocked by script CSP')
+        return async () => ({ tolist: () => [] })
+      },
+    }),
+  })
+  await ui.get('emb-load-btn').fire('click')
+  assert.equal(ui.get('emb-run').disabled, false)
+  assert.equal(ui.get('emb-load').hidden, true)
+  assert.match(ui.get('emb-status').textContent, /Modelo listo/)
+})

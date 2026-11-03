@@ -79,12 +79,13 @@ export async function searchEmbeddings(
 ): Promise<SearchResult[]> {
   const client = options.client ?? createQdrantClient(options.url)
 
-  return client.search(options.collection, {
-    vector,
+  const result = await client.query(options.collection, {
+    query: vector,
     limit,
     with_payload: true,
     with_vector: false,
-  }) as Promise<SearchResult[]>
+  })
+  return result.points as SearchResult[]
 }
 
 export function toPayload(chunk: EditorialChunk) {

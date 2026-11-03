@@ -32,9 +32,24 @@ const CORS = {
   'Content-Type': 'application/json',
 }
 
-export async function readLimitedResponse(response: Response, maxBytes: number): Promise<Response> {
+function cancelBody(body: ReadableStream<Uint8Array> | null) {
+  // Cancellation may itself remain pending on an uncooperative remote stream.
+  if (body) void body.cancel().catch(() => {})
+}
+
+export async function readLimitedResponse(
+  response: Response,
+  maxBytes: number,
+  signal?: AbortSignal,
+): Promise<Response> {
+  if (signal?.aborted) {
+    cancelBody(response.body)
+    throw new DOMException('Remote download aborted', 'AbortError')
+  }
+
   const contentLength = Number(response.headers.get('content-length'))
   if (Number.isFinite(contentLength) && contentLength > maxBytes) {
+    cancelBody(response.body)
     throw new ResponseTooLargeError()
   }
 
@@ -43,19 +58,35 @@ export async function readLimitedResponse(response: Response, maxBytes: number):
   const reader = response.body.getReader()
   const chunks: Uint8Array[] = []
   let total = 0
+  let rejectAbort: ((error: DOMException) => void) | undefined
+  const aborted = signal ? new Promise<never>((_, reject) => { rejectAbort = reject }) : undefined
+  const onAbort = () => {
+    const error = new DOMException('Remote download aborted', 'AbortError')
+    rejectAbort?.(error)
+    void reader.cancel(error).catch(() => {})
+  }
+  signal?.addEventListener('abort', onAbort, { once: true })
 
-  try {
+  async function readBody() {
     while (true) {
       const { done, value } = await reader.read()
       if (done) break
       total += value.byteLength
-      if (total > maxBytes) {
-        await reader.cancel()
-        throw new ResponseTooLargeError()
-      }
+      if (total > maxBytes) throw new ResponseTooLargeError()
       chunks.push(value)
     }
+  }
+
+  try {
+    // Race the whole read, rather than accumulating a pending abort listener
+    // for every chunk. Reject before cancellation so its completion cannot stall us.
+    if (aborted) await Promise.race([readBody(), aborted])
+    else await readBody()
+  } catch (error) {
+    void reader.cancel(error).catch(() => {})
+    throw error
   } finally {
+    signal?.removeEventListener('abort', onAbort)
     reader.releaseLock()
   }
 
@@ -131,15 +162,14 @@ export const GET: APIRoute = async ({ request }) => {
       redirect: 'manual',
       headers: { 'User-Agent': 'IdentidadArtificial-Bot/1.0', Accept: 'text/html' },
     })
-    clearTimeout(timeout)
-
     if (response.status >= 300 && response.status < 400) {
+      cancelBody(response.body)
       return new Response(JSON.stringify({ error: 'Redirects no permitidos' }), { status: 422, headers: CORS })
     }
 
     const data: SiteData = { title: '', description: '', canonical: url.href, lang: 'es', navLinks: [] }
 
-    const limitedResponse = await readLimitedResponse(response, MAX_RESPONSE_BYTES)
+    const limitedResponse = await readLimitedResponse(response, MAX_RESPONSE_BYTES, controller.signal)
 
     // @ts-ignore — HTMLRewriter is a Cloudflare Workers native API
     const rewriter = new HTMLRewriter()
@@ -167,7 +197,6 @@ export const GET: APIRoute = async ({ request }) => {
     await rewriter.transform(limitedResponse).arrayBuffer()
     return new Response(JSON.stringify(data), { status: 200, headers: CORS })
   } catch (err) {
-    clearTimeout(timeout)
     if (err instanceof ResponseTooLargeError) {
       return new Response(JSON.stringify({ error: 'La respuesta supera el límite de 1 MiB' }), { status: 413, headers: CORS })
     }
@@ -175,5 +204,7 @@ export const GET: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Timeout: el sitio tardó más de 8 segundos' }), { status: 408, headers: CORS })
     }
     return new Response(JSON.stringify({ error: 'No se pudo acceder al sitio' }), { status: 502, headers: CORS })
+  } finally {
+    clearTimeout(timeout)
   }
 }

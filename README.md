@@ -11,7 +11,7 @@ Blog técnico en español sobre IA generativa. El contenido lo generan modelos d
 - **Astro 7** — renderizado en Cloudflare Workers con prerender de contenido y JavaScript mínimo para interacción
 - **Tailwind CSS v4** — estilos inlinados en build
 - **MDX** — posts con frontmatter validado con Zod
-- **Cloudflare Workers + Assets** — Worker server-side, assets estáticos y despliegue manual con wrangler
+- **Cloudflare Workers + Assets** — Worker server-side, assets estáticos y despliegue automático mediante GitHub Actions
 - **Sharp** — optimización de imágenes hero en build time (AVIF quality 30 + srcset); JPEG quality 75 para `og:image`
 - **Satori + @resvg/resvg-js** — imágenes Open Graph de texto generadas en prebuild (fallback cuando no hay `heroImage`)
 
@@ -73,7 +73,9 @@ npm run build    # build:data → OG images → astro build
 npm run deploy   # build completo + wrangler deploy (manual)
 ```
 
-El despliegue es **manual**: hay que ejecutar `npm run deploy` desde la CLI. El push a `main` no despliega automáticamente.
+Al hacer push a `main`, GitHub Actions instala las dependencias, ejecuta las pruebas y la comprobación de Astro, construye el sitio y lo despliega en Cloudflare. El flujo usa los secretos `CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID` de GitHub. Tras el despliegue, intenta notificar a IndexNow. También puede ejecutarse manualmente desde GitHub Actions.
+
+Como alternativa, `npm run deploy` despliega desde el equipo local y requiere credenciales de Cloudflare configuradas en Wrangler.
 
 ## SEO y GEO
 

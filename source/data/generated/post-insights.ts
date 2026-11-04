@@ -1264,6 +1264,48 @@ export const POST_INSIGHTS = {
       "bestFor": "diseñar sistemas con IA"
     }
   },
+  "navier-stokes-ia-debate-cientifico": {
+    "executiveSummary": "Un editorial de Communications Physics examina el alcance de la prueba de OpenAI sobre Navier–Stokes y lo que aún queda por comprender. La supuesta solución de OpenAI al problema de Navier–Stokes ha abierto una conversación que va más allá de si una inteligencia artificial puede resolver un problema matemático. Un editorial de Communications Physics pregunta qué significa ese resultado para la física y qué ocurre cuando una prueba es verificable, pero todavía difícil de comprender.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en LLM, Agente, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Un editorial de Communications Physics examina el alcance de la prueba de OpenAI sobre Navier–Stokes y lo que aún queda por comprender.",
+      "La supuesta solución de OpenAI al problema de Navier–Stokes ha abierto una conversación que va más allá de si una inteligencia artificial puede resolver un problema matemático.",
+      "Conceptos detectados por el pipeline: LLM, Agente, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "LLM",
+        "definition": "Modelo entrenado para predecir y generar lenguaje a partir de grandes cantidades de texto."
+      },
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre LLM?",
+        "answer": "Un editorial de Communications Physics examina el alcance de la prueba de OpenAI sobre Navier–Stokes y lo que aún queda por comprender."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 5,
+      "density": "media",
+      "bestFor": "orientarse en tendencias técnicas"
+    }
+  },
   "navier-stokes-openai-solucion-ia": {
     "executiveSummary": "OpenAI publica una prueba y una formalización Lean sobre Navier-Stokes. Explicamos qué afirma, qué demuestra y qué falta por validar. OpenAI afirma haber encontrado una demostración de que las ecuaciones de Navier-Stokes pueden desarrollar una singularidad en tiempo finito en tres dimensiones.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en Agente, Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",

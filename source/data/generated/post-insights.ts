@@ -1348,6 +1348,40 @@ export const POST_INSIGHTS = {
       "bestFor": "orientarse en tendencias técnicas"
     }
   },
+  "nvidia-amd-mercado-chips-inteligencia-artificial": {
+    "executiveSummary": "AMD crece con acuerdos con OpenAI y Meta, mientras Nvidia prepara resultados. Analizamos la competencia y lo que aún no sabemos del mercado de chips de IA. Nvidia sigue siendo la referencia en chips para inteligencia artificial, pero AMD está consiguiendo que grandes clientes como OpenAI y Meta apuesten también por sus productos.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "AMD crece con acuerdos con OpenAI y Meta, mientras Nvidia prepara resultados. Analizamos la competencia y lo que aún no sabemos del mercado de chips de IA.",
+      "La distancia con los 8.500 millones de AMD ilustra la diferencia de escala, pero no es una cuota de mercado de chips de IA .",
+      "Conceptos detectados por el pipeline: Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Multimodalidad?",
+        "answer": "AMD crece con acuerdos con OpenAI y Meta, mientras Nvidia prepara resultados. Analizamos la competencia y lo que aún no sabemos del mercado de chips de IA."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 5,
+      "density": "ligera",
+      "bestFor": "orientarse en tendencias técnicas"
+    }
+  },
   "nvidia-rtx-spark": {
     "executiveSummary": "NVIDIA RTX Spark integra 1 petaflop de IA, GPU Blackwell y CPU Grace para ejecutar LLMs de 120B parámetros en portátiles Windows. Captura de pantalla de NVIDIA https://nvidia.com . Durante décadas, ejecutar un modelo de lenguaje serio en un portátil significaba una de dos cosas: recortar el modelo hasta hacerlo casi irrelevante, o depender de una API remota con sus latencias, costes por token y política de privacidad de un tercero.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de herramientas centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
@@ -1434,6 +1468,44 @@ export const POST_INSIGHTS = {
       "minutes": 15,
       "density": "media",
       "bestFor": "evaluar flujos de trabajo prácticos"
+    }
+  },
+  "openai-ia-fallos-seguridad-linux": {
+    "executiveSummary": "OpenAI usó agentes de IA para detectar fallos en Linux. Te explicamos qué descubrieron, qué riesgos implican y por qué aún hace falta revisión humana. OpenAI afirma que sus agentes de IA encontraron y demostraron 948 fallos de seguridad en Linux que podrían permitir a un usuario con acceso limitado hacerse con el control de un equipo.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en Agente, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "OpenAI usó agentes de IA para detectar fallos en Linux. Te explicamos qué descubrieron, qué riesgos implican y por qué aún hace falta revisión humana.",
+      "La noticia, destacada por The Neuron https://www.theneuron.ai/digest/everything-that-happened-in-ai-today-thursday-november-5-2026/ , muestra que la IA puede ayudar a buscar problemas de seguridad a gran escala.",
+      "Conceptos detectados por el pipeline: Agente, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "Agente",
+        "definition": "Sistema que planifica, usa herramientas y repite acciones hasta cumplir un objetivo."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Agente?",
+        "answer": "OpenAI usó agentes de IA para detectar fallos en Linux. Te explicamos qué descubrieron, qué riesgos implican y por qué aún hace falta revisión humana."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 5,
+      "density": "media",
+      "bestFor": "orientarse en tendencias técnicas"
     }
   },
   "openai-workspace-agents-chatgpt-autonomia": {

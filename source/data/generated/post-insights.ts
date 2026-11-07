@@ -160,6 +160,44 @@ export const POST_INSIGHTS = {
       "bestFor": "comparar capacidades de modelos"
     }
   },
+  "anthropic-salida-bolsa-openai-gasto-ia": {
+    "executiveSummary": "Anthropic prepara su salida a bolsa y OpenAI capta nueva financiación mientras los datos de Ramp muestran una brecha entre el uso de IA y el gasto empresarial. La salida a bolsa de Anthropic , todavía pendiente, se prepara en un momento de señales aparentemente contradictorias: las empresas utilizan más inteligencia artificial, pero el gasto observado en una parte del mercado crece más despacio. Al mismo tiempo, OpenAI acaba de obtener una nueva financiación multimillonaria, según Reuters.",
+    "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en Ventana de contexto, Multimodalidad. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
+    "keyPoints": [
+      "Anthropic prepara su salida a bolsa y OpenAI capta nueva financiación mientras los datos de Ramp muestran una brecha entre el uso de IA y el gasto empresarial.",
+      "La diferencia se entiende con un ejemplo sencillo: si una empresa consigue procesar más documentos por menos dinero, su uso de IA aumenta, pero la factura no tiene por qué crecer al mismo ritmo.",
+      "Conceptos detectados por el pipeline: Ventana de contexto, Multimodalidad."
+    ],
+    "glossary": [
+      {
+        "term": "Ventana de contexto",
+        "definition": "Cantidad de información que el modelo puede leer durante una interacción."
+      },
+      {
+        "term": "Multimodalidad",
+        "definition": "Capacidad de trabajar con varios tipos de entrada o salida, no solo texto."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Qué aporta este artículo sobre Ventana de contexto?",
+        "answer": "Anthropic prepara su salida a bolsa y OpenAI capta nueva financiación mientras los datos de Ramp muestran una brecha entre el uso de IA y el gasto empresarial."
+      },
+      {
+        "question": "Para quién es útil esta lectura?",
+        "answer": "Para lectores que quieren entender inteligencia artificial con una explicación técnica pero directa, sin depender de hype ni de una demo cerrada."
+      },
+      {
+        "question": "Cómo se generó esta capa de lectura?",
+        "answer": "Se generó en build-time a partir del texto del post, sus etiquetas y reglas editoriales locales; no llama a un modelo cuando visitas la página."
+      }
+    ],
+    "readingProfile": {
+      "minutes": 6,
+      "density": "media",
+      "bestFor": "orientarse en tendencias técnicas"
+    }
+  },
   "anthropic-series-h-compute-claude": {
     "executiveSummary": "Anthropic levanta 65.000 millones en Series H y acelera la carrera por compute, clientes enterprise y distribución cloud de Claude. La Anthropic Series H no es solo una ronda de financiación grande: es una señal de cómo se está reorganizando la economía de la IA generativa alrededor de tres recursos escasos: compute, distribución enterprise y confianza operativa. Anthropic anunció el 28 de mayo de 2026 una ronda de 65.000 millones de dólares con una valoración post-money de 965.000 millones, cifras que colocan a Claude en el centro de la carrera por convertir modelos frontier en infraestructura de trabajo real.",
     "technicalReading": "Lectura técnica: este artículo se entiende mejor como una pieza de inteligencia artificial centrada en LLM, Agente, Ventana de contexto. La clave está en separar la promesa del sistema de sus límites operativos y revisar qué parte depende del modelo, del contexto y de las herramientas alrededor.",
